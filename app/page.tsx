@@ -9,10 +9,13 @@ export default function HomePage() {
         Understand energy systems, their trade-offs, and the evidence behind
         important quantitative claims.
       </p>
-      <Link href="/methodology">Read the evidence policy</Link>
+      <div className="foundation-links">
+        <Link href="/compare">Open the Comparison Lab</Link>
+        <Link href="/methodology">Read the evidence policy</Link>
+      </div>
       <p className="status" role="status">
-        Platform foundation in progress. The flagship visual direction has not
-        been selected.
+        Digital Science Museum direction selected. Evidence review and catalog
+        expansion remain in progress.
       </p>
     </main>
   );

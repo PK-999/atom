@@ -8,6 +8,8 @@ export default defineConfig([
   globalIgnores([
     ".next/**",
     "coverage/**",
+    ".worktrees/**",
+    "worktrees/**",
     "playwright-report/**",
     "test-results/**",
   ]),
