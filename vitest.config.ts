@@ -10,7 +10,12 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
-    exclude: ["tests/e2e/**", "node_modules/**"],
+    exclude: [
+      "tests/e2e/**",
+      "node_modules/**",
+      ".worktrees/**",
+      "worktrees/**",
+    ],
     setupFiles: ["./tests/setup.ts"],
     coverage: {
       reporter: ["text", "html"],
