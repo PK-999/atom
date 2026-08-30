@@ -62,10 +62,7 @@ export function DataPassport({
         />
         <PassportField label="Uncertainty" value={evidence.uncertainty} />
         <PassportField label="Last verified" value={evidence.lastVerified} />
-        <PassportField
-          label="Transformation"
-          value={evidence.transformation}
-        />
+        <PassportField label="Transformation" value={evidence.transformation} />
       </dl>
       {evidence.source?.url ? (
         <a

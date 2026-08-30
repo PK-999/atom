@@ -39,16 +39,26 @@ test("foundation is readable and exposes a healthy service", async ({
   });
 });
 
-test("foundation keeps its declared light palette under a dark OS preference", async ({
+test("foundation persists an explicit dark theme across reloads", async ({
   page,
 }) => {
-  await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
+
+  const darkTheme = page.getByRole("button", { name: "Dark theme" });
+  await darkTheme.click();
+  await expect(darkTheme).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
+  await page.reload();
+  await expect(
+    page.getByRole("button", { name: "Dark theme" }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 
   const declaredScheme = await page.evaluate(
     () => getComputedStyle(document.documentElement).colorScheme,
   );
-  expect(declaredScheme).toBe("light");
+  expect(declaredScheme).toBe("dark");
 
   const accessibility = await new AxeBuilder({ page }).analyze();
   expect(accessibility.violations).toEqual([]);

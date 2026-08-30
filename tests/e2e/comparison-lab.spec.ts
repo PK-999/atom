@@ -165,3 +165,24 @@ test("reduced motion and a 200% desktop-equivalent viewport remain usable", asyn
   }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
 });
+
+test("dark system preference keeps the mobile comparison readable", async ({
+  page,
+}) => {
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/compare");
+
+  const heading = page.getByRole("heading", {
+    level: 1,
+    name: "See the energy trade-offs",
+  });
+  await expect(heading).toBeVisible();
+  await expect(heading).toHaveCSS("color", "rgb(247, 242, 232)");
+  await expect(
+    page.getByRole("button", { name: "Explore the evidence" }),
+  ).toBeVisible();
+
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  expect(accessibility.violations).toEqual([]);
+});

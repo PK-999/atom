@@ -34,14 +34,21 @@ export function OverlayPanel({
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className={styles.overlayBackdrop} />
-        <Dialog.Content className={styles.overlayContent} data-variant={variant}>
+        <Dialog.Content
+          className={styles.overlayContent}
+          data-variant={variant}
+        >
           <header className={styles.overlayHeader}>
             <div>
               <Dialog.Title>{title}</Dialog.Title>
               <Dialog.Description>{description}</Dialog.Description>
             </div>
             <Dialog.Close asChild>
-              <button aria-label={`Close ${title}`} className={styles.iconButton} type="button">
+              <button
+                aria-label={`Close ${title}`}
+                className={styles.iconButton}
+                type="button"
+              >
                 <X aria-hidden size={20} />
               </button>
             </Dialog.Close>

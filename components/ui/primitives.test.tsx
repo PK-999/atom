@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import { useState } from "react";
 import { describe, expect, it } from "vitest";
 
@@ -113,7 +119,9 @@ describe("shared UI primitives", () => {
     trigger.focus();
 
     fireEvent.click(trigger);
-    expect(screen.getByRole("dialog", { name: "Evidence record" })).toBeVisible();
+    expect(
+      screen.getByRole("dialog", { name: "Evidence record" }),
+    ).toBeVisible();
     fireEvent.keyDown(document, { key: "Escape" });
 
     await waitFor(() => expect(trigger).toHaveFocus());
@@ -153,7 +161,10 @@ describe("shared UI primitives", () => {
   it("makes tooltip and feedback content available without hover", () => {
     render(
       <>
-        <Tooltip content="A representative value selected by policy" label="Define typical" />
+        <Tooltip
+          content="A representative value selected by policy"
+          label="Define typical"
+        />
         <Skeleton label="Loading chart" />
         <StatePanel
           action={<button type="button">Choose another metric</button>}
@@ -167,6 +178,8 @@ describe("shared UI primitives", () => {
     fireEvent.click(screen.getByRole("button", { name: "Define typical" }));
     expect(screen.getByRole("tooltip")).toBeVisible();
     expect(screen.getByRole("status", { name: "Loading chart" })).toBeVisible();
-    expect(screen.getByRole("heading", { name: "Missing evidence" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Missing evidence" }),
+    ).toBeVisible();
   });
 });

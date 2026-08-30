@@ -48,19 +48,22 @@ describe("evidence primitives", () => {
   });
 
   it("shows every available provenance field in the Data Passport", () => {
-    render(<DataPassport evidence={reviewedEvidence} trigger="Why this number?" />);
+    render(
+      <DataPassport evidence={reviewedEvidence} trigger="Why this number?" />,
+    );
 
     fireEvent.click(screen.getByRole("button", { name: "Why this number?" }));
     const dialog = screen.getByRole("dialog", { name: "Why this number?" });
 
     expect(within(dialog).getByText("Institutional reference")).toBeVisible();
     expect(within(dialog).getByText("Dataset version 1")).toBeVisible();
-    expect(within(dialog).getByText("Declared lifecycle boundary")).toBeVisible();
+    expect(
+      within(dialog).getByText("Declared lifecycle boundary"),
+    ).toBeVisible();
     expect(within(dialog).getByText("2026-08-30")).toBeVisible();
-    expect(within(dialog).getByRole("link", { name: "View source" })).toHaveAttribute(
-      "href",
-      "https://example.com/source",
-    );
+    expect(
+      within(dialog).getByRole("link", { name: "View source" }),
+    ).toHaveAttribute("href", "https://example.com/source");
   });
 
   it("renders honest missing fields and withholds unavailable source actions", () => {
@@ -85,27 +88,46 @@ describe("evidence primitives", () => {
       differenceReasons: [],
       limitations: ["Evidence review has not been completed."],
     };
-    render(<DataPassport evidence={evidence} trigger="Inspect unreviewed record" />);
+    render(
+      <DataPassport evidence={evidence} trigger="Inspect unreviewed record" />,
+    );
 
     fireEvent.click(
       screen.getByRole("button", { name: "Inspect unreviewed record" }),
     );
     const dialog = screen.getByRole("dialog", { name: "Why this number?" });
 
-    expect(within(dialog).getAllByText("Not available — review required").length).toBeGreaterThan(2);
-    expect(within(dialog).queryByRole("link", { name: "View source" })).not.toBeInTheDocument();
+    expect(
+      within(dialog).getAllByText("Not available — review required").length,
+    ).toBeGreaterThan(2);
+    expect(
+      within(dialog).queryByRole("link", { name: "View source" }),
+    ).not.toBeInTheDocument();
   });
 
   it("compares representative and alternative evidence without implying ignorance", () => {
-    render(<ChallengeNumber evidence={reviewedEvidence} trigger="Challenge this number" />);
+    render(
+      <ChallengeNumber
+        evidence={reviewedEvidence}
+        trigger="Challenge this number"
+      />,
+    );
 
-    fireEvent.click(screen.getByRole("button", { name: "Challenge this number" }));
-    const dialog = screen.getByRole("dialog", { name: "Challenge this number" });
+    fireEvent.click(
+      screen.getByRole("button", { name: "Challenge this number" }),
+    );
+    const dialog = screen.getByRole("dialog", {
+      name: "Challenge this number",
+    });
 
-    expect(within(dialog).getByText("Reviewed representative value")).toBeVisible();
+    expect(
+      within(dialog).getByText("Reviewed representative value"),
+    ).toBeVisible();
     expect(within(dialog).getByText("Alternative study")).toBeVisible();
     expect(within(dialog).getByText("System boundary")).toBeVisible();
-    expect(within(dialog).getByText(/component fixture, not scientific evidence/i)).toBeVisible();
+    expect(
+      within(dialog).getByText(/component fixture, not scientific evidence/i),
+    ).toBeVisible();
   });
 
   it("exposes sources, methodology, and uncertainty as reusable notes", () => {
@@ -124,9 +146,12 @@ describe("evidence primitives", () => {
     expect(screen.getByText("Reviewed synthesis method")).toBeVisible();
     fireEvent.click(screen.getByRole("button", { name: "Review sources" }));
     expect(
-      within(screen.getByRole("dialog", { name: "Sources" })).getByRole("link", {
-        name: "Institutional reference",
-      }),
+      within(screen.getByRole("dialog", { name: "Sources" })).getByRole(
+        "link",
+        {
+          name: "Institutional reference",
+        },
+      ),
     ).toBeVisible();
   });
 });

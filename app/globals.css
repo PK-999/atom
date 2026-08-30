@@ -60,6 +60,10 @@
   --atom-interactive-primary: #a8a9ff;
   --atom-interactive-strong: #c5c3ff;
   --atom-focus-ring: #c5c3ff;
+  --atom-positive: #79d3ae;
+  --atom-warning: #f3bd6d;
+  --atom-negative: #ff9aaa;
+  --atom-information: #8cbcff;
   color-scheme: dark;
 }
 

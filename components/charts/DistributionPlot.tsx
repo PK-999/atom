@@ -37,7 +37,10 @@ export function DistributionPlot({
           />
         ))}
       </div>
-      <ul aria-label="Distribution observations" className={styles.observationList}>
+      <ul
+        aria-label="Distribution observations"
+        className={styles.observationList}
+      >
         {observations.map((observation) => (
           <li key={observation.id}>{observation.formattedValue}</li>
         ))}

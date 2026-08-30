@@ -1,0 +1,125 @@
+.playground {
+  display: grid;
+  gap: var(--atom-space-24);
+}
+
+.intro {
+  max-width: 820px;
+}
+
+.intro h1 {
+  margin: var(--atom-space-3) 0;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  letter-spacing: -0.06em;
+  line-height: 0.96;
+}
+
+.intro > p:not(.eyebrow) {
+  max-width: 680px;
+  color: var(--atom-text-muted);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--atom-interactive-strong);
+  font-size: 0.76rem;
+  font-weight: 780;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.fixtureNotice {
+  margin-top: var(--atom-space-6);
+  border-left: 3px solid var(--atom-warning);
+  background: color-mix(
+    in srgb,
+    var(--atom-warning) 10%,
+    var(--atom-surface-panel)
+  );
+  padding: var(--atom-space-4);
+}
+
+.section {
+  display: grid;
+  gap: var(--atom-space-6);
+}
+
+.sectionHeading h2 {
+  margin: var(--atom-space-2) 0 0;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  letter-spacing: -0.04em;
+}
+
+.cardGrid,
+.chartGrid,
+.stateGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--atom-space-4);
+}
+
+.cardGrid > :first-child,
+.chartGrid > :first-child {
+  grid-column: 1 / -1;
+}
+
+.card {
+  min-width: 0;
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-panel);
+  background: var(--atom-surface-panel);
+  padding: var(--atom-space-6);
+}
+
+.card h3 {
+  margin: 0 0 var(--atom-space-4);
+}
+
+.controlRow,
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--atom-space-3);
+}
+
+.controlRow + .controlRow {
+  margin-top: var(--atom-space-4);
+}
+
+.output {
+  display: block;
+  margin-top: var(--atom-space-4);
+  color: var(--atom-text-muted);
+}
+
+.evidenceLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: var(--atom-space-4);
+}
+
+.noteStack {
+  display: grid;
+  align-content: start;
+  gap: var(--atom-space-3);
+}
+
+.stateGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 800px) {
+  .cardGrid,
+  .chartGrid,
+  .stateGrid,
+  .evidenceLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .cardGrid > :first-child,
+  .chartGrid > :first-child {
+    grid-column: auto;
+  }
+}

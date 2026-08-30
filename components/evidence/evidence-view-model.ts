@@ -1,10 +1,5 @@
 export type EvidenceStatus =
-  | "published"
-  | "unreviewed"
-  | "missing"
-  | "restricted"
-  | "stale"
-  | "disputed";
+  "published" | "unreviewed" | "missing" | "restricted" | "stale" | "disputed";
 
 export interface EvidenceSourceViewModel {
   title: string;

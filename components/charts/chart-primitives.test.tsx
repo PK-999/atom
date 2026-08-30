@@ -1,7 +1,11 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { ChartNarrativeSummary, ChartTableFallback, ChartTooltip } from "./ChartDetails";
+import {
+  ChartNarrativeSummary,
+  ChartTableFallback,
+  ChartTooltip,
+} from "./ChartDetails";
 import { ComparisonBar } from "./ComparisonBar";
 import { DistributionPlot } from "./DistributionPlot";
 import { RangePlot } from "./RangePlot";
@@ -58,11 +62,14 @@ describe("chart primitives", () => {
     const figure = screen.getByRole("figure", { name: "Synthetic comparison" });
     expect(within(figure).getByText("25 fixture units")).toBeVisible();
     expect(within(figure).getByText("70 fixture units")).toBeVisible();
-    expect(within(figure).getByText("Beta fixture is larger in this synthetic geometry example.")).toBeVisible();
-    expect(within(figure).getByText("Alpha fixture").closest("li")).toHaveAttribute(
-      "data-marker",
-      "circle",
-    );
+    expect(
+      within(figure).getByText(
+        "Beta fixture is larger in this synthetic geometry example.",
+      ),
+    ).toBeVisible();
+    expect(
+      within(figure).getByText("Alpha fixture").closest("li"),
+    ).toHaveAttribute("data-marker", "circle");
   });
 
   it("labels range semantics and every bound", () => {
@@ -88,7 +95,9 @@ describe("chart primitives", () => {
       />,
     );
 
-    const list = screen.getByRole("list", { name: "Distribution observations" });
+    const list = screen.getByRole("list", {
+      name: "Distribution observations",
+    });
     expect(within(list).getAllByRole("listitem")).toHaveLength(3);
     expect(within(list).getByText("31 fixture units")).toBeVisible();
   });
@@ -99,15 +108,27 @@ describe("chart primitives", () => {
         <ChartNarrativeSummary>
           This fixture demonstrates the narrative slot.
         </ChartNarrativeSummary>
-        <ChartTooltip content="Observation metadata" label="Inspect Alpha fixture" />
-        <ChartTableFallback caption="Synthetic comparison table" data={comparisonData} />
+        <ChartTooltip
+          content="Observation metadata"
+          label="Inspect Alpha fixture"
+        />
+        <ChartTableFallback
+          caption="Synthetic comparison table"
+          data={comparisonData}
+        />
       </>,
     );
 
     expect(screen.getByRole("note")).toHaveTextContent(/narrative slot/i);
-    fireEvent.click(screen.getByRole("button", { name: "Inspect Alpha fixture" }));
-    expect(screen.getByRole("tooltip")).toHaveTextContent("Observation metadata");
-    const table = screen.getByRole("table", { name: "Synthetic comparison table" });
+    fireEvent.click(
+      screen.getByRole("button", { name: "Inspect Alpha fixture" }),
+    );
+    expect(screen.getByRole("tooltip")).toHaveTextContent(
+      "Observation metadata",
+    );
+    const table = screen.getByRole("table", {
+      name: "Synthetic comparison table",
+    });
     expect(within(table).getByText("Alpha fixture")).toBeVisible();
     expect(within(table).getByText("25 fixture units")).toBeVisible();
   });
@@ -126,6 +147,8 @@ describe("chart primitives", () => {
       />,
     );
 
-    expect(screen.getByRole("heading", { name: "Missing chart evidence" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Missing chart evidence" }),
+    ).toBeVisible();
   });
 });

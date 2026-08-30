@@ -11,20 +11,21 @@ describe("AppShell", () => {
       </AppShell>,
     );
 
-    expect(screen.getByRole("link", { name: "Skip to content" })).toHaveAttribute(
-      "href",
-      "#main-content",
-    );
-    expect(screen.getByRole("navigation", { name: "Primary navigation" })).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Skip to content" }),
+    ).toHaveAttribute("href", "#main-content");
+    expect(
+      screen.getByRole("navigation", { name: "Primary navigation" }),
+    ).toBeVisible();
     expect(screen.getByRole("link", { name: "ATOM home" })).toHaveAttribute(
       "href",
       "/",
     );
-    expect(screen.getByRole("group", { name: "Complexity level" })).toBeVisible();
+    expect(
+      screen.getByRole("group", { name: "Complexity level" }),
+    ).toBeVisible();
     expect(screen.getByRole("group", { name: "Theme" })).toBeVisible();
     expect(screen.getByRole("main")).toHaveAttribute("id", "main-content");
-    expect(screen.getByRole("contentinfo")).toHaveTextContent(
-      /verify atom/i,
-    );
+    expect(screen.getByRole("contentinfo")).toHaveTextContent(/verify atom/i);
   });
 });

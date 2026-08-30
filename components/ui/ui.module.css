@@ -64,7 +64,11 @@
 
 .chip[aria-pressed="true"] {
   border-color: var(--atom-interactive-primary);
-  background: color-mix(in srgb, var(--atom-interactive-primary) 18%, var(--atom-surface-panel));
+  background: color-mix(
+    in srgb,
+    var(--atom-interactive-primary) 18%,
+    var(--atom-surface-panel)
+  );
   color: var(--atom-interactive-strong);
 }
 

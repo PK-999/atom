@@ -124,7 +124,11 @@
   display: flex;
   gap: var(--atom-space-3);
   border-left: 3px solid var(--atom-information);
-  background: color-mix(in srgb, var(--atom-information) 10%, var(--atom-surface-panel));
+  background: color-mix(
+    in srgb,
+    var(--atom-information) 10%,
+    var(--atom-surface-panel)
+  );
   padding: var(--atom-space-3);
 }
 

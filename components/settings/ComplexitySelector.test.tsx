@@ -126,10 +126,7 @@ describe("ComplexitySelector", () => {
   });
 
   it("gives a valid URL level precedence and preserves unrelated parameters", async () => {
-    window.localStorage.setItem(
-      "atom:preferences:v1:complexity",
-      "simple",
-    );
+    window.localStorage.setItem("atom:preferences:v1:complexity", "simple");
     window.history.replaceState(
       null,
       "",
@@ -152,10 +149,7 @@ describe("ComplexitySelector", () => {
   });
 
   it("falls back to the stored preference when the URL level is invalid", async () => {
-    window.localStorage.setItem(
-      "atom:preferences:v1:complexity",
-      "simple",
-    );
+    window.localStorage.setItem("atom:preferences:v1:complexity", "simple");
     window.history.replaceState(null, "", "/compare?level=unknown");
 
     render(<SelectorHarness />);

@@ -33,7 +33,10 @@
 .barList li {
   display: grid;
   min-height: 44px;
-  grid-template-columns: 24px minmax(100px, 150px) minmax(80px, 1fr) minmax(110px, auto);
+  grid-template-columns: 24px minmax(100px, 150px) minmax(80px, 1fr) minmax(
+      110px,
+      auto
+    );
   align-items: center;
   gap: var(--atom-space-3);
 }
@@ -68,7 +71,11 @@
 .narrative {
   margin-top: var(--atom-space-6);
   border-left: 3px solid var(--atom-interactive-primary);
-  background: color-mix(in srgb, var(--atom-interactive-primary) 9%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--atom-interactive-primary) 9%,
+    transparent
+  );
   padding: var(--atom-space-3);
 }
 

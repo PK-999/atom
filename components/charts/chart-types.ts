@@ -1,9 +1,5 @@
 export type ChartMarker =
-  | "circle"
-  | "square"
-  | "triangle"
-  | "diamond"
-  | "pentagon";
+  "circle" | "square" | "triangle" | "diamond" | "pentagon";
 
 export interface ComparisonDatum {
   color: string;
