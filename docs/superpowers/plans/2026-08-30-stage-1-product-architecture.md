@@ -39,4 +39,4 @@
 
 - [x] Verify every Comparison Lab specification metric appears once.
 - [x] Scan for placeholders, contradictions, and unqualified support claims.
-- [ ] Commit the approved Stage 1 documents.
+- [x] Commit the approved Stage 1 documents.

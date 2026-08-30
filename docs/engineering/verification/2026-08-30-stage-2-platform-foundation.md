@@ -1,0 +1,32 @@
+# Stage 2 Platform Foundation Verification
+
+- Date: 2026-08-30
+- Branch: `feat/platform-foundation`
+- Target runtime: Node.js 24.20.0 LTS
+- Verification runtime: Node.js 26.5.0
+
+## Red-Green Evidence
+
+- Foundation page, health route, security headers, and public environment suites first failed because their implementation modules did not exist; after minimal implementation, 5 assertions passed.
+- Server environment suite first failed because `lib/env/server` did not exist; after implementation, 2 assertions passed.
+- Strict browser console checking exposed a prefetched `/methodology` 404. Failed-response instrumentation identified the URL; adding the promised server-rendered route removed the 404.
+
+## Automated Verification
+
+- `npm ls --depth=0`: dependency tree resolved after pinning TypeScript 6.0.3 and ESLint 9.39.5 to their declared peer ranges.
+- `npm run verify`: formatting, TypeScript, ESLint, 7 Vitest assertions across 5 files, and the webpack production build passed.
+- Production routes generated: `/`, `/methodology`, and `/health`, plus Next.js `_not-found`.
+- `npm run test:e2e`: Chromium, Firefox, and WebKit passed the foundation journey, health contract, console, Next error-overlay, and axe assertions.
+
+## Browser Inspection
+
+- Inspected 390×844 light, 768×1024 dark, and 1440×900 light captures.
+- Content remained legible with no clipping or core horizontal scrolling.
+- The page intentionally uses neutral system styling and states that the flagship visual direction is unselected.
+
+## Known Limits
+
+- The managed environment prevents Turbopack's production PostCSS worker from binding its local port. `next build --webpack` passes; ADR 0008 requires an unrestricted CI/Vercel Turbopack retest.
+- GitHub, Vercel, and Supabase projects are not connected, so preview deployment and cloud environment checks remain external gates.
+- Local verification used Node.js 26.5.0; CI is pinned to Node.js 24.20.0 LTS and has not run remotely.
+- Stage 3 visual direction selection is intentionally not started or implied by this foundation.

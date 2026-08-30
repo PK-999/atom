@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light dark;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: Canvas;
+  color: CanvasText;
+}
+
+a {
+  color: LinkText;
+  text-underline-offset: 0.2em;
+}
+
+:focus-visible {
+  outline: 3px solid Highlight;
+  outline-offset: 3px;
+}
+
+.foundation {
+  display: grid;
+  width: min(100% - 2rem, 44rem);
+  min-height: 100svh;
+  margin-inline: auto;
+  align-content: center;
+  gap: 1rem;
+  padding-block: 3rem;
+}
+
+.foundation > * {
+  margin: 0;
+}
+
+.foundation h1 {
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.eyebrow,
+.status {
+  font-size: 0.875rem;
+}
+
+.status {
+  margin-top: 2rem;
+  opacity: 0.75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

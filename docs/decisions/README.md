@@ -11,3 +11,4 @@ Architecture decisions are immutable records. When a decision changes, add a new
 | 0005 | Accessibility as a release gate | Accepted |
 | 0006 | Privacy-conscious analytics | Accepted |
 | 0007 | Deployment environments | Accepted |
+| 0008 | Reproducible Next.js build bundler | Provisional |
