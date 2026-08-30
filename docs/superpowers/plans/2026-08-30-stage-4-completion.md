@@ -157,13 +157,13 @@ Playwright, axe-core.
 - Produces: framework presentation types and labeled bar, range, distribution,
   tooltip/detail, narrative-summary, and table-fallback components.
 
-- [ ] Write failing tests for visible units/direct labels, non-color markers,
+- [x] Write failing tests for visible units/direct labels, non-color markers,
   range-kind labels, distribution observations, narrative summary, and an
   equivalent table.
-- [ ] Run the focused suite and confirm the modules are missing.
-- [ ] Implement chart primitives without scientific constants or source data.
-- [ ] Add missing/loading/error states and responsive vertical composition.
-- [ ] Run the focused suite and confirm chart accessibility contracts pass.
+- [x] Run the focused suite and confirm the modules are missing.
+- [x] Implement chart primitives without scientific constants or source data.
+- [x] Add missing/loading/error states and responsive vertical composition.
+- [x] Run the focused suite and confirm chart accessibility contracts pass.
 
 ### Task 6: Component playground and browser gate
 

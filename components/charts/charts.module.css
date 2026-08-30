@@ -1,0 +1,211 @@
+.figure {
+  margin: 0;
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-panel);
+  background: var(--atom-surface-reading);
+  color: var(--atom-text-reading);
+  padding: var(--atom-space-6);
+}
+
+.figure figcaption h3,
+.figure figcaption p {
+  margin: 0;
+}
+
+.figure figcaption p {
+  margin-top: var(--atom-space-1);
+  color: #5f6d7d;
+}
+
+.barList,
+.rangeList,
+.observationList {
+  padding: 0;
+  list-style: none;
+}
+
+.barList {
+  display: grid;
+  gap: var(--atom-space-3);
+  margin: var(--atom-space-6) 0;
+}
+
+.barList li {
+  display: grid;
+  min-height: 44px;
+  grid-template-columns: 24px minmax(100px, 150px) minmax(80px, 1fr) minmax(110px, auto);
+  align-items: center;
+  gap: var(--atom-space-3);
+}
+
+.marker {
+  display: grid;
+  color: var(--chart-color);
+  place-items: center;
+}
+
+.barTrack {
+  display: block;
+  height: 12px;
+  border-left: 1px solid #334051;
+}
+
+.bar {
+  display: block;
+  width: var(--chart-size);
+  min-width: 4px;
+  height: 100%;
+  border-radius: 0 5px 5px 0;
+  background: var(--chart-color);
+}
+
+.directValue,
+.rangeValues {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.narrative {
+  margin-top: var(--atom-space-6);
+  border-left: 3px solid var(--atom-interactive-primary);
+  background: color-mix(in srgb, var(--atom-interactive-primary) 9%, transparent);
+  padding: var(--atom-space-3);
+}
+
+.narrative p {
+  margin: var(--atom-space-1) 0 0;
+}
+
+.rangeList {
+  display: grid;
+  gap: var(--atom-space-6);
+  margin: var(--atom-space-6) 0 0;
+}
+
+.rangeList li {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: var(--atom-space-2) var(--atom-space-3);
+}
+
+.rangeKind {
+  color: #5f6d7d;
+  font-size: 0.82rem;
+}
+
+.rangeTrack,
+.rangeValues {
+  grid-column: 2 / -1;
+}
+
+.rangeTrack {
+  position: relative;
+  display: block;
+  height: 24px;
+  border-bottom: 1px solid #a7afb9;
+}
+
+.rangeLine {
+  position: absolute;
+  top: 11px;
+  right: calc(100% - var(--range-end));
+  left: var(--range-start);
+  height: 3px;
+  background: var(--chart-color);
+}
+
+.rangePoint {
+  position: absolute;
+  top: 5px;
+  left: var(--representative);
+  width: 14px;
+  height: 14px;
+  translate: -50% 0;
+  border: 3px solid var(--chart-color);
+  border-radius: 999px;
+  background: var(--atom-surface-reading);
+}
+
+.rangeValues {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--atom-space-3);
+  font-size: 0.78rem;
+}
+
+.distributionTrack {
+  position: relative;
+  height: 72px;
+  margin-block: var(--atom-space-6);
+  border-bottom: 1px solid #334051;
+}
+
+.distributionPoint {
+  position: absolute;
+  bottom: -7px;
+  left: var(--point-position);
+  width: 14px;
+  height: 14px;
+  translate: -50% 0;
+  border: 2px solid #4d4bb4;
+  border-radius: 999px;
+  background: var(--atom-surface-reading);
+}
+
+.observationList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--atom-space-2);
+  margin: 0;
+}
+
+.observationList li {
+  border: 1px solid #c8ccd2;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+}
+
+.tableScroll {
+  overflow-x: auto;
+}
+
+.tableScroll table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tableScroll caption {
+  margin-bottom: var(--atom-space-3);
+  font-weight: 700;
+  text-align: left;
+}
+
+.tableScroll th,
+.tableScroll td {
+  border-bottom: 1px solid var(--atom-border-subtle);
+  padding: var(--atom-space-3);
+}
+
+@media (max-width: 620px) {
+  .figure {
+    padding: var(--atom-space-4);
+  }
+
+  .barList li {
+    grid-template-columns: 20px minmax(72px, 100px) minmax(42px, 1fr);
+    gap: var(--atom-space-2);
+  }
+
+  .directValue {
+    grid-column: 3;
+  }
+
+  .rangeKind {
+    grid-column: 2 / -1;
+    justify-self: start;
+  }
+}
