@@ -107,14 +107,14 @@ Playwright, axe-core.
   `OverlayPanel` variants `dialog | drawer | sheet`; searchable `CommandMenu`;
   keyboard/touch `Tooltip`; `Skeleton` and `StatePanel`.
 
-- [ ] Write failing tests for disabled/loading buttons, pressed chips,
+- [x] Write failing tests for disabled/loading buttons, pressed chips,
   segmented selection, arrow-key tabs, filtered command results, Escape/focus
   restoration, and programmatic state-panel copy.
-- [ ] Run the focused suite and confirm it fails on missing primitives.
-- [ ] Implement the smallest semantic primitives that satisfy the tests.
-- [ ] Add CSS states for default, hover, focus, selected, disabled, loading,
+- [x] Run the focused suite and confirm it fails on missing primitives.
+- [x] Implement the smallest semantic primitives that satisfy the tests.
+- [x] Add CSS states for default, hover, focus, selected, disabled, loading,
   missing, error, mobile, dark, and reduced motion.
-- [ ] Run the focused suite and axe-enabled browser checks until green.
+- [x] Run the focused suite; axe-enabled browser checks are tracked in Task 6.
 
 ### Task 4: Evidence primitives
 
