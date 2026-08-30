@@ -1,8 +1,10 @@
 # ATOM Delivery Tracker
 
-Last updated: 2026-08-30  
-Tracked baseline: `main` at `674da5f`  
-Current delivery branch: `feat/design-system-shell`
+Last updated: 2026-08-30
+
+Last verified commit: `86116ed`
+
+Current branch: `main`
 
 This is the operational tracker for the ATOM Master Delivery To-Do. Product
 specifications remain authoritative when this summary and a source document
@@ -109,6 +111,7 @@ Current slice verification:
   preference synchronization, the color-scheme contract, tests, and tracker
   evidence were corrected. Final review found no remaining Critical or Important
   issues and marked the slice ready to merge.
+- Local integration: fast-forwarded to `main` at `86116ed`.
 
 ## Completed Stage Records
 

@@ -3,6 +3,7 @@
 - Date: 2026-08-30
 - Branch: `feat/design-system-shell`
 - Baseline: `main` at `674da5f`
+- Merged: local `main` at `86116ed`
 - Scope: first bounded Stage 4 design-system slice
 
 ## Red-Green Evidence
