@@ -1,0 +1,140 @@
+.badge {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  gap: var(--atom-space-2);
+  border: 1px solid var(--atom-border-default);
+  border-radius: 999px;
+  background: var(--atom-surface-panel);
+  color: var(--atom-text-muted);
+  padding-inline: var(--atom-space-3);
+  font-size: 0.82rem;
+  font-weight: 680;
+}
+
+.badge[data-status="published"] {
+  border-color: var(--atom-positive);
+  color: var(--atom-positive);
+}
+
+.badge[data-status="missing"],
+.badge[data-status="stale"],
+.badge[data-status="disputed"] {
+  border-color: var(--atom-warning);
+  color: var(--atom-warning);
+}
+
+.badge[data-status="restricted"] {
+  border-color: var(--atom-negative);
+  color: var(--atom-negative);
+}
+
+.passportGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: var(--atom-space-6) 0 0;
+  overflow: hidden;
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-control);
+  background: var(--atom-border-subtle);
+}
+
+.passportGrid > div {
+  min-height: 88px;
+  background: var(--atom-surface-canvas);
+  padding: var(--atom-space-3);
+}
+
+.passportGrid dt,
+.eyebrow {
+  color: var(--atom-text-muted);
+  font-size: 0.72rem;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.passportGrid dd {
+  margin: var(--atom-space-2) 0 0;
+  font-weight: 620;
+}
+
+.sourceAction {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: var(--atom-space-2);
+  margin-top: var(--atom-space-6);
+  color: var(--atom-interactive-strong);
+  font-weight: 700;
+}
+
+.unavailableAction {
+  color: var(--atom-text-muted);
+}
+
+.challengeSection + .challengeSection {
+  margin-top: var(--atom-space-8);
+  border-top: 1px solid var(--atom-border-subtle);
+  padding-top: var(--atom-space-6);
+}
+
+.challengeSection h3,
+.challengeSection p {
+  margin-top: 0;
+}
+
+.alternativeList,
+.sourceList {
+  display: grid;
+  gap: var(--atom-space-3);
+  padding: 0;
+  list-style: none;
+}
+
+.alternativeList li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--atom-space-2);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-control);
+  padding: var(--atom-space-3);
+}
+
+.alternativeList p {
+  grid-column: 1 / -1;
+  color: var(--atom-text-muted);
+}
+
+.sourceList a {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--atom-space-3);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-control);
+  color: var(--atom-text-primary);
+  padding: var(--atom-space-3);
+  font-weight: 650;
+}
+
+.note {
+  display: flex;
+  gap: var(--atom-space-3);
+  border-left: 3px solid var(--atom-information);
+  background: color-mix(in srgb, var(--atom-information) 10%, var(--atom-surface-panel));
+  padding: var(--atom-space-3);
+}
+
+.note p {
+  margin: var(--atom-space-1) 0 0;
+  color: var(--atom-text-muted);
+}
+
+@media (max-width: 560px) {
+  .passportGrid {
+    grid-template-columns: 1fr;
+  }
+}

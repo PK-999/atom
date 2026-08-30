@@ -133,14 +133,14 @@ Playwright, axe-core.
   Passport; Source Drawer; Challenge Number; Confidence Note; Methodology
   Summary.
 
-- [ ] Write failing tests for provenance fields, honest missing fields,
+- [x] Write failing tests for provenance fields, honest missing fields,
   alternative evidence, limitations, source action availability, dialog labels,
   Escape, and focus restoration.
-- [ ] Run the focused suite and confirm the modules are missing.
-- [ ] Implement evidence view models and components using `OverlayPanel`.
-- [ ] Ensure restricted/unreviewed data never renders a fabricated source or
+- [x] Run the focused suite and confirm the modules are missing.
+- [x] Implement evidence view models and components using `OverlayPanel`.
+- [x] Ensure restricted/unreviewed data never renders a fabricated source or
   confidence score.
-- [ ] Run the focused suite and confirm every evidence interaction passes.
+- [x] Run the focused suite and confirm every evidence interaction passes.
 
 ### Task 5: Chart primitives
 
