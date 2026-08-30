@@ -17,6 +17,7 @@
 - `npm run verify`: formatting, TypeScript, ESLint, 7 Vitest assertions across 5 files, and the webpack production build passed.
 - Production routes generated: `/`, `/methodology`, and `/health`, plus Next.js `_not-found`.
 - `npm run test:e2e`: Chromium, Firefox, and WebKit passed the foundation journey, health contract, console, Next error-overlay, and axe assertions.
+- E2E starts the built production artifact. A post-commit run against a cold development server exposed a WebKit axe/navigation race during concurrent route compilation; WebKit passed alone, and production-server E2E removes that HMR race from the release gate.
 
 ## Browser Inspection
 
