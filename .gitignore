@@ -1,0 +1,14 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+.next/
+.vercel/
+.worktrees/
+coverage/
+node_modules/
+out/
+playwright-report/
+storybook-static/
+test-results/
+*.log
