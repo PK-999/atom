@@ -1,7 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light dark;
+  --atom-surface-canvas: #f1eee7;
+  --atom-surface-panel: #fffdf8;
+  --atom-surface-reading: #ffffff;
+  --atom-text-primary: #101823;
+  --atom-text-reading: #101823;
+  --atom-text-muted: #5f6d7d;
+  --atom-border-subtle: rgb(16 24 35 / 18%);
+  --atom-interactive-primary: #6867d3;
+  --atom-interactive-strong: #4d4bb4;
+  --atom-control-muted: #8290a5;
+  --atom-focus-ring: #6867d3;
+  color-scheme: light;
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   line-height: 1.5;
 }
@@ -12,17 +23,17 @@
 
 body {
   margin: 0;
-  background: Canvas;
-  color: CanvasText;
+  background: var(--atom-surface-canvas);
+  color: var(--atom-text-primary);
 }
 
 a {
-  color: LinkText;
+  color: var(--atom-interactive-strong);
   text-underline-offset: 0.2em;
 }
 
 :focus-visible {
-  outline: 3px solid Highlight;
+  outline: 3px solid var(--atom-focus-ring);
   outline-offset: 3px;
 }
 

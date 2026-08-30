@@ -1,7 +1,9 @@
-import type { ComplexityLevel } from "@/features/comparison/comparison-types";
+export type ComplexityLevel =
+  "kid" | "simple" | "curious" | "technical" | "expert";
 
 export const COMPLEXITY_PREFERENCE_KEY =
   "atom:preferences:v1:complexity" as const;
+const COMPLEXITY_PREFERENCE_EVENT = "atom:complexity-preference-change";
 
 const complexityLevels = new Set<ComplexityLevel>([
   "kid",
@@ -49,6 +51,12 @@ export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
       } catch {
         // Preference persistence is best-effort and never blocks interaction.
       }
+
+      window.dispatchEvent(
+        new CustomEvent<ComplexityLevel>(COMPLEXITY_PREFERENCE_EVENT, {
+          detail: level,
+        }),
+      );
     },
     subscribe(listener: () => void) {
       const handleStorage = (event: StorageEvent) => {
@@ -56,9 +64,22 @@ export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
         current = parseComplexityLevel(event.newValue) ?? fallback;
         notify();
       };
+      const handlePreferenceChange = (event: Event) => {
+        const detail = (event as CustomEvent<unknown>).detail;
+        const next = parseComplexityLevel(
+          typeof detail === "string" ? detail : null,
+        );
+        if (!next || next === current) return;
+        current = next;
+        notify();
+      };
 
       listeners.add(listener);
       window.addEventListener("storage", handleStorage);
+      window.addEventListener(
+        COMPLEXITY_PREFERENCE_EVENT,
+        handlePreferenceChange,
+      );
 
       if (!hydrated) {
         const previous = current;
@@ -70,6 +91,10 @@ export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
       return () => {
         listeners.delete(listener);
         window.removeEventListener("storage", handleStorage);
+        window.removeEventListener(
+          COMPLEXITY_PREFERENCE_EVENT,
+          handlePreferenceChange,
+        );
       };
     },
   };

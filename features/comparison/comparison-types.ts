@@ -1,5 +1,4 @@
-export type ComplexityLevel =
-  "kid" | "simple" | "curious" | "technical" | "expert";
+export type { ComplexityLevel } from "@/lib/preferences/complexity-preference";
 
 export type DisplayMode = "typical" | "range" | "raw";
 

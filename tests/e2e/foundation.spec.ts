@@ -38,3 +38,18 @@ test("foundation is readable and exposes a healthy service", async ({
     version: 1,
   });
 });
+
+test("foundation keeps its declared light palette under a dark OS preference", async ({
+  page,
+}) => {
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.goto("/");
+
+  const declaredScheme = await page.evaluate(
+    () => getComputedStyle(document.documentElement).colorScheme,
+  );
+  expect(declaredScheme).toBe("light");
+
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  expect(accessibility.violations).toEqual([]);
+});

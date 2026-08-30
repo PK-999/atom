@@ -1,0 +1,86 @@
+.complexity {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 4px 14px;
+}
+
+.complexity strong {
+  grid-column: 2;
+  color: var(--atom-interactive-strong);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.controlLabel {
+  color: var(--atom-text-muted);
+  font-size: 13px;
+}
+
+.levels {
+  display: flex;
+  gap: 0;
+}
+
+.levelButton {
+  position: relative;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+}
+
+.levelButton::before {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--atom-control-muted, #8290a5);
+  border-radius: inherit;
+  content: "";
+}
+
+.levelButton span {
+  font-size: 0;
+}
+
+.levelButton[aria-pressed="true"]::before {
+  border-color: var(--atom-surface-reading);
+  background: var(--atom-surface-reading);
+  box-shadow: 0 0 0 4px rgb(168 169 255 / 18%);
+}
+
+@media (max-width: 860px) {
+  .complexity {
+    grid-template-columns: 1fr auto;
+    gap: 0 4px;
+  }
+
+  .controlLabel {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .complexity strong {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .levels {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .levelButton {
+    transition:
+      background-color 180ms ease,
+      border-color 180ms ease,
+      color 180ms ease,
+      box-shadow 180ms ease;
+  }
+}

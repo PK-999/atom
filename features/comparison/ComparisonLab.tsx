@@ -15,14 +15,12 @@ import { Triangle } from "@phosphor-icons/react/Triangle";
 import { X } from "@phosphor-icons/react/X";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  useMemo,
-  useState,
-  useSyncExternalStore,
-  type CSSProperties,
-} from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 
-import { createComplexityPreferenceStore } from "@/lib/preferences/complexity-preference";
+import {
+  ComplexitySelector,
+  useComplexityPreference,
+} from "@/components/settings/ComplexitySelector";
 
 import { getComparisonScale, projectObservation } from "./comparison-model";
 import type {
@@ -33,18 +31,6 @@ import type {
   PreviewObservation,
 } from "./comparison-types";
 import styles from "./ComparisonLab.module.css";
-
-const complexityLevels: Array<{
-  value: ComplexityLevel;
-  short: string;
-  label: string;
-}> = [
-  { value: "kid", short: "1", label: "Kid" },
-  { value: "simple", short: "2", label: "Simple" },
-  { value: "curious", short: "3", label: "Curious" },
-  { value: "technical", short: "4", label: "Technical" },
-  { value: "expert", short: "5", label: "Expert" },
-];
 
 const explanations: Record<ComplexityLevel, string> = {
   kid: "Some ways of making electricity release much more climate pollution than others, even after we count building them.",
@@ -220,14 +206,8 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
   const [displayMode, setDisplayMode] = useState<DisplayMode>(
     comparison.defaultMode,
   );
-  const complexityStore = useMemo(
-    () => createComplexityPreferenceStore(comparison.defaultComplexity),
-    [comparison.defaultComplexity],
-  );
-  const complexity = useSyncExternalStore(
-    complexityStore.subscribe,
-    complexityStore.getSnapshot,
-    complexityStore.getServerSnapshot,
+  const [complexity, selectComplexity] = useComplexityPreference(
+    comparison.defaultComplexity,
   );
   const [view, setView] = useState<"chart" | "table">("chart");
   const [sourcesExpanded, setSourcesExpanded] = useState(false);
@@ -249,10 +229,6 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
         ? current
         : current.filter((id) => id !== technologyId),
     );
-  }
-
-  function selectComplexity(level: ComplexityLevel) {
-    complexityStore.set(level);
   }
 
   return (
@@ -280,34 +256,7 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
             </Link>
             <Link href="/methodology">Learn</Link>
           </nav>
-          <div className={styles.complexity}>
-            <span className={styles.controlLabel}>Complexity</span>
-            <div
-              aria-label="Complexity level"
-              className={styles.levels}
-              role="group"
-            >
-              {complexityLevels.map((level) => (
-                <button
-                  aria-label={level.label}
-                  aria-pressed={complexity === level.value}
-                  className={styles.levelButton}
-                  key={level.value}
-                  onClick={() => selectComplexity(level.value)}
-                  title={level.label}
-                  type="button"
-                >
-                  <span aria-hidden>{level.short}</span>
-                </button>
-              ))}
-            </div>
-            <strong>
-              {
-                complexityLevels.find((level) => level.value === complexity)
-                  ?.label
-              }
-            </strong>
-          </div>
+          <ComplexitySelector onChange={selectComplexity} value={complexity} />
         </header>
 
         <section className={styles.intro} aria-labelledby="comparison-title">
