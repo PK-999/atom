@@ -1,14 +1,33 @@
 import {
+  cleanup,
   fireEvent,
   render,
   screen,
   waitFor,
   within,
 } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import { ComparisonLab } from "./ComparisonLab";
 import { previewComparison } from "./preview-data";
+
+beforeEach(() => {
+  const values = new Map<string, string>();
+  Object.defineProperty(window, "localStorage", {
+    configurable: true,
+    value: {
+      clear: () => values.clear(),
+      getItem: (key: string) => values.get(key) ?? null,
+      key: (index: number) => [...values.keys()][index] ?? null,
+      get length() {
+        return values.size;
+      },
+      removeItem: (key: string) => values.delete(key),
+      setItem: (key: string, value: string) => values.set(key, value),
+    } satisfies Storage,
+  });
+});
+afterEach(cleanup);
 
 describe("ComparisonLab", () => {
   it("renders the useful default with direct values, units, and an honest evidence state", () => {
@@ -21,10 +40,15 @@ describe("ComparisonLab", () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getByText("g CO₂e / kWh")).toBeInTheDocument();
-    expect(screen.getByLabelText("Nuclear: 12 g CO₂e / kWh")).toBeVisible();
     expect(screen.getByText("Evidence review pending")).toBeVisible();
     expect(
       screen.getByText(/preview data for interface development/i),
+    ).toBeVisible();
+    const summary = screen.getByRole("list", {
+      name: "Accessible comparison summary",
+    });
+    expect(
+      within(summary).getByText(/Nuclear: 12 g CO₂e \/ kWh/),
     ).toBeVisible();
   });
 
@@ -33,8 +57,11 @@ describe("ComparisonLab", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Remove Coal" }));
 
-    expect(screen.queryByLabelText(/Coal: 820/)).not.toBeInTheDocument();
-    expect(screen.getByLabelText(/Nuclear: 12/)).toBeVisible();
+    const summary = screen.getByRole("list", {
+      name: "Accessible comparison summary",
+    });
+    expect(within(summary).queryByText(/Coal: 820/)).not.toBeInTheDocument();
+    expect(within(summary).getByText(/Nuclear: 12/)).toBeVisible();
     expect(screen.getByText("4 technologies selected")).toBeVisible();
   });
 
@@ -76,6 +103,39 @@ describe("ComparisonLab", () => {
     );
   });
 
+  it("persists the complexity preference across remounts", async () => {
+    const first = render(<ComparisonLab comparison={previewComparison} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Technical" }));
+    await waitFor(() =>
+      expect(
+        window.localStorage.getItem("atom:preferences:v1:complexity"),
+      ).toBe("technical"),
+    );
+
+    first.unmount();
+    render(<ComparisonLab comparison={previewComparison} />);
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Technical" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      ),
+    );
+  });
+
+  it("explains unavailable evidence instead of interpreting typical values", () => {
+    render(<ComparisonLab comparison={previewComparison} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Range" }));
+
+    expect(
+      screen.getByText(/reviewed range evidence is not available/i),
+    ).toBeVisible();
+    expect(
+      screen.queryByText(/fossil fuel estimates are much higher/i),
+    ).not.toBeInTheDocument();
+  });
+
   it("provides a table with the same typical values and units", () => {
     render(<ComparisonLab comparison={previewComparison} />);
 
@@ -105,5 +165,33 @@ describe("ComparisonLab", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Close evidence" }));
     await waitFor(() => expect(trigger).toHaveFocus());
+  });
+
+  it("opens the passport for an individual displayed value", () => {
+    render(<ComparisonLab comparison={previewComparison} />);
+
+    const solarValue = screen.getByRole("button", {
+      name: "Inspect evidence for Solar",
+    });
+    expect(solarValue).toHaveTextContent("40");
+    fireEvent.click(solarValue);
+
+    const dialog = screen.getByRole("dialog", { name: "Why this number?" });
+    expect(within(dialog).getByText("Solar")).toBeVisible();
+  });
+
+  it("uses a distinct honest state for challenging a preview value", () => {
+    render(<ComparisonLab comparison={previewComparison} />);
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Challenge this number" }),
+    );
+
+    expect(
+      screen.getByRole("dialog", { name: "Challenge this number" }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/challenge workflow will open after evidence review/i),
+    ).toBeVisible();
   });
 });

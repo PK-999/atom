@@ -13,8 +13,20 @@ import { Square } from "@phosphor-icons/react/Square";
 import { Table } from "@phosphor-icons/react/Table";
 import { Triangle } from "@phosphor-icons/react/Triangle";
 import { X } from "@phosphor-icons/react/X";
+import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState, type CSSProperties } from "react";
+import {
+  useMemo,
+  useState,
+  useSyncExternalStore,
+  type CSSProperties,
+} from "react";
+
+import {
+  readComplexityPreference,
+  subscribeComplexityPreference,
+  writeComplexityPreference,
+} from "@/lib/preferences/complexity-preference";
 
 import { getComparisonScale, projectObservation } from "./comparison-model";
 import type {
@@ -50,6 +62,15 @@ const explanations: Record<ComplexityLevel, string> = {
     "These interface values are not a published synthesis. Observation-level methods, distributions, boundaries, and transformations remain unavailable until evidence review.",
 };
 
+const unavailableExplanations: Record<
+  Exclude<DisplayMode, "typical">,
+  string
+> = {
+  range:
+    "Reviewed range evidence is not available in this interface preview. ATOM will not infer a range from a representative value.",
+  raw: "Source-level raw observations are not available in this interface preview. Published records will appear only where licensing permits.",
+};
+
 interface ComparisonLabProps {
   comparison: PreviewComparison;
 }
@@ -79,28 +100,53 @@ function SourceMarker({ marker }: { marker: EnergyMarker }) {
 function EvidenceDialog({
   observation,
   comparison,
+  displayLabel,
   triggerLabel,
-  primary = false,
+  appearance = "secondary",
+  kind = "passport",
 }: {
   observation: PreviewObservation;
   comparison: PreviewComparison;
+  displayLabel?: string;
   triggerLabel: string;
-  primary?: boolean;
+  appearance?: "primary" | "secondary" | "inline";
+  kind?: "passport" | "challenge";
 }) {
+  const isPrimary = appearance === "primary";
+  const isInline = appearance === "inline";
+  const isChallenge = kind === "challenge";
+  const isValue = Boolean(displayLabel);
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <button
-          className={primary ? styles.primaryAction : styles.secondaryAction}
+          aria-label={isInline || isValue ? triggerLabel : undefined}
+          className={
+            isValue
+              ? styles.valueEvidence
+              : isInline
+                ? styles.inlineEvidence
+                : isPrimary
+                  ? styles.primaryAction
+                  : styles.secondaryAction
+          }
+          data-chart-value={isValue ? true : undefined}
           type="button"
         >
-          {primary ? (
+          {displayLabel ? null : isPrimary ? (
             <Flask aria-hidden size={22} />
           ) : (
             <Info aria-hidden size={20} />
           )}
-          <span>{triggerLabel}</span>
-          {primary ? <ArrowRight aria-hidden size={19} /> : null}
+          {displayLabel ? (
+            <strong>{displayLabel}</strong>
+          ) : (
+            <span className={isInline ? styles.srOnly : undefined}>
+              {triggerLabel}
+            </span>
+          )}
+          {isPrimary ? <ArrowRight aria-hidden size={19} /> : null}
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
@@ -108,9 +154,11 @@ function EvidenceDialog({
         <Dialog.Content className={styles.dialogContent}>
           <div className={styles.dialogHeader}>
             <div>
-              <p className={styles.dialogEyebrow}>Data passport preview</p>
+              <p className={styles.dialogEyebrow}>
+                {isChallenge ? "Challenge preview" : "Data passport preview"}
+              </p>
               <Dialog.Title className={styles.dialogTitle}>
-                Why this number?
+                {isChallenge ? "Challenge this number" : "Why this number?"}
               </Dialog.Title>
             </div>
             <Dialog.Close asChild>
@@ -124,8 +172,9 @@ function EvidenceDialog({
             </Dialog.Close>
           </div>
           <Dialog.Description className={styles.dialogDescription}>
-            This passport shows the fields ATOM will expose after scientific and
-            editorial review.
+            {isChallenge
+              ? `The challenge workflow will open after evidence review for ${observation.technologyName}. Until then, no correction can be submitted against an unpublished preview value.`
+              : "This passport shows the fields ATOM will expose after scientific and editorial review."}
           </Dialog.Description>
           <dl className={styles.passportGrid}>
             <div>
@@ -175,8 +224,12 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
   const [displayMode, setDisplayMode] = useState<DisplayMode>(
     comparison.defaultMode,
   );
-  const [complexity, setComplexity] = useState<ComplexityLevel>(
-    comparison.defaultComplexity,
+  const complexity = useSyncExternalStore(
+    subscribeComplexityPreference,
+    () =>
+      readComplexityPreference(window.localStorage) ??
+      comparison.defaultComplexity,
+    () => comparison.defaultComplexity,
   );
   const [view, setView] = useState<"chart" | "table">("chart");
   const [sourcesExpanded, setSourcesExpanded] = useState(false);
@@ -200,8 +253,21 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
     );
   }
 
+  function selectComplexity(level: ComplexityLevel) {
+    writeComplexityPreference(window.localStorage, level);
+  }
+
   return (
     <main className={styles.page}>
+      <Image
+        alt=""
+        aria-hidden
+        className={styles.backgroundImage}
+        data-background-asset
+        fill
+        sizes="100vw"
+        src="/assets/comparison/museum-light-background.png"
+      />
       <a className={styles.skipLink} href="#comparison-exhibit">
         Skip to comparison
       </a>
@@ -229,7 +295,7 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
                   aria-pressed={complexity === level.value}
                   className={styles.levelButton}
                   key={level.value}
-                  onClick={() => setComplexity(level.value)}
+                  onClick={() => selectComplexity(level.value)}
                   title={level.label}
                   type="button"
                 >
@@ -376,11 +442,7 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
             </div>
 
             {view === "chart" ? (
-              <div
-                aria-label={`${comparison.metricName} comparison`}
-                className={styles.chart}
-                role="img"
-              >
+              <div className={styles.chart}>
                 <span className={styles.zero}>0</span>
                 {selectedObservations.map((observation) => {
                   const projection = projectObservation(
@@ -394,11 +456,6 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
 
                   return (
                     <div
-                      aria-label={
-                        projection.kind === "value"
-                          ? `${observation.technologyName}: ${projection.label} ${comparison.unit}`
-                          : `${observation.technologyName}: ${projection.label}`
-                      }
                       className={styles.chartRow}
                       key={observation.technologyId}
                       style={chartStyle}
@@ -417,9 +474,12 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
                         ) : (
                           <span className={styles.pendingTrack} aria-hidden />
                         )}
-                        <strong className={styles.value}>
-                          {projection.label}
-                        </strong>
+                        <EvidenceDialog
+                          comparison={comparison}
+                          displayLabel={projection.label}
+                          observation={observation}
+                          triggerLabel={`Inspect evidence for ${observation.technologyName}`}
+                        />
                       </span>
                     </div>
                   );
@@ -447,7 +507,15 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
                           <th scope="row">{observation.technologyName}</th>
                           <td>{projection.label}</td>
                           <td>{comparison.unit}</td>
-                          <td>Review pending</td>
+                          <td>
+                            <EvidenceDialog
+                              appearance="inline"
+                              comparison={comparison}
+                              observation={observation}
+                              triggerLabel={`Inspect evidence for ${observation.technologyName}`}
+                            />
+                            <span>Review pending</span>
+                          </td>
                         </tr>
                       );
                     })}
@@ -455,6 +523,21 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
                 </table>
               </div>
             )}
+
+            <ul
+              aria-label="Accessible comparison summary"
+              className={styles.srOnly}
+            >
+              {selectedObservations.map((observation) => {
+                const projection = projectObservation(observation, displayMode);
+                return (
+                  <li key={observation.technologyId}>
+                    {observation.technologyName}: {projection.label}
+                    {projection.kind === "value" ? ` ${comparison.unit}` : ""}
+                  </li>
+                );
+              })}
+            </ul>
 
             <p className={styles.previewNotice}>
               Preview data for interface development only — not for citation or
@@ -470,20 +553,25 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
             <h2 id="meaning-title" className={styles.srOnly}>
               Interpretation
             </h2>
-            <p>{explanations[complexity]}</p>
+            <p aria-live="polite">
+              {displayMode === "typical"
+                ? explanations[complexity]
+                : unavailableExplanations[displayMode]}
+            </p>
             <Link href="/methodology">Read how ATOM reviews evidence</Link>
           </aside>
         </section>
 
         <section className={styles.actions} aria-label="Evidence actions">
           <EvidenceDialog
+            appearance="primary"
             comparison={comparison}
             observation={evidenceObservation}
-            primary
             triggerLabel="Explore the evidence"
           />
           <EvidenceDialog
             comparison={comparison}
+            kind="challenge"
             observation={evidenceObservation}
             triggerLabel="Challenge this number"
           />

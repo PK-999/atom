@@ -15,15 +15,14 @@
   isolation: isolate;
 }
 
-.page::before {
-  position: fixed;
-  z-index: -1;
+.backgroundImage {
+  position: fixed !important;
+  z-index: 0;
   inset: 0;
-  background-image: url("/assets/comparison/museum-light-background.png");
-  background-repeat: no-repeat;
-  background-position: top right;
-  background-size: cover;
-  content: "";
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top right;
   opacity: 0.42;
   pointer-events: none;
 }
@@ -40,8 +39,8 @@
   left: 12px;
   translate: 0 -160%;
   border-radius: 10px;
-  background: var(--surface-reading);
-  color: var(--text-reading);
+  background: #f5f1e9;
+  color: #101823;
   padding: 12px 16px;
   font-weight: 700;
 }
@@ -51,6 +50,8 @@
 }
 
 .shell {
+  position: relative;
+  z-index: 1;
   width: min(100% - 64px, 1440px);
   margin-inline: auto;
   padding-bottom: 48px;
@@ -118,19 +119,28 @@
 
 .levels {
   display: flex;
-  gap: 10px;
+  gap: 0;
 }
 
 .levelButton {
+  position: relative;
   display: grid;
-  width: 24px;
-  height: 24px;
+  width: 44px;
+  height: 44px;
   place-items: center;
-  border: 1px solid #8290a5;
+  border: 0;
   border-radius: 999px;
   background: transparent;
   color: transparent;
   cursor: pointer;
+}
+
+.levelButton::before {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #8290a5;
+  border-radius: inherit;
+  content: "";
 }
 
 .levelButton span {
@@ -138,6 +148,10 @@
 }
 
 .levelButton[aria-pressed="true"] {
+  background: transparent;
+}
+
+.levelButton[aria-pressed="true"]::before {
   border-color: var(--surface-reading);
   background: var(--surface-reading);
   box-shadow: 0 0 0 4px rgb(168 169 255 / 18%);
@@ -408,6 +422,7 @@
 }
 
 .chartMeasure {
+  position: relative;
   display: flex;
   min-width: 0;
   align-items: center;
@@ -442,13 +457,43 @@
   border-block: 1px dashed #aeb5bd;
 }
 
-.value {
+.value,
+.valueEvidence {
   max-width: 230px;
   margin-left: 10px;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 0.92rem;
   font-variant-numeric: tabular-nums;
   font-weight: 650;
+}
+
+.valueEvidence {
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  padding: 4px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.valueEvidence strong {
+  font: inherit;
+}
+
+.inlineEvidence {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #4d4bb4;
+  cursor: pointer;
 }
 
 .previewNotice {
@@ -546,8 +591,8 @@
   translate: -50% -50%;
   border: 1px solid #c7c4bb;
   border-radius: 20px;
-  background: var(--surface-reading);
-  color: var(--text-reading);
+  background: #f5f1e9;
+  color: #101823;
   padding: 28px;
   box-shadow: 0 28px 90px rgb(0 5 13 / 44%);
 }
@@ -653,6 +698,12 @@
   text-transform: uppercase;
 }
 
+.tableScroll td:last-child {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .srOnly {
   position: absolute;
   width: 1px;
@@ -694,18 +745,24 @@
     font-size: 22px;
   }
 
-  .complexity .controlLabel,
+  .complexity {
+    grid-template-columns: 1fr auto;
+    gap: 0 4px;
+  }
+
+  .complexity .controlLabel {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
   .complexity strong {
-    display: none;
+    grid-column: 2;
+    grid-row: 1;
   }
 
   .levels {
-    gap: 7px;
-  }
-
-  .levelButton {
-    width: 22px;
-    height: 22px;
+    grid-column: 1 / -1;
+    grid-row: 2;
   }
 
   .intro {
@@ -853,10 +910,6 @@
 }
 
 @media (max-width: 440px) {
-  .contextBar > div:not(.modeGroup):nth-of-type(2) {
-    display: none;
-  }
-
   .viewButton {
     width: 44px;
     padding: 0;

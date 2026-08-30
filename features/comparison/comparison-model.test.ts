@@ -4,7 +4,7 @@ import { projectObservation } from "./comparison-model";
 import { previewComparison } from "./preview-data";
 
 describe("projectObservation", () => {
-  it("keeps the reviewed representative value visible in typical mode", () => {
+  it("keeps the preview representative value visible in typical mode", () => {
     const nuclear = previewComparison.observations.find(
       (observation) => observation.technologyId === "nuclear",
     );

@@ -5,9 +5,9 @@
 - Source visual truth:
   `docs/design/references/comparison-lab-digital-science-museum.png`
 - Final desktop implementation:
-  `docs/design/qa/comparison-desktop-pass3-1440x1024.png`
+  `docs/design/qa/comparison-desktop-pass4-1440x1024.png`
 - Final mobile implementation:
-  `docs/design/qa/comparison-mobile-pass3-390x844.png`
+  `docs/design/qa/comparison-mobile-pass4-390x844.png`
 - Route: `/compare`
 - State: default sources, lifecycle emissions, Global, Typical, Scientific,
   Curious, chart view, evidence dialog closed
@@ -15,9 +15,9 @@
 The source is a 1487 × 1058 concept board containing one desktop and one
 mobile frame. The implementation was captured in Chromium at a 1440 × 1024
 CSS viewport and a 390 × 844 CSS viewport with `deviceScaleFactor: 1`. The
-desktop capture is 1440 × 1024 pixels. The mobile capture is a full-page 390 ×
-1415 pixel image, so it preserves the 390px comparison width while showing the
-complete vertical experience rather than cropping it to 844px.
+desktop capture is a full-page 1440 × 1106 image. The mobile capture is a
+full-page 390 × 1501 pixel image, so both preserve their comparison widths
+while showing the complete vertical experience rather than cropping it.
 
 ## Full-View Comparison Evidence
 
@@ -65,9 +65,11 @@ failure and now clears the WCAG AA gate.
 The atmospheric background is a dedicated 1586 × 992 raster asset generated
 for this composition and stored at
 `public/assets/comparison/museum-light-background.png`. It is not recreated
-with a CSS gradient. Visible icons and source markers come from the pinned
-Phosphor icon library; there are no placeholder images, emoji, handcrafted SVG
-assets, or stretched source screenshots.
+with a CSS gradient. Next Image supplies responsive widths and negotiated
+modern formats instead of sending the 1.7 MB source PNG at every viewport.
+Visible icons and source markers come from the pinned Phosphor icon library;
+there are no placeholder images, emoji, handcrafted SVG assets, or stretched
+source screenshots.
 
 ### Copy and content
 
@@ -84,7 +86,8 @@ icons, spacing, labels, and values are clearly readable in the 1440 × 1024
 full-view comparison. The source does not specify an open evidence-dialog
 visual, so there is no valid visual target for that state. Its keyboard opening,
 Escape close behavior, focus restoration, fields, and serious axe checks were
-instead verified through the component and production-browser journeys.
+instead verified through the component and production-browser journeys while
+the desktop dialog and mobile sheet were open.
 
 ## Comparison History
 
@@ -134,13 +137,39 @@ Post-fix result: no actionable P0, P1, or P2 visual differences remain. The
 desktop composition, mobile source summary, direct-label chart, evidence
 hierarchy, typography, and palette are faithful to the selected direction.
 
+### Pass 4 — review corrections
+
+Evidence:
+
+- `docs/design/qa/comparison-desktop-pass4-1440x1024.png`
+- `docs/design/qa/comparison-mobile-pass4-390x844.png`
+
+Findings and fixes:
+
+- [P1] The original chart role hid row values from assistive technology. Added
+  an always-present accessible summary and value-specific passport controls.
+- [P1] The compact mobile complexity dots were unlabeled visually and below
+  target size. Restored the visible label/current level and 44px targets.
+- [P1] Mobile hid Global geography. Reflowed the full context instead.
+- [P2] The full source raster was requested at every viewport. Moved it through
+  responsive Next Image optimization.
+- [P2] Open-dialog axe exposed portal token inheritance and contrast issues.
+  Assigned explicit reading-surface colors to the portal.
+- [P2] The first value-specific evidence icons crowded the longest chart value.
+  Made each displayed value itself the 44px passport trigger.
+
 ## Interaction and Browser Evidence
 
 - Production build rendered `/compare` without an error overlay.
-- Source removal, display mode, complexity, chart/table, evidence dialog,
-  Escape close, and focus restoration were exercised.
+- Source removal, display mode, persisted complexity across reload, chart/table,
+  value-specific evidence, distinct challenge state, Escape close, and focus
+  restoration were exercised.
 - Mobile width was checked at 390 × 844 with no root horizontal overflow.
-- Chromium axe checks passed after the contrast fix.
+- Open desktop-dialog and mobile-sheet axe checks passed in Chromium, Firefox,
+  and WebKit after the portal contrast fix.
+- Chromium Tab traversal reached the evidence action; Escape restored focus.
+- Reduced motion and a 720 × 450 CSS viewport representing 200% desktop zoom
+  retained the core experience without horizontal overflow.
 - Console-error and failed-response collections remained empty.
 - The in-app browser surface was unavailable in this session; browser-rendered
   captures and interactions therefore used the Playwright path already required
@@ -152,6 +181,9 @@ hierarchy, typography, and palette are faithful to the selected direction.
   to shorten the initial page while retaining Range and Raw access.
 - [P3] A later application-shell stage may add the selected concept's mobile
   menu affordance once the route-wide navigation model is implemented.
+- [P3] This approved slice is intentionally dark-only. The light counterpart
+  remains part of the Stage 4 application-shell token work and is not claimed
+  complete here.
 
 ## Implementation Checklist
 
@@ -163,4 +195,3 @@ hierarchy, typography, and palette are faithful to the selected direction.
 - [x] Browser interaction and accessibility checks recorded.
 
 final result: passed
-

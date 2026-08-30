@@ -74,6 +74,8 @@ for the default Curious experience. It may inform L4/L5 views later.
 The light theme keeps the same hierarchy using a warm ivory canvas, white
 reading surfaces, near-black text, cool blue-gray borders, and periwinkle
 interaction accents. It is a designed counterpart, not an inverted dark theme.
+This slice implements and verifies the dark museum canvas only; the light
+counterpart is explicitly deferred to the Stage 4 application-shell token work.
 
 ### Energy sources
 
@@ -137,4 +139,3 @@ Typical/Range switching, the complexity selector, table fallback, and an
 accessible evidence dialog. It does not publish scientific evidence, connect
 Supabase, implement canonical URL state, or claim the full Comparison Lab is
 released.
-
