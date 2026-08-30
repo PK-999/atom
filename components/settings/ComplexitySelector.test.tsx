@@ -35,6 +35,7 @@ function TwoSelectorHarness() {
 }
 
 beforeEach(() => {
+  window.history.replaceState(null, "", "/");
   const values = new Map<string, string>();
   Object.defineProperty(window, "localStorage", {
     configurable: true,
@@ -122,5 +123,63 @@ describe("ComplexitySelector", () => {
     expect(
       within(second).getByRole("button", { name: "Expert" }),
     ).toHaveAttribute("aria-pressed", "true");
+  });
+
+  it("gives a valid URL level precedence and preserves unrelated parameters", async () => {
+    window.localStorage.setItem(
+      "atom:preferences:v1:complexity",
+      "simple",
+    );
+    window.history.replaceState(
+      null,
+      "",
+      "/compare?metric=land-use&level=expert",
+    );
+
+    render(<SelectorHarness />);
+
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Expert" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      ),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Technical" }));
+
+    const params = new URLSearchParams(window.location.search);
+    expect(params.get("level")).toBe("technical");
+    expect(params.get("metric")).toBe("land-use");
+  });
+
+  it("falls back to the stored preference when the URL level is invalid", async () => {
+    window.localStorage.setItem(
+      "atom:preferences:v1:complexity",
+      "simple",
+    );
+    window.history.replaceState(null, "", "/compare?level=unknown");
+
+    render(<SelectorHarness />);
+
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Simple" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      ),
+    );
+  });
+
+  it("responds to browser history changes without reloading", async () => {
+    window.history.replaceState(null, "", "/compare?level=curious");
+    render(<SelectorHarness />);
+
+    window.history.pushState(null, "", "/compare?level=kid");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Kid" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      ),
+    );
   });
 });

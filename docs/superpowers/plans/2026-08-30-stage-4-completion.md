@@ -47,16 +47,16 @@ Playwright, axe-core.
   fallback precedence, same-document and cross-document synchronization, and
   `popstate` handling.
 
-- [ ] Write a failing component test that starts at `?level=expert`, verifies
+- [x] Write a failing component test that starts at `?level=expert`, verifies
   Expert overrides stored Simple, changes to Technical, and preserves unrelated
   URL parameters.
-- [ ] Run `npm test -- components/settings/ComplexitySelector.test.tsx` and
+- [x] Run `npm test -- components/settings/ComplexitySelector.test.tsx` and
   confirm the URL-precedence assertion fails.
-- [ ] Implement URL parsing, `history.replaceState`, and `popstate` updates in
+- [x] Implement URL parsing, `history.replaceState`, and `popstate` updates in
   the preference store without importing Next.js navigation APIs.
-- [ ] Add a failing invalid-URL test proving stored preference is retained for
+- [x] Add a failing invalid-URL test proving stored preference is retained for
   `?level=unknown`.
-- [ ] Run the focused suite and confirm both valid and invalid URL behaviors
+- [x] Run the focused suite and confirm both valid and invalid URL behaviors
   pass.
 
 ### Task 2: Theme and application shell

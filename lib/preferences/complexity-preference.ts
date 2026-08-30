@@ -28,15 +28,35 @@ export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
     listeners.forEach((listener) => listener());
   }
 
-  function readStoredPreference() {
+  function readStoredPreference(): ComplexityLevel | null {
     try {
-      const stored = parseComplexityLevel(
+      return parseComplexityLevel(
         window.localStorage.getItem(COMPLEXITY_PREFERENCE_KEY),
       );
-      if (stored) current = stored;
     } catch {
       // The in-memory preference remains authoritative when storage is blocked.
+      return null;
     }
+  }
+
+  function readUrlPreference(): ComplexityLevel | null {
+    return parseComplexityLevel(
+      new URLSearchParams(window.location.search).get("level"),
+    );
+  }
+
+  function readActivePreference(): ComplexityLevel {
+    return readUrlPreference() ?? readStoredPreference() ?? fallback;
+  }
+
+  function updateUrlPreference(level: ComplexityLevel) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("level", level);
+    window.history.replaceState(
+      window.history.state,
+      "",
+      `${url.pathname}${url.search}${url.hash}`,
+    );
   }
 
   return {
@@ -52,6 +72,8 @@ export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
         // Preference persistence is best-effort and never blocks interaction.
       }
 
+      updateUrlPreference(level);
+
       window.dispatchEvent(
         new CustomEvent<ComplexityLevel>(COMPLEXITY_PREFERENCE_EVENT, {
           detail: level,
@@ -61,6 +83,7 @@ export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
     subscribe(listener: () => void) {
       const handleStorage = (event: StorageEvent) => {
         if (event.key !== COMPLEXITY_PREFERENCE_KEY) return;
+        if (readUrlPreference()) return;
         current = parseComplexityLevel(event.newValue) ?? fallback;
         notify();
       };
@@ -73,9 +96,16 @@ export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
         current = next;
         notify();
       };
+      const handlePopState = () => {
+        const next = readActivePreference();
+        if (next === current) return;
+        current = next;
+        notify();
+      };
 
       listeners.add(listener);
       window.addEventListener("storage", handleStorage);
+      window.addEventListener("popstate", handlePopState);
       window.addEventListener(
         COMPLEXITY_PREFERENCE_EVENT,
         handlePreferenceChange,
@@ -84,13 +114,14 @@ export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
       if (!hydrated) {
         const previous = current;
         hydrated = true;
-        readStoredPreference();
+        current = readActivePreference();
         if (current !== previous) queueMicrotask(notify);
       }
 
       return () => {
         listeners.delete(listener);
         window.removeEventListener("storage", handleStorage);
+        window.removeEventListener("popstate", handlePopState);
         window.removeEventListener(
           COMPLEXITY_PREFERENCE_EVENT,
           handlePreferenceChange,

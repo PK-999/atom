@@ -36,6 +36,7 @@ test("comparison journey preserves context and exposes evidence", async ({
     "aria-pressed",
     "true",
   );
+  await expect(page).toHaveURL(/(?:\?|&)level=technical(?:&|$)/);
   await expect(
     page.locator("[data-chart-label]", { hasText: "Coal" }),
   ).toHaveCount(0);
