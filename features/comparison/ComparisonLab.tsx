@@ -22,11 +22,7 @@ import {
   type CSSProperties,
 } from "react";
 
-import {
-  readComplexityPreference,
-  subscribeComplexityPreference,
-  writeComplexityPreference,
-} from "@/lib/preferences/complexity-preference";
+import { createComplexityPreferenceStore } from "@/lib/preferences/complexity-preference";
 
 import { getComparisonScale, projectObservation } from "./comparison-model";
 import type {
@@ -224,12 +220,14 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
   const [displayMode, setDisplayMode] = useState<DisplayMode>(
     comparison.defaultMode,
   );
+  const complexityStore = useMemo(
+    () => createComplexityPreferenceStore(comparison.defaultComplexity),
+    [comparison.defaultComplexity],
+  );
   const complexity = useSyncExternalStore(
-    subscribeComplexityPreference,
-    () =>
-      readComplexityPreference(window.localStorage) ??
-      comparison.defaultComplexity,
-    () => comparison.defaultComplexity,
+    complexityStore.subscribe,
+    complexityStore.getSnapshot,
+    complexityStore.getServerSnapshot,
   );
   const [view, setView] = useState<"chart" | "table">("chart");
   const [sourcesExpanded, setSourcesExpanded] = useState(false);
@@ -254,7 +252,7 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
   }
 
   function selectComplexity(level: ComplexityLevel) {
-    writeComplexityPreference(window.localStorage, level);
+    complexityStore.set(level);
   }
 
   return (

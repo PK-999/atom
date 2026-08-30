@@ -123,6 +123,23 @@ describe("ComparisonLab", () => {
     );
   });
 
+  it("keeps complexity changes working when storage is unavailable", () => {
+    Object.defineProperty(window, "localStorage", {
+      configurable: true,
+      get() {
+        throw new DOMException("Storage disabled", "SecurityError");
+      },
+    });
+    render(<ComparisonLab comparison={previewComparison} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Expert" }));
+
+    expect(screen.getByRole("button", { name: "Expert" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+  });
+
   it("explains unavailable evidence instead of interpreting typical values", () => {
     render(<ComparisonLab comparison={previewComparison} />);
 

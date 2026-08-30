@@ -10,43 +10,67 @@ const complexityLevels = new Set<ComplexityLevel>([
   "technical",
   "expert",
 ]);
-const listeners = new Set<() => void>();
 
-export function subscribeComplexityPreference(listener: () => void) {
-  const handleStorage = (event: StorageEvent) => {
-    if (event.key === COMPLEXITY_PREFERENCE_KEY) listener();
-  };
-
-  listeners.add(listener);
-  window.addEventListener("storage", handleStorage);
-
-  return () => {
-    listeners.delete(listener);
-    window.removeEventListener("storage", handleStorage);
-  };
+function parseComplexityLevel(value: string | null): ComplexityLevel | null {
+  return value && complexityLevels.has(value as ComplexityLevel)
+    ? (value as ComplexityLevel)
+    : null;
 }
 
-export function readComplexityPreference(
-  storage: Pick<Storage, "getItem">,
-): ComplexityLevel | null {
-  try {
-    const value = storage.getItem(COMPLEXITY_PREFERENCE_KEY);
-    return value && complexityLevels.has(value as ComplexityLevel)
-      ? (value as ComplexityLevel)
-      : null;
-  } catch {
-    return null;
-  }
-}
+export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
+  let current = fallback;
+  let hydrated = false;
+  const listeners = new Set<() => void>();
 
-export function writeComplexityPreference(
-  storage: Pick<Storage, "setItem">,
-  value: ComplexityLevel,
-) {
-  try {
-    storage.setItem(COMPLEXITY_PREFERENCE_KEY, value);
+  function notify() {
     listeners.forEach((listener) => listener());
-  } catch {
-    // Preference persistence must never block the comparison experience.
   }
+
+  function readStoredPreference() {
+    try {
+      const stored = parseComplexityLevel(
+        window.localStorage.getItem(COMPLEXITY_PREFERENCE_KEY),
+      );
+      if (stored) current = stored;
+    } catch {
+      // The in-memory preference remains authoritative when storage is blocked.
+    }
+  }
+
+  return {
+    getServerSnapshot: () => fallback,
+    getSnapshot: () => current,
+    set(level: ComplexityLevel) {
+      current = level;
+      notify();
+
+      try {
+        window.localStorage.setItem(COMPLEXITY_PREFERENCE_KEY, level);
+      } catch {
+        // Preference persistence is best-effort and never blocks interaction.
+      }
+    },
+    subscribe(listener: () => void) {
+      const handleStorage = (event: StorageEvent) => {
+        if (event.key !== COMPLEXITY_PREFERENCE_KEY) return;
+        current = parseComplexityLevel(event.newValue) ?? fallback;
+        notify();
+      };
+
+      listeners.add(listener);
+      window.addEventListener("storage", handleStorage);
+
+      if (!hydrated) {
+        const previous = current;
+        hydrated = true;
+        readStoredPreference();
+        if (current !== previous) queueMicrotask(notify);
+      }
+
+      return () => {
+        listeners.delete(listener);
+        window.removeEventListener("storage", handleStorage);
+      };
+    },
+  };
 }
