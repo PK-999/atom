@@ -37,6 +37,6 @@
 
 ### Task 4: Verification
 
-- [ ] Confirm ignored local files do not appear in Git status.
-- [ ] Review all Stage 0 files for placeholders and contradictions.
-- [ ] Commit the documentation baseline.
+- [x] Confirm ignored local files do not appear in Git status.
+- [x] Review all Stage 0 files for placeholders and contradictions.
+- [x] Commit the documentation baseline.
