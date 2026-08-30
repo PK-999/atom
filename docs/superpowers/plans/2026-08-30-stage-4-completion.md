@@ -75,18 +75,18 @@ Playwright, axe-core.
 - Produces: `AppShell({ children, eyebrow?, title? })`, `ThemeControl`, and
   explicit `data-theme="light|dark"` document state.
 
-- [ ] Write failing tests for Light/Dark/System selection, persistence, and
+- [x] Write failing tests for Light/Dark/System selection, persistence, and
   blocked-storage usability.
-- [ ] Run the focused tests and confirm the theme modules are missing.
-- [ ] Implement theme preference logic and a compact three-state control.
-- [ ] Implement a server-first shell with skip link, ATOM wordmark, released
+- [x] Run the focused tests and confirm the theme modules are missing.
+- [x] Implement theme preference logic and a compact three-state control.
+- [x] Implement a server-first shell with skip link, ATOM wordmark, released
   navigation, global complexity control, theme control, main landmark, and
   footer.
-- [ ] Apply semantic surface, text, border, feedback, energy, spacing, radius,
+- [x] Apply semantic surface, text, border, feedback, energy, spacing, radius,
   motion, and focus tokens for explicit light and dark themes.
-- [ ] Wrap `/` and `/methodology` with `AppShell`; keep route metadata in Server
+- [x] Wrap `/` and `/methodology` with `AppShell`; keep route metadata in Server
   Components.
-- [ ] Run theme and existing route tests until green.
+- [x] Run theme and existing route tests until green.
 
 ### Task 3: Shared controls and overlays
 

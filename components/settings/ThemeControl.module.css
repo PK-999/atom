@@ -1,0 +1,34 @@
+.control {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: 999px;
+  background: var(--atom-surface-panel);
+  padding: 3px;
+}
+
+.control button {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--atom-text-muted);
+  cursor: pointer;
+}
+
+.control button[aria-pressed="true"] {
+  background: var(--atom-interactive-primary);
+  color: var(--atom-text-inverse);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .control button {
+    transition:
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+}

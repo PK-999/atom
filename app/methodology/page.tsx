@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { AppShell } from "@/components/layout/AppShell";
+
 export const metadata: Metadata = {
   title: "Evidence methodology",
   description:
@@ -8,7 +10,8 @@ export const metadata: Metadata = {
 
 export default function MethodologyPage() {
   return (
-    <main className="foundation">
+    <AppShell>
+      <article className="foundation">
       <p className="eyebrow">Evidence before persuasion</p>
       <h1>How ATOM handles evidence</h1>
       <p>
@@ -25,6 +28,7 @@ export default function MethodologyPage() {
         Detailed source and correction records will become available with the
         evidence system.
       </p>
-    </main>
+      </article>
+    </AppShell>
   );
 }

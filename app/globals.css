@@ -7,14 +7,64 @@
   --atom-text-primary: #101823;
   --atom-text-reading: #101823;
   --atom-text-muted: #5f6d7d;
+  --atom-text-inverse: #fffdf8;
   --atom-border-subtle: rgb(16 24 35 / 18%);
+  --atom-border-default: rgb(16 24 35 / 30%);
+  --atom-border-strong: rgb(16 24 35 / 48%);
   --atom-interactive-primary: #6867d3;
   --atom-interactive-strong: #4d4bb4;
   --atom-control-muted: #8290a5;
   --atom-focus-ring: #6867d3;
+  --atom-positive: #28775b;
+  --atom-warning: #9a5b14;
+  --atom-negative: #a13f4c;
+  --atom-information: #3768a8;
+  --atom-energy-nuclear: #a997ff;
+  --atom-energy-solar: #f0b82d;
+  --atom-energy-wind: #43c8bf;
+  --atom-energy-gas: #4d7de8;
+  --atom-energy-coal: #8c96a3;
+  --atom-energy-hydro: #298dbd;
+  --atom-energy-storage: #8b69c7;
+  --atom-energy-biomass: #668d45;
+  --atom-energy-geothermal: #ba654c;
+  --atom-space-1: 4px;
+  --atom-space-2: 8px;
+  --atom-space-3: 12px;
+  --atom-space-4: 16px;
+  --atom-space-6: 24px;
+  --atom-space-8: 32px;
+  --atom-space-12: 48px;
+  --atom-space-16: 64px;
+  --atom-space-24: 96px;
+  --atom-motion-fast: 160ms;
+  --atom-motion-ui: 240ms;
+  --atom-radius-control: 12px;
+  --atom-radius-panel: 20px;
   color-scheme: light;
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   line-height: 1.5;
+}
+
+:root[data-theme="dark"] {
+  --atom-surface-canvas: #071727;
+  --atom-surface-panel: #0e2135;
+  --atom-surface-reading: #f5f1e9;
+  --atom-text-primary: #f7f2e8;
+  --atom-text-reading: #101823;
+  --atom-text-muted: #b3bfce;
+  --atom-text-inverse: #10152f;
+  --atom-border-subtle: rgb(218 226 245 / 22%);
+  --atom-border-default: rgb(218 226 245 / 36%);
+  --atom-border-strong: rgb(218 226 245 / 58%);
+  --atom-interactive-primary: #a8a9ff;
+  --atom-interactive-strong: #c5c3ff;
+  --atom-focus-ring: #c5c3ff;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
 }
 
 * {

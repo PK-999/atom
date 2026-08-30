@@ -1,8 +1,11 @@
 import Link from "next/link";
 
+import { AppShell } from "@/components/layout/AppShell";
+
 export default function HomePage() {
   return (
-    <main className="foundation">
+    <AppShell>
+      <div className="foundation">
       <p className="eyebrow">Evidence-first energy literacy</p>
       <h1>ATOM</h1>
       <p>
@@ -17,6 +20,7 @@ export default function HomePage() {
         Digital Science Museum direction selected. Evidence review and catalog
         expansion remain in progress.
       </p>
-    </main>
+      </div>
+    </AppShell>
   );
 }
