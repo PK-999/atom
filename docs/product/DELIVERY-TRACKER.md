@@ -182,8 +182,8 @@ Evidence:
 
 ### Stage 2 — Application and Quality Foundation
 
-Status: **Locally verified**  
-Gate: **Local gate passed; cloud gate pending**
+Status: **Production deployed; preview verification pending**
+Gate: **Local and hosted CI gates passed; preview browser gate pending**
 
 - [x] Next.js App Router, React, TypeScript, Tailwind, and server-first defaults
   scaffolded with pinned versions.
@@ -198,14 +198,17 @@ Gate: **Local gate passed; cloud gate pending**
 - [x] Local production build and cross-browser verification passed.
 - [x] Clean-install quality, build, and three-browser gates passed in isolated
   containers on the exact pinned Node.js 24.20.0 runtime.
-- [x] GitHub-hosted CI run confirmed for `main` at `3013982` (workflow run
-  `33449274432`, quality and browser jobs passed).
+- [x] GitHub-hosted CI run confirmed for `main` at `00c03be` (workflow run
+  `33449480327`, quality and browser jobs passed).
 - [ ] Vercel preview deployment behavior confirmed on the pinned Node runtime.
 
-External prerequisite audit on 2026-08-31: GitHub is now connected and the
-hosted CI workflow passes. Vercel still requires project creation/linking and
-deployment credentials; Supabase remains intentionally unconnected until Stage
-6.
+External prerequisite audit on 2026-09-01: GitHub is connected and the hosted
+CI workflow passes. Vercel production deployment `6191244854` for `00c03be`
+completed successfully at
+`https://atom-azibwapeu-pks-projects-35b7ae41.vercel.app`. The deployment is
+protected by Vercel SSO, so unauthenticated route/browser inspection is still
+pending; a preview deployment from a non-main ref has not yet been exercised.
+Supabase remains intentionally unconnected until Stage 6.
 
 Evidence:
 

@@ -35,6 +35,19 @@
 - After the tracker synchronization, workflow `CI` completed successfully
   again for `main` at commit `301398290d20b28fb440d6ebdb7722706dc291d4`
   (run `33449274432`); both quality and browser jobs passed.
+- After the final tracker update, workflow `CI` completed successfully for
+  `main` at commit `00c03be7615dc8989434dd44701417c9e3c8ad01` (run
+  `33449480327`); both quality and browser jobs passed.
+
+## Vercel Deployment Check — 2026-09-01
+
+- Vercel production deployment `6191244854` for commit `00c03be` completed
+  successfully at `https://atom-azibwapeu-pks-projects-35b7ae41.vercel.app`.
+- GitHub reports the Vercel deployment status as successful.
+- Direct unauthenticated requests redirect to Vercel SSO protection, so route
+  rendering and console inspection still require an authenticated browser
+  session. This is an access-control limitation, not an application failure.
+- A non-main preview deployment has not yet been exercised.
 
 ## Browser Inspection
 
@@ -45,8 +58,9 @@
 ## Known Limits
 
 - The managed environment prevents Turbopack's production PostCSS worker from binding its local port. `next build --webpack` passes; ADR 0008 requires an unrestricted CI/Vercel Turbopack retest.
-- Vercel still requires project creation/linking and deployment credentials;
-  Supabase remains intentionally unconnected until Stage 6.
+- Vercel production is now deployed, but authenticated browser inspection and
+  a non-main preview deployment remain open; Supabase remains intentionally
+  unconnected until Stage 6.
 - The original host verification used Node.js 26.5.0. The complete quality and
   three-browser gates now also pass locally in isolated Node.js 24.20.0
   containers, and GitHub-hosted CI now passes for `main`.
