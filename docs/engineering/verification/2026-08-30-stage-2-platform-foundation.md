@@ -30,6 +30,8 @@
   matrix: 31 checks passed across Chromium, Firefox, and WebKit; the two
   non-WebKit copies of the WebKit-only touch test were skipped by design.
 - Both clean installs reported zero dependency vulnerabilities.
+- GitHub Actions workflow `CI` completed successfully for `main` at commit
+  `8d8b8b8e13a548366601e6cba173fe7fb9092435` (run `33403126890`).
 
 ## Browser Inspection
 
@@ -40,8 +42,9 @@
 ## Known Limits
 
 - The managed environment prevents Turbopack's production PostCSS worker from binding its local port. `next build --webpack` passes; ADR 0008 requires an unrestricted CI/Vercel Turbopack retest.
-- GitHub, Vercel, and Supabase projects are not connected, so preview deployment and cloud environment checks remain external gates.
+- Vercel still requires project creation/linking and deployment credentials;
+  Supabase remains intentionally unconnected until Stage 6.
 - The original host verification used Node.js 26.5.0. The complete quality and
   three-browser gates now also pass locally in isolated Node.js 24.20.0
-  containers, but GitHub-hosted execution has not run remotely.
+  containers, and GitHub-hosted CI now passes for `main`.
 - Stage 3 visual direction selection is intentionally not started or implied by this foundation.

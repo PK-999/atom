@@ -198,13 +198,14 @@ Gate: **Local gate passed; cloud gate pending**
 - [x] Local production build and cross-browser verification passed.
 - [x] Clean-install quality, build, and three-browser gates passed in isolated
   containers on the exact pinned Node.js 24.20.0 runtime.
-- [ ] GitHub-hosted CI run confirmed.
+- [x] GitHub-hosted CI run confirmed for `main` at `8d8b8b8` (workflow run
+  `33403126890`, passed).
 - [ ] Vercel preview deployment behavior confirmed on the pinned Node runtime.
 
-External prerequisite audit on 2026-08-31: no Git remote is configured,
-GitHub CLI authentication is invalid, and no Vercel project link or deployment
-credentials are available. Completing the two remaining checks therefore
-requires account authorization and external project creation/linking.
+External prerequisite audit on 2026-08-31: GitHub is now connected and the
+hosted CI workflow passes. Vercel still requires project creation/linking and
+deployment credentials; Supabase remains intentionally unconnected until Stage
+6.
 
 Evidence:
 
