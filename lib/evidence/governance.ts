@@ -85,17 +85,66 @@ export const EvidenceAvailabilitySchema = z
     const anyModeAvailable = Object.values(availability.modes).includes(
       "available",
     );
+    const hasCoverage =
+      availability.technologyIds.length > 0 &&
+      availability.geographyIds.length > 0 &&
+      availability.period !== null;
     if (
       availability.status === "supported" &&
-      (availability.technologyIds.length === 0 ||
-        availability.geographyIds.length === 0 ||
-        availability.period === null ||
-        !anyModeAvailable)
+      (!hasCoverage || !anyModeAvailable)
     ) {
       context.addIssue({
         code: "custom",
         message:
           "Supported evidence requires technology, geography, period, and at least one available mode.",
+      });
+    }
+    if (
+      (availability.status === "partial" ||
+        availability.status === "stale" ||
+        availability.status === "disputed") &&
+      (!hasCoverage || !anyModeAvailable)
+    ) {
+      context.addIssue({
+        code: "custom",
+        message:
+          "Partial, stale, and disputed evidence require declared coverage and at least one available mode.",
+      });
+    }
+    if (
+      availability.status === "incompatible" &&
+      (!hasCoverage ||
+        availability.modes.typical === "available" ||
+        availability.modes.range === "available")
+    ) {
+      context.addIssue({
+        code: "custom",
+        message:
+          "Incompatible evidence requires coverage and cannot expose Typical or Range as directly comparable.",
+        path: ["modes"],
+      });
+    }
+    if (
+      availability.status === "unavailable" &&
+      Object.values(availability.modes).some((mode) => mode !== "unavailable")
+    ) {
+      context.addIssue({
+        code: "custom",
+        message: "Unavailable evidence cannot expose any available mode.",
+        path: ["modes"],
+      });
+    }
+    if (
+      availability.status === "restricted" &&
+      (!hasCoverage ||
+        anyModeAvailable ||
+        availability.modes.raw !== "restricted" ||
+        availability.redistributionLicense === "allowed")
+    ) {
+      context.addIssue({
+        code: "custom",
+        message:
+          "Restricted evidence requires coverage, no available modes, restricted Raw mode, and non-allowed redistribution.",
       });
     }
     if (
@@ -347,6 +396,8 @@ export function canPublishObservation(
     if (!materialCorrection) {
       reasons.push("missing-material-correction");
     } else if (
+      materialCorrection.correctedAt > observation.lastVerifiedAt ||
+      materialCorrection.correctedAt > context.dataset.lastVerifiedAt ||
       (reviewedAt && materialCorrection.correctedAt > reviewedAt) ||
       (publishedAt && materialCorrection.correctedAt > publishedAt)
     ) {

@@ -212,16 +212,49 @@ describe("availability states", () => {
     "restricted",
     "stale",
   ] as const)("parses an explicit %s state", (status) => {
+    const statusContract = {
+      incompatible: {
+        modes: {
+          range: "unavailable" as const,
+          raw: "available" as const,
+          typical: "unavailable" as const,
+        },
+      },
+      partial: {
+        modes: {
+          range: "unavailable" as const,
+          raw: "restricted" as const,
+          typical: "available" as const,
+        },
+      },
+      restricted: {
+        modes: {
+          range: "restricted" as const,
+          raw: "restricted" as const,
+          typical: "restricted" as const,
+        },
+        redistributionLicense: "restricted" as const,
+      },
+      stale: {},
+      supported: {},
+      unavailable: {
+        modes: {
+          range: "unavailable" as const,
+          raw: "unavailable" as const,
+          typical: "unavailable" as const,
+        },
+      },
+      unreviewed: {
+        modes: {
+          range: "unavailable" as const,
+          raw: "unavailable" as const,
+          typical: "unavailable" as const,
+        },
+      },
+    }[status];
     const parsed = EvidenceAvailabilitySchema.parse({
       ...coverage,
-      modes:
-        status === "unreviewed"
-          ? {
-              range: "unavailable",
-              raw: "unavailable",
-              typical: "unavailable",
-            }
-          : coverage.modes,
+      ...statusContract,
       status,
     });
     expect(parsed).toMatchObject({ metricId: "fixture-power", status });
@@ -237,6 +270,31 @@ describe("availability states", () => {
         status: "supported",
       }).success,
     ).toBe(false);
+  });
+
+  it.each([
+    {
+      ...coverage,
+      status: "unavailable",
+    },
+    {
+      ...coverage,
+      status: "restricted",
+    },
+    {
+      ...coverage,
+      geographyIds: [],
+      modes: {
+        range: "unavailable",
+        raw: "unavailable",
+        typical: "unavailable",
+      },
+      period: null,
+      status: "partial",
+      technologyIds: [],
+    },
+  ] as const)("rejects contradictory status coverage and modes", (record) => {
+    expect(EvidenceAvailabilitySchema.safeParse(record).success).toBe(false);
   });
 });
 
@@ -428,6 +486,32 @@ describe("publication policy", () => {
         materialRevisionFrom: "fixture-v1",
         publication: { ...publication, datasetVersion: "fixture-v2" },
       }),
+    ).toMatchObject({
+      eligible: false,
+      reasons: ["correction-chronology-mismatch"],
+    });
+
+    expect(
+      canPublishObservation(
+        { ...observation, lastVerifiedAt: "2026-08-29" },
+        {
+          ...publicationContext,
+          corrections: [
+            {
+              ...futureCorrection,
+              correctedAt: "2026-08-30",
+            },
+          ],
+          dataset: {
+            ...dataset,
+            lastVerifiedAt: "2026-08-29",
+            version: "fixture-v2",
+          },
+          materialRevisionFrom: "fixture-v1",
+          publication: { ...publication, datasetVersion: "fixture-v2" },
+          source: { ...source, accessedAt: "2026-08-29" },
+        },
+      ),
     ).toMatchObject({
       eligible: false,
       reasons: ["correction-chronology-mismatch"],
