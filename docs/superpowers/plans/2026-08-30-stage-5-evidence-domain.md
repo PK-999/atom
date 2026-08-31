@@ -160,7 +160,7 @@ React, Next.js, database, or browser modules.
 - [x] Complete the domain barrel and resolve type inconsistencies without adding
   framework imports.
 - [x] Run all evidence tests and the repository suite.
-- [ ] Update the tracker only when every Stage 5 exit criterion is evidenced.
+- [x] Update the tracker only when every Stage 5 exit criterion is evidenced.
 
 ### Task 7: Stage 5 verification and review
 

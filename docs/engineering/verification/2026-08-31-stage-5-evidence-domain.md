@@ -83,7 +83,8 @@ be reviewed without post-correction observation and dataset verification. All
 findings are fixed with focused regressions. The next follow-up found one final
 Important gap allowing a correction to predate source access; source access now
 precedes correction, reverification, review, and publication in both the policy
-and tested gate. Final re-review is pending before the gate is marked passed.
+and tested gate. The final re-review found no remaining Critical, Important, or
+Minor issues and declared the branch merge-ready.
 
 ## Remaining limitations
 
@@ -100,7 +101,7 @@ and tested gate. Final re-review is pending before the gate is marked passed.
 
 ## Gate result
 
-Pending final independent re-review. All local technical, browser,
-accessibility, and dependency checks pass. One Firefox navigation timed out in
-the first complete browser run; the exact case then passed three consecutive
-isolated runs and the complete 33-case matrix passed on a clean rerun.
+Passed. All local technical, browser, accessibility, dependency, and review
+checks pass. One Firefox navigation timed out in the first complete browser
+run; the exact case then passed three consecutive isolated runs, and two later
+complete 33-case matrices passed cleanly.

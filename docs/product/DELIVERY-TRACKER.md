@@ -35,7 +35,7 @@ unverified value.
 | 2 | Application and quality foundation | Locally verified | External checks pending | Run GitHub CI and a Vercel preview on the pinned Node runtime. |
 | 3 | Visual direction selection | Complete | Passed | Preserve the approved Digital Science Museum / Scientific Editorial blend. |
 | 4 | Design system and application shell | Complete | Passed | Reuse the verified shell and primitive contracts in the flagship. |
-| 5 | Evidence domain and governance | In progress | Final re-review pending | Confirm all independent-review fixes, then close the local gate. |
+| 5 | Evidence domain and governance | Complete | Passed | Preserve the contracts while Stage 6 adds database enforcement. |
 | 6 | Supabase and ingestion platform | Not started | Not passed | Design migrations and prove one licensed observation through the pipeline. |
 | 7 | Headless comparison engine | Not started | Not passed | Implement tested URL state and comparison-domain APIs. |
 | 8 | Shared Comparison Lab experience | Prototype only | Not passed | Replace preview fixtures with reviewed repository-backed test evidence. |
@@ -61,9 +61,9 @@ unverified value.
 
 ### Stage 5 — Evidence Domain and Editorial Governance
 
-Status: **In progress — final re-review pending**
+Status: **Complete**
 
-Exit gate: **Local technical and browser checks passed; review gate open**
+Exit gate: **Passed**
 
 Current verification:
 
@@ -73,7 +73,8 @@ Current verification:
   copies of the WebKit-only touch regression are intentionally skipped.
 - The high-severity dependency audit reports zero vulnerabilities.
 - Independent reviews found no Critical issues. All fourteen Important issues
-  have regression-tested fixes and await final re-review.
+  have regression-tested fixes; the final re-review found no remaining
+  Critical, Important, or Minor issues.
 - Verification record:
   `docs/engineering/verification/2026-08-31-stage-5-evidence-domain.md`.
 
@@ -232,7 +233,7 @@ Evidence:
 
 ### Stage 5 — Evidence Domain and Editorial Governance
 
-Status: **In progress — final re-review pending**
+Status: **Complete**
 
 Acceptance sequence:
 
@@ -245,7 +246,7 @@ Acceptance sequence:
   React.
 - [x] Define source-tier, conflict, correction, review, and publication flows.
 - [x] Prove the domain can evaluate evidence without React imports.
-- [ ] Obtain final independent re-review with no Critical or Important findings.
+- [x] Obtain final independent re-review with no Critical or Important findings.
 
 ### Stage 6 — Supabase and Evidence Ingestion
 
