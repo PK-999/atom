@@ -6,6 +6,7 @@ import {
   GeographySchema,
   MetricSchema,
   ObservationSchema,
+  PeriodSchema,
   PublicationRecordSchema,
   SourceSchema,
   StudySchema,
@@ -22,10 +23,34 @@ import {
   type Technology,
 } from "./schemas";
 
+const AvailabilityModeSchema = z.enum([
+  "available",
+  "unavailable",
+  "restricted",
+]);
+const CoverageIdentifierSchema = z.string().trim().min(1);
+const AvailabilityCoverageFields = {
+  geographyIds: z.array(CoverageIdentifierSchema).readonly(),
+  message: z.string().trim().min(1),
+  metricId: CoverageIdentifierSchema,
+  modes: z
+    .object({
+      range: AvailabilityModeSchema,
+      raw: AvailabilityModeSchema,
+      typical: AvailabilityModeSchema,
+    })
+    .strict()
+    .readonly(),
+  period: PeriodSchema.nullable(),
+  redistributionLicense: z.enum(["allowed", "restricted", "unknown"]),
+  technologyIds: z.array(CoverageIdentifierSchema).readonly(),
+} as const;
+
 const ExplainedAvailabilitySchema = z
   .object({
-    message: z.string().trim().min(1),
+    ...AvailabilityCoverageFields,
     status: z.enum([
+      "unreviewed",
       "supported",
       "partial",
       "incompatible",
@@ -38,19 +63,63 @@ const ExplainedAvailabilitySchema = z
 
 const DisputedAvailabilitySchema = z
   .object({
-    alternativeObservationIds: z.array(z.string().trim().min(1)).min(1),
+    ...AvailabilityCoverageFields,
+    alternativeObservationIds: z
+      .array(CoverageIdentifierSchema)
+      .min(1)
+      .readonly(),
     broadAgreement: z.string().trim().min(1),
     disagreementSummary: z.string().trim().min(1),
     remainingUncertainty: z.string().trim().min(1),
-    representativeObservationId: z.string().trim().min(1),
+    representativeObservationId: CoverageIdentifierSchema,
     status: z.literal("disputed"),
   })
   .strict();
 
-export const EvidenceAvailabilitySchema = z.discriminatedUnion("status", [
-  ExplainedAvailabilitySchema,
-  DisputedAvailabilitySchema,
-]);
+export const EvidenceAvailabilitySchema = z
+  .discriminatedUnion("status", [
+    ExplainedAvailabilitySchema,
+    DisputedAvailabilitySchema,
+  ])
+  .superRefine((availability, context) => {
+    const anyModeAvailable = Object.values(availability.modes).includes(
+      "available",
+    );
+    if (
+      availability.status === "supported" &&
+      (availability.technologyIds.length === 0 ||
+        availability.geographyIds.length === 0 ||
+        availability.period === null ||
+        !anyModeAvailable)
+    ) {
+      context.addIssue({
+        code: "custom",
+        message:
+          "Supported evidence requires technology, geography, period, and at least one available mode.",
+      });
+    }
+    if (
+      availability.status === "unreviewed" &&
+      Object.values(availability.modes).some((mode) => mode !== "unavailable")
+    ) {
+      context.addIssue({
+        code: "custom",
+        message: "Unreviewed evidence cannot expose an available mode.",
+        path: ["modes"],
+      });
+    }
+    if (
+      availability.modes.raw === "available" &&
+      availability.redistributionLicense !== "allowed"
+    ) {
+      context.addIssue({
+        code: "custom",
+        message: "Raw mode requires an allowed redistribution licence.",
+        path: ["modes", "raw"],
+      });
+    }
+  })
+  .readonly();
 
 export type EvidenceAvailability = z.infer<typeof EvidenceAvailabilitySchema>;
 
@@ -127,6 +196,8 @@ export type PublicationEligibilityReason =
   | "observation-metric-mismatch"
   | "observation-license-mismatch"
   | "publication-relationship-mismatch"
+  | "cross-entity-chronology-mismatch"
+  | "correction-chronology-mismatch"
   | "not-published"
   | "missing-material-correction"
   | "redistribution-restricted"
@@ -247,8 +318,24 @@ export function canPublishObservation(
     reasons.push("not-published");
   }
 
+  const reviewedAt = context.publication.reviewedAt;
+  const publishedAt = context.publication.publishedAt;
+  if (
+    reviewedAt &&
+    publishedAt &&
+    (context.source.accessedAt > context.dataset.lastVerifiedAt ||
+      context.source.accessedAt > observation.lastVerifiedAt ||
+      context.source.accessedAt > reviewedAt ||
+      observation.lastVerifiedAt > context.dataset.lastVerifiedAt ||
+      observation.lastVerifiedAt > reviewedAt ||
+      context.dataset.lastVerifiedAt > reviewedAt ||
+      reviewedAt > publishedAt)
+  ) {
+    reasons.push("cross-entity-chronology-mismatch");
+  }
+
   if (context.materialRevisionFrom) {
-    const hasMaterialCorrection = (context.corrections ?? []).some(
+    const materialCorrection = (context.corrections ?? []).find(
       (correction) =>
         CorrectionSchema.safeParse(correction).success &&
         correction.affectedEntityId === observation.id &&
@@ -257,7 +344,14 @@ export function canPublishObservation(
         correction.priorVersion === context.materialRevisionFrom &&
         correction.correctedVersion === context.publication.datasetVersion,
     );
-    if (!hasMaterialCorrection) reasons.push("missing-material-correction");
+    if (!materialCorrection) {
+      reasons.push("missing-material-correction");
+    } else if (
+      (reviewedAt && materialCorrection.correctedAt > reviewedAt) ||
+      (publishedAt && materialCorrection.correctedAt > publishedAt)
+    ) {
+      reasons.push("correction-chronology-mismatch");
+    }
   }
 
   return { eligible: reasons.length === 0, reasons: [...new Set(reasons)] };

@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { canConvertUnit } from "./unit-registry";
+
 const IdentifierSchema = z
   .string()
   .trim()
@@ -143,6 +145,18 @@ const NumericMetricSchema = z
         path: ["supportedUnits"],
       });
     }
+    if (
+      metric.supportedUnits.some(
+        (unit) => !canConvertUnit(metric.canonicalUnit, unit),
+      )
+    ) {
+      context.addIssue({
+        code: "custom",
+        message:
+          "Every supported unit must be registered and convertible to the canonical unit.",
+        path: ["supportedUnits"],
+      });
+    }
   });
 
 const CategoricalMetricSchema = z
@@ -283,6 +297,13 @@ export const RepresentativeKindSchema = z.enum([
   "source-observation",
 ]);
 
+export const CategoricalRepresentativeKindSchema = z.enum([
+  "central-estimate",
+  "regulator-value",
+  "model-default",
+  "source-observation",
+]);
+
 export const TransformationSchema = z
   .object({
     description: NonEmptyStringSchema,
@@ -303,7 +324,6 @@ const CommonObservationFields = {
   period: PeriodSchema,
   publicationStatus: PublicationStatusSchema,
   rawAccess: z.enum(["permitted", "restricted", "unavailable"]),
-  representativeKind: RepresentativeKindSchema,
   sourceId: IdentifierSchema,
   studyId: IdentifierSchema,
   systemBoundary: NonEmptyStringSchema,
@@ -317,6 +337,7 @@ const NumericPointObservationObjectSchema = z
     ...CommonObservationFields,
     kind: z.literal("numeric"),
     range: z.undefined().optional(),
+    representativeKind: RepresentativeKindSchema,
     unit: NonEmptyStringSchema,
     value: z.number().finite(),
     valueSemantics: z.literal("point"),
@@ -345,19 +366,32 @@ const IntervalRangeSchema = z
     level: z.number().finite().gt(0).lte(1).optional(),
     lower: z.number().finite(),
     representative: z.number().finite(),
+    sourceLabel: NonEmptyStringSchema.optional(),
     upper: z.number().finite(),
   })
   .strict()
   .superRefine((range, context) => {
     if (
       (range.intervalType === "confidence" ||
-        range.intervalType === "credible") &&
+        range.intervalType === "credible" ||
+        range.intervalType === "prediction") &&
       range.level === undefined
     ) {
       context.addIssue({
         code: "custom",
-        message: "Confidence and credible intervals require a level.",
+        message:
+          "Confidence, credible, and prediction intervals require a level.",
         path: ["level"],
+      });
+    }
+    if (
+      range.intervalType === "source-defined" &&
+      range.sourceLabel === undefined
+    ) {
+      context.addIssue({
+        code: "custom",
+        message: "Source-defined intervals require a display label.",
+        path: ["sourceLabel"],
       });
     }
   });
@@ -379,6 +413,7 @@ const NumericRangeObservationObjectSchema = z
     ...CommonObservationFields,
     kind: z.literal("numeric"),
     range: RangeSchema,
+    representativeKind: RepresentativeKindSchema,
     unit: NonEmptyStringSchema,
     value: z.undefined().optional(),
     valueSemantics: z.literal("range"),
@@ -401,6 +436,7 @@ export const CategoricalObservationSchema = z
     ...CommonObservationFields,
     categoryDefinition: NonEmptyStringSchema,
     kind: z.literal("categorical"),
+    representativeKind: CategoricalRepresentativeKindSchema,
     unit: z.undefined().optional(),
     value: NonEmptyStringSchema,
     valueSemantics: z.literal("categorical"),

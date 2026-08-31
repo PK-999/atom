@@ -102,11 +102,11 @@ describe("evidence entity schemas", () => {
       MetricSchema.parse({
         category: "environment",
         definition: "A synthetic metric definition for contract tests.",
-        canonicalUnit: "fixture-unit",
+        canonicalUnit: "MW",
         geographySupport: ["global"],
         id: "fixture-metric",
         rangeSemantics: "point-or-range",
-        supportedUnits: ["fixture-unit"],
+        supportedUnits: ["MW"],
         valueKind: "numeric",
       }),
       CitationSchema.parse({
@@ -170,6 +170,21 @@ describe("evidence entity schemas", () => {
         valueKind: "categorical",
       }),
     ).toMatchObject({ valueKind: "categorical" });
+  });
+
+  it("rejects dimensionally incompatible supported metric units", () => {
+    expect(
+      MetricSchema.safeParse({
+        category: "technical",
+        definition: "Synthetic invalid metric.",
+        canonicalUnit: "MW",
+        geographySupport: ["global"],
+        id: "fixture-invalid-metric",
+        rangeSemantics: "point-or-range",
+        supportedUnits: ["MW", "MWh"],
+        valueKind: "numeric",
+      }).success,
+    ).toBe(false);
   });
 
   it("rejects reversed source and publication chronology", () => {
@@ -241,6 +256,18 @@ describe("observation schemas", () => {
 
     expect(result.value).toBe("fixture-category");
     expect(result.sourceId).toBe("fixture-source");
+    expect(
+      CategoricalObservationSchema.safeParse({
+        ...pointObservation,
+        categoryDefinition: "Synthetic category definition.",
+        id: "fixture-invalid-category",
+        kind: "categorical",
+        representativeKind: "mean",
+        unit: undefined,
+        value: "fixture-category",
+        valueSemantics: "categorical",
+      }).success,
+    ).toBe(false);
   });
 
   it.each([
@@ -329,6 +356,52 @@ describe("observation schemas", () => {
           level: 0.95,
           lower: 10,
           representative: 20,
+          upper: 30,
+        },
+        value: undefined,
+        valueSemantics: "range",
+      }).success,
+    ).toBe(true);
+    expect(
+      NumericObservationSchema.safeParse({
+        ...pointObservation,
+        id: "fixture-prediction-interval",
+        range: {
+          intervalType: "prediction",
+          kind: "interval",
+          lower: 10,
+          representative: 20,
+          upper: 30,
+        },
+        value: undefined,
+        valueSemantics: "range",
+      }).success,
+    ).toBe(false);
+    expect(
+      NumericObservationSchema.safeParse({
+        ...pointObservation,
+        id: "fixture-source-interval",
+        range: {
+          intervalType: "source-defined",
+          kind: "interval",
+          lower: 10,
+          representative: 20,
+          upper: 30,
+        },
+        value: undefined,
+        valueSemantics: "range",
+      }).success,
+    ).toBe(false);
+    expect(
+      NumericObservationSchema.safeParse({
+        ...pointObservation,
+        id: "fixture-labelled-source-interval",
+        range: {
+          intervalType: "source-defined",
+          kind: "interval",
+          lower: 10,
+          representative: 20,
+          sourceLabel: "Synthetic study-defined envelope",
           upper: 30,
         },
         value: undefined,

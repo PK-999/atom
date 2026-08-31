@@ -74,7 +74,7 @@ const publication = {
   entityType: "observation" as const,
   id: "fixture-publication",
   publishedAt: "2026-08-30",
-  reviewedAt: "2026-08-29",
+  reviewedAt: "2026-08-30",
   reviewedBy: "fixture-reviewer",
   status: "published" as const,
 } satisfies PublicationRecord;
@@ -132,6 +132,20 @@ const publicationContext = {
   technology,
 };
 
+const coverage = {
+  geographyIds: ["fixture-global"],
+  message: "Synthetic availability explanation.",
+  metricId: "fixture-power",
+  modes: {
+    range: "available" as const,
+    raw: "available" as const,
+    typical: "available" as const,
+  },
+  period: { endYear: 2025, startYear: 2020 },
+  redistributionLicense: "allowed" as const,
+  technologyIds: ["fixture-technology"],
+};
+
 describe("freshness governance", () => {
   it("treats the exact review interval boundary as fresh and the next day as stale", () => {
     expect(
@@ -172,6 +186,7 @@ describe("availability states", () => {
   it("represents disputed evidence without numeric confidence", () => {
     expect(
       EvidenceAvailabilitySchema.parse({
+        ...coverage,
         alternativeObservationIds: ["fixture-alternative"],
         broadAgreement: "Synthetic agreement statement.",
         disagreementSummary: "Synthetic methods produce different results.",
@@ -189,6 +204,7 @@ describe("availability states", () => {
   });
 
   it.each([
+    "unreviewed",
     "supported",
     "partial",
     "incompatible",
@@ -196,12 +212,31 @@ describe("availability states", () => {
     "restricted",
     "stale",
   ] as const)("parses an explicit %s state", (status) => {
+    const parsed = EvidenceAvailabilitySchema.parse({
+      ...coverage,
+      modes:
+        status === "unreviewed"
+          ? {
+              range: "unavailable",
+              raw: "unavailable",
+              typical: "unavailable",
+            }
+          : coverage.modes,
+      status,
+    });
+    expect(parsed).toMatchObject({ metricId: "fixture-power", status });
+    expect(Object.isFrozen(parsed)).toBe(true);
+    expect(Object.isFrozen(parsed.modes)).toBe(true);
+    expect(Object.isFrozen(parsed.technologyIds)).toBe(true);
+  });
+
+  it("rejects a supported label without its coverage and mode declaration", () => {
     expect(
-      EvidenceAvailabilitySchema.parse({
-        message: "Synthetic availability explanation.",
-        status,
-      }),
-    ).toEqual({ message: "Synthetic availability explanation.", status });
+      EvidenceAvailabilitySchema.safeParse({
+        message: "Synthetic incomplete availability.",
+        status: "supported",
+      }).success,
+    ).toBe(false);
   });
 });
 
@@ -351,6 +386,53 @@ describe("publication policy", () => {
       reasons: ["observation-license-mismatch"],
     });
   });
+
+  it("enforces chronology across source, verification, review, and publication", () => {
+    expect(
+      canPublishObservation(
+        { ...observation, lastVerifiedAt: "2026-08-31" },
+        publicationContext,
+      ),
+    ).toMatchObject({
+      eligible: false,
+      reasons: ["cross-entity-chronology-mismatch"],
+    });
+    expect(
+      canPublishObservation(observation, {
+        ...publicationContext,
+        dataset: { ...dataset, lastVerifiedAt: "2026-08-29" },
+      }),
+    ).toMatchObject({
+      eligible: false,
+      reasons: ["cross-entity-chronology-mismatch"],
+    });
+  });
+
+  it("rejects a material correction recorded after its publication", () => {
+    const futureCorrection = {
+      affectedEntityId: "fixture-observation",
+      affectedEntityType: "observation" as const,
+      correctedAt: "2026-08-31",
+      correctedVersion: "fixture-v2",
+      id: "fixture-future-correction",
+      materialImpact: "material" as const,
+      priorVersion: "fixture-v1",
+      reason: "Synthetic future correction.",
+    } satisfies Correction;
+
+    expect(
+      canPublishObservation(observation, {
+        ...publicationContext,
+        corrections: [futureCorrection],
+        dataset: { ...dataset, version: "fixture-v2" },
+        materialRevisionFrom: "fixture-v1",
+        publication: { ...publication, datasetVersion: "fixture-v2" },
+      }),
+    ).toMatchObject({
+      eligible: false,
+      reasons: ["correction-chronology-mismatch"],
+    });
+  });
 });
 
 describe("publication workflow", () => {
@@ -362,7 +444,7 @@ describe("publication workflow", () => {
     expect(
       transitionPublication(review.record, "published", {
         publishedAt: "2026-08-30",
-        reviewedAt: "2026-08-29",
+        reviewedAt: "2026-08-30",
         reviewedBy: "fixture-reviewer",
       }),
     ).toMatchObject({ ok: true, record: { status: "published" } });

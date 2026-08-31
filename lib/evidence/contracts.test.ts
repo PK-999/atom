@@ -68,7 +68,7 @@ describe("public evidence-domain contract", () => {
       entityType: "observation",
       id: "fixture-publication",
       publishedAt: "2026-08-30",
-      reviewedAt: "2026-08-29",
+      reviewedAt: "2026-08-30",
       reviewedBy: "fixture-reviewer",
       status: "published",
     });
