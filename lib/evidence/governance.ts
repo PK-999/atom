@@ -396,6 +396,7 @@ export function canPublishObservation(
     if (!materialCorrection) {
       reasons.push("missing-material-correction");
     } else if (
+      materialCorrection.correctedAt < context.source.accessedAt ||
       materialCorrection.correctedAt > observation.lastVerifiedAt ||
       materialCorrection.correctedAt > context.dataset.lastVerifiedAt ||
       (reviewedAt && materialCorrection.correctedAt > reviewedAt) ||

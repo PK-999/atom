@@ -517,6 +517,32 @@ describe("publication policy", () => {
       reasons: ["correction-chronology-mismatch"],
     });
   });
+
+  it("rejects a material correction recorded before its source was accessed", () => {
+    expect(
+      canPublishObservation(observation, {
+        ...publicationContext,
+        corrections: [
+          {
+            affectedEntityId: "fixture-observation",
+            affectedEntityType: "observation",
+            correctedAt: "2026-08-29",
+            correctedVersion: "fixture-v2",
+            id: "fixture-pre-access-correction",
+            materialImpact: "material",
+            priorVersion: "fixture-v1",
+            reason: "Synthetic correction before source access.",
+          },
+        ],
+        dataset: { ...dataset, version: "fixture-v2" },
+        materialRevisionFrom: "fixture-v1",
+        publication: { ...publication, datasetVersion: "fixture-v2" },
+      }),
+    ).toMatchObject({
+      eligible: false,
+      reasons: ["correction-chronology-mismatch"],
+    });
+  });
 });
 
 describe("publication workflow", () => {
