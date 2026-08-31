@@ -110,7 +110,12 @@ Every metric release record also declares the metric, supported technologies,
 geographies, period, Typical/Range/Raw mode availability, and redistribution
 licence. A `supported` label is invalid without non-empty technology and
 geography coverage, an applicable period, and at least one available mode. Raw
-mode cannot be available unless redistribution is allowed.
+mode cannot be available unless redistribution is allowed. `partial`, `stale`,
+and `disputed` states require declared coverage and at least one available
+mode. `incompatible` records may expose inspectable Raw evidence but cannot
+mark Typical or Range as directly available. `unavailable` exposes no modes.
+`restricted` exposes no available modes, marks Raw as restricted, and cannot
+claim that redistribution is allowed.
 
 Freshness is evaluated in whole UTC calendar days. Evidence is fresh through
 the exact due date and stale on the following day. The review interval is set
@@ -141,9 +146,10 @@ consistency. Stage 6 must also enforce this boundary in PostgreSQL row-level
 security so draft records cannot leak through a different repository path.
 
 The publication gate orders the complete evidence lifecycle: source
-publication, source access, observation verification, dataset verification,
-review, publication, and material correction. A later event cannot authorize an
-earlier publication record.
+publication, source access, material correction when present, observation and
+dataset verification, review, and publication. A corrected version is not
+eligible until both its observation and dataset have been reverified after the
+correction; review and publication must then follow that verification.
 
 Raw observations are public only when the complete publication gate passes,
 raw access is permitted, and the observation, dataset, and authoritative source
