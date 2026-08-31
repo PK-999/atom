@@ -4,7 +4,7 @@ Last updated: 2026-08-31
 
 Last verified implementation commit: `23e5b44`
 
-Current branch: `feat/stage4-stage5-completion`
+Current branch: `main`
 
 This is the operational tracker for the ATOM Master Delivery To-Do. Product
 specifications remain authoritative when this summary and a source document

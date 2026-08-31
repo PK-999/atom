@@ -175,4 +175,4 @@ React, Next.js, database, or browser modules.
 - [x] Request independent scientific-domain and code review; resolve every
   Critical and Important issue with a regression test where applicable.
 - [x] Record remaining limitations, decisions, and release notes.
-- [ ] Merge locally only after the Stage 4 and Stage 5 gates both pass.
+- [x] Merge locally only after the Stage 4 and Stage 5 gates both pass.
