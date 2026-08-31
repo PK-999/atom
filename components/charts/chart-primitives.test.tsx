@@ -82,6 +82,33 @@ describe("chart primitives", () => {
     expect(within(figure).getByText("35 fixture units")).toBeVisible();
   });
 
+  it("maps clustered non-zero ranges across the available track", () => {
+    render(
+      <RangePlot
+        data={[
+          {
+            ...rangeData[0]!,
+            formattedLower: "1,000 fixture units",
+            formattedRepresentative: "1,005 fixture units",
+            formattedUpper: "1,010 fixture units",
+            lower: 1_000,
+            representative: 1_005,
+            upper: 1_010,
+          },
+        ]}
+        title="Clustered range"
+      />,
+    );
+
+    const row = screen.getByText("Range fixture").closest("li");
+    expect(row?.getAttribute("style")).toContain(
+      "--range-start: 4.545454545454546%",
+    );
+    expect(row?.getAttribute("style")).toContain(
+      "--range-end: 95.45454545454545%",
+    );
+  });
+
   it("exposes every distribution observation as text", () => {
     render(
       <DistributionPlot
@@ -149,6 +176,50 @@ describe("chart primitives", () => {
 
     expect(
       screen.getByRole("heading", { name: "Missing chart evidence" }),
+    ).toBeVisible();
+  });
+
+  it("renders explicit range and distribution states instead of silent blanks", () => {
+    render(
+      <>
+        <RangePlot
+          data={[]}
+          state={{
+            message: "Comparable ranges are not available.",
+            title: "Missing range evidence",
+            tone: "missing",
+          }}
+          title="Unavailable ranges"
+        />
+        <DistributionPlot
+          observations={[]}
+          title="Unavailable distribution"
+          unit="fixture units"
+        />
+      </>,
+    );
+
+    expect(
+      screen.getByRole("heading", { name: "Missing range evidence" }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Empty chart" })).toBeVisible();
+  });
+
+  it("renders loading chart states as named progress indicators", () => {
+    render(
+      <RangePlot
+        data={[]}
+        state={{
+          message: "Loading reviewed ranges.",
+          title: "Loading range evidence",
+          tone: "loading",
+        }}
+        title="Loading ranges"
+      />,
+    );
+
+    expect(
+      screen.getByRole("status", { name: "Loading range evidence" }),
     ).toBeVisible();
   });
 });

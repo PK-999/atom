@@ -9,7 +9,9 @@ test("design system playground exposes the complete keyboard-accessible primitiv
     if (message.type() === "error") consoleErrors.push(message.text());
   });
 
-  await page.goto("/design-system?level=expert");
+  await page.goto("/design-system?level=expert", {
+    waitUntil: "domcontentloaded",
+  });
 
   await expect(
     page.getByRole("heading", { level: 1, name: "ATOM component playground" }),
@@ -60,7 +62,7 @@ test("design system mobile composition avoids core horizontal scrolling", async 
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/design-system");
+  await page.goto("/design-system", { waitUntil: "domcontentloaded" });
 
   await expect(
     page.getByRole("heading", { level: 1, name: "ATOM component playground" }),
@@ -89,7 +91,7 @@ test("design system remains usable with reduced motion and 200% zoom equivalent"
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 720, height: 450 });
-  await page.goto("/design-system");
+  await page.goto("/design-system", { waitUntil: "domcontentloaded" });
 
   const transitionSeconds = await page
     .getByRole("button", { name: "Primary action" })

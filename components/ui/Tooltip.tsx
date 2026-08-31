@@ -20,12 +20,15 @@ export function Tooltip({ content, label }: TooltipProps) {
       onKeyDown={(event) => {
         if (event.key === "Escape") setOpen(false);
       }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
     >
       <button
         aria-describedby={open ? id : undefined}
         aria-expanded={open}
         aria-label={label}
         onClick={() => setOpen((current) => !current)}
+        onBlur={() => setOpen(false)}
         onFocus={() => setOpen(true)}
         type="button"
       >

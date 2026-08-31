@@ -1,8 +1,8 @@
-import { Circle } from "@phosphor-icons/react/Circle";
-import { Diamond } from "@phosphor-icons/react/Diamond";
-import { Pentagon } from "@phosphor-icons/react/Pentagon";
-import { Square } from "@phosphor-icons/react/Square";
-import { Triangle } from "@phosphor-icons/react/Triangle";
+import { Circle } from "@phosphor-icons/react/dist/ssr/Circle";
+import { Diamond } from "@phosphor-icons/react/dist/ssr/Diamond";
+import { Pentagon } from "@phosphor-icons/react/dist/ssr/Pentagon";
+import { Square } from "@phosphor-icons/react/dist/ssr/Square";
+import { Triangle } from "@phosphor-icons/react/dist/ssr/Triangle";
 
 import type { ChartMarker as ChartMarkerName } from "./chart-types";
 

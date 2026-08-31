@@ -1,4 +1,4 @@
-import { ArrowSquareOut } from "@phosphor-icons/react/ArrowSquareOut";
+import { ArrowSquareOut } from "@phosphor-icons/react/dist/ssr/ArrowSquareOut";
 
 import { OverlayPanel } from "@/components/ui/OverlayPanel";
 

@@ -35,5 +35,5 @@ export interface DistributionObservation {
 export interface ChartState {
   message: string;
   title: string;
-  tone: "empty" | "missing" | "mismatch" | "stale" | "error";
+  tone: "loading" | "empty" | "missing" | "mismatch" | "stale" | "error";
 }

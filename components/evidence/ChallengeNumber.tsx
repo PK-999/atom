@@ -55,11 +55,15 @@ export function ChallengeNumber({
       </section>
       <section className={styles.challengeSection}>
         <h3>Known limitations</h3>
-        <ul>
-          {evidence.limitations.map((limitation) => (
-            <li key={limitation}>{limitation}</li>
-          ))}
-        </ul>
+        {evidence.limitations.length > 0 ? (
+          <ul>
+            {evidence.limitations.map((limitation) => (
+              <li key={limitation}>{limitation}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No reviewed limitation notes are available.</p>
+        )}
       </section>
     </OverlayPanel>
   );

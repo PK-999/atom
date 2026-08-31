@@ -1,9 +1,30 @@
 import type { ReactNode } from "react";
 
+import { Skeleton, StatePanel } from "@/components/ui/Feedback";
 import { Tooltip } from "@/components/ui/Tooltip";
 
-import type { ComparisonDatum } from "./chart-types";
+import type { ChartState, ComparisonDatum } from "./chart-types";
 import styles from "./charts.module.css";
+
+export function ChartStateSurface({
+  emptyMessage = "No observations are available.",
+  state,
+}: {
+  emptyMessage?: string;
+  state?: ChartState;
+}) {
+  if (state?.tone === "loading") {
+    return <Skeleton label={state.title} />;
+  }
+
+  return (
+    <StatePanel
+      message={state?.message ?? emptyMessage}
+      title={state?.title ?? "Empty chart"}
+      tone={state?.tone ?? "empty"}
+    />
+  );
+}
 
 export function ChartNarrativeSummary({ children }: { children: ReactNode }) {
   return (

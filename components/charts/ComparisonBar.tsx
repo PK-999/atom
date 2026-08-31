@@ -1,8 +1,6 @@
 import type { CSSProperties } from "react";
 
-import { StatePanel } from "@/components/ui/Feedback";
-
-import { ChartNarrativeSummary } from "./ChartDetails";
+import { ChartNarrativeSummary, ChartStateSurface } from "./ChartDetails";
 import { ChartMarker } from "./ChartMarker";
 import type { ChartState, ComparisonDatum } from "./chart-types";
 import styles from "./charts.module.css";
@@ -32,11 +30,7 @@ export function ComparisonBar({
         {data[0]?.unit ? <p>{data[0].unit}</p> : null}
       </figcaption>
       {state || data.length === 0 ? (
-        <StatePanel
-          message={state?.message ?? "No observations are available."}
-          title={state?.title ?? "Empty chart"}
-          tone={state?.tone ?? "empty"}
-        />
+        <ChartStateSurface state={state} />
       ) : (
         <ul aria-label={`${title} values`} className={styles.barList}>
           {data.map((datum) => (

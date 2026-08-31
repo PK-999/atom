@@ -1,6 +1,12 @@
 "use client";
 
-import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import {
+  useId,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type ReactNode,
+} from "react";
 
 import styles from "./ui.module.css";
 
@@ -16,6 +22,7 @@ interface TabsProps {
 }
 
 export function Tabs({ items, label }: TabsProps) {
+  const instanceId = useId();
   const [selectedId, setSelectedId] = useState(items[0]?.id ?? "");
   const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const selected = items.find((item) => item.id === selectedId) ?? items[0];
@@ -43,9 +50,9 @@ export function Tabs({ items, label }: TabsProps) {
       <div aria-label={label} className={styles.tabList} role="tablist">
         {items.map((item, index) => (
           <button
-            aria-controls={`${item.id}-panel`}
+            aria-controls={`${instanceId}-${item.id}-panel`}
             aria-selected={item.id === selected.id}
-            id={`${item.id}-tab`}
+            id={`${instanceId}-${item.id}-tab`}
             key={item.id}
             onClick={() => setSelectedId(item.id)}
             onKeyDown={(event) => moveSelection(event, index)}
@@ -61,9 +68,9 @@ export function Tabs({ items, label }: TabsProps) {
         ))}
       </div>
       <div
-        aria-labelledby={`${selected.id}-tab`}
+        aria-labelledby={`${instanceId}-${selected.id}-tab`}
         className={styles.tabPanel}
-        id={`${selected.id}-panel`}
+        id={`${instanceId}-${selected.id}-panel`}
         role="tabpanel"
       >
         {selected.content}

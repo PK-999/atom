@@ -104,6 +104,28 @@ describe("shared UI primitives", () => {
     expect(screen.getByRole("tabpanel")).toHaveTextContent("Method details");
   });
 
+  it("keeps tab and panel relationships unique across component instances", () => {
+    const items = [
+      { id: "summary", label: "Summary", content: "Concise evidence" },
+      { id: "method", label: "Method", content: "Method details" },
+    ];
+    render(
+      <>
+        <Tabs items={items} label="First evidence views" />
+        <Tabs items={items} label="Second evidence views" />
+      </>,
+    );
+
+    const summaryTabs = screen.getAllByRole("tab", { name: "Summary" });
+    const panels = screen.getAllByRole("tabpanel");
+    expect(new Set(summaryTabs.map((tab) => tab.id)).size).toBe(2);
+    expect(new Set(panels.map((panel) => panel.id)).size).toBe(2);
+    summaryTabs.forEach((tab, index) => {
+      expect(tab).toHaveAttribute("aria-controls", panels[index]?.id);
+      expect(panels[index]).toHaveAttribute("aria-labelledby", tab.id);
+    });
+  });
+
   it("opens overlays and restores focus after Escape", async () => {
     render(
       <OverlayPanel
@@ -181,5 +203,20 @@ describe("shared UI primitives", () => {
     expect(
       screen.getByRole("heading", { name: "Missing evidence" }),
     ).toBeVisible();
+  });
+
+  it("opens tooltips on hover and closes them when focus or pointer leaves", () => {
+    render(<Tooltip content="Inspectable definition" label="Define metric" />);
+    const trigger = screen.getByRole("button", { name: "Define metric" });
+
+    fireEvent.mouseEnter(trigger.closest("span")!);
+    expect(screen.getByRole("tooltip")).toBeVisible();
+    fireEvent.mouseLeave(trigger.closest("span")!);
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+
+    fireEvent.focus(trigger);
+    expect(screen.getByRole("tooltip")).toBeVisible();
+    fireEvent.blur(trigger);
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
 });

@@ -1,8 +1,8 @@
-import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
-import { Clock } from "@phosphor-icons/react/Clock";
-import { Prohibit } from "@phosphor-icons/react/Prohibit";
-import { Question } from "@phosphor-icons/react/Question";
-import { Warning } from "@phosphor-icons/react/Warning";
+import { CheckCircle } from "@phosphor-icons/react/dist/ssr/CheckCircle";
+import { Clock } from "@phosphor-icons/react/dist/ssr/Clock";
+import { Prohibit } from "@phosphor-icons/react/dist/ssr/Prohibit";
+import { Question } from "@phosphor-icons/react/dist/ssr/Question";
+import { Warning } from "@phosphor-icons/react/dist/ssr/Warning";
 
 import type { EvidenceStatus } from "./evidence-view-model";
 import styles from "./evidence.module.css";

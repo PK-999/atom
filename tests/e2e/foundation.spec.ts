@@ -63,3 +63,22 @@ test("foundation persists an explicit dark theme across reloads", async ({
   const accessibility = await new AxeBuilder({ page }).analyze();
   expect(accessibility.violations).toEqual([]);
 });
+
+test("foundation resolves a stored theme before React hydration", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    window.localStorage.setItem("atom:preferences:v1:theme", "dark");
+  });
+  await page.route(/\/_next\/static\/chunks\/.*\.js(?:\?.*)?$/, (route) =>
+    route.abort(),
+  );
+
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  const declaredScheme = await page.evaluate(
+    () => getComputedStyle(document.documentElement).colorScheme,
+  );
+  expect(declaredScheme).toBe("dark");
+});

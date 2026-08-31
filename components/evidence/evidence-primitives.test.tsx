@@ -130,6 +130,24 @@ describe("evidence primitives", () => {
     ).toBeVisible();
   });
 
+  it("names missing limitation review instead of rendering a silent list", () => {
+    render(
+      <ChallengeNumber
+        evidence={{ ...reviewedEvidence, limitations: [] }}
+        trigger="Inspect limitations"
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Inspect limitations" }),
+    );
+    expect(
+      within(
+        screen.getByRole("dialog", { name: "Challenge this number" }),
+      ).getByText("No reviewed limitation notes are available."),
+    ).toBeVisible();
+  });
+
   it("exposes sources, methodology, and uncertainty as reusable notes", () => {
     render(
       <>

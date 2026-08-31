@@ -1,4 +1,4 @@
-import { Info } from "@phosphor-icons/react/Info";
+import { Info } from "@phosphor-icons/react/dist/ssr/Info";
 import type { ReactNode } from "react";
 
 import styles from "./evidence.module.css";
