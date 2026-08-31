@@ -23,7 +23,10 @@ relationship plus:
 
 Numeric records are either a point or an ordered range. A range must satisfy
 `lower <= representative <= upper`. Categorical evidence keeps a written
-category definition and is never silently coerced to a number.
+category definition and is never silently coerced to a number or assigned a
+mean/median representative kind. Confidence, credible, and prediction
+intervals record a coverage level; source-defined intervals record the label
+needed to explain their meaning.
 
 ## Source tiers and conflicts
 
@@ -62,6 +65,11 @@ normalization does not fabricate a conversion step. Parsed records and
 normalized outputs are deeply frozen, and normalization does not share nested
 mutable objects with its input.
 
+A numeric metric is valid only when every supported unit is registered and
+convertible to its canonical unit. Publication therefore cannot authorize an
+observation that passes unit-name membership but fails physical-dimension
+normalization.
+
 Human-friendly equivalents are calculated only from a caller-supplied,
 inspectable assumption. The result preserves the scientific value and unit,
 the exact assumption quantity and unit, its label, and its source note.
@@ -88,6 +96,7 @@ not normalized into a false comparison.
 
 Released evidence uses an explicit availability state:
 
+- `unreviewed`: no publication decision has been made and no mode is exposed;
 - `supported`: reviewed comparable evidence is publishable;
 - `partial`: only some technologies, regions, periods, or modes are supported;
 - `incompatible`: records exist but cannot be directly compared;
@@ -96,6 +105,12 @@ Released evidence uses an explicit availability state:
 - `stale`: the review interval has elapsed and the age must be visible;
 - `disputed`: credible alternatives and the reasons for disagreement must be
   shown alongside broad agreement and remaining uncertainty.
+
+Every metric release record also declares the metric, supported technologies,
+geographies, period, Typical/Range/Raw mode availability, and redistribution
+licence. A `supported` label is invalid without non-empty technology and
+geography coverage, an applicable period, and at least one available mode. Raw
+mode cannot be available unless redistribution is allowed.
 
 Freshness is evaluated in whole UTC calendar days. Evidence is fresh through
 the exact due date and stale on the following day. The review interval is set
@@ -124,6 +139,11 @@ study, dataset and version, metric contract, geography, technology, publication
 record, study method/boundary/period, and observation/dataset licence
 consistency. Stage 6 must also enforce this boundary in PostgreSQL row-level
 security so draft records cannot leak through a different repository path.
+
+The publication gate orders the complete evidence lifecycle: source
+publication, source access, observation verification, dataset verification,
+review, publication, and material correction. A later event cannot authorize an
+earlier publication record.
 
 Raw observations are public only when the complete publication gate passes,
 raw access is permitted, and the observation, dataset, and authoritative source

@@ -4,7 +4,7 @@ Date: 2026-08-31
 
 Branch: `feat/stage4-stage5-completion`
 
-Implementation checkpoint: `e315054` plus final review fixes pending commit
+Implementation checkpoints: `e315054`, `e143824`, `b33b55b`
 
 ## Scope
 
@@ -32,13 +32,21 @@ synthetic contract data.
   central/regulator/model rules require exactly one marked observation.
 - Comparability returns stable warning/blocker codes and treats fewer than two
   observations as insufficient rather than comparable.
+- Metric release records include `unreviewed` and declare technologies,
+  geographies, period, Typical/Range/Raw availability, and redistribution
+  licensing before a supported state is valid.
+- Every supported numeric unit is registered and dimensionally convertible to
+  its canonical unit; categorical records cannot use mean or median metadata.
 - Publication eligibility validates observation, source, study, dataset,
   dataset version, metric contract, geography, technology, publication record,
   study method/boundary/period, and observation/dataset licence consistency.
 - Raw eligibility builds on the complete publication gate and requires allowed
   redistribution from observation, dataset, and authoritative source.
 - Source access cannot predate publication; public publication cannot predate
-  review. Material revisions require a matching correction record.
+  review. The full graph also orders source access, observation/dataset
+  verification, review, publication, and material correction dates.
+- Confidence, credible, and prediction intervals require a coverage level;
+  source-defined intervals require a display label.
 - The public barrel imports no React, Next.js, browser, Supabase, or database
   modules.
 
@@ -46,8 +54,8 @@ synthetic contract data.
 
 | Check | Result |
 | --- | --- |
-| Evidence-focused suite | 75 tests across 6 files passed |
-| `npm run verify` | Format, strict types, lint, 135 tests across 22 files, and production build passed |
+| Evidence-focused suite | 80 tests across 6 files passed |
+| `npm run verify` | Format, strict types, lint, 140 tests across 22 files, and production build passed |
 | `npm run test:e2e` | 31 passed across Chromium, Firefox, and WebKit; two non-WebKit touch-test copies skipped by design |
 | Touch tooltip regression | Touch-enabled WebKit trigger-toggle and outside-pointer dismissal passed |
 | Accessibility | axe, keyboard, focus restoration, zoom, reduced motion, mobile reflow, and direct evidence access passed |
@@ -61,8 +69,11 @@ The first Stage 5 review reported no Critical issues and seven Important
 issues: touch tooltip dismissal, incomplete publication relationships and
 licence authority, aggregation across incompatible evidence, categorical
 metric units, mutability, lost transformation lineage, and missing chronology.
-Each now has a focused regression and implementation fix. Final re-review is
-pending before the gate is marked passed.
+Each has a focused regression and implementation fix. A second review found no
+Critical issues and four additional Important contract gaps: release coverage,
+unit dimensions/categorical representative metadata, cross-entity chronology,
+and interval labels. Those are also fixed with focused regressions. Final
+re-review is pending before the gate is marked passed.
 
 ## Remaining limitations
 
@@ -79,5 +90,5 @@ pending before the gate is marked passed.
 
 ## Gate result
 
-Pending final independent re-review and the documentation commit. All local
-technical, browser, accessibility, and dependency checks pass.
+Pending final independent re-review. All local technical, browser,
+accessibility, and dependency checks pass.
