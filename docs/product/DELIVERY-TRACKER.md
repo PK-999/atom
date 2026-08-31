@@ -214,7 +214,6 @@ deployment `6191641954` for `1f8119e` also completed successfully at
 `https://atom-lvnhos7k9-pks-projects-35b7ae41.vercel.app`. Both deployments are
 protected by Vercel SSO, so authenticated route/browser inspection remains
 pending. Supabase remains intentionally unconnected until Stage 6.
-Supabase remains intentionally unconnected until Stage 6.
 
 Evidence:
 
