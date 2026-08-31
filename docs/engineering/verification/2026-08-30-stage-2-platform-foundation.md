@@ -38,6 +38,9 @@
 - After the final tracker update, workflow `CI` completed successfully for
   `main` at commit `00c03be7615dc8989434dd44701417c9e3c8ad01` (run
   `33449480327`); both quality and browser jobs passed.
+- After the browser-harness hardening change, workflow `CI` completed
+  successfully for `main` at commit `f49c141edab5a1aace75eff1e790376ef7b750fb`
+  (run `33451557726`); both quality and browser jobs passed.
 
 ## Local Browser Harness Re-verification — 2026-09-01
 
@@ -53,8 +56,8 @@
 
 ## Vercel Deployment Check — 2026-09-01
 
-- Vercel production deployment `6191244854` for commit `00c03be` completed
-  successfully at `https://atom-azibwapeu-pks-projects-35b7ae41.vercel.app`.
+- Vercel production deployment `6191571046` for commit `f49c141` completed
+  successfully at `https://atom-389hpmvt1-pks-projects-35b7ae41.vercel.app`.
 - GitHub reports the Vercel deployment status as successful.
 - Direct unauthenticated requests redirect to Vercel SSO protection, so route
   rendering and console inspection still require an authenticated browser

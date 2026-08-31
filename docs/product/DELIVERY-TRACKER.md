@@ -2,7 +2,7 @@
 
 Last updated: 2026-09-01
 
-Last verified implementation commit: `a3807b1`
+Last verified implementation commit: `f49c141`
 
 Current branch: `main`
 
@@ -203,9 +203,10 @@ Gate: **Local and hosted CI gates passed; preview browser gate pending**
 - [ ] Vercel preview deployment behavior confirmed on the pinned Node runtime.
 
 External prerequisite audit on 2026-09-01: GitHub is connected and the hosted
-CI workflow passes. Vercel production deployment `6191244854` for `00c03be`
-completed successfully at
-`https://atom-azibwapeu-pks-projects-35b7ae41.vercel.app`. The deployment is
+CI workflow passes for `f49c141` (run `33451557726`, quality and browser jobs
+passed). Vercel production deployment `6191571046` for `f49c141` completed
+successfully at
+`https://atom-389hpmvt1-pks-projects-35b7ae41.vercel.app`. The deployment is
 protected by Vercel SSO, so unauthenticated route/browser inspection is still
 pending; a preview deployment from a non-main ref has not yet been exercised.
 Supabase remains intentionally unconnected until Stage 6.
