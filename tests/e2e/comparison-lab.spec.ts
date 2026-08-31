@@ -16,6 +16,7 @@ test("comparison journey preserves context and exposes evidence", async ({
   });
 
   await page.goto("/compare", { waitUntil: "domcontentloaded" });
+  await page.waitForLoadState("networkidle");
 
   await expect(
     page.getByRole("heading", { level: 1, name: "See the energy trade-offs" }),
@@ -25,7 +26,14 @@ test("comparison journey preserves context and exposes evidence", async ({
   ).toContainText("Nuclear: 12 g CO₂e / kWh");
 
   await page.getByRole("button", { name: "Remove Coal" }).click();
+  await expect(
+    page.locator("[data-chart-label]", { hasText: "Coal" }),
+  ).toHaveCount(0);
   await page.getByRole("button", { name: "Range" }).click();
+  await expect(page.getByRole("button", { name: "Range" })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
   await page.getByRole("button", { name: "Technical" }).click();
 
   await expect(page.getByRole("button", { name: "Range" })).toHaveAttribute(

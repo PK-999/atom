@@ -39,6 +39,18 @@
   `main` at commit `00c03be7615dc8989434dd44701417c9e3c8ad01` (run
   `33449480327`); both quality and browser jobs passed.
 
+## Local Browser Harness Re-verification — 2026-09-01
+
+- A local parallel run reproduced intermittent failures when Playwright reused
+  an unrelated or stale process on port 3000 and when the first interaction
+  raced hydration.
+- The harness now accepts `PLAYWRIGHT_PORT`, starts its own server by default,
+  and only reuses an existing server when `REUSE_E2E_SERVER=true` is explicit.
+- The primary comparison journey now waits for network idle and asserts the
+  removal and display-mode transitions before continuing.
+- On isolated port 3107, the full three-browser run passed 31 checks with two
+  intentional non-WebKit touch-test skips.
+
 ## Vercel Deployment Check — 2026-09-01
 
 - Vercel production deployment `6191244854` for commit `00c03be` completed

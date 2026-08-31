@@ -1,8 +1,9 @@
 # ATOM Delivery Tracker
 
-Last updated: 2026-08-31
+Last updated: 2026-09-01
 
-Last verified implementation commit: `23e5b44`
+Last verified implementation commit: pending verification of the current
+test-harness hardening change.
 
 Current branch: `main`
 
@@ -215,6 +216,11 @@ Evidence:
 - `docs/engineering/verification/2026-08-30-stage-2-platform-foundation.md`
 - `docs/releases/2026-08-30-platform-foundation.md`
 - Commit `5f020d4`
+
+Test-harness hardening is included in the current verification pass: the
+Playwright server port is configurable with `PLAYWRIGHT_PORT`, existing local
+servers are never reused unless `REUSE_E2E_SERVER=true`, and the primary
+comparison journey waits for hydration/network idle and each state transition.
 
 ### Stage 3 — Visual Direction Selection
 
