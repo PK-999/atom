@@ -72,7 +72,7 @@ Playwright, axe-core.
 - Modify: `app/methodology/page.tsx`
 
 **Interfaces:**
-- Produces: `AppShell({ children, eyebrow?, title? })`, `ThemeControl`, and
+- Produces: `AppShell({ children })`, `ThemeControl`, and
   explicit `data-theme="light|dark"` document state.
 
 - [x] Write failing tests for Light/Dark/System selection, persistence, and

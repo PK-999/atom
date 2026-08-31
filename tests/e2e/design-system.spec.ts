@@ -32,6 +32,16 @@ test("design system playground exposes the complete keyboard-accessible primitiv
     "true",
   );
 
+  const tooltipTrigger = page.getByRole("button", {
+    name: "Define this control",
+  });
+  await tooltipTrigger.hover();
+  await expect(page.getByRole("tooltip")).toBeVisible();
+  await tooltipTrigger.click();
+  await expect(page.getByRole("tooltip")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("tooltip")).toHaveCount(0);
+
   await page.getByRole("button", { name: "Open command menu" }).click();
   const command = page.getByRole("dialog", { name: "Browse fixture metrics" });
   await command.getByRole("searchbox").fill("reliability");

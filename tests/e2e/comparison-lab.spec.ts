@@ -15,7 +15,7 @@ test("comparison journey preserves context and exposes evidence", async ({
     }
   });
 
-  await page.goto("/compare");
+  await page.goto("/compare", { waitUntil: "domcontentloaded" });
 
   await expect(
     page.getByRole("heading", { level: 1, name: "See the energy trade-offs" }),
@@ -98,7 +98,7 @@ test("mobile comparison reflows without core horizontal overflow", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/compare");
+  await page.goto("/compare", { waitUntil: "domcontentloaded" });
 
   await expect(
     page.getByRole("heading", { level: 1, name: "See the energy trade-offs" }),
@@ -150,7 +150,7 @@ test("reduced motion and a 200% desktop-equivalent viewport remain usable", asyn
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 720, height: 450 });
-  await page.goto("/compare");
+  await page.goto("/compare", { waitUntil: "domcontentloaded" });
 
   const transitionSeconds = await page
     .getByRole("button", { name: "Explore the evidence" })
@@ -171,7 +171,7 @@ test("dark system preference keeps the mobile comparison readable", async ({
 }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/compare");
+  await page.goto("/compare", { waitUntil: "domcontentloaded" });
 
   const heading = page.getByRole("heading", {
     level: 1,

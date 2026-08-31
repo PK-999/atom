@@ -1,7 +1,7 @@
 "use client";
 
 import { Question } from "@phosphor-icons/react/Question";
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 
 import styles from "./ui.module.css";
 
@@ -11,25 +11,50 @@ interface TooltipProps {
 }
 
 export function Tooltip({ content, label }: TooltipProps) {
-  const [open, setOpen] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [pinned, setPinned] = useState(false);
   const id = useId();
+  const open = !dismissed && (focused || hovered || pinned);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const dismissOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setDismissed(true);
+      setPinned(false);
+    };
+    document.addEventListener("keydown", dismissOnEscape);
+    return () => document.removeEventListener("keydown", dismissOnEscape);
+  }, [open]);
 
   return (
     <span
       className={styles.tooltip}
-      onKeyDown={(event) => {
-        if (event.key === "Escape") setOpen(false);
+      onMouseEnter={() => {
+        setDismissed(false);
+        setHovered(true);
       }}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseLeave={() => setHovered(false)}
     >
       <button
         aria-describedby={open ? id : undefined}
         aria-expanded={open}
         aria-label={label}
-        onClick={() => setOpen((current) => !current)}
-        onBlur={() => setOpen(false)}
-        onFocus={() => setOpen(true)}
+        onClick={() => {
+          setDismissed(false);
+          setPinned(true);
+        }}
+        onBlur={() => {
+          setFocused(false);
+          setPinned(false);
+        }}
+        onFocus={() => {
+          setDismissed(false);
+          setFocused(true);
+        }}
         type="button"
       >
         <Question aria-hidden size={18} />

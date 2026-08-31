@@ -21,8 +21,8 @@ evidence schemas and policies.
 
 - Valid `level` URL state overrides local complexity preference; invalid URL
   values fall back independently without discarding valid state.
-- Light, Dark, and System themes persist locally and expose an explicit
-  document theme after hydration.
+- Light, Dark, and System themes persist locally and resolve an explicit
+  document theme before hydration and first paint.
 - The server-first `AppShell` provides skip navigation, released routes,
   complexity and theme controls, main landmark, and evidence-first footer.
 - Shared controls cover buttons, chips, segmented controls, tabs, command
@@ -79,11 +79,11 @@ open evidence overlay.
 
 ## Independent review
 
-The initial review found no Critical issues and five Important issues: missing
+The initial and follow-up reviews found no Critical issues and six Important issues: missing
 range/distribution states, distorted non-zero domains, duplicate tab IDs,
-post-hydration theme resolution, and incomplete gate records. All were resolved
-with focused regressions. Minor findings for limitation copy, tooltip lifecycle,
-and an oversized client boundary were also resolved.
+post-hydration theme resolution, incomplete gate records, and conflicting
+tooltip input state. All were resolved with focused regressions. Minor findings
+for limitation copy and an oversized client boundary were also resolved.
 
 ## Gate result
 

@@ -219,4 +219,32 @@ describe("shared UI primitives", () => {
     fireEvent.blur(trigger);
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
+
+  it("keeps a pointer-clicked tooltip open until all active inputs leave", () => {
+    render(<Tooltip content="Inspectable definition" label="Define metric" />);
+    const trigger = screen.getByRole("button", { name: "Define metric" });
+    const wrapper = trigger.closest("span")!;
+
+    fireEvent.mouseEnter(wrapper);
+    fireEvent.focus(trigger);
+    fireEvent.click(trigger);
+    expect(screen.getByRole("tooltip")).toBeVisible();
+
+    fireEvent.mouseLeave(wrapper);
+    expect(screen.getByRole("tooltip")).toBeVisible();
+    fireEvent.blur(trigger);
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+  });
+
+  it("dismisses a focused and hovered tooltip with Escape", () => {
+    render(<Tooltip content="Inspectable definition" label="Define metric" />);
+    const trigger = screen.getByRole("button", { name: "Define metric" });
+    const wrapper = trigger.closest("span")!;
+
+    fireEvent.mouseEnter(wrapper);
+    fireEvent.focus(trigger);
+    fireEvent.keyDown(document, { key: "Escape" });
+
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+  });
 });
