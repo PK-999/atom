@@ -62,7 +62,10 @@
 - Direct unauthenticated requests redirect to Vercel SSO protection, so route
   rendering and console inspection still require an authenticated browser
   session. This is an access-control limitation, not an application failure.
-- A non-main preview deployment has not yet been exercised.
+- A non-main preview deployment `6191641954` for ref `1f8119e` completed
+  successfully at `https://atom-lvnhos7k9-pks-projects-35b7ae41.vercel.app`.
+- The preview is SSO-protected; authenticated browser rendering and console
+  inspection remain an explicit follow-up check.
 
 ## Browser Inspection
 
@@ -73,9 +76,9 @@
 ## Known Limits
 
 - The managed environment prevents Turbopack's production PostCSS worker from binding its local port. `next build --webpack` passes; ADR 0008 requires an unrestricted CI/Vercel Turbopack retest.
-- Vercel production is now deployed, but authenticated browser inspection and
-  a non-main preview deployment remain open; Supabase remains intentionally
-  unconnected until Stage 6.
+- Vercel production and preview deployments are now complete, but authenticated
+  browser inspection remains open; Supabase remains intentionally unconnected
+  until Stage 6.
 - The original host verification used Node.js 26.5.0. The complete quality and
   three-browser gates now also pass locally in isolated Node.js 24.20.0
   containers, and GitHub-hosted CI now passes for `main`.

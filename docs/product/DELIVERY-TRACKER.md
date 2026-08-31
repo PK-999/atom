@@ -200,15 +200,20 @@ Gate: **Local and hosted CI gates passed; preview browser gate pending**
   containers on the exact pinned Node.js 24.20.0 runtime.
 - [x] GitHub-hosted CI run confirmed for `main` at `00c03be` (workflow run
   `33449480327`, quality and browser jobs passed).
-- [ ] Vercel preview deployment behavior confirmed on the pinned Node runtime.
+- [x] Vercel preview deployment completed for non-main ref `1f8119e` in
+  Preview environment: `https://atom-lvnhos7k9-pks-projects-35b7ae41.vercel.app`.
+- [ ] Authenticated browser inspection of the protected Vercel preview remains
+  pending.
 
 External prerequisite audit on 2026-09-01: GitHub is connected and the hosted
 CI workflow passes for `f49c141` (run `33451557726`, quality and browser jobs
 passed). Vercel production deployment `6191571046` for `f49c141` completed
 successfully at
-`https://atom-389hpmvt1-pks-projects-35b7ae41.vercel.app`. The deployment is
-protected by Vercel SSO, so unauthenticated route/browser inspection is still
-pending; a preview deployment from a non-main ref has not yet been exercised.
+`https://atom-389hpmvt1-pks-projects-35b7ae41.vercel.app`. A non-main preview
+deployment `6191641954` for `1f8119e` also completed successfully at
+`https://atom-lvnhos7k9-pks-projects-35b7ae41.vercel.app`. Both deployments are
+protected by Vercel SSO, so authenticated route/browser inspection remains
+pending. Supabase remains intentionally unconnected until Stage 6.
 Supabase remains intentionally unconnected until Stage 6.
 
 Evidence:
