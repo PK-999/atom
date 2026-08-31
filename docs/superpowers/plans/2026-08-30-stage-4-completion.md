@@ -178,18 +178,18 @@ Playwright, axe-core.
 - Produces: server route `/design-system` with interactive client islands and
   synthetic fixtures explicitly labeled as non-evidence.
 
-- [ ] Write a failing page/component test for shell landmarks, all primitive
+- [x] Write a failing page/component test for shell landmarks, all primitive
   families, and the synthetic-data notice.
-- [ ] Run the test and confirm `/design-system` is missing.
-- [ ] Build the responsive playground showing light/dark, control states,
+- [x] Run the test and confirm `/design-system` is missing.
+- [x] Build the responsive playground showing light/dark, control states,
   overlays, evidence primitives, charts, loading, missing, mismatch, stale, and
   error states.
-- [ ] Add Playwright coverage for keyboard flow, tabs, overlays, theme,
+- [x] Add Playwright coverage for keyboard flow, tabs, overlays, theme,
   complexity URL state, axe, mobile, 200% zoom, and reduced motion.
-- [ ] Run focused E2E in Chromium, then the complete three-browser suite.
-- [ ] Compare desktop/mobile captures with the approved Museum reference and
+- [x] Run focused E2E in Chromium, then the complete three-browser suite.
+- [x] Compare desktop/mobile captures with the approved Museum reference and
   existing application visual language; record QA evidence.
-- [ ] Update the tracker only after the Stage 4 exit gate is fully evidenced.
+- [x] Update the tracker only after the Stage 4 exit gate is fully evidenced.
 
 ### Task 7: Stage 4 review checkpoint
 
@@ -197,10 +197,10 @@ Playwright, axe-core.
 - Create: `docs/engineering/verification/2026-08-30-stage-4-completion.md`
 - Modify: this plan
 
-- [ ] Run `npm run verify`.
-- [ ] Run `npm run test:e2e`.
-- [ ] Run `npm audit --audit-level=high`.
-- [ ] Run `git diff --check` and inspect the production browser console.
-- [ ] Request independent code and design review; resolve every Critical and
+- [x] Run `npm run verify`.
+- [x] Run `npm run test:e2e`.
+- [x] Run `npm audit --audit-level=high`.
+- [x] Run `git diff --check` and inspect the production browser console.
+- [x] Request independent code and design review; resolve every Critical and
   Important finding with a failing regression test where applicable.
-- [ ] Commit the verified Stage 4 checkpoint before starting Stage 5.
+- [x] Commit the verified Stage 4 checkpoint before starting Stage 5.

@@ -2,9 +2,9 @@
 
 Last updated: 2026-08-30
 
-Last verified commit: `86116ed`
+Last verified commit: `d80ea27`
 
-Current branch: `main`
+Current branch: `feat/stage4-stage5-completion`
 
 This is the operational tracker for the ATOM Master Delivery To-Do. Product
 specifications remain authoritative when this summary and a source document
@@ -34,7 +34,7 @@ unverified value.
 | 1 | Product and information architecture | Complete | Passed | Revise contracts only through reviewed product-document changes. |
 | 2 | Application and quality foundation | Locally verified | External checks pending | Run GitHub CI and a Vercel preview on the pinned Node runtime. |
 | 3 | Visual direction selection | Complete | Passed | Preserve the approved Digital Science Museum / Scientific Editorial blend. |
-| 4 | Design system and application shell | In progress | Not passed | Finish shared shell, primitive state coverage, light/dark guidance, and component playground. |
+| 4 | Design system and application shell | Complete | Passed | Reuse the verified shell and primitive contracts in the flagship. |
 | 5 | Evidence domain and governance | Not started | Not passed | Specify and test framework-independent evidence schemas and policies. |
 | 6 | Supabase and ingestion platform | Not started | Not passed | Design migrations and prove one licensed observation through the pipeline. |
 | 7 | Headless comparison engine | Not started | Not passed | Implement tested URL state and comparison-domain APIs. |
@@ -61,8 +61,9 @@ unverified value.
 
 ### Stage 4 — Design System and Application Shell
 
-Status: **In progress**  
-Exit gate: **Not passed**
+Status: **Complete**
+
+Exit gate: **Passed**
 
 Accepted or implemented:
 
@@ -75,43 +76,41 @@ Accepted or implemented:
   browser storage.
 - [x] The current Lab provides skip navigation, visible focus, direct values,
   table fallback, evidence dialogs, and reduced-motion behavior.
-
-Remaining before the Stage 4 gate:
-
-- [ ] Build the shared application shell, navigation, footer, metadata, and
+- [x] Build the shared application shell, navigation, footer, metadata, and
   theme handling outside the Comparison Lab feature.
-- [ ] Synchronize complexity with the URL contract while keeping URL precedence
+- [x] Synchronize complexity with the URL contract while keeping URL precedence
   over local preference.
-- [ ] Build and test the shared control families: buttons, chips, segmented
+- [x] Build and test the shared control families: buttons, chips, segmented
   controls, drawers, dialogs, sheets, tabs, tooltips, skeletons, and state
   panels.
-- [ ] Promote Data Passport, Challenge This Number, Evidence Badge, confidence,
+- [x] Promote Data Passport, Challenge This Number, Evidence Badge, confidence,
   and methodology UI into shared evidence primitives.
-- [ ] Promote comparison bars, ranges, distributions, narrative summaries, and
+- [x] Promote comparison bars, ranges, distributions, narrative summaries, and
   table fallback into shared chart primitives.
-- [ ] Define loading, empty, partial, missing, stale, error, disabled, hover,
+- [x] Define loading, empty, partial, missing, stale, error, disabled, hover,
   focus, selected, mobile, and dark/light states for every promoted primitive.
-- [ ] Add a component playground or Storybook-equivalent route.
-- [ ] Verify keyboard operation, focus, contrast, touch targets, 200% zoom,
+- [x] Add a component playground or Storybook-equivalent route.
+- [x] Verify keyboard operation, focus, contrast, touch targets, 200% zoom,
   responsive composition, light/dark themes, and reduced motion across the
   shared primitives.
 
 Current slice verification:
 
-- Focused selector and Comparison Lab suites: 15 tests passed.
-- `npm run verify`: format, strict types, lint, 25 tests across 9 files, and the
+- Focused review-regression suites: 28 tests passed.
+- `npm run verify`: format, strict types, lint, 57 tests across 16 files, and the
   production build passed.
-- `npm run test:e2e`: 15 checks passed across Chromium, Firefox, and WebKit,
-  including axe, dark-preference foundation coverage, mobile reflow, keyboard
-  focus, 200% zoom equivalent, and reduced motion.
-- Responsive design regression: the 1440×1024 and 390×844 route states match
-  the approved pass-four captures with no unintended layout change.
+- `npm run test:e2e`: 30 checks passed across Chromium, Firefox, and WebKit,
+  including axe, pre-hydration theme resolution, mobile reflow, keyboard focus,
+  200% zoom equivalent, and reduced motion.
+- Responsive design regression: 1440×900, 768×1024, and 390×844 light/dark
+  playground captures and the Comparison Lab remain aligned with the approved
+  Museum/Editorial direction.
 - `npm audit --audit-level=high`: 0 vulnerabilities.
-- Independent review: first pass found three Important issues; same-document
-  preference synchronization, the color-scheme contract, tests, and tracker
-  evidence were corrected. Final review found no remaining Critical or Important
-  issues and marked the slice ready to merge.
-- Local integration: fast-forwarded to `main` at `86116ed`.
+- Independent review: no Critical issues; five Important and three Minor issues
+  were resolved with regression tests and smaller server/client boundaries.
+- Verification record:
+  `docs/engineering/verification/2026-08-30-stage-4-completion.md`.
+- Implementation checkpoints: `0dde134`, `d80ea27`.
 
 ## Completed Stage Records
 
