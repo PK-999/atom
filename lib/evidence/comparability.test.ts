@@ -24,10 +24,12 @@ const base = {
   studyId: "fixture-study",
   systemBoundary: "Shared synthetic boundary.",
   technologyId: "fixture-technology",
-  transformation: {
-    description: "No transformation applied.",
-    kind: "identity" as const,
-  },
+  transformation: [
+    {
+      description: "No transformation applied.",
+      kind: "identity" as const,
+    },
+  ],
   uncertainty: "Synthetic uncertainty note.",
   unit: "MW",
   value: 1,
@@ -42,6 +44,17 @@ function observation(
 }
 
 describe("comparability assessment", () => {
+  it("does not call empty or singleton evidence comparable", () => {
+    expect(assessComparability([])).toMatchObject({
+      comparable: false,
+      issues: [{ code: "insufficient-observations", severity: "blocker" }],
+    });
+    expect(assessComparability([observation("fixture-only")])).toMatchObject({
+      comparable: false,
+      issues: [{ code: "insufficient-observations", severity: "blocker" }],
+    });
+  });
+
   it("accepts identical comparison contracts", () => {
     expect(
       assessComparability([

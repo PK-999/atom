@@ -1,9 +1,14 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  DatasetSchema,
+  GeographySchema,
+  MetricSchema,
   NumericObservationSchema,
   PublicationRecordSchema,
   SourceSchema,
+  StudySchema,
+  TechnologySchema,
   assessComparability,
   canPublishObservation,
   normalizeObservation,
@@ -46,10 +51,12 @@ describe("public evidence-domain contract", () => {
       studyId: "fixture-study",
       systemBoundary: "Synthetic integration boundary.",
       technologyId: "fixture-technology",
-      transformation: {
-        description: "No transformation applied.",
-        kind: "identity",
-      },
+      transformation: [
+        {
+          description: "No transformation applied.",
+          kind: "identity",
+        },
+      ],
       uncertainty: "Synthetic uncertainty note.",
       unit: "GW",
       value: 1,
@@ -65,6 +72,44 @@ describe("public evidence-domain contract", () => {
       reviewedBy: "fixture-reviewer",
       status: "published",
     });
+    const technology = TechnologySchema.parse({
+      description: "Synthetic technology.",
+      id: "fixture-technology",
+      name: "Fixture technology",
+    });
+    const geography = GeographySchema.parse({
+      id: "fixture-global",
+      name: "Fixture global geography",
+      scope: "global",
+    });
+    const study = StudySchema.parse({
+      id: "fixture-study",
+      methodology: observation.methodology,
+      period: observation.period,
+      sourceIds: ["fixture-source"],
+      systemBoundary: observation.systemBoundary,
+      title: "Synthetic study",
+    });
+    const dataset = DatasetSchema.parse({
+      checksum: "sha256:fixture-checksum",
+      id: "fixture-dataset",
+      lastVerifiedAt: "2026-08-30",
+      license,
+      sourceIds: ["fixture-source"],
+      studyIds: ["fixture-study"],
+      title: "Synthetic dataset",
+      version: "fixture-v1",
+    });
+    const metric = MetricSchema.parse({
+      category: "technical",
+      definition: "Synthetic power metric.",
+      canonicalUnit: "MW",
+      geographySupport: ["global"],
+      id: "fixture-power",
+      rangeSemantics: "point-or-range",
+      supportedUnits: ["MW", "GW"],
+      valueKind: "numeric",
+    });
     const normalized = normalizeObservation(observation, "MW");
 
     expect(normalized).toMatchObject({ unit: "MW", value: 1_000 });
@@ -76,8 +121,16 @@ describe("public evidence-domain contract", () => {
       comparable: true,
       issues: [],
     });
-    expect(canPublishObservation(observation, { publication, source })).toEqual(
-      { eligible: true, reasons: [] },
-    );
+    expect(
+      canPublishObservation(observation, {
+        dataset,
+        geography,
+        metric,
+        publication,
+        source,
+        study,
+        technology,
+      }),
+    ).toEqual({ eligible: true, reasons: [] });
   });
 });

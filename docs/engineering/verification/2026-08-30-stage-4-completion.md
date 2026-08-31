@@ -43,7 +43,7 @@ evidence schemas and policies.
 | `npm run lint` | Passed |
 | `npm run test` | 57 tests across 16 files passed |
 | `npm run build` | Passed; `/design-system` statically generated |
-| `npm run test:e2e` | 30 tests passed across Chromium, Firefox, and WebKit |
+| `npm run test:e2e` | 31 tests passed across Chromium, Firefox, and WebKit; two non-WebKit copies of the WebKit touch regression skipped by design |
 | axe | No violations in tested shell, Lab, playground, and open-overlay states |
 | Keyboard/focus | Tabs, command menu, dialogs, sheets, Escape, and focus restoration passed |
 | Responsive | 390×844, 768×1024, 1440×900, and 200% zoom-equivalent checks passed |
@@ -84,6 +84,8 @@ range/distribution states, distorted non-zero domains, duplicate tab IDs,
 post-hydration theme resolution, incomplete gate records, and conflicting
 tooltip input state. All were resolved with focused regressions. Minor findings
 for limitation copy and an oversized client boundary were also resolved.
+The final tooltip follow-up adds trigger-toggle and outside-pointer dismissal
+plus a touch-enabled WebKit regression.
 
 ## Gate result
 

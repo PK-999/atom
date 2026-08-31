@@ -23,10 +23,12 @@ const common = {
   studyId: "fixture-study",
   systemBoundary: "Synthetic representative-selection boundary.",
   technologyId: "fixture-technology",
-  transformation: {
-    description: "No transformation applied.",
-    kind: "identity" as const,
-  },
+  transformation: [
+    {
+      description: "No transformation applied.",
+      kind: "identity" as const,
+    },
+  ],
   uncertainty: "Synthetic uncertainty note.",
   valueSemantics: "point" as const,
 };
@@ -164,4 +166,24 @@ describe("representative selection", () => {
       selectRepresentative([numeric("fixture-only", 1)], "regulator-value"),
     ).toMatchObject({ code: "missing-representative", ok: false });
   });
+
+  it.each([
+    {
+      geographyId: "fixture-country",
+      geographyScope: "country" as const,
+    },
+    { methodology: "Different synthetic method." },
+    { systemBoundary: "Different synthetic boundary." },
+    { period: { endYear: 2010, startYear: 2000 } },
+  ])(
+    "refuses to aggregate scientifically incompatible observations",
+    (change) => {
+      expect(
+        selectRepresentative(
+          [numeric("fixture-one", 1), numeric("fixture-two", 2, change)],
+          "mean",
+        ),
+      ).toMatchObject({ code: "incomparable-observations", ok: false });
+    },
+  );
 });

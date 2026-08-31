@@ -247,4 +247,19 @@ describe("shared UI primitives", () => {
 
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
+
+  it("lets touch-style clicks toggle or dismiss a pinned tooltip", () => {
+    render(<Tooltip content="Inspectable definition" label="Define metric" />);
+    const trigger = screen.getByRole("button", { name: "Define metric" });
+
+    fireEvent.click(trigger);
+    expect(screen.getByRole("tooltip")).toBeVisible();
+    fireEvent.click(trigger);
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+
+    fireEvent.click(trigger);
+    expect(screen.getByRole("tooltip")).toBeVisible();
+    fireEvent.pointerDown(document.body);
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+  });
 });

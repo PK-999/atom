@@ -2,13 +2,24 @@ import { z } from "zod";
 
 import {
   CorrectionSchema,
+  DatasetSchema,
+  GeographySchema,
+  MetricSchema,
   ObservationSchema,
   PublicationRecordSchema,
   SourceSchema,
+  StudySchema,
+  TechnologySchema,
+  validateObservationAgainstMetric,
   type Correction,
+  type Dataset,
+  type Geography,
+  type Metric,
   type Observation,
   type PublicationRecord,
   type Source,
+  type Study,
+  type Technology,
 } from "./schemas";
 
 const ExplainedAvailabilitySchema = z
@@ -96,8 +107,25 @@ export function assessFreshness(input: FreshnessInput): FreshnessResult {
 export type PublicationEligibilityReason =
   | "invalid-observation"
   | "invalid-source"
+  | "invalid-study"
+  | "invalid-dataset"
+  | "invalid-metric"
+  | "invalid-geography"
+  | "invalid-technology"
   | "invalid-publication-record"
   | "source-relationship-mismatch"
+  | "study-source-mismatch"
+  | "dataset-source-mismatch"
+  | "dataset-study-mismatch"
+  | "dataset-version-mismatch"
+  | "observation-dataset-relationship-mismatch"
+  | "observation-study-relationship-mismatch"
+  | "metric-relationship-mismatch"
+  | "geography-relationship-mismatch"
+  | "technology-relationship-mismatch"
+  | "observation-study-mismatch"
+  | "observation-metric-mismatch"
+  | "observation-license-mismatch"
   | "publication-relationship-mismatch"
   | "not-published"
   | "missing-material-correction"
@@ -111,9 +139,14 @@ export interface PublicationEligibility {
 
 export interface PublicationContext {
   corrections?: readonly Correction[];
+  dataset: Dataset;
+  geography: Geography;
   materialRevisionFrom?: string;
+  metric: Metric;
   publication: PublicationRecord;
   source: Source;
+  study: Study;
+  technology: Technology;
 }
 
 export function canPublishObservation(
@@ -127,11 +160,79 @@ export function canPublishObservation(
   if (!SourceSchema.safeParse(context.source).success) {
     reasons.push("invalid-source");
   }
+  if (!StudySchema.safeParse(context.study).success) {
+    reasons.push("invalid-study");
+  }
+  if (!DatasetSchema.safeParse(context.dataset).success) {
+    reasons.push("invalid-dataset");
+  }
+  if (!MetricSchema.safeParse(context.metric).success) {
+    reasons.push("invalid-metric");
+  }
+  if (!GeographySchema.safeParse(context.geography).success) {
+    reasons.push("invalid-geography");
+  }
+  if (!TechnologySchema.safeParse(context.technology).success) {
+    reasons.push("invalid-technology");
+  }
   if (!PublicationRecordSchema.safeParse(context.publication).success) {
     reasons.push("invalid-publication-record");
   }
+  if (reasons.length > 0) return { eligible: false, reasons };
+
   if (observation.sourceId !== context.source.id) {
     reasons.push("source-relationship-mismatch");
+  }
+  if (!context.study.sourceIds.includes(context.source.id)) {
+    reasons.push("study-source-mismatch");
+  }
+  if (!context.dataset.sourceIds.includes(context.source.id)) {
+    reasons.push("dataset-source-mismatch");
+  }
+  if (!context.dataset.studyIds.includes(context.study.id)) {
+    reasons.push("dataset-study-mismatch");
+  }
+  if (context.publication.datasetVersion !== context.dataset.version) {
+    reasons.push("dataset-version-mismatch");
+  }
+  if (observation.studyId !== context.study.id) {
+    reasons.push("observation-study-relationship-mismatch");
+  }
+  if (observation.datasetId !== context.dataset.id) {
+    reasons.push("observation-dataset-relationship-mismatch");
+  }
+  if (observation.metricId !== context.metric.id) {
+    reasons.push("metric-relationship-mismatch");
+  }
+  if (observation.geographyId !== context.geography.id) {
+    reasons.push("geography-relationship-mismatch");
+  }
+  if (observation.technologyId !== context.technology.id) {
+    reasons.push("technology-relationship-mismatch");
+  }
+  if (
+    observation.methodology !== context.study.methodology ||
+    observation.systemBoundary !== context.study.systemBoundary ||
+    observation.period.startYear !== context.study.period.startYear ||
+    observation.period.endYear !== context.study.period.endYear
+  ) {
+    reasons.push("observation-study-mismatch");
+  }
+  if (!validateObservationAgainstMetric(observation, context.metric).valid) {
+    reasons.push("observation-metric-mismatch");
+  }
+  if (
+    observation.geographyScope !== context.geography.scope ||
+    !context.metric.geographySupport.includes(context.geography.scope)
+  ) {
+    reasons.push("geography-relationship-mismatch");
+  }
+  if (
+    observation.license.id !== context.dataset.license.id ||
+    observation.license.redistribution !==
+      context.dataset.license.redistribution
+  ) {
+    reasons.push("observation-license-mismatch");
   }
   if (
     context.publication.entityId !== observation.id ||
@@ -159,26 +260,26 @@ export function canPublishObservation(
     if (!hasMaterialCorrection) reasons.push("missing-material-correction");
   }
 
-  return { eligible: reasons.length === 0, reasons };
+  return { eligible: reasons.length === 0, reasons: [...new Set(reasons)] };
 }
 
 export function canPublishRawObservation(
   observation: Observation,
+  context: PublicationContext,
 ): PublicationEligibility {
-  const reasons: PublicationEligibilityReason[] = [];
-  if (!ObservationSchema.safeParse(observation).success) {
-    reasons.push("invalid-observation");
-  }
-  if (observation.publicationStatus !== "published") {
-    reasons.push("not-published");
-  }
+  const publication = canPublishObservation(observation, context);
+  const reasons = [...publication.reasons];
   if (observation.rawAccess !== "permitted") {
     reasons.push("raw-access-restricted");
   }
-  if (observation.license.redistribution !== "allowed") {
+  if (
+    observation.license.redistribution !== "allowed" ||
+    context.dataset.license.redistribution !== "allowed" ||
+    context.source.license.redistribution !== "allowed"
+  ) {
     reasons.push("redistribution-restricted");
   }
-  return { eligible: reasons.length === 0, reasons };
+  return { eligible: reasons.length === 0, reasons: [...new Set(reasons)] };
 }
 
 export function canReadPublication(

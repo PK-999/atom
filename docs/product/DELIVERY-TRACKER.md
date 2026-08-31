@@ -35,7 +35,7 @@ unverified value.
 | 2 | Application and quality foundation | Locally verified | External checks pending | Run GitHub CI and a Vercel preview on the pinned Node runtime. |
 | 3 | Visual direction selection | Complete | Passed | Preserve the approved Digital Science Museum / Scientific Editorial blend. |
 | 4 | Design system and application shell | Complete | Passed | Reuse the verified shell and primitive contracts in the flagship. |
-| 5 | Evidence domain and governance | Not started | Not passed | Specify and test framework-independent evidence schemas and policies. |
+| 5 | Evidence domain and governance | In progress | Final re-review pending | Confirm all independent-review fixes, then close the local gate. |
 | 6 | Supabase and ingestion platform | Not started | Not passed | Design migrations and prove one licensed observation through the pipeline. |
 | 7 | Headless comparison engine | Not started | Not passed | Implement tested URL state and comparison-domain APIs. |
 | 8 | Shared Comparison Lab experience | Prototype only | Not passed | Replace preview fixtures with reviewed repository-backed test evidence. |
@@ -58,6 +58,24 @@ unverified value.
 | 25 | Continuous operations | Not started | Not passed | Activate alongside the first public evidence release. |
 
 ## Current Focus
+
+### Stage 5 — Evidence Domain and Editorial Governance
+
+Status: **In progress — final re-review pending**
+
+Exit gate: **Local technical and browser checks passed; review gate open**
+
+Current verification:
+
+- 75 evidence-domain tests pass across six focused suites.
+- `npm run verify` passes with 135 tests across 22 files and a production build.
+- 31 browser checks pass across Chromium, Firefox, and WebKit; two non-WebKit
+  copies of the WebKit-only touch regression are intentionally skipped.
+- The high-severity dependency audit reports zero vulnerabilities.
+- Initial independent review found no Critical issues. Seven Important issues
+  have regression-tested fixes and await final re-review.
+- Verification record:
+  `docs/engineering/verification/2026-08-31-stage-5-evidence-domain.md`.
 
 ### Stage 4 — Design System and Application Shell
 
@@ -214,19 +232,20 @@ Evidence:
 
 ### Stage 5 — Evidence Domain and Editorial Governance
 
-Status: **Not started**
+Status: **In progress — final re-review pending**
 
 Acceptance sequence:
 
-- [ ] Define technology, metric, observation, source, study, dataset, citation,
+- [x] Define technology, metric, observation, source, study, dataset, citation,
   claim, explanation, and geography schemas.
-- [ ] Encode provenance, methodology, boundary, range, licensing,
+- [x] Encode provenance, methodology, boundary, range, licensing,
   transformation, and verification rules.
-- [ ] Test representative-value and comparability policies.
-- [ ] Test canonical conversions, analogy formulas, and range semantics outside
+- [x] Test representative-value and comparability policies.
+- [x] Test canonical conversions, analogy formulas, and range semantics outside
   React.
-- [ ] Define source-tier, conflict, correction, review, and publication flows.
-- [ ] Prove the domain can evaluate evidence without React imports.
+- [x] Define source-tier, conflict, correction, review, and publication flows.
+- [x] Prove the domain can evaluate evidence without React imports.
+- [ ] Obtain final independent re-review with no Critical or Important findings.
 
 ### Stage 6 — Supabase and Evidence Ingestion
 

@@ -2,9 +2,14 @@ import { describe, expect, it } from "vitest";
 
 import type {
   Correction,
+  Dataset,
+  Geography,
+  Metric,
   NumericObservation,
   PublicationRecord,
   Source,
+  Study,
+  Technology,
 } from "./schemas";
 import {
   EvidenceAvailabilitySchema,
@@ -39,10 +44,12 @@ const observation = {
   studyId: "fixture-study",
   systemBoundary: "Synthetic governance boundary.",
   technologyId: "fixture-technology",
-  transformation: {
-    description: "No transformation applied.",
-    kind: "identity" as const,
-  },
+  transformation: [
+    {
+      description: "No transformation applied.",
+      kind: "identity" as const,
+    },
+  ],
   uncertainty: "Synthetic uncertainty note.",
   unit: "MW",
   value: 1,
@@ -71,6 +78,59 @@ const publication = {
   reviewedBy: "fixture-reviewer",
   status: "published" as const,
 } satisfies PublicationRecord;
+
+const technology = {
+  description: "Synthetic technology.",
+  id: "fixture-technology",
+  name: "Fixture technology",
+} satisfies Technology;
+
+const geography = {
+  id: "fixture-global",
+  name: "Fixture global geography",
+  scope: "global" as const,
+} satisfies Geography;
+
+const study = {
+  id: "fixture-study",
+  methodology: observation.methodology,
+  period: observation.period,
+  sourceIds: ["fixture-source"],
+  systemBoundary: observation.systemBoundary,
+  title: "Synthetic study",
+} satisfies Study;
+
+const dataset = {
+  checksum: "sha256:fixture-checksum",
+  id: "fixture-dataset",
+  lastVerifiedAt: "2026-08-30",
+  license,
+  sourceIds: ["fixture-source"],
+  studyIds: ["fixture-study"],
+  title: "Synthetic dataset",
+  version: "fixture-v1",
+} satisfies Dataset;
+
+const metric = {
+  category: "technical",
+  definition: "Synthetic power metric.",
+  canonicalUnit: "MW",
+  geographySupport: ["global" as const],
+  id: "fixture-power",
+  rangeSemantics: "point-or-range" as const,
+  supportedUnits: ["MW", "GW"],
+  valueKind: "numeric" as const,
+} satisfies Metric;
+
+const publicationContext = {
+  dataset,
+  geography,
+  metric,
+  publication,
+  source,
+  study,
+  technology,
+};
 
 describe("freshness governance", () => {
   it("treats the exact review interval boundary as fresh and the next day as stale", () => {
@@ -151,7 +211,7 @@ describe("publication policy", () => {
     (sourceTier) => {
       expect(
         canPublishObservation(observation, {
-          publication,
+          ...publicationContext,
           source: { ...source, sourceTier },
         }),
       ).toEqual({ eligible: true, reasons: [] });
@@ -162,7 +222,7 @@ describe("publication policy", () => {
     expect(
       canPublishObservation(
         { ...observation, methodology: "" } as NumericObservation,
-        { publication, source },
+        publicationContext,
       ),
     ).toMatchObject({ eligible: false, reasons: ["invalid-observation"] });
     expect(
@@ -175,21 +235,27 @@ describe("publication policy", () => {
   });
 
   it("publishes raw observations only when access and redistribution permit", () => {
-    expect(canPublishRawObservation(observation)).toEqual({
+    expect(canPublishRawObservation(observation, publicationContext)).toEqual({
       eligible: true,
       reasons: [],
     });
     expect(
-      canPublishRawObservation({
-        ...observation,
-        license: { ...license, redistribution: "restricted" },
-      }),
+      canPublishRawObservation(
+        {
+          ...observation,
+          license: { ...license, redistribution: "restricted" },
+        },
+        publicationContext,
+      ),
     ).toMatchObject({
       eligible: false,
-      reasons: ["redistribution-restricted"],
+      reasons: ["observation-license-mismatch", "redistribution-restricted"],
     });
     expect(
-      canPublishRawObservation({ ...observation, rawAccess: "restricted" }),
+      canPublishRawObservation(
+        { ...observation, rawAccess: "restricted" },
+        publicationContext,
+      ),
     ).toMatchObject({ eligible: false, reasons: ["raw-access-restricted"] });
   });
 
@@ -209,9 +275,10 @@ describe("publication policy", () => {
     expect(
       canPublishObservation(observation, {
         corrections: [],
+        ...publicationContext,
+        dataset: { ...dataset, version: "fixture-v2" },
         materialRevisionFrom: "fixture-v1",
         publication: revisedPublication,
-        source,
       }),
     ).toMatchObject({
       eligible: false,
@@ -220,11 +287,69 @@ describe("publication policy", () => {
     expect(
       canPublishObservation(observation, {
         corrections: [correction],
+        ...publicationContext,
+        dataset: { ...dataset, version: "fixture-v2" },
         materialRevisionFrom: "fixture-v1",
         publication: revisedPublication,
-        source,
       }),
     ).toEqual({ eligible: true, reasons: [] });
+  });
+
+  it("rejects dangling relationships, dataset versions, and metric contracts", () => {
+    expect(
+      canPublishObservation(observation, {
+        ...publicationContext,
+        dataset: { ...dataset, sourceIds: ["fixture-other-source"] },
+      }),
+    ).toMatchObject({
+      eligible: false,
+      reasons: ["dataset-source-mismatch"],
+    });
+    expect(
+      canPublishObservation(observation, {
+        ...publicationContext,
+        publication: { ...publication, datasetVersion: "fixture-v2" },
+      }),
+    ).toMatchObject({
+      eligible: false,
+      reasons: ["dataset-version-mismatch"],
+    });
+    expect(
+      canPublishObservation(
+        { ...observation, unit: "MWh" },
+        publicationContext,
+      ),
+    ).toMatchObject({
+      eligible: false,
+      reasons: ["observation-metric-mismatch"],
+    });
+  });
+
+  it("uses authoritative source and dataset licences for raw publication", () => {
+    expect(
+      canPublishRawObservation(observation, {
+        ...publicationContext,
+        source: {
+          ...source,
+          license: { ...license, redistribution: "restricted" },
+        },
+      }),
+    ).toMatchObject({
+      eligible: false,
+      reasons: ["redistribution-restricted"],
+    });
+    expect(
+      canPublishObservation(observation, {
+        ...publicationContext,
+        dataset: {
+          ...dataset,
+          license: { ...license, redistribution: "restricted" },
+        },
+      }),
+    ).toMatchObject({
+      eligible: false,
+      reasons: ["observation-license-mismatch"],
+    });
   });
 });
 
@@ -252,6 +377,17 @@ describe("publication workflow", () => {
         { ...publication, status: "in-review" },
         "published",
         { reviewedBy: "fixture-reviewer" },
+      ),
+    ).toMatchObject({ code: "invalid-publication-metadata", ok: false });
+    expect(
+      transitionPublication(
+        { ...publication, status: "in-review" },
+        "published",
+        {
+          publishedAt: "2026-08-29",
+          reviewedAt: "2026-08-30",
+          reviewedBy: "fixture-reviewer",
+        },
       ),
     ).toMatchObject({ code: "invalid-publication-metadata", ok: false });
   });

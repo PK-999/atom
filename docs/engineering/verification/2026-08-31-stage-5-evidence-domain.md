@@ -1,0 +1,83 @@
+# Stage 5 Evidence Domain and Governance Verification
+
+Date: 2026-08-31
+
+Branch: `feat/stage4-stage5-completion`
+
+Implementation checkpoint: `e315054` plus final review fixes pending commit
+
+## Scope
+
+This record covers the Stage 5 exit gate: framework-independent evidence
+schemas, immutable observations, ordered transformation lineage, canonical unit
+conversion, explicit human-equivalent assumptions, representative selection,
+comparability, availability/freshness states, full relationship publication
+governance, licensing-aware Raw eligibility, corrections, and workflow rules.
+
+No real scientific values are included. Every test observation is explicitly
+synthetic contract data.
+
+## Delivered contracts
+
+- Numeric and categorical metrics use separate discriminated contracts;
+  categorical metrics do not invent units.
+- Published observations require provenance, geography, period, methodology,
+  system boundary, uncertainty, ordered transformations, licensing, and a valid
+  verification date.
+- Parsed records and normalized outputs are deeply frozen. Unit normalization
+  deep-clones nested data, preserves prior transformation kinds, and appends a
+  conversion step only when a conversion occurs.
+- Mean and median aggregation accepts convertible units but refuses differing
+  period, geography, methodology, or system boundary. Explicit
+  central/regulator/model rules require exactly one marked observation.
+- Comparability returns stable warning/blocker codes and treats fewer than two
+  observations as insufficient rather than comparable.
+- Publication eligibility validates observation, source, study, dataset,
+  dataset version, metric contract, geography, technology, publication record,
+  study method/boundary/period, and observation/dataset licence consistency.
+- Raw eligibility builds on the complete publication gate and requires allowed
+  redistribution from observation, dataset, and authoritative source.
+- Source access cannot predate publication; public publication cannot predate
+  review. Material revisions require a matching correction record.
+- The public barrel imports no React, Next.js, browser, Supabase, or database
+  modules.
+
+## Verification evidence
+
+| Check | Result |
+| --- | --- |
+| Evidence-focused suite | 75 tests across 6 files passed |
+| `npm run verify` | Format, strict types, lint, 135 tests across 22 files, and production build passed |
+| `npm run test:e2e` | 31 passed across Chromium, Firefox, and WebKit; two non-WebKit touch-test copies skipped by design |
+| Touch tooltip regression | Touch-enabled WebKit trigger-toggle and outside-pointer dismissal passed |
+| Accessibility | axe, keyboard, focus restoration, zoom, reduced motion, mobile reflow, and direct evidence access passed |
+| `npm audit --audit-level=high` | 0 vulnerabilities |
+| Framework boundary scan | No React, Next.js, browser, Supabase, or database imports in production evidence modules |
+| `git diff --check` | Pending final documentation commit |
+
+## Independent review
+
+The first Stage 5 review reported no Critical issues and seven Important
+issues: touch tooltip dismissal, incomplete publication relationships and
+licence authority, aggregation across incompatible evidence, categorical
+metric units, mutability, lost transformation lineage, and missing chronology.
+Each now has a focused regression and implementation fix. Final re-review is
+pending before the gate is marked passed.
+
+## Remaining limitations
+
+- The unit registry establishes the Stage 5 families only. Each metric release
+  must add literal conversion tests before using another unit.
+- Review intervals, source selection, and disputed-evidence judgments remain
+  editorial decisions; the domain enforces their recorded outcomes.
+- Cross-entity validation currently receives an explicit in-memory publication
+  context. Stage 6 must enforce the same graph with database constraints,
+  transactions, and row-level security.
+- Checksums, ingestion idempotency, duplicate detection, transformation logs,
+  and dataset rollback are Stage 6 work.
+- GitHub-hosted CI and a Vercel preview remain external Stage 2 checks.
+
+## Gate result
+
+Pending final independent re-review and the documentation commit. All local
+technical, browser, accessibility, and dependency checks pass.

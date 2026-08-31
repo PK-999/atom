@@ -116,3 +116,28 @@ test("design system remains usable with reduced motion and 200% zoom equivalent"
   }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
 });
+
+test("touch users can toggle and dismiss a pinned tooltip", async ({
+  browser,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== "webkit", "WebKit touch regression");
+  const context = await browser.newContext({
+    baseURL: testInfo.project.use.baseURL as string,
+    hasTouch: true,
+    isMobile: true,
+    viewport: { height: 844, width: 390 },
+  });
+  const page = await context.newPage();
+  await page.goto("/design-system", { waitUntil: "domcontentloaded" });
+  const trigger = page.getByRole("button", { name: "Define this control" });
+
+  await trigger.tap();
+  await expect(page.getByRole("tooltip")).toBeVisible();
+  await trigger.tap();
+  await expect(page.getByRole("tooltip")).toHaveCount(0);
+  await trigger.tap();
+  await page.getByRole("heading", { name: "ATOM component playground" }).tap();
+  await expect(page.getByRole("tooltip")).toHaveCount(0);
+
+  await context.close();
+});

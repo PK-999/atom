@@ -14,6 +14,7 @@ import {
   SourceSchema,
   StudySchema,
   TechnologySchema,
+  validateObservationAgainstMetric,
 } from "./schemas";
 
 const license = {
@@ -43,10 +44,12 @@ const pointObservation = {
   studyId: "fixture-study",
   systemBoundary: "Synthetic boundary for contract tests.",
   technologyId: "fixture-technology",
-  transformation: {
-    description: "No transformation applied.",
-    kind: "identity" as const,
-  },
+  transformation: [
+    {
+      description: "No transformation applied.",
+      kind: "identity" as const,
+    },
+  ],
   uncertainty: "Synthetic uncertainty note.",
   unit: "fixture-unit",
   value: 42,
@@ -155,6 +158,47 @@ describe("evidence entity schemas", () => {
 
     expect(entities).toHaveLength(11);
   });
+
+  it("models categorical metrics without invented units", () => {
+    expect(
+      MetricSchema.parse({
+        category: "reliability",
+        definition: "Synthetic categorical metric.",
+        geographySupport: ["global"],
+        id: "fixture-dispatchability",
+        rangeSemantics: "categorical",
+        valueKind: "categorical",
+      }),
+    ).toMatchObject({ valueKind: "categorical" });
+  });
+
+  it("rejects reversed source and publication chronology", () => {
+    expect(
+      SourceSchema.safeParse({
+        accessedAt: "2025-01-01",
+        conflictDisclosure: "No known fixture conflict.",
+        id: "fixture-source",
+        license,
+        publishedAt: "2025-01-02",
+        publisher: "Fixture institution",
+        sourceTier: "A",
+        title: "Synthetic source",
+        url: "https://example.com/source",
+      }).success,
+    ).toBe(false);
+    expect(
+      PublicationRecordSchema.safeParse({
+        datasetVersion: "fixture-v1",
+        entityId: "fixture-point-observation",
+        entityType: "observation",
+        id: "fixture-publication",
+        publishedAt: "2026-08-29",
+        reviewedAt: "2026-08-30",
+        reviewedBy: "fixture-reviewer",
+        status: "published",
+      }).success,
+    ).toBe(false);
+  });
 });
 
 describe("observation schemas", () => {
@@ -247,5 +291,84 @@ describe("observation schemas", () => {
         lastVerifiedAt: "2026-02-30",
       }).success,
     ).toBe(false);
+  });
+
+  it("deep-freezes parsed evidence records", () => {
+    const parsed = NumericObservationSchema.parse(pointObservation);
+    expect(Object.isFrozen(parsed)).toBe(true);
+    expect(Object.isFrozen(parsed.period)).toBe(true);
+    expect(Object.isFrozen(parsed.license)).toBe(true);
+    expect(() => {
+      (parsed.period as { startYear: number }).startYear = 1999;
+    }).toThrow();
+    expect(parsed.period.startYear).toBe(2020);
+  });
+
+  it("requires structured semantics for interval ranges", () => {
+    expect(
+      NumericObservationSchema.safeParse({
+        ...pointObservation,
+        id: "fixture-interval",
+        range: {
+          kind: "interval",
+          lower: 10,
+          representative: 20,
+          upper: 30,
+        },
+        value: undefined,
+        valueSemantics: "range",
+      }).success,
+    ).toBe(false);
+    expect(
+      NumericObservationSchema.safeParse({
+        ...pointObservation,
+        id: "fixture-confidence-interval",
+        range: {
+          intervalType: "confidence",
+          kind: "interval",
+          level: 0.95,
+          lower: 10,
+          representative: 20,
+          upper: 30,
+        },
+        value: undefined,
+        valueSemantics: "range",
+      }).success,
+    ).toBe(true);
+  });
+
+  it("validates observation kind, units, geography, and semantics against its metric", () => {
+    const metric = MetricSchema.parse({
+      category: "technical",
+      definition: "Synthetic numeric metric.",
+      canonicalUnit: "MW",
+      geographySupport: ["global"],
+      id: "fixture-metric",
+      rangeSemantics: "point",
+      supportedUnits: ["MW", "GW"],
+      valueKind: "numeric",
+    });
+    const parsed = NumericObservationSchema.parse({
+      ...pointObservation,
+      unit: "MW",
+    });
+
+    expect(validateObservationAgainstMetric(parsed, metric)).toEqual({
+      issues: [],
+      valid: true,
+    });
+    expect(
+      validateObservationAgainstMetric(
+        NumericObservationSchema.parse({
+          ...pointObservation,
+          geographyScope: "country",
+          unit: "GWh",
+        }),
+        metric,
+      ),
+    ).toEqual({
+      issues: ["unsupported-unit", "unsupported-geography"],
+      valid: false,
+    });
   });
 });

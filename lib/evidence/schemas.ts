@@ -39,7 +39,8 @@ export const PeriodSchema = z
         path: ["endYear"],
       });
     }
-  });
+  })
+  .readonly();
 
 export const LicenseSchema = z
   .object({
@@ -48,7 +49,8 @@ export const LicenseSchema = z
     redistribution: z.enum(["allowed", "restricted", "unknown"]),
     url: z.url().optional(),
   })
-  .strict();
+  .strict()
+  .readonly();
 
 export const TechnologySchema = z
   .object({
@@ -57,7 +59,8 @@ export const TechnologySchema = z
     name: NonEmptyStringSchema,
     variant: NonEmptyStringSchema.optional(),
   })
-  .strict();
+  .strict()
+  .readonly();
 
 export const GeographySchema = z
   .object({
@@ -65,7 +68,8 @@ export const GeographySchema = z
     name: NonEmptyStringSchema,
     scope: GeographyScopeSchema,
   })
-  .strict();
+  .strict()
+  .readonly();
 
 export const SourceTierSchema = z.enum(["A", "B", "C"]);
 
@@ -81,18 +85,29 @@ export const SourceSchema = z
     title: NonEmptyStringSchema,
     url: z.url(),
   })
-  .strict();
+  .strict()
+  .superRefine((source, context) => {
+    if (source.publishedAt > source.accessedAt) {
+      context.addIssue({
+        code: "custom",
+        message: "A source cannot be accessed before it is published.",
+        path: ["accessedAt"],
+      });
+    }
+  })
+  .readonly();
 
 export const StudySchema = z
   .object({
     id: IdentifierSchema,
     methodology: NonEmptyStringSchema,
     period: PeriodSchema,
-    sourceIds: z.array(IdentifierSchema).min(1),
+    sourceIds: z.array(IdentifierSchema).min(1).readonly(),
     systemBoundary: NonEmptyStringSchema,
     title: NonEmptyStringSchema,
   })
-  .strict();
+  .strict()
+  .readonly();
 
 export const DatasetSchema = z
   .object({
@@ -100,23 +115,24 @@ export const DatasetSchema = z
     id: IdentifierSchema,
     lastVerifiedAt: CalendarDateSchema,
     license: LicenseSchema,
-    sourceIds: z.array(IdentifierSchema).min(1),
-    studyIds: z.array(IdentifierSchema).min(1),
+    sourceIds: z.array(IdentifierSchema).min(1).readonly(),
+    studyIds: z.array(IdentifierSchema).min(1).readonly(),
     title: NonEmptyStringSchema,
     version: NonEmptyStringSchema,
   })
-  .strict();
+  .strict()
+  .readonly();
 
-export const MetricSchema = z
+const NumericMetricSchema = z
   .object({
     canonicalUnit: NonEmptyStringSchema,
     category: IdentifierSchema,
     definition: NonEmptyStringSchema,
-    geographySupport: z.array(GeographyScopeSchema).min(1),
+    geographySupport: z.array(GeographyScopeSchema).min(1).readonly(),
     id: IdentifierSchema,
-    rangeSemantics: z.enum(["point", "range", "point-or-range", "categorical"]),
-    supportedUnits: z.array(NonEmptyStringSchema).min(1),
-    valueKind: z.enum(["numeric", "categorical"]),
+    rangeSemantics: z.enum(["point", "range", "point-or-range"]),
+    supportedUnits: z.array(NonEmptyStringSchema).min(1).readonly(),
+    valueKind: z.literal("numeric"),
   })
   .strict()
   .superRefine((metric, context) => {
@@ -127,17 +143,27 @@ export const MetricSchema = z
         path: ["supportedUnits"],
       });
     }
-    if (
-      (metric.valueKind === "categorical") !==
-      (metric.rangeSemantics === "categorical")
-    ) {
-      context.addIssue({
-        code: "custom",
-        message: "Categorical metrics must use categorical range semantics.",
-        path: ["rangeSemantics"],
-      });
-    }
   });
+
+const CategoricalMetricSchema = z
+  .object({
+    canonicalUnit: z.undefined().optional(),
+    category: IdentifierSchema,
+    definition: NonEmptyStringSchema,
+    geographySupport: z.array(GeographyScopeSchema).min(1).readonly(),
+    id: IdentifierSchema,
+    rangeSemantics: z.literal("categorical"),
+    supportedUnits: z.undefined().optional(),
+    valueKind: z.literal("categorical"),
+  })
+  .strict();
+
+export const MetricSchema = z
+  .discriminatedUnion("valueKind", [
+    NumericMetricSchema,
+    CategoricalMetricSchema,
+  ])
+  .readonly();
 
 export const CitationSchema = z
   .object({
@@ -146,17 +172,19 @@ export const CitationSchema = z
     locator: NonEmptyStringSchema,
     sourceId: IdentifierSchema,
   })
-  .strict();
+  .strict()
+  .readonly();
 
 export const ClaimSchema = z
   .object({
-    citationIds: z.array(IdentifierSchema).min(1),
+    citationIds: z.array(IdentifierSchema).min(1).readonly(),
     claimType: z.enum(["quantitative", "qualitative", "methodological"]),
     id: IdentifierSchema,
     metricId: IdentifierSchema.optional(),
     text: NonEmptyStringSchema,
   })
-  .strict();
+  .strict()
+  .readonly();
 
 export const ExplanationSchema = z
   .object({
@@ -169,11 +197,13 @@ export const ExplanationSchema = z
         simple: NonEmptyStringSchema,
         technical: NonEmptyStringSchema,
       })
-      .strict(),
+      .strict()
+      .readonly(),
     subjectId: IdentifierSchema,
     subjectType: z.enum(["metric", "technology", "claim", "concept"]),
   })
-  .strict();
+  .strict()
+  .readonly();
 
 export const CorrectionSchema = z
   .object({
@@ -192,7 +222,8 @@ export const CorrectionSchema = z
     priorVersion: NonEmptyStringSchema,
     reason: NonEmptyStringSchema,
   })
-  .strict();
+  .strict()
+  .readonly();
 
 export const PublicationStatusSchema = z.enum([
   "draft",
@@ -228,8 +259,20 @@ export const PublicationRecordSchema = z
           });
         }
       }
+      if (
+        record.reviewedAt &&
+        record.publishedAt &&
+        record.reviewedAt > record.publishedAt
+      ) {
+        context.addIssue({
+          code: "custom",
+          message: "A record cannot be published before it is reviewed.",
+          path: ["publishedAt"],
+        });
+      }
     }
-  });
+  })
+  .readonly();
 
 export const RepresentativeKindSchema = z.enum([
   "mean",
@@ -245,7 +288,8 @@ export const TransformationSchema = z
     description: NonEmptyStringSchema,
     kind: z.enum(["identity", "unit-conversion", "derived", "model-output"]),
   })
-  .strict();
+  .strict()
+  .readonly();
 
 const CommonObservationFields = {
   datasetId: IdentifierSchema,
@@ -264,11 +308,11 @@ const CommonObservationFields = {
   studyId: IdentifierSchema,
   systemBoundary: NonEmptyStringSchema,
   technologyId: IdentifierSchema,
-  transformation: TransformationSchema,
+  transformation: z.array(TransformationSchema).min(1).readonly(),
   uncertainty: NonEmptyStringSchema,
 } as const;
 
-export const NumericPointObservationSchema = z
+const NumericPointObservationObjectSchema = z
   .object({
     ...CommonObservationFields,
     kind: z.literal("numeric"),
@@ -279,37 +323,78 @@ export const NumericPointObservationSchema = z
   })
   .strict();
 
-export const NumericRangeObservationSchema = z
+const MinMaxRangeSchema = z
+  .object({
+    kind: z.literal("min-max"),
+    lower: z.number().finite(),
+    representative: z.number().finite(),
+    upper: z.number().finite(),
+  })
+  .strict();
+
+const IntervalRangeSchema = z
+  .object({
+    intervalType: z.enum([
+      "confidence",
+      "credible",
+      "interquartile",
+      "prediction",
+      "source-defined",
+    ]),
+    kind: z.literal("interval"),
+    level: z.number().finite().gt(0).lte(1).optional(),
+    lower: z.number().finite(),
+    representative: z.number().finite(),
+    upper: z.number().finite(),
+  })
+  .strict()
+  .superRefine((range, context) => {
+    if (
+      (range.intervalType === "confidence" ||
+        range.intervalType === "credible") &&
+      range.level === undefined
+    ) {
+      context.addIssue({
+        code: "custom",
+        message: "Confidence and credible intervals require a level.",
+        path: ["level"],
+      });
+    }
+  });
+
+const RangeSchema = z
+  .discriminatedUnion("kind", [MinMaxRangeSchema, IntervalRangeSchema])
+  .superRefine(({ lower, representative, upper }, context) => {
+    if (lower > representative || representative > upper) {
+      context.addIssue({
+        code: "custom",
+        message: "Range values must satisfy lower <= representative <= upper.",
+      });
+    }
+  })
+  .readonly();
+
+const NumericRangeObservationObjectSchema = z
   .object({
     ...CommonObservationFields,
     kind: z.literal("numeric"),
-    range: z
-      .object({
-        kind: z.enum(["min-max", "interval"]),
-        lower: z.number().finite(),
-        representative: z.number().finite(),
-        upper: z.number().finite(),
-      })
-      .strict()
-      .superRefine(({ lower, representative, upper }, context) => {
-        if (lower > representative || representative > upper) {
-          context.addIssue({
-            code: "custom",
-            message:
-              "Range values must satisfy lower <= representative <= upper.",
-          });
-        }
-      }),
+    range: RangeSchema,
     unit: NonEmptyStringSchema,
     value: z.undefined().optional(),
     valueSemantics: z.literal("range"),
   })
   .strict();
 
-export const NumericObservationSchema = z.discriminatedUnion("valueSemantics", [
-  NumericPointObservationSchema,
-  NumericRangeObservationSchema,
-]);
+export const NumericPointObservationSchema =
+  NumericPointObservationObjectSchema.readonly();
+export const NumericRangeObservationSchema =
+  NumericRangeObservationObjectSchema.readonly();
+export const NumericObservationSchema = z
+  .discriminatedUnion("valueSemantics", [
+    NumericPointObservationObjectSchema,
+    NumericRangeObservationObjectSchema,
+  ])
+  .readonly();
 
 export const CategoricalObservationSchema = z
   .object({
@@ -320,12 +405,45 @@ export const CategoricalObservationSchema = z
     value: NonEmptyStringSchema,
     valueSemantics: z.literal("categorical"),
   })
-  .strict();
+  .strict()
+  .readonly();
 
 export const ObservationSchema = z.union([
   NumericObservationSchema,
   CategoricalObservationSchema,
 ]);
+
+export type ObservationMetricIssue =
+  | "metric-id-mismatch"
+  | "value-kind-mismatch"
+  | "unsupported-unit"
+  | "unsupported-geography"
+  | "unsupported-value-semantics";
+
+export function validateObservationAgainstMetric(
+  observation: z.infer<typeof ObservationSchema>,
+  metric: z.infer<typeof MetricSchema>,
+): { issues: ObservationMetricIssue[]; valid: boolean } {
+  const issues: ObservationMetricIssue[] = [];
+  if (observation.metricId !== metric.id) issues.push("metric-id-mismatch");
+  if (observation.kind !== metric.valueKind) {
+    issues.push("value-kind-mismatch");
+  } else if (observation.kind === "numeric" && metric.valueKind === "numeric") {
+    if (!metric.supportedUnits.includes(observation.unit)) {
+      issues.push("unsupported-unit");
+    }
+    if (
+      metric.rangeSemantics !== "point-or-range" &&
+      observation.valueSemantics !== metric.rangeSemantics
+    ) {
+      issues.push("unsupported-value-semantics");
+    }
+  }
+  if (!metric.geographySupport.includes(observation.geographyScope)) {
+    issues.push("unsupported-geography");
+  }
+  return { issues, valid: issues.length === 0 };
+}
 
 export type Technology = z.infer<typeof TechnologySchema>;
 export type Geography = z.infer<typeof GeographySchema>;

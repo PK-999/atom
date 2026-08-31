@@ -1,7 +1,7 @@
 "use client";
 
 import { Question } from "@phosphor-icons/react/Question";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import styles from "./ui.module.css";
 
@@ -16,6 +16,7 @@ export function Tooltip({ content, label }: TooltipProps) {
   const [hovered, setHovered] = useState(false);
   const [pinned, setPinned] = useState(false);
   const id = useId();
+  const rootRef = useRef<HTMLSpanElement>(null);
   const open = !dismissed && (focused || hovered || pinned);
 
   useEffect(() => {
@@ -30,6 +31,18 @@ export function Tooltip({ content, label }: TooltipProps) {
     return () => document.removeEventListener("keydown", dismissOnEscape);
   }, [open]);
 
+  useEffect(() => {
+    if (!pinned) return;
+
+    const dismissOutside = (event: PointerEvent) => {
+      if (rootRef.current?.contains(event.target as Node)) return;
+      setDismissed(true);
+      setPinned(false);
+    };
+    document.addEventListener("pointerdown", dismissOutside);
+    return () => document.removeEventListener("pointerdown", dismissOutside);
+  }, [pinned]);
+
   return (
     <span
       className={styles.tooltip}
@@ -38,14 +51,15 @@ export function Tooltip({ content, label }: TooltipProps) {
         setHovered(true);
       }}
       onMouseLeave={() => setHovered(false)}
+      ref={rootRef}
     >
       <button
         aria-describedby={open ? id : undefined}
         aria-expanded={open}
         aria-label={label}
         onClick={() => {
-          setDismissed(false);
-          setPinned(true);
+          setDismissed(pinned);
+          setPinned(!pinned);
         }}
         onBlur={() => {
           setFocused(false);

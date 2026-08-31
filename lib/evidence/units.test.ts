@@ -29,10 +29,12 @@ const commonObservation = {
   studyId: "fixture-study",
   systemBoundary: "Synthetic conversion test boundary.",
   technologyId: "fixture-technology",
-  transformation: {
-    description: "No transformation applied.",
-    kind: "identity" as const,
-  },
+  transformation: [
+    {
+      description: "No transformation applied.",
+      kind: "identity" as const,
+    },
+  ],
   uncertainty: "Synthetic uncertainty note.",
 };
 
@@ -85,7 +87,7 @@ describe("unit conversion", () => {
     } satisfies NumericObservation;
 
     expect(normalizeObservation(point, "MW")).toMatchObject({
-      transformation: { kind: "unit-conversion" },
+      transformation: [{ kind: "identity" }, { kind: "unit-conversion" }],
       unit: "MW",
       value: 1_500,
     });
@@ -95,6 +97,35 @@ describe("unit conversion", () => {
     });
     expect(point.unit).toBe("GW");
     expect(range.range.upper).toBe(3);
+    expect(normalizeObservation(point, "GW").transformation).toEqual(
+      point.transformation,
+    );
+  });
+
+  it("preserves transformation lineage and deep-clones normalized evidence", () => {
+    const derived = {
+      ...commonObservation,
+      id: "fixture-derived",
+      transformation: [
+        {
+          description: "Synthetic derived calculation.",
+          kind: "derived" as const,
+        },
+      ],
+      unit: "GW",
+      value: 2,
+      valueSemantics: "point" as const,
+    } satisfies NumericObservation;
+
+    const normalized = normalizeObservation(derived, "MW");
+    expect(normalized.transformation.map(({ kind }) => kind)).toEqual([
+      "derived",
+      "unit-conversion",
+    ]);
+    expect(normalized.period).not.toBe(derived.period);
+    expect(normalized.license).not.toBe(derived.license);
+    expect(Object.isFrozen(normalized)).toBe(true);
+    expect(Object.isFrozen(normalized.period)).toBe(true);
   });
 });
 

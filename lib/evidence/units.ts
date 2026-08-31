@@ -1,4 +1,4 @@
-import type { NumericObservation } from "./schemas";
+import { NumericObservationSchema, type NumericObservation } from "./schemas";
 
 type UnitDimension =
   "emissions-intensity" | "power" | "energy" | "duration" | "ratio";
@@ -63,25 +63,32 @@ export function normalizeObservation(
   observation: NumericObservation,
   targetUnit: string,
 ): NumericObservation {
-  const description = `Converted from ${observation.unit} to ${targetUnit}. ${observation.transformation.description}`;
-  const transformation = {
-    description,
-    kind: "unit-conversion" as const,
-  };
+  const cloned = structuredClone(observation);
+  if (observation.unit === targetUnit) {
+    convertUnit(0, observation.unit, targetUnit);
+    return NumericObservationSchema.parse(cloned);
+  }
+  const transformation = [
+    ...cloned.transformation,
+    {
+      description: `Converted from ${observation.unit} to ${targetUnit}.`,
+      kind: "unit-conversion" as const,
+    },
+  ];
 
   if (observation.valueSemantics === "point") {
-    return {
-      ...observation,
+    return NumericObservationSchema.parse({
+      ...cloned,
       transformation,
       unit: targetUnit,
       value: convertUnit(observation.value, observation.unit, targetUnit),
-    };
+    });
   }
 
-  return {
-    ...observation,
+  return NumericObservationSchema.parse({
+    ...cloned,
     range: {
-      ...observation.range,
+      ...cloned.range,
       lower: convertUnit(observation.range.lower, observation.unit, targetUnit),
       representative: convertUnit(
         observation.range.representative,
@@ -92,7 +99,7 @@ export function normalizeObservation(
     },
     transformation,
     unit: targetUnit,
-  };
+  });
 }
 
 export interface HumanEquivalentAssumption {

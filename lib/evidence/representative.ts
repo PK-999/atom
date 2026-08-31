@@ -1,4 +1,5 @@
 import type { NumericObservation, Observation } from "./schemas";
+import { assessComparability } from "./comparability";
 import { canConvertUnit, convertUnit } from "./units";
 
 export type RepresentativeRule =
@@ -9,6 +10,7 @@ export type RepresentativeErrorCode =
   | "non-numeric"
   | "mixed-metrics"
   | "incompatible-units"
+  | "incomparable-observations"
   | "missing-representative"
   | "ambiguous-representative";
 
@@ -88,6 +90,22 @@ export function selectRepresentative(
       "Observation units do not share a physical dimension.",
       observations,
     );
+  }
+
+  if ((rule === "mean" || rule === "median") && observations.length > 1) {
+    const assessment = assessComparability(observations);
+    const aggregationIssues = assessment.issues.filter(
+      ({ code }) => code !== "convertible-units",
+    );
+    if (aggregationIssues.length > 0) {
+      return error(
+        "incomparable-observations",
+        `Aggregation is not permitted: ${aggregationIssues
+          .map(({ code }) => code)
+          .join(", ")}.`,
+        observations,
+      );
+    }
   }
 
   if (

@@ -2,6 +2,7 @@ import type { Observation } from "./schemas";
 import { canConvertUnit } from "./units";
 
 export type ComparabilityIssueCode =
+  | "insufficient-observations"
   | "metric-mismatch"
   | "value-kind-mismatch"
   | "convertible-units"
@@ -30,7 +31,19 @@ function unique<T>(values: readonly T[]): T[] {
 export function assessComparability(
   observations: readonly Observation[],
 ): ComparabilityAssessment {
-  if (observations.length < 2) return { comparable: true, issues: [] };
+  if (observations.length < 2) {
+    return {
+      comparable: false,
+      issues: [
+        {
+          affectedObservationIds: observations.map(({ id }) => id),
+          code: "insufficient-observations",
+          message: "At least two observations are required for a comparison.",
+          severity: "blocker",
+        },
+      ],
+    };
+  }
 
   const affectedObservationIds = observations.map(({ id }) => id);
   const issues: ComparabilityIssue[] = [];

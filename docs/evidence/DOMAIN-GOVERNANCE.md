@@ -18,7 +18,7 @@ relationship plus:
 - methodology and system boundary;
 - uncertainty stated in words, never as an invented confidence score;
 - source, licence, raw-access, and publication status;
-- transformation description and representative kind;
+- ordered transformation history and representative kind;
 - a valid last-verified calendar date.
 
 Numeric records are either a point or an ordered range. A range must satisfy
@@ -47,14 +47,20 @@ missing or ambiguous marked value is an error, not an invitation to guess.
 
 Range observations contribute their source-declared representative value.
 Selection never changes the stored source observation, and the result retains
-the contributing observation identifiers and displayed unit.
+the contributing observation identifiers and displayed unit. Mean and median
+aggregation is refused when geography, period, methodology, or system boundary
+differs; a period warning is not silently averaged away.
 
 ## Units and human equivalents
 
 The unit registry groups units by physical dimension and converts through a
 base-unit factor. Unknown units and cross-dimension conversions fail. Point and
-range normalization returns a new observation with an explicit conversion
-note; raw source values remain unchanged.
+range normalization returns a new observation with an explicit conversion note
+appended to the ordered transformation history; prior derived/model steps
+remain machine-readable and raw source values remain unchanged. Identity
+normalization does not fabricate a conversion step. Parsed records and
+normalized outputs are deeply frozen, and normalization does not share nested
+mutable objects with its input.
 
 Human-friendly equivalents are calculated only from a caller-supplied,
 inspectable assumption. The result preserves the scientific value and unit,
@@ -112,13 +118,17 @@ draft -> in-review -> published
 Direct `draft -> published` transitions are forbidden. Publication requires an
 explicit reviewer, review date, and publication date for that transition.
 Anonymous readers can access only records whose publication status is
-`published`; editors may inspect all valid workflow states. Stage 6 must also
-enforce this boundary in PostgreSQL row-level security so draft records cannot
-leak through a different repository path.
+`published`; editors may inspect all valid workflow states. Publication
+eligibility validates the complete observation relationship graph: source,
+study, dataset and version, metric contract, geography, technology, publication
+record, study method/boundary/period, and observation/dataset licence
+consistency. Stage 6 must also enforce this boundary in PostgreSQL row-level
+security so draft records cannot leak through a different repository path.
 
-Raw observations are public only when the observation is published, raw access
-is permitted, and redistribution is explicitly allowed by the licence.
-Restricted and unknown redistribution terms do not permit raw publication.
+Raw observations are public only when the complete publication gate passes,
+raw access is permitted, and the observation, dataset, and authoritative source
+all explicitly allow redistribution. Restricted and unknown redistribution
+terms do not permit raw publication.
 
 ## Corrections and disputed evidence
 
