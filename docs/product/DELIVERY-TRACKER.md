@@ -2,8 +2,7 @@
 
 Last updated: 2026-09-01
 
-Last verified implementation commit: pending verification of the current
-test-harness hardening change.
+Last verified implementation commit: `a3807b1`
 
 Current branch: `main`
 
