@@ -198,8 +198,8 @@ Gate: **Local gate passed; cloud gate pending**
 - [x] Local production build and cross-browser verification passed.
 - [x] Clean-install quality, build, and three-browser gates passed in isolated
   containers on the exact pinned Node.js 24.20.0 runtime.
-- [x] GitHub-hosted CI run confirmed for `main` at `8d8b8b8` (workflow run
-  `33403126890`, passed).
+- [x] GitHub-hosted CI run confirmed for `main` at `3013982` (workflow run
+  `33449274432`, quality and browser jobs passed).
 - [ ] Vercel preview deployment behavior confirmed on the pinned Node runtime.
 
 External prerequisite audit on 2026-08-31: GitHub is now connected and the
