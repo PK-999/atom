@@ -4,7 +4,8 @@ Date: 2026-08-31
 
 Branch: `feat/stage4-stage5-completion`
 
-Implementation checkpoints: `e315054`, `e143824`, `b33b55b`, `8a015cc`
+Implementation checkpoints: `e315054`, `e143824`, `b33b55b`, `8a015cc`,
+`23e5b44`
 
 ## Scope
 
@@ -58,8 +59,8 @@ synthetic contract data.
 
 | Check | Result |
 | --- | --- |
-| Evidence-focused suite | 83 tests across 6 files passed |
-| `npm run verify` | Format, strict types, lint, 143 tests across 22 files, and production build passed |
+| Evidence-focused suite | 84 tests across 6 files passed |
+| `npm run verify` | Format, strict types, lint, 144 tests across 22 files, and production build passed |
 | `npm run test:e2e` | 31 passed across Chromium, Firefox, and WebKit; two non-WebKit touch-test copies skipped by design |
 | Touch tooltip regression | Touch-enabled WebKit trigger-toggle and outside-pointer dismissal passed |
 | Accessibility | axe, keyboard, focus restoration, zoom, reduced motion, mobile reflow, and direct evidence access passed |
@@ -79,8 +80,10 @@ unit dimensions/categorical representative metadata, cross-entity chronology,
 and interval labels. A focused follow-up found two additional Important gaps:
 contradictory availability status/mode combinations and corrections that could
 be reviewed without post-correction observation and dataset verification. All
-findings are fixed with focused regressions. Final re-review is pending before
-the gate is marked passed.
+findings are fixed with focused regressions. The next follow-up found one final
+Important gap allowing a correction to predate source access; source access now
+precedes correction, reverification, review, and publication in both the policy
+and tested gate. Final re-review is pending before the gate is marked passed.
 
 ## Remaining limitations
 
