@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { canConvertUnit } from "./unit-registry";
 
-const IdentifierSchema = z
+export const IdentifierSchema = z
   .string()
   .trim()
   .min(1)
