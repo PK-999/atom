@@ -1,0 +1,2 @@
+-- Stage 6 seeds no scientific observations. The licensed reference metric is
+-- ingested in the lifecycle proof and remains feature-disabled until review.
