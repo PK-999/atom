@@ -1,6 +1,6 @@
 begin;
 
-select plan(29);
+select plan(30);
 
 select has_function(
   'private',
@@ -330,6 +330,17 @@ select throws_ok(
   $$ update public.metric_releases set active_dataset_version_id = 'transition-version-2' where metric_id = 'transition-metric' $$,
   '55000', null,
   'service_role cannot change the active dataset version pointer directly'
+);
+
+select throws_ok(
+  $$ update public.observations
+     set dataset_version_id = 'transition-version-draft',
+         value = 93,
+         period_start_year = 2024,
+         period_end_year = 2024
+     where id = 'transition-observation-1' $$,
+  '55000', null,
+  'service_role cannot move evidence out of a published dataset version'
 );
 
 select * from finish();

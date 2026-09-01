@@ -763,18 +763,18 @@ returns trigger
 language plpgsql
 set search_path = ''
 as $$
-declare
-  protected_dataset_version_id public.app_identifier;
 begin
-  protected_dataset_version_id := case
-    when tg_op = 'DELETE' then old.dataset_version_id
-    else new.dataset_version_id
-  end;
-
   if exists (
     select 1
     from public.dataset_versions version_record
-    where version_record.id = protected_dataset_version_id
+    where (
+      (tg_op = 'INSERT' and version_record.id = new.dataset_version_id)
+      or (tg_op = 'DELETE' and version_record.id = old.dataset_version_id)
+      or (
+        tg_op = 'UPDATE'
+        and version_record.id in (old.dataset_version_id, new.dataset_version_id)
+      )
+    )
       and version_record.publication_status = 'published'
   ) then
     raise exception using errcode = '55000', message = 'published dataset version observations are immutable';
