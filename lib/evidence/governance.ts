@@ -409,6 +409,21 @@ export function canPublishObservation(
   return { eligible: reasons.length === 0, reasons: [...new Set(reasons)] };
 }
 
+/**
+ * Evaluates the scientific relationship graph before persistence transitions the
+ * draft observation to published. Public-read eligibility remains enforced by
+ * canPublishObservation after the transaction commits.
+ */
+export function canPrepublishObservation(
+  observation: Observation,
+  context: PublicationContext,
+): PublicationEligibility {
+  return canPublishObservation(
+    { ...observation, publicationStatus: "published" },
+    context,
+  );
+}
+
 export function canPublishRawObservation(
   observation: Observation,
   context: PublicationContext,

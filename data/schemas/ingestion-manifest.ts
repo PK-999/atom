@@ -25,7 +25,17 @@ export const IngestionManifestSchema = z
     canonicalUnits: z.record(IdentifierSchema, z.string().trim().min(1)),
     reviewerRoles: z
       .array(z.enum(["scientific", "editorial", "licensing"]))
-      .min(2),
+      .length(3)
+      .superRefine((roles, context) => {
+        for (const role of ["scientific", "editorial", "licensing"] as const) {
+          if (!roles.includes(role)) {
+            context.addIssue({
+              code: "custom",
+              message: `Required review role missing: ${role}.`,
+            });
+          }
+        }
+      }),
     redistribution: z.enum(["allowed", "restricted", "unknown"]),
   })
   .strict()

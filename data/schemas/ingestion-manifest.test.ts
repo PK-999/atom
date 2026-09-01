@@ -17,7 +17,7 @@ const validManifest = {
   },
   parserId: "eia-capacity-factor-parser",
   redistribution: "allowed" as const,
-  reviewerRoles: ["scientific", "editorial"] as const,
+  reviewerRoles: ["scientific", "editorial", "licensing"] as const,
   sourceId: "eia",
   sourceTier: "A" as const,
   sourceUrl: "https://example.com/eia-capacity-factor",
