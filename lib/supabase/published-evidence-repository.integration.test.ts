@@ -12,6 +12,13 @@ const config = getSupabaseServerConfig({
   SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY,
   SUPABASE_URL: process.env.SUPABASE_URL,
 });
+const requiresSupabaseIntegration =
+  process.env.ATOM_REQUIRE_SUPABASE_INTEGRATION === "1";
+if (!config && requiresSupabaseIntegration) {
+  throw new Error(
+    "Supabase integration is required; set SUPABASE_URL and SUPABASE_SECRET_KEY.",
+  );
+}
 const integrationSnapshot = remapFixtureIds(
   createEvidenceRepositoryContractSnapshot(),
 );
@@ -38,6 +45,7 @@ describe("SupabaseEvidenceRepository integration", () => {
   it("does not expose releases backed by unpublished metrics or dataset versions", async () => {
     await expect(repository.listMetricReleases()).resolves.toEqual([
       expect.objectContaining({ metricId: fixtureId("metric") }),
+      expect.objectContaining({ metricId: fixtureId("metric-2") }),
     ]);
     await expect(
       repository.getMetricDefinition(fixtureId("draft-metric")),
@@ -57,6 +65,9 @@ describe("SupabaseEvidenceRepository integration", () => {
 
   async function seedSyntheticEvidence(): Promise<void> {
     const snapshot = integrationSnapshot;
+    const publishableObservationIds = snapshot.observations
+      .filter((observation) => observation.publicationStatus === "published")
+      .map((observation) => observation.id);
     // Test-only fixture setup follows the publication lifecycle. The product seed
     // remains intentionally empty of scientific observations.
     await client
@@ -257,7 +268,7 @@ describe("SupabaseEvidenceRepository integration", () => {
       .update({
         publication_status: "in-review",
       })
-      .in("id", [fixtureId("observation-a"), fixtureId("observation-b")])
+      .in("id", publishableObservationIds)
       .throwOnError();
     await client
       .from("observations")
@@ -267,7 +278,7 @@ describe("SupabaseEvidenceRepository integration", () => {
         reviewed_at: "2026-08-31T00:00:00Z",
         reviewed_by: "fixture-reviewer",
       })
-      .in("id", [fixtureId("observation-a"), fixtureId("observation-b")])
+      .in("id", publishableObservationIds)
       .throwOnError();
     await client
       .from("dataset_versions")
@@ -287,28 +298,25 @@ describe("SupabaseEvidenceRepository integration", () => {
     await client
       .from("metric_releases")
       .insert([
-        {
-          active_dataset_version_id: fixtureId("version-active"),
-          availability_status: "supported",
-          feature_enabled: true,
-          geography_ids: [fixtureId("global")],
-          message: "Synthetic repository-contract release.",
-          metric_id: fixtureId("metric"),
+        ...snapshot.metricReleases.map((release) => ({
+          active_dataset_version_id: release.activeDatasetVersionId,
+          availability_status: release.availabilityStatus,
+          feature_enabled: release.featureEnabled,
+          geography_ids: [...release.geographyIds],
+          message: `Synthetic ${release.metricId} release.`,
+          metric_id: release.metricId,
           period_end_year: 2025,
           period_start_year: 2020,
-          publication_status: "published",
+          publication_status: release.publicationStatus,
           published_at: "2026-09-01T00:00:00Z",
-          range_mode: "available",
-          raw_mode: "available",
-          redistribution_decision: "allowed",
+          range_mode: "available" as const,
+          raw_mode: "available" as const,
+          redistribution_decision: "allowed" as const,
           reviewed_at: "2026-08-31T00:00:00Z",
           reviewed_by: "fixture-reviewer",
-          technology_ids: [
-            fixtureId("technology-a"),
-            fixtureId("technology-b"),
-          ],
-          typical_mode: "available",
-        },
+          technology_ids: [...release.technologyIds],
+          typical_mode: "available" as const,
+        })),
         {
           active_dataset_version_id: fixtureId("version-active"),
           availability_status: "supported",

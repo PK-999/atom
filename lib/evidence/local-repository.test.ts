@@ -4,7 +4,10 @@ import {
   createEvidenceRepositoryContractSnapshot,
   runEvidenceRepositoryContract,
 } from "./repository-contract";
-import { LocalEvidenceRepository } from "./local-repository";
+import {
+  LocalEvidenceRepository,
+  type EvidenceSnapshot,
+} from "./local-repository";
 
 runEvidenceRepositoryContract(
   (snapshot) => new LocalEvidenceRepository(snapshot),
@@ -46,5 +49,50 @@ describe("LocalEvidenceRepository", () => {
     const technologies = await repository.listTechnologies();
 
     expect(technologies[0]).toMatchObject({ name: "Alpha technology" });
+  });
+
+  it("rejects a snapshot without observation version mappings", () => {
+    const snapshotWithoutMappings = {
+      ...createEvidenceRepositoryContractSnapshot(),
+    } as Omit<EvidenceSnapshot, "observationDatasetVersionIds"> & {
+      observationDatasetVersionIds?: Readonly<Record<string, string>>;
+    };
+    delete snapshotWithoutMappings.observationDatasetVersionIds;
+
+    expect(
+      () =>
+        new LocalEvidenceRepository(
+          snapshotWithoutMappings as unknown as EvidenceSnapshot,
+        ),
+    ).toThrow(/version mapping/i);
+  });
+
+  it("rejects incomplete observation version mappings", () => {
+    const snapshot = createEvidenceRepositoryContractSnapshot();
+    const incompleteMapping = { ...snapshot.observationDatasetVersionIds };
+    delete incompleteMapping["fixture-observation-a"];
+
+    expect(
+      () =>
+        new LocalEvidenceRepository({
+          ...snapshot,
+          observationDatasetVersionIds: incompleteMapping,
+        }),
+    ).toThrow(/version mapping/i);
+  });
+
+  it("rejects mappings for unknown observations", () => {
+    const snapshot = createEvidenceRepositoryContractSnapshot();
+
+    expect(
+      () =>
+        new LocalEvidenceRepository({
+          ...snapshot,
+          observationDatasetVersionIds: {
+            ...snapshot.observationDatasetVersionIds,
+            "fixture-unknown-observation": "fixture-version-active",
+          },
+        }),
+    ).toThrow(/unknown observation/i);
   });
 });

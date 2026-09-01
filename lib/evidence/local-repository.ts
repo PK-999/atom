@@ -20,7 +20,7 @@ export interface EvidenceSnapshot {
   readonly metricReleases: readonly MetricRelease[];
   readonly metrics: readonly Metric[];
   readonly observations: readonly Observation[];
-  readonly observationDatasetVersionIds?: Readonly<Record<string, string>>;
+  readonly observationDatasetVersionIds: Readonly<Record<string, string>>;
   readonly technologies: readonly Technology[];
 }
 
@@ -28,16 +28,13 @@ export class LocalEvidenceRepository implements EvidenceRepository {
   private readonly snapshot: EvidenceSnapshot;
 
   constructor(snapshot: EvidenceSnapshot) {
-    const observationDatasetVersionIds = snapshot.observationDatasetVersionIds
-      ? Object.fromEntries(
-          Object.entries(snapshot.observationDatasetVersionIds).map(
-            ([observationId, datasetVersionId]) => [
-              IdentifierSchema.parse(observationId),
-              IdentifierSchema.parse(datasetVersionId),
-            ],
-          ),
-        )
-      : undefined;
+    const observations = snapshot.observations.map((observation) =>
+      ObservationSchema.parse(structuredClone(observation)),
+    );
+    const observationDatasetVersionIds = validateObservationVersionMappings(
+      snapshot.observationDatasetVersionIds,
+      observations,
+    );
     this.snapshot = deepFreeze({
       geographies: snapshot.geographies.map((geography) =>
         GeographySchema.parse(structuredClone(geography)),
@@ -48,10 +45,8 @@ export class LocalEvidenceRepository implements EvidenceRepository {
       metrics: snapshot.metrics.map((metric) =>
         MetricSchema.parse(structuredClone(metric)),
       ),
-      observations: snapshot.observations.map((observation) =>
-        ObservationSchema.parse(structuredClone(observation)),
-      ),
-      ...(observationDatasetVersionIds ? { observationDatasetVersionIds } : {}),
+      observations,
+      observationDatasetVersionIds,
       technologies: snapshot.technologies.map((technology) =>
         TechnologySchema.parse(structuredClone(technology)),
       ),
@@ -108,10 +103,12 @@ export class LocalEvidenceRepository implements EvidenceRepository {
       this.snapshot.observations
         .filter(
           (observation) =>
-            (this.snapshot.observationDatasetVersionIds?.[observation.id] ??
-              observation.datasetId) === release.activeDatasetVersionId &&
+            this.snapshot.observationDatasetVersionIds[observation.id] ===
+              release.activeDatasetVersionId &&
             observation.metricId === query.metricId &&
             observation.publicationStatus === "published" &&
+            observation.rawAccess === "permitted" &&
+            observation.license.redistribution === "allowed" &&
             release.geographyIds.includes(observation.geographyId) &&
             release.technologyIds.includes(observation.technologyId) &&
             (query.geographyIds === undefined ||
@@ -170,6 +167,43 @@ function validateMetricRelease(value: MetricRelease): MetricRelease {
     throw new Error("EvidenceSnapshot contains an invalid metric release.");
   }
   return value;
+}
+
+function validateObservationVersionMappings(
+  value: Readonly<Record<string, string>>,
+  observations: readonly Observation[],
+): Readonly<Record<string, string>> {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error("EvidenceSnapshot requires observation version mappings.");
+  }
+
+  const entries = Object.entries(value).map(
+    ([observationId, datasetVersionId]) =>
+      [
+        IdentifierSchema.parse(observationId),
+        IdentifierSchema.parse(datasetVersionId),
+      ] as const,
+  );
+  const observationIds = new Set(
+    observations.map((observation) => observation.id),
+  );
+
+  for (const observation of observations) {
+    if (!Object.hasOwn(value, observation.id)) {
+      throw new Error(
+        `EvidenceSnapshot is missing a version mapping for observation ${observation.id}.`,
+      );
+    }
+  }
+  for (const [observationId] of entries) {
+    if (!observationIds.has(observationId)) {
+      throw new Error(
+        `EvidenceSnapshot contains an unknown observation version mapping for ${observationId}.`,
+      );
+    }
+  }
+
+  return Object.fromEntries(entries);
 }
 
 function deepFreeze<T>(value: T): T {
