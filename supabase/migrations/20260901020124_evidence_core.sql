@@ -362,6 +362,12 @@ create table public.observations (
   constraint observations_numeric_unit_check check (
     value_kind <> 'numeric' or (unit is not null and btrim(unit) <> '')
   ),
+  constraint observations_finite_numeric_values_check check (
+    (value is null or value not in ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric))
+    and (lower_value is null or lower_value not in ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric))
+    and (representative_value is null or representative_value not in ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric))
+    and (upper_value is null or upper_value not in ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric))
+  ),
   constraint observations_range_metadata_check check (
     (
       value_semantics = 'range'
@@ -645,3 +651,223 @@ $$;
 create trigger published_dataset_versions_are_immutable
 before update on public.dataset_versions
 for each row execute function private.protect_published_dataset_version();
+
+create function private.enforce_publication_transition()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if old.publication_status = 'draft' and new.publication_status = 'published' then
+    raise exception using errcode = '55000', message = 'draft records must pass in-review before publication';
+  end if;
+
+  if old.publication_status = 'published' and new.publication_status in ('draft', 'in-review') then
+    raise exception using errcode = '55000', message = 'published records cannot silently return to review';
+  end if;
+
+  if old.publication_status = 'withdrawn' and new.publication_status <> 'withdrawn' then
+    raise exception using errcode = '55000', message = 'withdrawn records are terminal';
+  end if;
+
+  return new;
+end;
+$$;
+
+create trigger technologies_publication_transitions
+before update of publication_status on public.technologies
+for each row execute function private.enforce_publication_transition();
+create trigger geographies_publication_transitions
+before update of publication_status on public.geographies
+for each row execute function private.enforce_publication_transition();
+create trigger metrics_publication_transitions
+before update of publication_status on public.metrics
+for each row execute function private.enforce_publication_transition();
+create trigger sources_publication_transitions
+before update of publication_status on public.sources
+for each row execute function private.enforce_publication_transition();
+create trigger studies_publication_transitions
+before update of publication_status on public.studies
+for each row execute function private.enforce_publication_transition();
+create trigger datasets_publication_transitions
+before update of publication_status on public.datasets
+for each row execute function private.enforce_publication_transition();
+create trigger dataset_versions_publication_transitions
+before update of publication_status on public.dataset_versions
+for each row execute function private.enforce_publication_transition();
+create trigger observations_publication_transitions
+before update of publication_status on public.observations
+for each row execute function private.enforce_publication_transition();
+create trigger metric_releases_publication_transitions
+before update of publication_status on public.metric_releases
+for each row execute function private.enforce_publication_transition();
+create trigger corrections_publication_transitions
+before update of publication_status on public.corrections
+for each row execute function private.enforce_publication_transition();
+
+create function private.prevent_active_dataset_version_withdrawal()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if old.publication_status = 'published'
+    and new.publication_status = 'withdrawn'
+    and exists (
+      select 1
+      from public.metric_releases release_record
+      where release_record.active_dataset_version_id = old.id
+        and release_record.publication_status = 'published'
+        and release_record.feature_enabled
+    ) then
+    raise exception using errcode = '55000', message = 'an active dataset version cannot be withdrawn';
+  end if;
+
+  return new;
+end;
+$$;
+
+create trigger active_dataset_versions_cannot_be_withdrawn
+before update of publication_status on public.dataset_versions
+for each row execute function private.prevent_active_dataset_version_withdrawal();
+
+create function private.prevent_active_observation_withdrawal()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if old.publication_status = 'published'
+    and new.publication_status = 'withdrawn'
+    and exists (
+      select 1
+      from public.metric_releases release_record
+      where release_record.metric_id = old.metric_id
+        and release_record.active_dataset_version_id = old.dataset_version_id
+        and release_record.publication_status = 'published'
+        and release_record.feature_enabled
+    ) then
+    raise exception using errcode = '55000', message = 'active observations cannot be silently withdrawn';
+  end if;
+
+  return new;
+end;
+$$;
+
+create trigger active_observations_cannot_be_withdrawn
+before update of publication_status on public.observations
+for each row execute function private.prevent_active_observation_withdrawal();
+
+create function private.protect_published_observation()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+declare
+  protected_dataset_version_id public.app_identifier;
+begin
+  protected_dataset_version_id := case
+    when tg_op = 'DELETE' then old.dataset_version_id
+    else new.dataset_version_id
+  end;
+
+  if exists (
+    select 1
+    from public.dataset_versions version_record
+    where version_record.id = protected_dataset_version_id
+      and version_record.publication_status = 'published'
+  ) then
+    raise exception using errcode = '55000', message = 'published dataset version observations are immutable';
+  end if;
+
+  return case when tg_op = 'DELETE' then old else new end;
+end;
+$$;
+
+create trigger published_dataset_version_observations_are_immutable
+before insert or update or delete on public.observations
+for each row execute function private.protect_published_observation();
+
+create function private.protect_published_observation_transformation()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if exists (
+    select 1
+    from public.observations observation_record
+    join public.dataset_versions version_record on version_record.id = observation_record.dataset_version_id
+    where observation_record.id = new.observation_id
+      and version_record.publication_status = 'published'
+  ) then
+    raise exception using errcode = '55000', message = 'published observation transformations are immutable';
+  end if;
+
+  return new;
+end;
+$$;
+
+create trigger published_observation_transformations_are_immutable
+before insert on public.observation_transformations
+for each row execute function private.protect_published_observation_transformation();
+
+create function private.validate_metric_release_coverage()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if exists (select 1 from unnest(new.technology_ids) as identifier where identifier is null)
+    or exists (select 1 from unnest(new.geography_ids) as identifier where identifier is null) then
+    raise exception using errcode = '22023', message = 'metric release coverage identifiers cannot be null';
+  end if;
+
+  if exists (
+    select 1 from unnest(new.technology_ids) as identifier
+    group by identifier having count(*) > 1
+  ) or exists (
+    select 1 from unnest(new.geography_ids) as identifier
+    group by identifier having count(*) > 1
+  ) then
+    raise exception using errcode = '22023', message = 'metric release coverage identifiers cannot be duplicated';
+  end if;
+
+  if exists (
+    select 1
+    from unnest(new.technology_ids) as identifier
+    where not exists (select 1 from public.technologies technology_record where technology_record.id::text = identifier)
+  ) or exists (
+    select 1
+    from unnest(new.geography_ids) as identifier
+    where not exists (select 1 from public.geographies geography_record where geography_record.id::text = identifier)
+  ) then
+    raise exception using errcode = '22023', message = 'metric release coverage identifiers must exist';
+  end if;
+
+  return new;
+end;
+$$;
+
+create trigger metric_release_coverage_is_valid
+before insert or update of technology_ids, geography_ids on public.metric_releases
+for each row execute function private.validate_metric_release_coverage();
+
+create function private.protect_metric_release_pointer()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if old.active_dataset_version_id is distinct from new.active_dataset_version_id
+    and current_user <> 'postgres' then
+    raise exception using errcode = '55000', message = 'active dataset version changes require private activation';
+  end if;
+
+  return new;
+end;
+$$;
+
+create trigger metric_release_pointer_requires_private_activation
+before update of active_dataset_version_id on public.metric_releases
+for each row execute function private.protect_metric_release_pointer();

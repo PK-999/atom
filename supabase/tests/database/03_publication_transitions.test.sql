@@ -1,6 +1,6 @@
 begin;
 
-select plan(13);
+select plan(29);
 
 select has_function(
   'private',
@@ -26,11 +26,15 @@ select ok(
 
 insert into public.technologies (
   id, name, description, lifecycle_status, publication_status, reviewed_by, reviewed_at, published_at
-) values ('transition-tech', 'Transition technology', 'Published test technology.', 'operating', 'published', 'reviewer', now(), now());
+) values
+  ('transition-tech', 'Transition technology', 'Published test technology.', 'operating', 'published', 'reviewer', now(), now()),
+  ('transition-tech-review', 'Review technology', 'Technology used to test publication transitions.', 'operating', 'draft', null, null, null);
 
 insert into public.geographies (
   id, name, scope, publication_status, reviewed_by, reviewed_at, published_at
-) values ('transition-geo', 'Transition geography', 'country', 'published', 'reviewer', now(), now());
+) values
+  ('transition-geo', 'Transition geography', 'country', 'published', 'reviewer', now(), now()),
+  ('transition-geo-extra', 'Extra transition geography', 'country', 'published', 'reviewer', now(), now());
 
 insert into public.metrics (
   id, canonical_unit, supported_units, value_kind, range_semantics, representative_rule, geography_support,
@@ -74,9 +78,9 @@ insert into public.dataset_versions (
   reviewed_by, reviewed_at, published_at
 ) values
   ('transition-version-1', 'transition-dataset', 'sha256', repeat('1', 64), date '2026-01-02', '1.0.0', null,
-    'published', 'reviewer', now(), now()),
+    'in-review', 'reviewer', now(), null),
   ('transition-version-2', 'transition-dataset', 'sha256', repeat('2', 64), date '2026-02-02', '1.1.0', 'transition-version-1',
-    'published', 'reviewer', now(), now()),
+    'in-review', 'reviewer', now(), null),
   ('transition-version-draft', 'transition-dataset', 'sha256', repeat('3', 64), date '2026-03-02', '1.2.0', 'transition-version-2',
     'in-review', 'reviewer', now(), null);
 
@@ -102,6 +106,11 @@ insert into public.observations (
     'A complete test methodology.', 'A complete test boundary.', 2025, 2025,
     'A complete test uncertainty note.', date '2026-03-02', 'permitted', 'allowed',
     'draft', null, null, null);
+
+update public.dataset_versions
+set publication_status = 'published',
+    published_at = now()
+where id in ('transition-version-1', 'transition-version-2');
 
 insert into public.metric_releases (
   metric_id, availability_status, active_dataset_version_id, technology_ids,
@@ -170,6 +179,158 @@ select is(
 );
 
 select is((select count(*) from public.dataset_versions where dataset_id = 'transition-dataset'), 3::bigint, 'rollback preserves every dataset version');
+
+set local role service_role;
+
+select throws_ok(
+  $$ insert into public.observations (
+    id, metric_id, technology_id, geography_id, study_id, source_id, dataset_version_id,
+    value_kind, value_semantics, value, unit, representative_kind, methodology,
+    system_boundary, period_start_year, period_end_year, uncertainty,
+    last_verified_on, raw_access, redistribution, publication_status,
+    reviewed_by, reviewed_at, published_at
+  ) values (
+    'transition-observation-late', 'transition-metric', 'transition-tech', 'transition-geo', 'transition-study',
+    'transition-source', 'transition-version-1', 'numeric', 'point', 88, 'percent', 'source-observation',
+    'A complete test methodology.', 'A complete test boundary.', 2024, 2024,
+    'A complete test uncertainty note.', date '2026-01-02', 'permitted', 'allowed',
+    'published', 'reviewer', now(), now()
+  ) $$,
+  '55000', null,
+  'service_role cannot add evidence to a published dataset version'
+);
+
+select throws_ok(
+  $$ update public.observations set value = 89 where id = 'transition-observation-1' $$,
+  '55000', null,
+  'service_role cannot change evidence in a published dataset version'
+);
+
+select throws_ok(
+  $$ insert into public.observation_transformations (
+    id, observation_id, step_order, operation_name, software_version, explanatory_note
+  ) values (
+    'transition-transform-late', 'transition-observation-1', 1, 'identity', '1.0.0', 'Late transformation.'
+  ) $$,
+  '55000', null,
+  'service_role cannot add transformations to published evidence'
+);
+
+reset role;
+
+select throws_ok(
+  $$ update public.technologies
+     set publication_status = 'published', reviewed_by = 'reviewer', reviewed_at = now(), published_at = now()
+     where id = 'transition-tech-review' $$,
+  '55000', null,
+  'draft entities cannot bypass independent review to publish directly'
+);
+
+select lives_ok(
+  $$ update public.technologies
+       set publication_status = 'in-review', reviewed_by = 'reviewer', reviewed_at = now()
+       where id = 'transition-tech-review';
+     update public.technologies
+       set publication_status = 'published', published_at = now()
+       where id = 'transition-tech-review' $$,
+  'the draft to in-review to published path is allowed'
+);
+
+select throws_ok(
+  $$ update public.technologies set publication_status = 'draft' where id = 'transition-tech-review' $$,
+  '55000', null,
+  'published entities cannot silently return to draft'
+);
+
+select lives_ok(
+  $$ update public.technologies set publication_status = 'withdrawn' where id = 'transition-tech-review' $$,
+  'published entities may enter the terminal withdrawn state'
+);
+
+select throws_ok(
+  $$ update public.technologies set publication_status = 'in-review' where id = 'transition-tech-review' $$,
+  '55000', null,
+  'withdrawn entities cannot be resurrected'
+);
+
+select throws_ok(
+  $$ update public.dataset_versions set publication_status = 'withdrawn' where id = 'transition-version-1' $$,
+  '55000', null,
+  'the active dataset version cannot be silently unpublished'
+);
+
+select throws_ok(
+  $$ update public.metric_releases set technology_ids = array['transition-tech', null] where metric_id = 'transition-metric' $$,
+  '22023', null,
+  'metric releases reject null technology identifiers'
+);
+
+select throws_ok(
+  $$ update public.metric_releases set technology_ids = array['transition-tech', 'transition-tech'] where metric_id = 'transition-metric' $$,
+  '22023', null,
+  'metric releases reject duplicate technology identifiers'
+);
+
+select throws_ok(
+  $$ update public.metric_releases set geography_ids = array['transition-geo-missing'] where metric_id = 'transition-metric' $$,
+  '22023', null,
+  'metric releases reject nonexistent geography identifiers'
+);
+
+update public.metric_releases
+set technology_ids = array['transition-tech', 'transition-tech-review'],
+    geography_ids = array['transition-geo']
+where metric_id = 'transition-metric';
+
+set local role service_role;
+
+select throws_ok(
+  $$ select private.activate_metric_release('transition-metric', 'transition-version-2', 'coverage must be complete') $$,
+  '55000', null,
+  'activation requires eligible target evidence for every declared technology'
+);
+
+reset role;
+
+select throws_ok(
+  $$ insert into public.observations (
+    id, metric_id, technology_id, geography_id, study_id, source_id, dataset_version_id,
+    value_kind, value_semantics, value, unit, representative_kind, methodology,
+    system_boundary, period_start_year, period_end_year, uncertainty,
+    last_verified_on, raw_access, redistribution
+  ) values (
+    'transition-observation-nan', 'transition-metric', 'transition-tech', 'transition-geo', 'transition-study',
+    'transition-source', 'transition-version-draft', 'numeric', 'point', 'NaN'::numeric, 'percent', 'source-observation',
+    'A complete test methodology.', 'A complete test boundary.', 2024, 2024,
+    'A complete test uncertainty note.', date '2026-03-02', 'permitted', 'allowed'
+  ) $$,
+  '23514', null,
+  'numeric point values reject NaN'
+);
+
+select throws_ok(
+  $$ insert into public.observations (
+    id, metric_id, technology_id, geography_id, study_id, source_id, dataset_version_id,
+    value_kind, value_semantics, lower_value, representative_value, upper_value, unit, representative_kind,
+    range_kind, methodology, system_boundary, period_start_year, period_end_year, uncertainty,
+    last_verified_on, raw_access, redistribution
+  ) values (
+    'transition-observation-infinity', 'transition-metric', 'transition-tech', 'transition-geo', 'transition-study',
+    'transition-source', 'transition-version-draft', 'numeric', 'range', '-Infinity'::numeric, 1, 'Infinity'::numeric,
+    'percent', 'median', 'min-max', 'A complete test methodology.', 'A complete test boundary.', 2023, 2023,
+    'A complete test uncertainty note.', date '2026-03-02', 'permitted', 'allowed'
+  ) $$,
+  '23514', null,
+  'numeric range bounds reject infinity'
+);
+
+set local role service_role;
+
+select throws_ok(
+  $$ update public.metric_releases set active_dataset_version_id = 'transition-version-2' where metric_id = 'transition-metric' $$,
+  '55000', null,
+  'service_role cannot change the active dataset version pointer directly'
+);
 
 select * from finish();
 rollback;

@@ -256,6 +256,8 @@ as $$
 declare
   caller_role text;
   previous_version_id public.app_identifier;
+  declared_technology_ids text[];
+  declared_geography_ids text[];
   target_dataset_id public.app_identifier;
   target_supersedes_version_id public.app_identifier;
   operation_kind text;
@@ -280,8 +282,10 @@ begin
       message = 'metric_id, dataset_version_id, and reason are required';
   end if;
 
-  select release_record.active_dataset_version_id
-  into previous_version_id
+  select release_record.active_dataset_version_id,
+         release_record.technology_ids,
+         release_record.geography_ids
+  into previous_version_id, declared_technology_ids, declared_geography_ids
   from public.metric_releases release_record
   where release_record.metric_id = activate_metric_release.metric_id
     and release_record.publication_status = 'published'
@@ -391,6 +395,78 @@ begin
     raise exception using
       errcode = '55000',
       message = 'target dataset version contains ineligible observations for the metric';
+  end if;
+
+  if exists (
+    select 1
+    from unnest(declared_technology_ids) as declared_identifier
+    where not exists (
+      select 1
+      from public.observations observation_record
+      join public.metrics metric_record on metric_record.id = observation_record.metric_id
+      join public.technologies technology_record on technology_record.id = observation_record.technology_id
+      join public.geographies geography_record on geography_record.id = observation_record.geography_id
+      join public.studies study_record on study_record.id = observation_record.study_id
+      join public.sources source_record on source_record.id = observation_record.source_id
+      join public.datasets dataset_record on dataset_record.id = target_dataset_id
+      where observation_record.metric_id = activate_metric_release.metric_id
+        and observation_record.dataset_version_id = activate_metric_release.dataset_version_id
+        and observation_record.technology_id::text = declared_identifier
+        and observation_record.publication_status = 'published'
+        and observation_record.raw_access = 'permitted'
+        and observation_record.redistribution = 'allowed'
+        and metric_record.publication_status = 'published'
+        and technology_record.publication_status = 'published'
+        and geography_record.publication_status = 'published'
+        and study_record.source_id = source_record.id
+        and study_record.publication_status = 'published'
+        and source_record.publication_status = 'published'
+        and source_record.redistribution = 'allowed'
+        and dataset_record.source_id = source_record.id
+        and dataset_record.publication_status = 'published'
+        and dataset_record.raw_access = 'permitted'
+        and dataset_record.redistribution = 'allowed'
+    )
+  ) then
+    raise exception using
+      errcode = '55000',
+      message = 'target dataset version lacks eligible evidence for a declared technology';
+  end if;
+
+  if exists (
+    select 1
+    from unnest(declared_geography_ids) as declared_identifier
+    where not exists (
+      select 1
+      from public.observations observation_record
+      join public.metrics metric_record on metric_record.id = observation_record.metric_id
+      join public.technologies technology_record on technology_record.id = observation_record.technology_id
+      join public.geographies geography_record on geography_record.id = observation_record.geography_id
+      join public.studies study_record on study_record.id = observation_record.study_id
+      join public.sources source_record on source_record.id = observation_record.source_id
+      join public.datasets dataset_record on dataset_record.id = target_dataset_id
+      where observation_record.metric_id = activate_metric_release.metric_id
+        and observation_record.dataset_version_id = activate_metric_release.dataset_version_id
+        and observation_record.geography_id::text = declared_identifier
+        and observation_record.publication_status = 'published'
+        and observation_record.raw_access = 'permitted'
+        and observation_record.redistribution = 'allowed'
+        and metric_record.publication_status = 'published'
+        and technology_record.publication_status = 'published'
+        and geography_record.publication_status = 'published'
+        and study_record.source_id = source_record.id
+        and study_record.publication_status = 'published'
+        and source_record.publication_status = 'published'
+        and source_record.redistribution = 'allowed'
+        and dataset_record.source_id = source_record.id
+        and dataset_record.publication_status = 'published'
+        and dataset_record.raw_access = 'permitted'
+        and dataset_record.redistribution = 'allowed'
+    )
+  ) then
+    raise exception using
+      errcode = '55000',
+      message = 'target dataset version lacks eligible evidence for a declared geography';
   end if;
 
   operation_kind := case

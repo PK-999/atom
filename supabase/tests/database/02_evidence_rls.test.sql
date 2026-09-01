@@ -58,24 +58,13 @@ insert into public.dataset_versions (
   transformation_version, publication_status, reviewed_by, reviewed_at, published_at
 ) values
   ('rls-version-active', 'rls-dataset', 'sha256', repeat('a', 64), date '2026-01-02', '1.0.0',
-    'published', 'reviewer', now(), now()),
+    'in-review', 'reviewer', now(), null),
   ('rls-version-inactive', 'rls-dataset', 'sha256', repeat('b', 64), date '2026-01-02', '1.0.1',
-    'published', 'reviewer', now(), now()),
+    'in-review', 'reviewer', now(), null),
   ('rls-version-draft', 'rls-dataset', 'sha256', repeat('c', 64), date '2026-01-02', '1.0.2',
     'in-review', 'reviewer', now(), null),
   ('rls-version-restricted', 'rls-dataset-restricted', 'sha256', repeat('d', 64), date '2026-01-02', '1.0.0',
-    'published', 'reviewer', now(), now());
-
-insert into public.metric_releases (
-  metric_id, availability_status, active_dataset_version_id, technology_ids,
-  geography_ids, period_start_year, period_end_year, typical_mode, range_mode,
-  raw_mode, redistribution_decision, message, feature_enabled,
-  publication_status, reviewed_by, reviewed_at, published_at
-) values (
-  'rls-metric', 'supported', 'rls-version-active', array['rls-tech-published'],
-  array['rls-geo-published'], 2025, 2025, 'available', 'available', 'available',
-  'allowed', 'Test release is enabled.', true, 'published', 'reviewer', now(), now()
-);
+    'in-review', 'reviewer', now(), null);
 
 insert into public.observations (
   id, metric_id, technology_id, geography_id, study_id, source_id,
@@ -109,6 +98,22 @@ insert into public.observations (
     'source-observation', 'A complete test methodology.', 'A complete test boundary.', 2025, 2025,
     'A complete test uncertainty note.', date '2026-01-02', 'restricted', 'restricted',
     'published', 'reviewer', now(), now());
+
+update public.dataset_versions
+set publication_status = 'published',
+    published_at = now()
+where id in ('rls-version-active', 'rls-version-inactive', 'rls-version-restricted');
+
+insert into public.metric_releases (
+  metric_id, availability_status, active_dataset_version_id, technology_ids,
+  geography_ids, period_start_year, period_end_year, typical_mode, range_mode,
+  raw_mode, redistribution_decision, message, feature_enabled,
+  publication_status, reviewed_by, reviewed_at, published_at
+) values (
+  'rls-metric', 'supported', 'rls-version-active', array['rls-tech-published'],
+  array['rls-geo-published'], 2025, 2025, 'available', 'available', 'available',
+  'allowed', 'Test release is enabled.', true, 'published', 'reviewer', now(), now()
+);
 
 set local role anon;
 
