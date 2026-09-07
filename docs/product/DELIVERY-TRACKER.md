@@ -22,7 +22,7 @@ Reference documents (read before any implementation work):
 | R04 | ✅ Complete | R01, R02 | `3b6870f` |
 | R05 | ✅ Complete | R02, R03, R04 | `bb7d5b5` |
 | R06 | ✅ Complete | R03, R05 | `955eabc` `9130599` |
-| R07 | ✅ Complete | R04, R05, R06 | pending |
+| R07 | ✅ Complete | R04, R05, R06 | `22aa1ec` |
 | R08-E | 🔲 **NEXT** | R07 | — |
 | R08-R | 🔲 Pending | R07 | — |
 | R08-C | 🔲 Pending | R07 | — |
