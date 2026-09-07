@@ -1,0 +1,97 @@
+[
+  {
+    "id": "fundamentals",
+    "slug": "fundamentals",
+    "title": "Energy Fundamentals",
+    "description": "Foundational physics of energy density, atomic structure, and nuclear reactions.",
+    "order": 1,
+    "status": "published",
+    "subtopics": [
+      {
+        "id": "energy-conservation",
+        "title": "Conservation of Energy",
+        "status": "published"
+      },
+      {
+        "id": "atomic-structure",
+        "title": "Atoms and Isotopes",
+        "status": "published"
+      },
+      {
+        "id": "radiation-types",
+        "title": "Ionizing Radiation",
+        "status": "published"
+      }
+    ]
+  },
+  {
+    "id": "nuclear-technology",
+    "slug": "nuclear-technology",
+    "title": "Nuclear Technology",
+    "description": "Fission chain reactions, commercial reactor architectures, and electric power generation.",
+    "order": 2,
+    "status": "published",
+    "subtopics": [
+      {
+        "id": "fission-mechanics",
+        "title": "Neutron Fission",
+        "status": "published"
+      },
+      {
+        "id": "reactor-cores",
+        "title": "Core Cooling and Moderation",
+        "status": "published"
+      },
+      {
+        "id": "thermal-cycles",
+        "title": "Rankine Steam Cycle",
+        "status": "published"
+      }
+    ]
+  },
+  {
+    "id": "safety-and-environment",
+    "slug": "safety-and-environment",
+    "title": "Safety & Environment",
+    "description": "Defense-in-depth safety engineering, accident history, radiation protection, and lifecycle footprints.",
+    "order": 3,
+    "status": "published",
+    "subtopics": [
+      {
+        "id": "defense-in-depth",
+        "title": "Containment Barriers",
+        "status": "published"
+      },
+      {
+        "id": "passive-safety",
+        "title": "Walkaway Safety Systems",
+        "status": "published"
+      },
+      {
+        "id": "waste-management",
+        "title": "Spent Fuel and Deep Disposal",
+        "status": "published"
+      }
+    ]
+  },
+  {
+    "id": "grid-and-economics",
+    "slug": "grid-and-economics",
+    "title": "Electricity Systems & Economics",
+    "description": "Grid reliability, firm capacity, levelized cost of electricity, and capital financing.",
+    "order": 4,
+    "status": "in-review",
+    "subtopics": [
+      {
+        "id": "firm-power",
+        "title": "Firm vs Intermittent Generation",
+        "status": "in-review"
+      },
+      {
+        "id": "capital-financing",
+        "title": "Overnight Cost and Interest",
+        "status": "draft"
+      }
+    ]
+  }
+]

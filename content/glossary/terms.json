@@ -1,0 +1,62 @@
+[
+  {
+    "id": "half-life",
+    "term": "Half-life",
+    "definition": "The time required for half of the radioactive atoms in a sample to undergo nuclear decay.",
+    "category": "physics"
+  },
+  {
+    "id": "fission",
+    "term": "Nuclear Fission",
+    "definition": "The splitting of a heavy atomic nucleus into two lighter nuclei, accompanied by the release of neutrons and thermal energy.",
+    "category": "nuclear"
+  },
+  {
+    "id": "moderator",
+    "term": "Neutron Moderator",
+    "definition": "A medium (such as light water, heavy water, or graphite) that slows down fast neutrons to increase the likelihood of fission in fissile material.",
+    "category": "reactor"
+  },
+  {
+    "id": "criticality",
+    "term": "Criticality",
+    "definition": "The state of a nuclear reactor when the number of neutrons produced by fission equals the number lost through absorption and leakage, maintaining a constant power level.",
+    "category": "reactor"
+  },
+  {
+    "id": "decay-heat",
+    "term": "Decay Heat",
+    "definition": "Thermal energy released as a result of radioactive decay of fission products after a reactor has been shut down.",
+    "category": "safety"
+  },
+  {
+    "id": "sievert",
+    "term": "Sievert (Sv)",
+    "definition": "The SI unit of ionizing radiation dose equivalent, measuring the biological effect of radiation absorbed by human tissue.",
+    "category": "radiation"
+  },
+  {
+    "id": "capacity-factor",
+    "term": "Capacity Factor",
+    "definition": "The ratio of actual electrical energy produced by a power plant over a period of time compared to its theoretical maximum output operating continuously at full nameplate capacity.",
+    "category": "grid"
+  },
+  {
+    "id": "lcoe",
+    "term": "Levelized Cost of Electricity (LCOE)",
+    "definition": "The average net present cost of electricity generation for a generating plant over its lifetime per unit of electricity produced.",
+    "category": "economics"
+  },
+  {
+    "id": "spent-fuel",
+    "term": "Spent Nuclear Fuel",
+    "definition": "Nuclear fuel that has been irradiated in a power reactor and is no longer efficient for sustaining a chain reaction.",
+    "category": "waste"
+  },
+  {
+    "id": "defense-in-depth",
+    "term": "Defense-in-Depth",
+    "definition": "A safety philosophy incorporating multiple independent, overlapping barriers and redundant safety measures so that failure of one will not jeopardize safety.",
+    "category": "safety"
+  }
+]

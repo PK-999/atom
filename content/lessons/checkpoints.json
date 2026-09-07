@@ -1,0 +1,177 @@
+[
+  {
+    "id": "chk-energy-density",
+    "lessonId": "energy",
+    "prompt": "Why does nuclear fuel require far less physical mass than fossil fuels to produce the same quantity of electricity?",
+    "options": [
+      {
+        "id": "opt-1",
+        "text": "Nuclear reactions release energy from the strong nuclear force binding nucleons, which is millions of times stronger than chemical electron bonds.",
+        "isCorrect": true,
+        "explanation": "Nuclear binding energy yields roughly 200 MeV per fission event, whereas chemical combustion yields roughly 4 eV per molecule."
+      },
+      {
+        "id": "opt-2",
+        "text": "Nuclear fuel burns at a much higher temperature than coal or natural gas.",
+        "isCorrect": false,
+        "explanation": "Operating temperatures of nuclear steam cycles (~300°C) are actually lower than modern gas turbines (>1000°C)."
+      },
+      {
+        "id": "opt-3",
+        "text": "Uranium contains compressed chemical compounds that explode under high pressure.",
+        "isCorrect": false,
+        "explanation": "Nuclear reactions involve atomic nuclei rearrangement, not chemical molecular combustion or mechanical compression."
+      }
+    ]
+  },
+  {
+    "id": "chk-atom-structure",
+    "lessonId": "atom",
+    "prompt": "What determines whether two atoms are isotopes of the same chemical element?",
+    "options": [
+      {
+        "id": "opt-1",
+        "text": "They have the same number of protons but a different number of neutrons.",
+        "isCorrect": true,
+        "explanation": "Protons define the element and its chemistry; neutrons vary the atomic mass and nuclear stability."
+      },
+      {
+        "id": "opt-2",
+        "text": "They have the same total atomic mass but different electron counts.",
+        "isCorrect": false,
+        "explanation": "Atoms with the same mass number but different proton numbers are isobars, not isotopes."
+      },
+      {
+        "id": "opt-3",
+        "text": "They have different numbers of protons orbiting a neutral core.",
+        "isCorrect": false,
+        "explanation": "Protons reside in the dense nucleus, while electrons occupy surrounding quantum orbitals."
+      }
+    ]
+  },
+  {
+    "id": "chk-fission-mechanics",
+    "lessonId": "fission",
+    "prompt": "What sustains a nuclear fission chain reaction in a thermal commercial reactor?",
+    "options": [
+      {
+        "id": "opt-1",
+        "text": "Free neutrons released by a fission event are slowed down by a moderator to induce fission in subsequent fissile nuclei.",
+        "isCorrect": true,
+        "explanation": "Thermal neutrons have a significantly higher cross-section for inducing fission in Uranium-235 than fast neutrons."
+      },
+      {
+        "id": "opt-2",
+        "text": "Continuous external electrical lasers bombard the fuel rods with gamma rays.",
+        "isCorrect": false,
+        "explanation": "Fission chain reactions are self-sustaining neutron reactions requiring no continuous external laser excitation."
+      },
+      {
+        "id": "opt-3",
+        "text": "Extreme mechanical pressures continuously compress uranium pellets inside a vacuum chamber.",
+        "isCorrect": false,
+        "explanation": "Commercial fission reactors operate via controlled neutron flux, not mechanical compression."
+      }
+    ]
+  },
+  {
+    "id": "chk-reactor-control",
+    "lessonId": "reactor",
+    "prompt": "How do reactor operators and safety systems shut down a fission chain reaction rapidly?",
+    "options": [
+      {
+        "id": "opt-1",
+        "text": "Control rods containing strong neutron absorbers (such as boron or cadmium) are inserted into the core.",
+        "isCorrect": true,
+        "explanation": "Neutron-absorbing materials capture free neutrons, dropping the multiplication factor k below 1.0 (subcritical)."
+      },
+      {
+        "id": "opt-2",
+        "text": "Pumping in liquid nitrogen to freeze the fuel assemblies solid.",
+        "isCorrect": false,
+        "explanation": "Reactivity control is achieved through neutron capture and moderator voiding, not cryogenics."
+      },
+      {
+        "id": "opt-3",
+        "text": "Draining all steam directly into the surrounding atmosphere.",
+        "isCorrect": false,
+        "explanation": "Reactivity is controlled in the core; steam system bypasses manage turbine pressure, not nuclear criticality."
+      }
+    ]
+  },
+  {
+    "id": "chk-electricity-generation",
+    "lessonId": "electricity-generation",
+    "prompt": "How does a commercial nuclear power station convert nuclear energy into electrical grid power?",
+    "options": [
+      {
+        "id": "opt-1",
+        "text": "Fission thermal energy produces high-pressure steam that drives a turbine connected to an electromagnetic generator.",
+        "isCorrect": true,
+        "explanation": "Like coal and geothermal plants, commercial nuclear reactors drive a Rankine steam turbine cycle."
+      },
+      {
+        "id": "opt-2",
+        "text": "Radiation particles directly generate DC electricity via semiconductor panels surrounding the core.",
+        "isCorrect": false,
+        "explanation": "Direct betavoltaic conversion exists only for micro-watt sensors; commercial gigawatt power plants are thermal steam plants."
+      },
+      {
+        "id": "opt-3",
+        "text": "Chemical electrolytes in the coolant convert neutrons directly into grid alternating current.",
+        "isCorrect": false,
+        "explanation": "The coolant simply transfers thermal heat from the reactor core to steam generators or turbines."
+      }
+    ]
+  },
+  {
+    "id": "chk-safety-defense",
+    "lessonId": "safety",
+    "prompt": "What is the primary function of 'defense-in-depth' engineering in modern nuclear power plants?",
+    "options": [
+      {
+        "id": "opt-1",
+        "text": "Multiple independent, redundant physical barriers and safety systems prevent radioactive materials from reaching the environment.",
+        "isCorrect": true,
+        "explanation": "Barriers include ceramic fuel pellets, sealed zircaloy cladding, the thick reactor pressure vessel, and reinforced containment buildings."
+      },
+      {
+        "id": "opt-2",
+        "text": "Deploying military guards and physical security fencing around the station perimeter.",
+        "isCorrect": false,
+        "explanation": "While physical site security exists, defense-in-depth is the fundamental nuclear engineering design philosophy of nested barriers."
+      },
+      {
+        "id": "opt-3",
+        "text": "Relying on computer algorithms to restart the reactor automatically during an earthquake.",
+        "isCorrect": false,
+        "explanation": "Seismic safety systems automatically trip and shut down reactors safely rather than restarting them."
+      }
+    ]
+  },
+  {
+    "id": "chk-waste-lifecycle",
+    "lessonId": "waste",
+    "prompt": "What is the international scientific consensus for permanent, long-term management of high-level nuclear waste?",
+    "options": [
+      {
+        "id": "opt-1",
+        "text": "Deep geological disposal in stable rock formations isolated from flowing groundwater for hundreds of thousands of years.",
+        "isCorrect": true,
+        "explanation": "Deep geological repositories (like Onkalo in Finland) rely on multiple barriers: copper canisters, bentonite clay, and 400m+ of bedrock."
+      },
+      {
+        "id": "opt-2",
+        "text": "Launching radioactive fuel rods into outer space on reusable rockets.",
+        "isCorrect": false,
+        "explanation": "Rocket launch failure risks and extreme costs make space disposal scientifically and operationally unviable."
+      },
+      {
+        "id": "opt-3",
+        "text": "Diluting spent fuel into global ocean waters until radioactivity disappears.",
+        "isCorrect": false,
+        "explanation": "Ocean dumping of radioactive waste is internationally banned by the London Convention; isolation and containment are required."
+      }
+    ]
+  }
+]

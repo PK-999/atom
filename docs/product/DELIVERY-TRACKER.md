@@ -30,8 +30,8 @@ Reference documents (read before any implementation work):
 | R08-S | ✅ Complete | R07 | `cab9d80` |
 | R08-T | ✅ Complete | R07 | `cab9d80` |
 | R09 | ✅ Complete | R08 | `91278bc` |
-| R10 | 🔲 **NEXT** | R01 (public rollout after R09) | — |
-| R11 | 🔲 Pending | R09, R10 | — |
+| R10 | ✅ Complete | R01 (public rollout after R09) | in-progress commit |
+| R11 | 🔲 **NEXT** | R09, R10 | — |
 | R12 | 🔲 Pending | R11 | — |
 | R13 | 🔲 Pending | R11, R12 | — |
 | R14 | 🔲 Pending | R12 | — |
@@ -300,6 +300,22 @@ Each task records which rows apply and evidence for each. "Not applicable" needs
 
 **Evidence:** [task-9-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-9-report.md)
 **Commits:** `91278bc`
+
+### R10 — Content catalog and curriculum contracts ✅
+
+**Original stage:** 1, 17 · **Completed:** 2026-09-07 · **Reviewed by:** unit suite + validation graph suite
+
+**What was done:**
+- Extended `lib/education/schemas.ts` with `LessonRecordSchema`, `TopicSchema`, `SubtopicSchema`, `CheckpointSchema`, and `ContentStatusSchema`
+- Authored canonical curriculum catalog in `content/topics/catalog.json` (4 topics with hierarchical subtopics) and `content/lessons/catalog.json` (7 initial lessons in exact verified sequence: `energy`, `atom`, `fission`, `reactor`, `electricity-generation`, `safety`, `waste`)
+- Authored formative checkpoints in `content/lessons/checkpoints.json` and foundational glossary in `content/glossary/terms.json`
+- Implemented `lib/education/content-validation.ts` with runtime schema validation, foreign key checks, duplicate detection, cyclic prerequisite detection (DFS), and curriculum sequence enforcement
+- Implemented `lib/education/catalog.ts` with typed query functions (`listTopics()`, `getTopic()`, `listPublishedLessons()`, `getPublishedLesson()`, `getCheckpointsForLesson()`, `listGlossaryTerms()`) that strictly conceal draft/withdrawn content
+- Documented curriculum register in `docs/product/KNOWLEDGE-COVERAGE.md`
+- Created unit test suites `lib/education/content-validation.test.ts` (5 tests) and `lib/education/catalog.test.ts` (6 tests)
+
+**Evidence:** [task-10-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-10-report.md)
+**Commits:** pending
 
 ---
 
