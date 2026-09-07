@@ -250,7 +250,7 @@ Each task records which rows apply and evidence for each. "Not applicable" needs
 - Added full canonical journey E2E test to `tests/e2e/comparison-lab.spec.ts`: 5/5 Playwright tests passing
 
 **Evidence:** [task-6-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-6-report.md)
-**Commits:** pending
+**Commits:** `955eabc`
 
 ---
 
