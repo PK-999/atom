@@ -23,12 +23,12 @@ Reference documents (read before any implementation work):
 | R05 | ✅ Complete | R02, R03, R04 | `bb7d5b5` |
 | R06 | ✅ Complete | R03, R05 | `955eabc` `9130599` |
 | R07 | ✅ Complete | R04, R05, R06 | `22aa1ec` |
-| R08-E | ✅ Complete | R07 | in-progress commit |
-| R08-R | ✅ Complete | R07 | in-progress commit |
-| R08-C | ✅ Complete | R07 | in-progress commit |
-| R08-H | ✅ Complete | R07 | in-progress commit |
-| R08-S | ✅ Complete | R07 | in-progress commit |
-| R08-T | ✅ Complete | R07 | in-progress commit |
+| R08-E | ✅ Complete | R07 | `cab9d80` |
+| R08-R | ✅ Complete | R07 | `cab9d80` |
+| R08-C | ✅ Complete | R07 | `cab9d80` |
+| R08-H | ✅ Complete | R07 | `cab9d80` |
+| R08-S | ✅ Complete | R07 | `cab9d80` |
+| R08-T | ✅ Complete | R07 | `cab9d80` |
 | R09 | 🔲 **NEXT** | R08 | — |
 | R10 | 🔲 Preparable | R01 (public rollout after R09) | — |
 | R11 | 🔲 Pending | R09, R10 | — |
@@ -282,7 +282,7 @@ Each task records which rows apply and evidence for each. "Not applicable" needs
 - Updated `docs/product/METRIC-COVERAGE.md` with active dataset versions and supported technologies
 
 **Evidence:** [task-8-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-8-report.md)
-**Commits:** pending
+**Commits:** `cab9d80`
 
 ---
 
