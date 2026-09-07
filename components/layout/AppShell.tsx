@@ -20,6 +20,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <nav aria-label="Primary navigation" className={styles.navigation}>
             <Link href="/learn">Learn</Link>
             <Link href="/compare">Compare</Link>
+            <Link href="/radiation">Radiation</Link>
             <Link href="/topics">Topics</Link>
             <Link href="/search">Search</Link>
             <Link href="/methodology">Evidence</Link>

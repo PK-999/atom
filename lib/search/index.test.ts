@@ -17,7 +17,7 @@ describe("Search Engine (R12)", () => {
     // No doc should have empty title or href
     for (const doc of index) {
       expect(doc.title).toBeTruthy();
-      expect(doc.href).toMatch(/^\/(learn|topics|glossary|compare)/);
+      expect(doc.href).toMatch(/^\/(learn|topics|glossary|compare|radiation)/);
     }
   });
 

@@ -33,8 +33,8 @@ Reference documents (read before any implementation work):
 | R10 | ✅ Complete | R01 (public rollout after R09) | `f08a68e` |
 | R11 | ✅ Complete | R09, R10 | `06bbfb2` |
 | R12 | ✅ Complete | R11 | `664e402` |
-| R13 | 🔲 **NEXT** | R11, R12 | — |
-| R14 | 🔲 Pending | R12 | — |
+| R13 | ✅ Complete | R11, R12 | 2026-09-07 |
+| R14 | 🔲 **NEXT** | R12 | — |
 | R15 | 🔲 Pending | R12 | — |
 | R16-G | 🔲 Pending | R12 | — |
 | R16-I | 🔲 Pending | R12 | — |
@@ -495,26 +495,29 @@ type LessonRecord = {
 
 ---
 
-### R13 — Radiation explorer 🔲
+### R13 — Radiation explorer ✅
 
-**Original stage:** 18 · **Depends on:** R11, R12
+**Original stage:** 18 · **Depends on:** R11, R12 · **Delivered:** 2026-09-07
 
 **Goal:** Quantity-safe radiation dose explorer with reviewed scenarios.
 
-#### Files
+#### Files Delivered
 
-- `lib/radiation/schemas.ts`, `radiation-model.ts` and tests
-- `features/radiation/DoseExplorer.tsx` and tests
-- `app/radiation/page.tsx`
-- `tests/e2e/radiation.spec.ts`
+- `lib/radiation/schemas.ts`, `schemas.test.ts`: Discriminated physical quantities (activity, absorbed dose, equivalent dose, effective dose, dose rate) and strict validation.
+- `lib/radiation/radiation-model.ts`, `radiation-model.test.ts`: Unit conversions (1 Sv = 1,000 mSv = 1,000,000 µSv), log(0) safety, and 10 canonical reviewed scenarios (UNSCEAR, ICRP, IAEA).
+- `features/radiation/DoseExplorer.tsx`, `DoseExplorer.module.css`, `DoseExplorer.test.tsx`: Interactive logarithmic visual continuum, inspector detail card, category filters, and accessible table fallback.
+- `app/radiation/page.tsx`: Static page prerendered with AppShell and medical disclaimer.
+- `tests/e2e/radiation.spec.ts`: End-to-end Playwright test suite across all 3 browsers.
 
-#### Key rules
-
-- Discriminated quantities: activity/Bq, absorbed dose/Gy, equivalent dose/Sv, effective dose/Sv
-- Prevent automatic Gy→Sv without physical model
-- Known-factor tests: 1 Sv = 1000 mSv = 1,000,000 µSv
-- Zero display dedicated, never `log(0)`
-- No individual health-risk calculation or diagnostic advice
+#### Verification Status
+- ✅ Strict quantity discrimination preventing automatic Gy→Sv conversion without biological models.
+- ✅ Unit conversion tests passing: 1 Sv = 1,000 mSv = 1,000,000 µSv.
+- ✅ Zero dose has a dedicated baseline display and never evaluates `Math.log(0)`.
+- ✅ Visible educational and medical disclaimer rejecting individual diagnostic use.
+- ✅ Accessible table with scenario, category, µSv, mSv, context, and source columns.
+- ✅ Unit tests passing: `npx vitest run features/radiation/ lib/radiation/` (12/12 tests).
+- ✅ E2E matrix passing: `tests/e2e/radiation.spec.ts` (12/12 tests across Chromium, Firefox, WebKit).
+- ✅ Verified with `npm run verify`.
 
 ---
 

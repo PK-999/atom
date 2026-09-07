@@ -73,11 +73,34 @@ export function buildSearchIndex(): SearchDocument[] {
     };
   });
 
+  const tools: SearchDocument[] = [
+    {
+      id: "tool-radiation-explorer",
+      type: "topic",
+      title: "Radiation Dose Explorer",
+      summary:
+        "Compare everyday, medical, and acute radiation doses on a logarithmic scale.",
+      href: "/radiation",
+      topicIds: ["safety-and-environment", "physics"],
+      keywords: [
+        "radiation",
+        "dose",
+        "sievert",
+        "millisievert",
+        "xray",
+        "banana",
+        "ct-scan",
+        "background",
+      ],
+    },
+  ];
+
   return [
     ...publishedLessons,
     ...publishedTopics,
     ...glossaryTerms,
     ...metrics,
+    ...tools,
   ];
 }
 
