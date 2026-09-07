@@ -112,7 +112,7 @@ describe("ComparisonLab", () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getByText("g CO₂e / kWh")).toBeInTheDocument();
-    expect(screen.getByText("Evidence review pending")).toBeVisible();
+    expect(screen.getByText("Published evidence")).toBeVisible();
     expect(
       screen.getByText(/preview data for interface development/i),
     ).toBeVisible();
@@ -225,10 +225,9 @@ describe("ComparisonLab", () => {
     trigger.focus();
     fireEvent.click(trigger);
 
-    expect(
-      screen.getByRole("dialog", { name: "Why this number?" }),
-    ).toBeVisible();
-    expect(screen.getByText("Not yet published")).toBeVisible();
+    const dialog = screen.getByRole("dialog", { name: "Why this number?" });
+    expect(dialog).toBeVisible();
+    expect(within(dialog).getByText("Published evidence")).toBeVisible();
 
     fireEvent.click(screen.getByRole("button", { name: "Close evidence" }));
     await waitFor(() => expect(trigger).toHaveFocus());
@@ -252,7 +251,7 @@ describe("ComparisonLab", () => {
     expect(within(dialog).getByText("Solar")).toBeVisible();
   });
 
-  it("uses a distinct honest state for challenging a preview value", () => {
+  it("uses a distinct honest state for challenging a published value", () => {
     render(
       <ComparisonLab
         comparison={mockComparison}
@@ -268,7 +267,39 @@ describe("ComparisonLab", () => {
       screen.getByRole("dialog", { name: "Challenge this number" }),
     ).toBeVisible();
     expect(
-      screen.getByText(/challenge workflow will open after evidence review/i),
+      screen.getByText(
+        /Submit a challenge or alternative evidence review for Nuclear/i,
+      ),
+    ).toBeVisible();
+  });
+
+  it("uses a distinct honest state for challenging an unreviewed preview value", () => {
+    const unreviewedComparison: typeof mockComparison = {
+      ...mockComparison,
+      observations: mockComparison.observations.map((obs) => ({
+        ...obs,
+        evidenceStatus: "unreviewed" as const,
+      })),
+    };
+
+    render(
+      <ComparisonLab
+        comparison={unreviewedComparison}
+        initialState={mockInitialState}
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Challenge this number" }),
+    );
+
+    expect(
+      screen.getByRole("dialog", { name: "Challenge this number" }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        /challenge workflow will open after evidence review for Nuclear/i,
+      ),
     ).toBeVisible();
   });
 });

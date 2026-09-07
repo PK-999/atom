@@ -35,6 +35,11 @@ export interface PreviewObservation {
     url: string | null;
   } | null;
   verifiedAt: string | null;
+  datasetVersionId?: string | null;
+  methodology?: string | null;
+  systemBoundary?: string | null;
+  uncertainty?: string | null;
+  evidenceId?: string | null;
 }
 
 export interface PreviewComparison {
@@ -46,6 +51,8 @@ export interface PreviewComparison {
   defaultComplexity: ComplexityLevel;
   defaultMode: DisplayMode;
   observations: PreviewObservation[];
+  datasetVersionIds?: readonly string[];
+  warnings?: readonly string[];
 }
 
 export type ObservationProjection =

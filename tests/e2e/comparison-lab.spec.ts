@@ -102,6 +102,130 @@ test("comparison journey preserves context and exposes evidence", async ({
   await expect(page.locator("[data-nextjs-dialog]")).toHaveCount(0);
 });
 
+test("full canonical journey: remove, add, metric change, range, passport, challenge, share, reload, history", async ({
+  page,
+}) => {
+  await page.goto("/compare", { waitUntil: "domcontentloaded" });
+  await page.waitForLoadState("networkidle");
+
+  // 1. Initial State: Coal is present
+  await expect(page.getByRole("button", { name: "Remove Coal" })).toBeVisible();
+
+  // 2. Remove Coal
+  await page.getByRole("button", { name: "Remove Coal" }).click();
+  await expect(page.getByRole("button", { name: "Remove Coal" })).toHaveCount(
+    0,
+  );
+
+  // 3. Add Hydro
+  await page.getByRole("button", { name: "Add source" }).click();
+  await expect(
+    page.getByRole("dialog", { name: "Add Technology" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Hydro" }).click();
+  await expect(
+    page.getByRole("button", { name: "Remove Hydro" }),
+  ).toBeVisible();
+
+  // 4. Change Metric to Land Use
+  await page.getByRole("button", { name: /Current metric:/ }).click();
+  await expect(
+    page.getByRole("dialog", { name: "Select Metric" }),
+  ).toBeVisible();
+  await page
+    .getByRole("dialog", { name: "Select Metric" })
+    .getByRole("button", { name: "land-use", exact: true })
+    .first()
+    .click();
+  await expect(
+    page.getByRole("heading", {
+      level: 2,
+      name: "Direct and indirect land use",
+    }),
+  ).toBeVisible();
+
+  // 5. Switch to Range mode
+  await page.getByRole("button", { name: "Range" }).click();
+  await expect(page.getByRole("button", { name: "Range" })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+
+  // 6. Open DataPassport and assert scientific provenance
+  await page.getByRole("button", { name: "Explore the evidence" }).click();
+  const passportDialog = page.getByRole("dialog", { name: "Why this number?" });
+  await expect(passportDialog).toBeVisible();
+  await expect(passportDialog.getByText("Data passport")).toBeVisible();
+  await expect(passportDialog.getByText("Published evidence")).toBeVisible();
+  await expect(
+    passportDialog.getByText("ipcc-lifecycle-dataset"),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Close evidence" }).click();
+  await expect(passportDialog).toHaveCount(0);
+
+  // 7. Open Challenge dialog
+  await page.getByRole("button", { name: "Challenge this number" }).click();
+  const challengeDialog = page.getByRole("dialog", {
+    name: "Challenge this number",
+  });
+  await expect(challengeDialog).toBeVisible();
+  await expect(
+    challengeDialog.getByText(
+      /Submit a challenge or alternative evidence review/i,
+    ),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Close evidence" }).click();
+  await expect(challengeDialog).toHaveCount(0);
+
+  // 8. Open Share dialog and verify canonical URL
+  await page
+    .getByRole("button", { name: "Share canonical comparison URL" })
+    .click();
+  const shareDialog = page.getByRole("dialog", { name: "Canonical Link" });
+  await expect(shareDialog).toBeVisible();
+  const shareInput = shareDialog.getByLabel("Canonical comparison link");
+  const canonicalVal = await shareInput.inputValue();
+  expect(canonicalVal).toContain(
+    "sources=nuclear%2Csolar%2Cwind%2Cgas%2Chydro",
+  );
+  expect(canonicalVal).toContain("metric=land-use");
+  expect(canonicalVal).toContain("mode=range");
+  await page.getByRole("button", { name: "Close share dialog" }).click();
+  await expect(shareDialog).toHaveCount(0);
+
+  // 9. Reload page and assert identical state
+  await page.reload();
+  await page.waitForLoadState("networkidle");
+  await expect(
+    page.getByRole("button", { name: "Remove Hydro" }),
+  ).toBeVisible();
+  await expect(page.getByRole("button", { name: "Remove Coal" })).toHaveCount(
+    0,
+  );
+  await expect(
+    page.getByRole("heading", {
+      level: 2,
+      name: "Direct and indirect land use",
+    }),
+  ).toBeVisible();
+  await expect(page.getByRole("button", { name: "Range" })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+
+  // 10. Test browser back/forward preserves state
+  await page.goBack();
+  await page.waitForLoadState("networkidle");
+  await page.goForward();
+  await page.waitForLoadState("networkidle");
+  await expect(
+    page.getByRole("button", { name: "Remove Hydro" }),
+  ).toBeVisible();
+  await expect(page.getByRole("button", { name: "Remove Coal" })).toHaveCount(
+    0,
+  );
+});
+
 test("mobile comparison reflows without core horizontal overflow", async ({
   page,
 }) => {

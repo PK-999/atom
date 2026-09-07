@@ -34,7 +34,7 @@ export function projectObservation(
     }
     return {
       kind: "unavailable",
-      label: "Range evidence unavailable",
+      label: "Range evidence pending review",
     };
   }
 

@@ -25,7 +25,7 @@ describe("projectObservation", () => {
     expect(nuclear).toBeDefined();
     expect(projectObservation(nuclear!, "range")).toEqual({
       kind: "unavailable",
-      label: "Range evidence unavailable",
+      label: "Range evidence pending review",
     });
   });
 });

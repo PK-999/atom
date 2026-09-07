@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const e2ePort = process.env.PLAYWRIGHT_PORT ?? "3000";
+const e2ePort = process.env.PLAYWRIGHT_PORT ?? "3100";
 const e2eBaseUrl = `http://127.0.0.1:${e2ePort}`;
 
 export default defineConfig({

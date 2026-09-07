@@ -234,68 +234,33 @@ Each task records which rows apply and evidence for each. "Not applicable" needs
 **Evidence:** [task-5-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-5-report.md)
 **Commits:** `bb7d5b5`
 
+### R06 — Complete one coherent Comparison Lab journey ✅
+
+**Original stage:** 4, 8 · **Completed:** 2026-09-07 · **Reviewed by:** unit suite + Playwright E2E suite + production build
+
+**What was done:**
+- Refactored `ComparisonLab.tsx` into domain subcomponents: `ComparisonControls.tsx`, `ComparisonResults.tsx`, `ComparisonInterpretation.tsx`, `ComparisonEvidence.tsx`
+- Added 9-source add dialog, mobile sheet drawer, context bar with grouped metric search, recent metrics localStorage recovery
+- Added display modes (typical, range, raw), units toggle, share canonical link dialog with fallback, and reset
+- Added direct units, accessible table/text fallbacks, and auto-switching to table at 9+ sources
+- Added 5-level per-metric interpretations with honest unreviewed fallback and unavailable mode explanations
+- Integrated DataPassport and ChallengeNumber with full provenance display (dataset version, system boundary, methodology, uncertainty)
+- Added deterministic PostgreSQL seed script `scripts/evidence/seed-test-evidence.ts`
+- Added comprehensive subcomponent unit tests: 68 tests passing across `features/comparison/`
+- Added full canonical journey E2E test to `tests/e2e/comparison-lab.spec.ts`: 5/5 Playwright tests passing
+
+**Evidence:** [task-6-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-6-report.md)
+**Commits:** pending
+
 ---
 
 ## Pending Tasks — Full Delegation Instructions
 
 ---
 
-### R06 — Complete one coherent Comparison Lab journey 🔲 **NEXT**
+### R07 — Release, CI and monitoring foundation 🔲 **NEXT**
 
-**Original stage:** 4, 8 · **Depends on:** R03 ✅, R05 ✅
-
-**Goal:** Deliver the full working `/compare` interactive experience using the approved visual target and real evidence from R05.
-
-#### Prerequisites
-
-- R05 comparison engine complete
-- R03 URL state contract in place
-- Read existing `ComparisonLab.tsx`, `components/ui/`, `components/charts/`, `components/evidence/`
-
-#### Files to create/modify
-
-| Action | File | Purpose |
-|--------|------|---------|
-| Refactor | `features/comparison/ComparisonLab.tsx` | Split into sub-components below |
-| Create | `features/comparison/ComparisonControls.tsx` | Source/metric/geography/mode controls |
-| Create | `features/comparison/ComparisonResults.tsx` | Chart/table results display |
-| Create | `features/comparison/ComparisonInterpretation.tsx` | Per-metric 5-level explanations |
-| Create | `features/comparison/ComparisonEvidence.tsx` | DataPassport, ChallengeNumber |
-| Modify | `tests/e2e/comparison-lab.spec.ts` | Full journey E2E |
-
-#### Implementation steps
-
-1. **Design first.** Record desktop/mobile target using approved reference and tokens. Design loading, empty, missing, error, range views before coding.
-2. **Source management.** Add/remove/reorder/restore sources. One/zero selections valid. Auto-switch to table at 9 sources. Reuse `CommandMenu`, `OverlayPanel`, `Chip`.
-3. **Metric search.** Grouped with definitions. Recent metric IDs stored locally. Recover from corrupt/blocked storage.
-4. **Controls.** Geography, mode, units, view, reset, share. Clipboard failure → selectable canonical URL. Browser history records deliberate changes; rapid changes cannot clobber via stale props.
-5. **Chart semantics.** Bar/range/distribution by supported semantics. Line/scatter only with real time-series data. Table/text alternatives always available.
-6. **Interpretations.** Per-metric five-level explanations. Unknown/unavailable → honest state. All five levels preserve evidence IDs.
-7. **Evidence UI.** Shared DataPassport and ChallengeNumber. Source/study links, version, boundary, uncertainty, alternatives.
-8. **Full journey test:** open → remove Coal → add Hydro → change metric → Range → passport → challenge → share → reload → back/forward → identical state.
-
-#### Test commands
-
-```bash
-npm test -- features/comparison/
-npm run test:e2e -- comparison-lab
-npm run verify
-```
-
-#### Acceptance criteria
-
-- [ ] Complete interaction against reviewed test evidence
-- [ ] All result states verified (loading, empty, partial, missing, error, range)
-- [ ] Browser history preserves all selections across reload/back/forward
-- [ ] No console/page/hydration errors in browser matrix
-- [ ] Mobile vertical composition works at 390px
-- [ ] Share URL produces identical state for recipient
-
----
-
-### R07 — Release, CI and monitoring foundation 🔲
-
-**Original stage:** 9 · **Depends on:** R04, R05, R06
+**Original stage:** 9 · **Depends on:** R04 ✅, R05 ✅, R06 ✅
 
 **Goal:** Repeatable local/CI acceptance pipeline, privacy-respecting analytics, category release registry, and rollback drill.
 
