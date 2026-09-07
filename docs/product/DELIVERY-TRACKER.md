@@ -20,8 +20,8 @@ Reference documents (read before any implementation work):
 | R02 | ✅ Complete | R01 | `4071221` |
 | R03 | ✅ Complete | R01 | `f98d869` `a1f1be7` `443911e` `aba1c04` `a4a3a4d` |
 | R04 | ✅ Complete | R01, R02 | `3b6870f` |
-| R05 | 🔲 **NEXT** | R02, R03, R04 | — |
-| R06 | 🔲 Pending | R03, R05 | — |
+| R05 | ✅ Complete | R02, R03, R04 | `bb7d5b5` |
+| R06 | 🔲 **NEXT** | R03, R05 | — |
 | R07 | 🔲 Pending | R04, R05, R06 | — |
 | R08-E | 🔲 Pending | R07 | — |
 | R08-R | 🔲 Pending | R07 | — |
@@ -215,105 +215,34 @@ Each task records which rows apply and evidence for each. "Not applicable" needs
 
 ---
 
+### R05 — Build comparison results and resilient server loading ✅
+
+**Original stage:** 7 · **Completed:** 2026-09-07 · **Reviewed by:** full test suite + domain engine tests + route tests
+
+**What was done:**
+- Created discriminated `ComparisonEntry` and `ComparisonResult` types in `features/comparison/comparison-result.ts`
+- Headless domain comparison engine `getComparisonResult()` in `features/comparison/comparison-engine.ts`
+- Strict geography filtering with no cross-contamination, and honest Global fallback with visible warnings
+- Deterministic representative selection and unit normalization (1 kgCO2e/MWh = 1 gCO2e/kWh)
+- Range preservation, categorical string preservation, and missing entries without numeric fields
+- Replaced unvalidated direct database queries in `features/comparison/comparison-api.ts` with repository engine delegation
+- Decoupled `/health` liveness probe from database connectivity (returns non-sensitive HTTP 200 immediately)
+- Added bounded `/ready` database readiness probe with timeout and credential/detail redaction
+- Added `app/compare/loading.tsx` skeleton boundary and `app/compare/error.tsx` error boundary with retry and navigation
+- Comprehensive unit/domain tests: 14 comparison engine tests, 5 health/ready route tests, 51 comparison tests all passing
+
+**Evidence:** [task-5-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-5-report.md)
+**Commits:** `bb7d5b5`
+
+---
+
 ## Pending Tasks — Full Delegation Instructions
 
 ---
 
-### R05 — Build comparison results and resilient server loading 🔲 **NEXT**
+### R06 — Complete one coherent Comparison Lab journey 🔲 **NEXT**
 
-**Original stage:** 7 · **Depends on:** R02 ✅, R03 ✅, R04 ✅
-
-**Goal:** Create a headless comparison engine that produces validated domain results with honest failure states. Separate application liveness from database readiness.
-
-#### Prerequisites
-
-- R04 complete (real evidence repository exists)
-- R02 unit corrections in place
-- R03 canonical `ComparisonState` available
-
-#### Files to create/modify
-
-| Action | File | Purpose |
-|--------|------|---------|
-| Create | `features/comparison/comparison-engine.ts` | Core domain logic |
-| Create | `features/comparison/comparison-engine.test.ts` | Domain tests |
-| Create | `features/comparison/comparison-result.ts` | Result type definitions |
-| Modify | `features/comparison/comparison-api.ts` | Replace internals with engine |
-| Modify | `app/compare/page.tsx` | Wire engine results |
-| Create | `app/compare/loading.tsx` | Loading state boundary |
-| Create | `app/compare/error.tsx` | Error state boundary |
-| Modify | `app/health/route.ts` | DB-independent liveness |
-| Create | `app/ready/route.ts` | DB readiness probe |
-
-#### Key types to implement
-
-```ts
-type ComparisonEntry =
-  | { kind: "available"; technologyId: string; observationIds: readonly string[];
-      scientificLabel: string; displayLabel: string; evidenceId: string; }
-  | { kind: "missing" | "restricted" | "incompatible"; technologyId: string; message: string; };
-
-type ComparisonResult = {
-  state: ComparisonState;
-  status: "ready" | "partial" | "empty" | "unavailable" | "error";
-  entries: readonly ComparisonEntry[];
-  effectiveGeographyId: string | null;
-  datasetVersionIds: readonly string[];
-  warnings: readonly string[];
-};
-```
-
-#### Implementation steps
-
-1. **Repository fixtures.** Deliberately shuffled by study, technology, geography. Use fake IDs and documented synthetic quantities. Keep fixtures outside production imports.
-
-2. **Query logic.** Only active/published releases. Retain requested selection even for missing technologies. Check licensing independently of publication. Select representative only through explicit rule after unit normalization and comparability assessment.
-
-3. **Geography filtering.** No silent geographic substitution. Where metric policy permits Global fallback, return effective geography and visible warning. Never label global data with the requested country.
-
-4. **Value semantics.** Preserve points, ranges with range semantics, categorical values. Do NOT coerce `null`/strings to numbers. Separate: query failure, unknown metric, known-unreleased metric, empty observations.
-
-5. **Liveness/readiness split.** `/health` is DB-independent and non-sensitive. `/ready` returns 200/503 with bounded DB check; client creation inside error handling; redact details. Point Playwright startup at liveness.
-
-#### Required test cases
-
-```
-- Two regions never cross-contaminate
-- Shuffled order yields same representative
-- 1 kgCO2e/MWh normalizes to 1 gCO2e/kWh
-- Range-only record retains endpoints
-- Missing record has no numeric field
-- Categorical value remains categorical
-- Incompatible boundaries produce warning/blocked comparison
-- Restricted raw observations not in rendered props
-- Absent config → honest unavailable
-- Client creation failure → 503
-- Query failure → error result
-- Timeout → bounded response
-```
-
-#### Test commands
-
-```bash
-npm test -- features/comparison/comparison-engine
-npm test -- app/health app/ready
-npm run typecheck && npm run lint && npm test && npm run build
-```
-
-#### Acceptance criteria
-
-- [ ] Domain tests require no React or real DB
-- [ ] Repository integration proves filtering
-- [ ] No-secret/no-credential build works with honest unavailable results
-- [ ] `/health` returns 200 without DB; `/ready` returns 503 without DB
-- [ ] Empty results do not dereference nonexistent observations
-- [ ] Output provenance IDs resolve to exact observations used
-
----
-
-### R06 — Complete one coherent Comparison Lab journey 🔲
-
-**Original stage:** 4, 8 · **Depends on:** R03 ✅, R05
+**Original stage:** 4, 8 · **Depends on:** R03 ✅, R05 ✅
 
 **Goal:** Deliver the full working `/compare` interactive experience using the approved visual target and real evidence from R05.
 
