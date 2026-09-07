@@ -31,7 +31,7 @@ Reference documents (read before any implementation work):
 | R08-T | ✅ Complete | R07 | `cab9d80` |
 | R09 | ✅ Complete | R08 | `91278bc` |
 | R10 | ✅ Complete | R01 (public rollout after R09) | `f08a68e` |
-| R11 | ✅ Complete | R09, R10 | 2026-09-07 |
+| R11 | ✅ Complete | R09, R10 | `06bbfb2` |
 | R12 | 🔲 **NEXT** | R11 | — |
 | R13 | 🔲 Pending | R11, R12 | — |
 | R14 | 🔲 Pending | R12 | — |
