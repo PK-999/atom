@@ -78,6 +78,30 @@ both sides:
 | `npm run lint` | Exit 0 with 3 pre-existing warnings: unused `setScenario` and two unused `CitationSchema` imports. |
 | `npm run build` | Exit 0 on Next.js 16.3.3 webpack; routes `/`, `/compare`, `/design-system`, `/health`, and `/methodology` built. |
 
+## Independent-review fix round
+
+Independent review found that the first reconciliation left server secret and
+direct PostgreSQL parsing in the browser-safe public configuration module. It
+also found that the two active SSR client factories still read the retired
+`NEXT_PUBLIC_SUPABASE_ANON_KEY` name even though `.env.example` and ADR 0009 use
+`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
+
+The fix separates the environment surface into browser-safe public,
+server-only privileged API, and server-only direct database modules. Both
+active SSR clients now validate and use the publishable-key pair. Focused tests
+mock only the Supabase factory boundary and deliberately provide a different
+legacy anon-key value, proving that the legacy name is not selected.
+
+| Command | Result |
+| --- | --- |
+| `npm test -- lib/supabase/client-config.test.ts lib/supabase/server-config.test.ts lib/supabase/database-config.test.ts lib/supabase/client.test.ts lib/supabase/server.test.ts` before the fix | Expected failure: the new server-only modules did not exist and both active clients passed the deliberate legacy anon-key sentinel to their factories. |
+| The same focused command after the fix | 5 files and 12 tests passed. |
+| `npm run typecheck` after the fix | Exit 0. |
+| `npm test` after the fix | 41 files passed, 1 skipped; 183 tests passed, 1 skipped. Four pre-existing Node `localStorage` warnings remain. |
+| `npm run lint` after the fix | Exit 0 with the same 3 pre-existing unused-symbol warnings. |
+| `npm run format:check` plus explicit Markdown check after the fix | Exit 0; all matched source and task-owned Markdown files use Prettier style. |
+| `npm run build` after the fix | Exit 0 on Next.js 16.3.3 webpack; the same five application routes built. |
+
 The current Supabase changelog was checked before reconciliation. Relevant
 items were the Node.js 20 client-support removal, TypeScript 5 minimum notice,
 and explicit Data API exposure change. This repository uses Node.js 24.20.0+
@@ -88,9 +112,14 @@ and TypeScript 6.0.3; the canonical RLS migration includes explicit grants.
 - `scripts/ingest-reference.ts` contains no imports and exits with status 1.
 - Its regression test executes the real script from an isolated working
   directory and requires empty stdout plus the quarantine guidance on stderr.
-- `lib/env/server.ts` delegates to `lib/supabase/client-config.ts`; legacy
-  `SUPABASE_SERVICE_ROLE_KEY` pairing is no longer the parsed contract.
-- Direct database URLs are validated independently as PostgreSQL URLs.
+- `lib/env/server.ts` delegates to server-only
+  `lib/supabase/server-config.ts`; legacy `SUPABASE_SERVICE_ROLE_KEY` pairing
+  is no longer the parsed contract.
+- Direct database URLs are validated independently as PostgreSQL URLs in
+  server-only `lib/supabase/database-config.ts`.
+- `lib/supabase/client-config.ts` is browser-safe and parses only the public URL
+  and publishable key. Both active SSR clients consume that validated pair and
+  ignore the retired anon-key name.
 - `server-only` stays active in production; Vitest alone aliases it to an empty
   module so server modules can be unit-tested without weakening the Next.js
   boundary.

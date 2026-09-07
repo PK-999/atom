@@ -93,18 +93,24 @@ legacy code, not approved architecture. R05 replaces the comparison path with
 `EvidenceRepository`; R04 replaces the ingestion path with the transactional
 Postgres store. Nothing new may depend on either legacy module.
 
-`lib/supabase/client-config.ts` is the environment authority:
+The environment authority is split at the browser/server boundary:
 
-- browser/public Data API: `NEXT_PUBLIC_SUPABASE_URL` plus
-  `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`;
-- server Data API: `SUPABASE_URL` plus `SUPABASE_SECRET_KEY`;
-- transaction-capable ingestion: independent server-only
-  `SUPABASE_DATABASE_URL`, restricted to `postgres://` or `postgresql://`.
+- browser-safe `lib/supabase/client-config.ts` validates
+  `NEXT_PUBLIC_SUPABASE_URL` plus
+  `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` and contains no secret or direct
+  database parsing;
+- server-only `lib/supabase/server-config.ts` validates `SUPABASE_URL` plus
+  `SUPABASE_SECRET_KEY` for privileged Data API access;
+- server-only `lib/supabase/database-config.ts` validates the independent
+  transaction-capable `SUPABASE_DATABASE_URL` and restricts it to
+  `postgres://` or `postgresql://`.
 
 `lib/env/server.ts` is a compatibility wrapper over the canonical server Data
 API parser. The direct database URL is deliberately not coupled to an API key.
 Values remain empty in `.env.example`, are never returned in errors, and must
-not cross into client props or `NEXT_PUBLIC_` variables.
+not cross into client props or `NEXT_PUBLIC_` variables. The active browser and
+request-scoped server clients both use the validated publishable-key pair; the
+legacy `NEXT_PUBLIC_SUPABASE_ANON_KEY` name is not part of the runtime contract.
 
 Runtime packages required by these boundaries are exactly pinned in
 `package.json` and the lockfile. The supported runtime remains Node.js

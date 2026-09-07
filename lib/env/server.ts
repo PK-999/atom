@@ -3,7 +3,7 @@ import "server-only";
 import {
   getSupabaseServerConfig,
   type SupabaseServerConfig,
-} from "@/lib/supabase/client-config";
+} from "@/lib/supabase/server-config";
 
 export type ServerEnv = SupabaseServerConfig | Record<string, never>;
 

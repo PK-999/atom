@@ -4,7 +4,7 @@ import {
   createEvidenceRepositoryContractSnapshot,
   runEvidenceRepositoryContract,
 } from "@/lib/evidence/repository-contract";
-import { getSupabaseServerConfig } from "@/lib/supabase/client-config";
+import { getSupabaseServerConfig } from "@/lib/supabase/server-config";
 import { SupabaseEvidenceRepository } from "./published-evidence-repository";
 import { createSupabaseServerClient } from "./server-client";
 
