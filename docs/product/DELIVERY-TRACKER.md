@@ -23,13 +23,13 @@ Reference documents (read before any implementation work):
 | R05 | ✅ Complete | R02, R03, R04 | `bb7d5b5` |
 | R06 | ✅ Complete | R03, R05 | `955eabc` `9130599` |
 | R07 | ✅ Complete | R04, R05, R06 | `22aa1ec` |
-| R08-E | 🔲 **NEXT** | R07 | — |
-| R08-R | 🔲 Pending | R07 | — |
-| R08-C | 🔲 Pending | R07 | — |
-| R08-H | 🔲 Pending | R07 | — |
-| R08-S | 🔲 Pending | R07 | — |
-| R08-T | 🔲 Pending | R07 | — |
-| R09 | 🔲 Pending | R08 | — |
+| R08-E | ✅ Complete | R07 | in-progress commit |
+| R08-R | ✅ Complete | R07 | in-progress commit |
+| R08-C | ✅ Complete | R07 | in-progress commit |
+| R08-H | ✅ Complete | R07 | in-progress commit |
+| R08-S | ✅ Complete | R07 | in-progress commit |
+| R08-T | ✅ Complete | R07 | in-progress commit |
+| R09 | 🔲 **NEXT** | R08 | — |
 | R10 | 🔲 Preparable | R01 (public rollout after R09) | — |
 | R11 | 🔲 Pending | R09, R10 | — |
 | R12 | 🔲 Pending | R11 | — |
@@ -265,6 +265,23 @@ Each task records which rows apply and evidence for each. "Not applicable" needs
 - Added helper scripts `evidence:seed`, `monitoring:sources`, and `test:rollback` to `package.json`
 
 **Evidence:** [task-7-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-7-report.md)
+**Commits:** `22aa1ec`
+
+### R08 — Release the complete metric catalog across all 6 categories ✅
+
+**Original stage:** 10–15 · **Completed:** 2026-09-07 · **Reviewed by:** unit suite + Playwright E2E suite + evidence review
+
+**What was done:**
+- Authored 5-level progressive educational interpretations (Kid, Simple, Curious, Technical, Expert) with explicit limitations and system boundaries across all 34 canonical metrics in `content/metrics/index.ts`
+- Covered all 6 categories: Environment (R08-E), Reliability (R08-R), Economics (R08-C), Human Impact (R08-H), Security (R08-S), Technical (R08-T)
+- Applied scientific invariants: non-thermal systems (solar/wind/hydro) barred from receiving thermal efficiency values; water withdrawal distinguished from consumption; capacity factor distinguished from dependable firm capacity credit
+- Updated `features/comparison/ComparisonInterpretation.tsx` and exported `getInterpretation()` pure helper to render reviewed multi-category explanations with honest fallbacks for unreviewed metrics
+- Updated `scripts/evidence/seed-test-evidence.ts` to seed 15 representative metrics across all 6 categories into dedicated dataset versions (`atom-env-v1` through `atom-tech-v1`) respecting PostgreSQL append-only immutability triggers
+- Created `lib/evidence/metric-catalog.test.ts` verifying all metrics, categories, progressive depth, and component integration (6 tests passing)
+- Authored scientific/editorial/licensing review `docs/evidence/reviews/2026-09-07-multi-category-synthesis.md` and release notes `docs/releases/2026-09-07-metric-catalog-v1.md`
+- Updated `docs/product/METRIC-COVERAGE.md` with active dataset versions and supported technologies
+
+**Evidence:** [task-8-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-8-report.md)
 **Commits:** pending
 
 ---

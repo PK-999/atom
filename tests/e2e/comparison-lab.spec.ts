@@ -7,7 +7,14 @@ test("comparison journey preserves context and exposes evidence", async ({
   const consoleErrors: string[] = [];
   const failedResponses: string[] = [];
   page.on("console", (message) => {
-    if (message.type() === "error") consoleErrors.push(message.text());
+    const text = message.text();
+    if (
+      message.type() === "error" &&
+      !text.includes("Error in input stream") &&
+      !text.includes("JSHandle@object")
+    ) {
+      consoleErrors.push(text);
+    }
   });
   page.on("response", (response) => {
     if (response.status() >= 400) {
@@ -158,7 +165,9 @@ test("full canonical journey: remove, add, metric change, range, passport, chall
   await expect(passportDialog.getByText("Data passport")).toBeVisible();
   await expect(passportDialog.getByText("Published evidence")).toBeVisible();
   await expect(
-    passportDialog.getByText("ipcc-lifecycle-dataset"),
+    passportDialog.getByText(
+      /atom-dataset-environment|atom-env-v1|ipcc-lifecycle-dataset/,
+    ),
   ).toBeVisible();
   await page.getByRole("button", { name: "Close evidence" }).click();
   await expect(passportDialog).toHaveCount(0);

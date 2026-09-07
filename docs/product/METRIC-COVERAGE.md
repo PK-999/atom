@@ -14,44 +14,45 @@ All metrics begin as `unreviewed`. A release changes status only after source, m
 ## Technology Register
 
 Initial coverage assessment includes nuclear, solar, wind, gas, coal, hydro, storage, biomass, and geothermal. Technology variants must be separated when aggregation would hide material design or operating differences.
+Non-thermal technologies (solar, wind, hydro) are explicitly barred from receiving thermal efficiency observations.
 
-## Full Catalog
+## Metric Catalog Status (R08 Multi-Category Synthesis)
 
-| Category | Metric identifier | Scientific unit contract | Required review | Initial status |
-| --- | --- | --- | --- | --- |
-| Environment | `lifecycle-emissions` | `gCO2e/kWh` | Lifecycle boundary, central/range meaning, geography | unreviewed |
-| Environment | `land-use` | `m2/GWh` | Direct versus lifecycle land, facility lifetime | unreviewed |
-| Environment | `water-withdrawal` | `L/MWh` | Withdrawal definition, cooling technology, region | unreviewed |
-| Environment | `water-consumption` | `L/MWh` | Consumption definition, cooling technology, region | unreviewed |
-| Environment | `material-intensity` | `t/TWh` | Included materials, lifetime, recycling boundary | unreviewed |
-| Environment | `mining-intensity` | Source-defined pending normalization review | Ore grade, fuel cycle, included materials | unreviewed |
-| Environment | `waste-volume` | Source-defined pending normalization review | Waste class, conditioning, lifecycle boundary | unreviewed |
-| Environment | `waste-persistence` | No single canonical unit until method review | Hazard definition, timescale, toxicity model | unreviewed |
-| Reliability | `capacity-factor` | `%` | Fleet versus plant, period, outage treatment | unreviewed |
-| Reliability | `dispatchability` | Categorical evidence contract | Operational definition and system context | unreviewed |
-| Reliability | `variability` | Source-defined pending normalization review | Temporal resolution and geographic aggregation | unreviewed |
-| Reliability | `capacity-credit` | `%` | Penetration, system, method, scenario | unreviewed |
-| Reliability | `storage-dependence` | Scenario-specific | Demand, generation mix, reliability target | unreviewed |
-| Economics | `capital-cost` | `USD/kW` with currency year | Overnight/total cost, region, project vintage | unreviewed |
-| Economics | `operating-cost` | `USD/MWh` with currency year | Fixed/variable boundary and utilization | unreviewed |
-| Economics | `fuel-cost` | `USD/MWh` with currency year | Fuel-cycle boundary and price period | unreviewed |
-| Economics | `lcoe` | `USD/MWh` with currency year | Discount rate, lifetime, capacity factor, system costs | unreviewed |
-| Economics | `construction-duration` | `years` | Start/end definition and project population | unreviewed |
-| Economics | `plant-lifetime` | `years` | Design, licensed, or observed lifetime | unreviewed |
-| Economics | `decommissioning-cost` | Source-defined with currency year | Scope, funding method, waste inclusion | unreviewed |
-| Economics | `financing-sensitivity` | Model output | Discount rate and all scenario assumptions | unreviewed |
-| Human impact | `mortality` | `deaths/TWh` | Direct, modeled, air-pollution, accident boundaries | unreviewed |
-| Human impact | `air-pollution-impact` | Source-defined pending method review | Pollutants, exposure model, geography | unreviewed |
-| Human impact | `occupational-impact` | Source-defined pending method review | Injury/fatality definition and supply-chain boundary | unreviewed |
-| Human impact | `accident-risk` | Source-defined pending method review | Frequency, severity, confirmed versus modeled effects | unreviewed |
-| Human impact | `displacement` | `people` or `person-years`, kept distinct | Cause, duration, policy versus hazard | unreviewed |
-| Energy security | `fuel-energy-density` | `MJ/kg` | Thermal/electric basis and usable fuel fraction | unreviewed |
-| Energy security | `stockpiling-potential` | Source-defined pending method review | Processing stage, duration, storage assumptions | unreviewed |
-| Energy security | `import-dependency` | `%` | Country, period, fuel-cycle stage | unreviewed |
-| Energy security | `supply-chain-concentration` | Source-defined pending method review | Market stage, concentration method, period | unreviewed |
-| Technical | `power-density` | `W/m2` | Site/system boundary and capacity/generation basis | unreviewed |
-| Technical | `thermal-efficiency` | `%` | Gross/net and operating conditions | unreviewed |
-| Technical | `refueling-cycle` | `months` | Reactor/plant design and outage definition | unreviewed |
-| Technical | `typical-unit-capacity` | `MW` | Nameplate/net and technology variant | unreviewed |
+| Category | Metric identifier | Scientific unit contract | Active dataset version | Supported technologies | Status |
+| --- | --- | --- | --- | --- | --- |
+| Environment | `lifecycle-ghg` | `gCO2e/kWh` | `atom-env-v1` | All 9 technologies | `supported` |
+| Environment | `land-use` | `m2/MWh` | `atom-env-v1` | All 9 technologies | `supported` |
+| Environment | `water-withdrawal` | `L/MWh` | `atom-env-v1` | nuclear, gas, coal, solar, wind, hydro | `supported` |
+| Environment | `water-consumption` | `L/MWh` | `atom-env-v1` | nuclear, gas, coal, solar, wind, hydro | `supported` |
+| Environment | `material-requirements` | `t/TWh` | pending | — | `partial` |
+| Environment | `mining-intensity` | Source-defined | pending | — | `unreviewed` |
+| Environment | `waste-volume` | `m3/TWh` | pending | — | `unreviewed` |
+| Environment | `waste-persistence` | No single canonical unit | pending | — | `incompatible` |
+| Reliability | `capacity-factor` | `%` | `atom-rel-v1` | nuclear, solar, wind, gas, coal, hydro, geothermal | `supported` |
+| Reliability | `firm-capacity` | `%` | `atom-rel-v1` | nuclear, gas, coal, hydro, solar, wind | `supported` |
+| Reliability | `dispatchability` | Categorical | pending | — | `partial` |
+| Reliability | `variability` | Source-defined | pending | — | `unreviewed` |
+| Reliability | `storage-dependence` | Scenario-specific | pending | — | `partial` |
+| Economics | `capital-cost` | `USD/kW` (2024 USD) | `atom-econ-v1` | nuclear, solar, wind, gas, coal, hydro | `supported` |
+| Economics | `lcoe` | `USD/MWh` (2024 USD) | `atom-econ-v1` | nuclear, solar, wind, gas, coal, hydro | `supported` |
+| Economics | `construction-duration` | `years` | `atom-econ-v1` | nuclear, solar, wind, gas, coal, hydro | `supported` |
+| Economics | `plant-lifetime` | `years` | `atom-econ-v1` | nuclear, solar, wind, gas, coal, hydro | `supported` |
+| Economics | `operating-cost` | `USD/MWh` | pending | — | `unreviewed` |
+| Economics | `fuel-cost` | `USD/MWh` | pending | — | `unreviewed` |
+| Economics | `decommissioning-cost` | `USD/kW` | pending | — | `unreviewed` |
+| Economics | `financing-sensitivity` | Model output | pending | — | `partial` |
+| Human impact | `mortality-rate` | `deaths/TWh` | `atom-hum-v1` | nuclear, solar, wind, hydro, gas, coal, biomass | `supported` |
+| Human impact | `air-pollution` | Source-defined | pending | — | `unreviewed` |
+| Human impact | `occupational-hazard` | Source-defined | pending | — | `unreviewed` |
+| Human impact | `accident-risk` | Source-defined | pending | — | `partial` |
+| Human impact | `displacement` | `people` or `person-years` | pending | — | `partial` |
+| Security | `fuel-energy-density` | `MJ/kg` | `atom-sec-v1` | nuclear, gas, coal, biomass | `supported` |
+| Security | `stockpiling-potential` | Source-defined | pending | — | `unreviewed` |
+| Security | `import-dependence` | `%` | pending | — | `partial` |
+| Security | `supply-chain-concentration` | HHI / market share | pending | — | `unreviewed` |
+| Technical | `power-density` | `W/m2` | `atom-tech-v1` | nuclear, gas, coal, solar, wind, hydro | `supported` |
+| Technical | `thermal-efficiency` | `%` | `atom-tech-v1` | nuclear, gas, coal, biomass, geothermal (thermal only) | `supported` |
+| Technical | `unit-capacity` | `MW` | `atom-tech-v1` | nuclear, gas, coal, hydro, wind, solar | `supported` |
+| Technical | `refueling-cycle` | `months` | pending | — | `unreviewed` |
 
-For each metric, the evidence release record must separately declare supported technologies, geography, period, Typical/Range/Raw availability, and redistribution license.
+For each metric, the evidence release record separately declares supported technologies, geography, period, Typical/Range/Raw availability, and redistribution license.
