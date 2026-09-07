@@ -30,7 +30,7 @@ Reference documents (read before any implementation work):
 | R08-S | ✅ Complete | R07 | `cab9d80` |
 | R08-T | ✅ Complete | R07 | `cab9d80` |
 | R09 | ✅ Complete | R08 | `91278bc` |
-| R10 | ✅ Complete | R01 (public rollout after R09) | in-progress commit |
+| R10 | ✅ Complete | R01 (public rollout after R09) | `f08a68e` |
 | R11 | 🔲 **NEXT** | R09, R10 | — |
 | R12 | 🔲 Pending | R11 | — |
 | R13 | 🔲 Pending | R11, R12 | — |
@@ -315,7 +315,7 @@ Each task records which rows apply and evidence for each. "Not applicable" needs
 - Created unit test suites `lib/education/content-validation.test.ts` (5 tests) and `lib/education/catalog.test.ts` (6 tests)
 
 **Evidence:** [task-10-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-10-report.md)
-**Commits:** pending
+**Commits:** `f08a68e`
 
 ---
 
