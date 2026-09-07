@@ -93,6 +93,6 @@ Unverified gates / reason / next concrete action:
   semantics, and the exact URL/preference contract before R05 begins.
 
 Commit (if made) and next unblocked task ID: implementation commit
-`f98d8696d423620d1ae11b5ee5652e425b38c8a1`; report commit will be recorded
-after this handoff file is committed. Next dependency-ordered task is R04
-(R05 remains blocked on R04 and its other prerequisites).
+`f98d8696d423620d1ae11b5ee5652e425b38c8a1`; the task report was committed in
+`a1f1be7a3b0cdbb908bf8b5bf2198167f9163fca`. Next dependency-ordered task is
+R04 (R05 remains blocked on R04 and its other prerequisites).
