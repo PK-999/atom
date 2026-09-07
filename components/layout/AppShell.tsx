@@ -18,6 +18,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             ATOM
           </Link>
           <nav aria-label="Primary navigation" className={styles.navigation}>
+            <Link href="/learn">Learn</Link>
             <Link href="/compare">Compare</Link>
             <Link href="/methodology">Evidence</Link>
           </nav>

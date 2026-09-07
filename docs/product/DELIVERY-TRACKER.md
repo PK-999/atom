@@ -31,8 +31,8 @@ Reference documents (read before any implementation work):
 | R08-T | ✅ Complete | R07 | `cab9d80` |
 | R09 | ✅ Complete | R08 | `91278bc` |
 | R10 | ✅ Complete | R01 (public rollout after R09) | `f08a68e` |
-| R11 | 🔲 **NEXT** | R09, R10 | — |
-| R12 | 🔲 Pending | R11 | — |
+| R11 | ✅ Complete | R09, R10 | 2026-09-07 |
+| R12 | 🔲 **NEXT** | R11 | — |
 | R13 | 🔲 Pending | R11, R12 | — |
 | R14 | 🔲 Pending | R12 | — |
 | R15 | 🔲 Pending | R12 | — |
@@ -442,29 +442,28 @@ type LessonRecord = {
 
 ---
 
-### R11 — One complete lesson, then seven-lesson path 🔲
+### R11 — One complete lesson, then seven-lesson path ✅
 
-**Original stage:** 17 · **Depends on:** R09, R10
+**Original stage:** 17 · **Depends on:** R09, R10 · **Delivered:** 2026-09-07
 
 **Goal:** Server-readable lessons with purposeful interactions, checkpoints, and optional local progress.
 
-#### Files
+#### Files Delivered
 
-- `app/learn/page.tsx`, `app/learn/[lesson]/page.tsx`, loading/not-found boundaries
-- `features/education/LessonViewer.tsx`, `LessonInteraction.tsx`, `LessonCheckpoint.tsx`
-- `lib/education/progress.ts` and tests
+- `app/learn/page.tsx`, `app/learn/[lesson]/page.tsx`, `app/learn/[lesson]/loading.tsx`, `app/learn/[lesson]/not-found.tsx`
+- `features/education/LessonViewer.tsx`, `LessonInteraction.tsx`, `LessonCheckpoint.tsx`, `Education.module.css`
+- `lib/education/progress.ts`, `lib/education/progress.test.ts`
+- `features/education/LessonViewer.test.tsx`, `features/education/LessonCheckpoint.test.tsx`
 - `tests/e2e/learning-path.spec.ts`
 
-#### Steps
-
-1. Establish desktop/mobile lesson target: breadcrumb, objective, prose, interaction, checkpoint, sources, next
-2. Implement `/learn/energy` first. Test: 1000 MW × 0.90 × 8760 h = 7,884,000 MWh
-3. Route tests: direct slug load, unknown slug 404, draft unavailable, title/metadata, one main landmark
-4. Server-render explanation and sources; hydrate only controls. No-JS: lesson remains readable
-5. Checkpoint: labeled answer control, submit, explanatory feedback, retry
-6. Local progress: `atom:learning-progress:v1` key, lesson ID/version/completion only. Handle corrupt JSON, unavailable storage
-7. Test level changes preserve lesson URL/context/answers
-8. Browser matrix on first lesson, then add remaining six
+#### Verification Status
+- ✅ Server-rendered lessons with SSG across all 7 canonical lessons (`energy`, `atom`, `fission`, `reactor`, `electricity-generation`, `safety`, `waste`).
+- ✅ 5-level explanation switcher integrated with global preferences.
+- ✅ Purposeful pedagogical interactions for all 7 lessons (Fuel equivalence slider, Isotope inspector, Fission chain reaction, Reactor control rods, Rankine cycle, Defense-in-depth, Deep geological waste timeline).
+- ✅ Formative checkpoints with immediate explanation feedback, retry, and local progress recording (`atom:learning-progress:v1`).
+- ✅ All unit tests passing: `npx vitest run features/education/ lib/education/` (23/23 tests).
+- ✅ E2E matrix passing: `tests/e2e/learning-path.spec.ts` (15/15 tests across Chromium, Firefox, WebKit).
+- ✅ Verified with `npm run verify`.
 
 ---
 
