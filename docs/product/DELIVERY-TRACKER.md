@@ -33,7 +33,7 @@ Reference documents (read before any implementation work):
 | R10 | ✅ Complete | R01 (public rollout after R09) | `f08a68e` |
 | R11 | ✅ Complete | R09, R10 | `06bbfb2` |
 | R12 | ✅ Complete | R11 | `664e402` |
-| R13 | ✅ Complete | R11, R12 | 2026-09-07 |
+| R13 | ✅ Complete | R11, R12 | `d899e6a` |
 | R14 | 🔲 **NEXT** | R12 | — |
 | R15 | 🔲 Pending | R12 | — |
 | R16-G | 🔲 Pending | R12 | — |
