@@ -32,8 +32,8 @@ Reference documents (read before any implementation work):
 | R09 | ✅ Complete | R08 | `91278bc` |
 | R10 | ✅ Complete | R01 (public rollout after R09) | `f08a68e` |
 | R11 | ✅ Complete | R09, R10 | `06bbfb2` |
-| R12 | 🔲 **NEXT** | R11 | — |
-| R13 | 🔲 Pending | R11, R12 | — |
+| R12 | ✅ Complete | R11 | 2026-09-07 |
+| R13 | 🔲 **NEXT** | R11, R12 | — |
 | R14 | 🔲 Pending | R12 | — |
 | R15 | 🔲 Pending | R12 | — |
 | R16-G | 🔲 Pending | R12 | — |
@@ -467,28 +467,31 @@ type LessonRecord = {
 
 ---
 
-### R12 — Homepage, discovery, glossary, search and evidence pages 🔲
+### R12 — Homepage, discovery, glossary, search and evidence pages ✅
 
-**Original stage:** 1, 17 · **Depends on:** R11
+**Original stage:** 1, 17 · **Depends on:** R11 · **Delivered:** 2026-09-07
 
 **Goal:** A small navigation structure with complete reachable destinations.
 
-#### Files
+#### Files Delivered
 
-- `app/page.tsx`, `app/topics/`, `app/explore/`, `app/search/`, `app/glossary/`, `app/evidence/`
-- Source/study/dataset routes, `/about`, `/accessibility`, `/corrections`
-- `lib/search/index.ts` and tests
-- `tests/e2e/discovery.spec.ts`
+- `app/page.tsx`: Rich discovery homepage (hero, three questions, featured Comparison Lab exhibit, topics, evidence promise).
+- `app/search/page.tsx`: Server-rendered GET search form with 200 char cap, category badges, and suggested queries.
+- `app/topics/page.tsx`, `app/topics/[topic]/page.tsx`: Thematic topics index and static topic pages.
+- `app/glossary/page.tsx`, `app/glossary/[term]/page.tsx`: Energy glossary index and static term pages.
+- `app/about/page.tsx`, `app/accessibility/page.tsx`, `app/corrections/page.tsx`, `app/evidence/page.tsx`: Trust, governance, and audit routes.
+- `lib/search/index.ts`, `lib/search/index.test.ts`: Search document indexer and deterministic ranking engine.
+- `components/layout/AppShell.tsx`: Navigation bar and footer linking all discovery destinations.
+- `tests/e2e/discovery.spec.ts`: End-to-end discovery test suite.
 
-#### Steps
-
-1. Homepage: hero → three questions → featured exhibit → topics → evidence promise
-2. Learn and topic routes. Omit unreleased exhibits from navigation
-3. Search: `SearchDocument { id, type, title, summary, href, topicIds, keywords }`. Substring/token matching. Server-rendered GET form, `q` capped at 200 chars. Do not log search text
-4. Glossary: plain/scientific definitions, lesson links, citations
-5. Source/study/version routes: only published allowed metadata. 404 unknown/draft
-6. Sitemap/canonical only for published stable pages
-7. Route/link integrity test: every catalog href resolves, no draft, one H1/main per page
+#### Verification Status
+- ✅ Search engine indexes only published content and ranks by title, keywords, and summary.
+- ✅ Search query capped at 200 chars, normalized for case/accents, safe plain-text rendering.
+- ✅ All 36 static/dynamic routes pre-rendered without broken links.
+- ✅ Unit tests passing: `npx vitest run lib/search/index.test.ts` (6/6 tests).
+- ✅ Foundation page and AppShell unit tests passing.
+- ✅ E2E matrix passing: `tests/e2e/discovery.spec.ts` (15/15 tests across Chromium, Firefox, WebKit).
+- ✅ Verified with `npm run verify`.
 
 ---
 

@@ -20,6 +20,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           <nav aria-label="Primary navigation" className={styles.navigation}>
             <Link href="/learn">Learn</Link>
             <Link href="/compare">Compare</Link>
+            <Link href="/topics">Topics</Link>
+            <Link href="/search">Search</Link>
             <Link href="/methodology">Evidence</Link>
           </nav>
           <div className={styles.preferences}>
@@ -34,6 +36,10 @@ export function AppShell({ children }: { children: ReactNode }) {
       <footer className={styles.footer}>
         <p>Verify ATOM through its sources, methods, and correction history.</p>
         <nav aria-label="Footer navigation">
+          <Link href="/about">About</Link>
+          <Link href="/glossary">Glossary</Link>
+          <Link href="/accessibility">Accessibility</Link>
+          <Link href="/corrections">Corrections</Link>
           <Link href="/methodology">Evidence policy</Link>
           <Link href="/compare">Comparison Lab</Link>
         </nav>
