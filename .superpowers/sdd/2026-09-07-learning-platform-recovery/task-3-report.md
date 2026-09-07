@@ -96,3 +96,35 @@ Commit (if made) and next unblocked task ID: implementation commit
 `f98d8696d423620d1ae11b5ee5652e425b38c8a1`; the task report was committed in
 `a1f1be7a3b0cdbb908bf8b5bf2198167f9163fca`. Next dependency-ordered task is
 R04 (R05 remains blocked on R04 and its other prerequisites).
+
+## R03 review fix round
+
+Review finding: the server-safe page parser correctly cannot read browser local
+storage, but `ComparisonLab` rendered and serialized `initialState.level`
+directly. Therefore a URL without `level` ignored a stored Expert preference,
+and changing another control could write Curious back into the canonical URL.
+
+Resolution: `ComparisonLab` now consumes the existing shared
+`useComplexityPreference` store. The active level drives the selector,
+interpretation text, complexity changes, display-mode changes, and source-removal
+serializations. The store retains valid URL-level precedence over local storage
+and default fallback. Focused regressions cover stored preference hydration when
+`level` is absent, preservation during mode serialization, and explicit URL
+authority over stored preference.
+
+Fix-round verification:
+
+- The new regression initially failed with the selector stuck on Curious while
+  local storage contained Expert; after the client wiring it passed.
+- `npm test -- --run features/comparison/ComparisonLab.test.tsx features/comparison/comparison-url.test.ts features/comparison/comparison-model.test.ts components/settings/ComplexitySelector.test.tsx`:
+  pass, 4 files and 47 tests.
+- `npm test`: pass, 42 files; 220 tests passed and 1 skipped. Five pre-existing
+  Node localStorage experimental warnings remain.
+- `npm run typecheck`: pass.
+- `npm run lint`: exit 0 with the same three pre-existing warnings.
+- `npm run format:check`: pass.
+- `npm run build`: pass on Next.js 16.3.3 webpack.
+
+Fix-round scope remains R03 only; no R04/R05 behavior or hosted service was
+touched. No real-browser or hosted gate was run. Fix-round implementation and
+test commit: `aba1c044779ef8883bdcaecb9706bdf472ddbed7`.
