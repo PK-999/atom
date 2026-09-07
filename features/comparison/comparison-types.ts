@@ -3,6 +3,17 @@ export type { ComplexityLevel };
 
 export type DisplayMode = "typical" | "range" | "raw";
 
+export type UnitMode = "scientific" | "human";
+
+export interface ComparisonState {
+  sources: string[];
+  metric: string;
+  region: string;
+  mode: DisplayMode;
+  units: UnitMode;
+  level: ComplexityLevel;
+}
+
 export type EnergyMarker =
   "circle" | "square" | "triangle" | "diamond" | "pentagon";
 

@@ -107,6 +107,23 @@ describe("ComplexitySelector", () => {
     );
   });
 
+  it("updates the URL when storage is blocked and preserves other parameters", () => {
+    window.history.replaceState(null, "", "/compare?metric=land-use");
+    Object.defineProperty(window, "localStorage", {
+      configurable: true,
+      get() {
+        throw new DOMException("Storage disabled", "SecurityError");
+      },
+    });
+    render(<SelectorHarness />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Expert" }));
+
+    const params = new URLSearchParams(window.location.search);
+    expect(params.get("metric")).toBe("land-use");
+    expect(params.get("level")).toBe("expert");
+  });
+
   it("keeps multiple consumers synchronized in the same document", () => {
     render(<TwoSelectorHarness />);
     const first = screen.getByRole("region", {
@@ -174,6 +191,47 @@ describe("ComplexitySelector", () => {
         "aria-pressed",
         "true",
       ),
+    );
+  });
+
+  it("accepts a cross-tab storage change only when the URL omits level", async () => {
+    render(<SelectorHarness />);
+
+    window.dispatchEvent(
+      new StorageEvent("storage", {
+        key: "atom:preferences:v1:complexity",
+        newValue: "expert",
+      }),
+    );
+
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Expert" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      ),
+    );
+  });
+
+  it("keeps an explicit URL level authoritative during cross-tab changes", async () => {
+    window.history.replaceState(null, "", "/compare?level=technical");
+    render(<SelectorHarness />);
+
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Technical" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      ),
+    );
+    window.dispatchEvent(
+      new StorageEvent("storage", {
+        key: "atom:preferences:v1:complexity",
+        newValue: "kid",
+      }),
+    );
+
+    expect(screen.getByRole("button", { name: "Technical" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
     );
   });
 });

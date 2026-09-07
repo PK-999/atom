@@ -1,26 +1,55 @@
 import { z } from "zod";
 
-// We define the core schema for URL state
-export const ComparisonUrlSchema = z.object({
-  sources: z
-    .string()
-    .transform((val) =>
-      val
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean),
-    )
-    .pipe(z.array(z.string())),
-  metric: z.string(),
-  region: z.string().default("global"),
-  mode: z.enum(["typical", "range", "raw"]).default("typical"),
-  units: z.enum(["scientific", "human"]).default("scientific"),
-  level: z
-    .enum(["kid", "simple", "curious", "technical", "expert"])
-    .default("curious"),
-});
+import { METRICS } from "@/lib/evidence/metrics";
 
-export type ComparisonUrlState = z.infer<typeof ComparisonUrlSchema>;
+import type {
+  ComparisonState,
+  ComplexityLevel,
+  DisplayMode,
+  UnitMode,
+} from "./comparison-types";
+
+const DISPLAY_MODES = ["typical", "range", "raw"] as const;
+const UNIT_MODES = ["scientific", "human"] as const;
+const COMPLEXITY_LEVELS = [
+  "kid",
+  "simple",
+  "curious",
+  "technical",
+  "expert",
+] as const;
+
+export const COMPARISON_TECHNOLOGY_IDS = [
+  "nuclear",
+  "solar",
+  "wind",
+  "gas",
+  "coal",
+  "hydro",
+  "storage",
+  "biomass",
+  "geothermal",
+] as const;
+
+export const COMPARISON_REGION_IDS = ["global", "india"] as const;
+
+const MAX_SOURCE_COUNT = 32;
+const MAX_IDENTIFIER_LENGTH = 64;
+
+export const ComparisonUrlSchema = z
+  .object({
+    sources: z
+      .array(z.string().min(1).max(MAX_IDENTIFIER_LENGTH))
+      .max(MAX_SOURCE_COUNT),
+    metric: z.string().min(1).max(MAX_IDENTIFIER_LENGTH),
+    region: z.string().min(1).max(MAX_IDENTIFIER_LENGTH),
+    mode: z.enum(DISPLAY_MODES),
+    units: z.enum(UNIT_MODES),
+    level: z.enum(COMPLEXITY_LEVELS),
+  })
+  .strict();
+
+export type ComparisonUrlState = ComparisonState;
 
 export const DEFAULT_COMPARISON_STATE: ComparisonUrlState = {
   sources: ["nuclear", "solar", "wind", "gas", "coal"],
@@ -31,80 +60,215 @@ export const DEFAULT_COMPARISON_STATE: ComparisonUrlState = {
   level: "curious",
 };
 
-export function parseComparisonUrl(
-  searchParams:
-    Readonly<URLSearchParams> | Record<string, string | string[] | undefined>,
-): ComparisonUrlState {
-  const params: Record<string, unknown> = {};
+export interface ComparisonPreferences {
+  readonly level?: ComplexityLevel;
+}
 
-  if (searchParams instanceof URLSearchParams) {
-    for (const [key, value] of searchParams.entries()) {
-      params[key] = value;
+export interface ComparisonUrlCatalog {
+  readonly technologyIds: readonly string[];
+  readonly metricIds: readonly string[];
+  readonly regionIds: readonly string[];
+}
+
+export type ComparisonUrlWarningCode =
+  "identifier-too-long" | "too-many-sources";
+
+export interface ComparisonUrlWarning {
+  readonly code: ComparisonUrlWarningCode;
+  readonly parameter: "sources" | "metric" | "region";
+  readonly message: string;
+}
+
+export interface ComparisonUrlParseOptions {
+  readonly catalog?: ComparisonUrlCatalog;
+  readonly onWarning?: (warning: ComparisonUrlWarning) => void;
+}
+
+type ComparisonSearchParams =
+  | Readonly<Pick<URLSearchParams, "get">>
+  | Record<string, string | string[] | undefined>;
+
+const DEFAULT_CATALOG: ComparisonUrlCatalog = {
+  technologyIds: COMPARISON_TECHNOLOGY_IDS,
+  metricIds: METRICS.map((metric) => metric.id),
+  regionIds: COMPARISON_REGION_IDS,
+};
+
+function emitDefaultWarning(warning: ComparisonUrlWarning) {
+  console.warn(`[ATOM comparison URL] ${warning.message}`);
+}
+
+function firstValue(
+  searchParams: ComparisonSearchParams,
+  key: keyof ComparisonState,
+): string | null {
+  if ("get" in searchParams && typeof searchParams.get === "function") {
+    return searchParams.get(key);
+  }
+
+  const value = (searchParams as Record<string, string | string[] | undefined>)[
+    key
+  ];
+  if (Array.isArray(value)) return value[0] ?? null;
+  return value ?? null;
+}
+
+function parseEnum<T extends string>(
+  raw: string | null,
+  allowed: readonly T[],
+  fallback: T,
+): T {
+  if (raw === null) return fallback;
+  const value = raw.trim();
+  return allowed.includes(value as T) ? (value as T) : fallback;
+}
+
+function parseCatalogIdentifier(
+  raw: string | null,
+  parameter: "metric" | "region",
+  allowed: ReadonlySet<string>,
+  fallback: string,
+  onWarning: (warning: ComparisonUrlWarning) => void,
+): string {
+  if (raw === null) return fallback;
+  const value = raw.trim();
+  if (value.length > MAX_IDENTIFIER_LENGTH) {
+    onWarning({
+      code: "identifier-too-long",
+      parameter,
+      message: `${parameter} exceeds ${MAX_IDENTIFIER_LENGTH} characters and was ignored.`,
+    });
+    return fallback;
+  }
+
+  const canonicalValue =
+    parameter === "metric" && value === "lifecycle-emissions"
+      ? "lifecycle-ghg"
+      : value;
+  return allowed.has(canonicalValue) ? canonicalValue : fallback;
+}
+
+function parseSources(
+  raw: string | null,
+  technologyIds: ReadonlySet<string>,
+  onWarning: (warning: ComparisonUrlWarning) => void,
+): string[] {
+  if (raw === null) return [...DEFAULT_COMPARISON_STATE.sources];
+  if (raw.trim() === "") return [];
+
+  const sources: string[] = [];
+  const seen = new Set<string>();
+  let countWarningEmitted = false;
+
+  for (const token of raw.split(",")) {
+    const sourceId = token.trim();
+    if (!sourceId || seen.has(sourceId)) continue;
+    seen.add(sourceId);
+
+    if (sourceId.length > MAX_IDENTIFIER_LENGTH) {
+      onWarning({
+        code: "identifier-too-long",
+        parameter: "sources",
+        message: `A source identifier exceeds ${MAX_IDENTIFIER_LENGTH} characters and was ignored.`,
+      });
+      continue;
     }
-  } else {
-    // Flatten arrays if multiple values are somehow passed for the same key
-    for (const [key, value] of Object.entries(searchParams)) {
-      if (Array.isArray(value)) {
-        params[key] = value[0];
-      } else {
-        params[key] = value;
+    if (!technologyIds.has(sourceId)) continue;
+
+    if (sources.length === MAX_SOURCE_COUNT) {
+      if (!countWarningEmitted) {
+        onWarning({
+          code: "too-many-sources",
+          parameter: "sources",
+          message: `Only the first ${MAX_SOURCE_COUNT} valid source identifiers were kept.`,
+        });
+        countWarningEmitted = true;
       }
+      continue;
     }
+    sources.push(sourceId);
   }
 
-  // Inject defaults where absent
-  const rawParams = {
-    sources: params.sources ?? DEFAULT_COMPARISON_STATE.sources.join(","),
-    metric: params.metric ?? DEFAULT_COMPARISON_STATE.metric,
-    region: params.region ?? DEFAULT_COMPARISON_STATE.region,
-    mode: params.mode ?? DEFAULT_COMPARISON_STATE.mode,
-    units: params.units ?? DEFAULT_COMPARISON_STATE.units,
-    level: params.level ?? DEFAULT_COMPARISON_STATE.level,
-  };
+  return sources.length > 0 ? sources : [...DEFAULT_COMPARISON_STATE.sources];
+}
 
-  const parsed = ComparisonUrlSchema.safeParse(rawParams);
-
-  if (parsed.success) {
-    return parsed.data;
-  }
-
-  // If validation fails (e.g. invalid enums), gracefully fallback to defaults
-  // for the failed fields, while keeping the successful ones.
-  const errorPaths = !parsed.success
-    ? (
-        (parsed as unknown as { error: { errors: { path: string[] }[] } }).error
-          .errors || []
-      )
-        .map((e: { path: string[] }) => e.path)
-        .flat()
-    : [];
-
-  const partial = Object.fromEntries(
-    Object.entries(rawParams).filter(([key]) => {
-      // Very basic fallback logic for individual field failure
-      return !errorPaths.includes(key);
-    }),
+export function parseComparisonState(
+  searchParams: ComparisonSearchParams,
+  preferences?: ComparisonPreferences,
+  options: ComparisonUrlParseOptions = {},
+): ComparisonState {
+  const catalog = options.catalog ?? DEFAULT_CATALOG;
+  const onWarning = options.onWarning ?? emitDefaultWarning;
+  const preferredLevel = parseEnum(
+    preferences?.level ?? null,
+    COMPLEXITY_LEVELS,
+    DEFAULT_COMPARISON_STATE.level,
   );
 
-  return {
-    ...DEFAULT_COMPARISON_STATE,
-    ...partial,
-  };
+  return ComparisonUrlSchema.parse({
+    sources: parseSources(
+      firstValue(searchParams, "sources"),
+      new Set(catalog.technologyIds),
+      onWarning,
+    ),
+    metric: parseCatalogIdentifier(
+      firstValue(searchParams, "metric"),
+      "metric",
+      new Set(catalog.metricIds),
+      DEFAULT_COMPARISON_STATE.metric,
+      onWarning,
+    ),
+    region: parseCatalogIdentifier(
+      firstValue(searchParams, "region"),
+      "region",
+      new Set(catalog.regionIds),
+      DEFAULT_COMPARISON_STATE.region,
+      onWarning,
+    ),
+    mode: parseEnum(
+      firstValue(searchParams, "mode"),
+      DISPLAY_MODES,
+      DEFAULT_COMPARISON_STATE.mode,
+    ) as DisplayMode,
+    units: parseEnum(
+      firstValue(searchParams, "units"),
+      UNIT_MODES,
+      DEFAULT_COMPARISON_STATE.units,
+    ) as UnitMode,
+    level: parseEnum(
+      firstValue(searchParams, "level"),
+      COMPLEXITY_LEVELS,
+      preferredLevel,
+    ),
+  });
+}
+
+export function parseComparisonUrl(
+  searchParams: ComparisonSearchParams,
+  preferences?: ComparisonPreferences,
+  options?: ComparisonUrlParseOptions,
+): ComparisonUrlState {
+  return parseComparisonState(searchParams, preferences, options);
+}
+
+export function serializeComparisonState(
+  state: ComparisonState,
+): URLSearchParams {
+  const params = new URLSearchParams();
+  params.set("sources", state.sources.join(","));
+  params.set(
+    "metric",
+    state.metric === "lifecycle-emissions" ? "lifecycle-ghg" : state.metric,
+  );
+  params.set("region", state.region);
+  params.set("mode", state.mode);
+  params.set("units", state.units);
+  params.set("level", state.level);
+  return params;
 }
 
 export function serializeComparisonUrl(
   state: ComparisonUrlState,
 ): URLSearchParams {
-  const params = new URLSearchParams();
-
-  if (state.sources.length > 0) {
-    params.set("sources", state.sources.join(","));
-  }
-  if (state.metric) params.set("metric", state.metric);
-  if (state.region !== "global") params.set("region", state.region);
-  if (state.mode !== "typical") params.set("mode", state.mode);
-  if (state.units !== "scientific") params.set("units", state.units);
-  if (state.level !== "curious") params.set("level", state.level);
-
-  return params;
+  return serializeComparisonState(state);
 }

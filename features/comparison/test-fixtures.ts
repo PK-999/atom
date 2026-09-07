@@ -1,5 +1,4 @@
-import type { PreviewComparison } from "./comparison-types";
-import type { ComparisonUrlState } from "./comparison-url";
+import type { ComparisonState, PreviewComparison } from "./comparison-types";
 
 export const mockComparison: PreviewComparison = {
   metricId: "lifecycle-ghg",
@@ -68,7 +67,7 @@ export const mockComparison: PreviewComparison = {
   ],
 };
 
-export const mockInitialState: ComparisonUrlState = {
+export const mockInitialState: ComparisonState = {
   sources: ["nuclear", "solar", "wind", "gas", "coal"],
   metric: "lifecycle-ghg",
   region: "global",

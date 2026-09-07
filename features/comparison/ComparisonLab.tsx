@@ -22,6 +22,7 @@ import { ComplexitySelector } from "@/components/settings/ComplexitySelector";
 
 import { getComparisonScale, projectObservation } from "./comparison-model";
 import type {
+  ComparisonState,
   ComplexityLevel,
   DisplayMode,
   EnergyMarker,
@@ -53,7 +54,7 @@ const unavailableExplanations: Record<
 
 interface ComparisonLabProps {
   comparison: PreviewComparison;
-  initialState: ComparisonUrlState;
+  initialState: ComparisonState;
 }
 
 type ChartStyle = CSSProperties & {
@@ -198,8 +199,7 @@ function EvidenceDialog({
   );
 }
 
-import type { ComparisonUrlState } from "./comparison-url";
-import { serializeComparisonUrl } from "./comparison-url";
+import { serializeComparisonState } from "./comparison-url";
 
 export function ComparisonLab({
   comparison,
@@ -221,7 +221,7 @@ export function ComparisonLab({
   // Update complexity URL state when selector changes
   const handleComplexityChange = (newLevel: ComplexityLevel) => {
     const newState = { ...initialState, level: newLevel };
-    const query = serializeComparisonUrl(newState);
+    const query = serializeComparisonState(newState);
     startTransition(() => {
       router.push(`${pathname}?${query.toString()}`, { scroll: false });
     });
@@ -229,7 +229,7 @@ export function ComparisonLab({
 
   const setDisplayMode = (newMode: DisplayMode) => {
     const newState = { ...initialState, mode: newMode };
-    const query = serializeComparisonUrl(newState);
+    const query = serializeComparisonState(newState);
     startTransition(() => {
       router.push(`${pathname}?${query.toString()}`, { scroll: false });
     });
@@ -241,7 +241,7 @@ export function ComparisonLab({
       ...initialState,
       sources: selectedIds.filter((id) => id !== technologyId),
     };
-    const query = serializeComparisonUrl(newState);
+    const query = serializeComparisonState(newState);
     startTransition(() => {
       router.push(`${pathname}?${query.toString()}`, { scroll: false });
     });

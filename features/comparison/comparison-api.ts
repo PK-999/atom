@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import type { ComparisonUrlState } from "./comparison-url";
+import type { ComparisonState } from "./comparison-types";
 import type {
   PreviewComparison,
   PreviewObservation,
@@ -25,7 +25,7 @@ const COLOR_MAP: Record<string, string> = {
 };
 
 export async function fetchComparisonData(
-  state: ComparisonUrlState,
+  state: ComparisonState,
 ): Promise<PreviewComparison> {
   const supabase = await createClient();
 
