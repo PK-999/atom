@@ -24,6 +24,47 @@ jobs:
       - run: npm run test
       - run: npm run build
 
+  database:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.20.0
+          cache: npm
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.116.0
+      - run: npm ci
+      - run: supabase start
+      - run: npm run db:reset
+      - run: npm run db:test
+      - run: npm run db:lint
+      - run: npm run db:advisors
+      - run: npm run db:types
+      - name: Verify generated TypeScript types drift
+        run: git diff --exit-code lib/supabase/database.types.ts
+      - name: Run Supabase repository integration tests
+        run: npm run test:integration:supabase
+        env:
+          SUPABASE_URL: http://127.0.0.1:54321
+          SUPABASE_SECRET_KEY: sb_secret_key_mock_or_service_role
+          ATOM_REQUIRE_SUPABASE_INTEGRATION: "1"
+      - name: Run durable ingestion integration tests
+        run: npm run test:integration:ingestion
+        env:
+          SUPABASE_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+          ATOM_REQUIRE_INGESTION_INTEGRATION: "1"
+      - name: Run rollback drill integration test
+        run: npx vitest run tests/rollback-drill.test.ts
+        env:
+          SUPABASE_URL: http://127.0.0.1:54321
+          SUPABASE_SECRET_KEY: sb_secret_key_mock_or_service_role
+          SUPABASE_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+      - name: Stop disposable Supabase
+        if: always()
+        run: supabase stop --no-backup
+
   browser:
     runs-on: ubuntu-latest
     steps:

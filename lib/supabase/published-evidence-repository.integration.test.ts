@@ -19,10 +19,13 @@ if (!config && requiresSupabaseIntegration) {
     "Supabase integration is required; set SUPABASE_URL and SUPABASE_SECRET_KEY.",
   );
 }
+const runId = Math.random().toString(36).slice(2, 8);
+const fixturePrefix = `repofix-${runId}-`;
+const fixtureId = (name: string) => `${fixturePrefix}${name}`;
 const integrationSnapshot = remapFixtureIds(
   createEvidenceRepositoryContractSnapshot(),
+  fixturePrefix,
 );
-const fixtureId = (name: string) => `repository-fixture-${name}`;
 
 describe("SupabaseEvidenceRepository integration", () => {
   if (!config) {
@@ -43,10 +46,19 @@ describe("SupabaseEvidenceRepository integration", () => {
   );
 
   it("does not expose releases backed by unpublished metrics or dataset versions", async () => {
-    await expect(repository.listMetricReleases()).resolves.toEqual([
-      expect.objectContaining({ metricId: fixtureId("metric") }),
-      expect.objectContaining({ metricId: fixtureId("metric-2") }),
-    ]);
+    const releases = await repository.listMetricReleases();
+    expect(releases).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ metricId: fixtureId("metric") }),
+        expect.objectContaining({ metricId: fixtureId("metric-2") }),
+      ]),
+    );
+    expect(releases.some((r) => r.metricId === fixtureId("draft-metric"))).toBe(
+      false,
+    );
+    expect(
+      releases.some((r) => r.metricId === fixtureId("draft-version-metric")),
+    ).toBe(false);
     await expect(
       repository.getMetricDefinition(fixtureId("draft-metric")),
     ).resolves.toBeNull();
@@ -368,8 +380,9 @@ describe("SupabaseEvidenceRepository integration", () => {
 
 function remapFixtureIds(
   snapshot: ReturnType<typeof createEvidenceRepositoryContractSnapshot>,
+  prefix: string,
 ) {
   return JSON.parse(
-    JSON.stringify(snapshot).replaceAll('"fixture-', '"repository-fixture-'),
+    JSON.stringify(snapshot).replaceAll('"fixture-', `"${prefix}`),
   ) as ReturnType<typeof createEvidenceRepositoryContractSnapshot>;
 }

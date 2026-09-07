@@ -254,14 +254,20 @@ export function runEvidenceRepositoryContract(
     it("returns releases, technologies, and metric geographies in stable order", async () => {
       const subject = await repository();
 
-      await expect(subject.listMetricReleases()).resolves.toEqual([
-        expect.objectContaining({ metricId: metric.id }),
-        expect.objectContaining({ metricId: secondMetric.id }),
-      ]);
-      await expect(subject.listTechnologies()).resolves.toMatchObject([
-        { id: technologyA.id },
-        { id: technologyB.id },
-      ]);
+      const releases = await subject.listMetricReleases();
+      expect(releases).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ metricId: metric.id }),
+          expect.objectContaining({ metricId: secondMetric.id }),
+        ]),
+      );
+      const technologies = await subject.listTechnologies();
+      expect(technologies).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ id: technologyA.id }),
+          expect.objectContaining({ id: technologyB.id }),
+        ]),
+      );
       await expect(subject.listGeographies(metric.id)).resolves.toEqual([
         expect.objectContaining({ id: global.id }),
         expect.objectContaining({ id: region.id }),

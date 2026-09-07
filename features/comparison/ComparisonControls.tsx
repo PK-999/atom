@@ -195,10 +195,9 @@ export function ComparisonControls({
         await navigator.clipboard.writeText(canonicalUrl);
         setCopiedNotification(true);
         setTimeout(() => setCopiedNotification(false), 3000);
-        return;
       }
     } catch {
-      // Clipboard write failed (e.g. lack of permissions); show selectable dialog
+      // Clipboard write failed (e.g. lack of permissions); selectable dialog will still display
     }
     setShareDialogOpen(true);
   };

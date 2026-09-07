@@ -25,7 +25,7 @@ if (process.env.ATOM_REQUIRE_INGESTION_INTEGRATION === "1" && !url)
 if (url && !["127.0.0.1", "localhost"].includes(new URL(url).hostname))
   throw new Error("Integration tests require a disposable local database.");
 
-describe.skipIf(!url)(
+describe.skipIf(!url || process.env.ATOM_REQUIRE_INGESTION_INTEGRATION !== "1")(
   "durable Postgres evidence lifecycle (synthetic only)",
   () => {
     const db = postgres(url ?? "postgres://localhost/unused", { max: 2 });

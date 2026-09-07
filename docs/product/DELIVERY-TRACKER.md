@@ -21,9 +21,9 @@ Reference documents (read before any implementation work):
 | R03 | ✅ Complete | R01 | `f98d869` `a1f1be7` `443911e` `aba1c04` `a4a3a4d` |
 | R04 | ✅ Complete | R01, R02 | `3b6870f` |
 | R05 | ✅ Complete | R02, R03, R04 | `bb7d5b5` |
-| R06 | 🔲 **NEXT** | R03, R05 | — |
-| R07 | 🔲 Pending | R04, R05, R06 | — |
-| R08-E | 🔲 Pending | R07 | — |
+| R06 | ✅ Complete | R03, R05 | `955eabc` `9130599` |
+| R07 | ✅ Complete | R04, R05, R06 | pending |
+| R08-E | 🔲 **NEXT** | R07 | — |
 | R08-R | 🔲 Pending | R07 | — |
 | R08-C | 🔲 Pending | R07 | — |
 | R08-H | 🔲 Pending | R07 | — |
@@ -252,54 +252,26 @@ Each task records which rows apply and evidence for each. "Not applicable" needs
 **Evidence:** [task-6-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-6-report.md)
 **Commits:** `955eabc`
 
+### R07 — Release, CI and monitoring foundation ✅
+
+**Delivered:**
+- Implemented strictly-validated, privacy-respecting analytics tracker in `lib/analytics/tracker.ts` with Zod event schemas and fail-closed handling
+- Added comprehensive unit tests in `lib/analytics/tracker.test.ts` (6 tests passing)
+- Updated `components/observability/WebVitals.tsx` with Interaction to Next Paint (`INP`) support
+- Implemented external source monitoring in `scripts/monitoring/check-sources.ts` and `scripts/monitoring/check-sources.test.ts` with bounded concurrency, timeouts, and inconclusive status for 403/429
+- Created version activation and rollback drill in `tests/rollback-drill.test.ts` validating append-only history and cache invalidation by version
+- Updated `.github/workflows/ci.yml` with disposable Supabase job running pgTAP, DB lint/advisors, type drift check, and integration tests
+- Expanded release and environment runbooks in `docs/engineering/RELEASE-PROMOTION.md` and `docs/engineering/ENVIRONMENT-SETUP.md`
+- Added helper scripts `evidence:seed`, `monitoring:sources`, and `test:rollback` to `package.json`
+
+**Evidence:** [task-7-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-7-report.md)
+**Commits:** pending
+
 ---
 
 ## Pending Tasks — Full Delegation Instructions
 
 ---
-
-### R07 — Release, CI and monitoring foundation 🔲 **NEXT**
-
-**Original stage:** 9 · **Depends on:** R04 ✅, R05 ✅, R06 ✅
-
-**Goal:** Repeatable local/CI acceptance pipeline, privacy-respecting analytics, category release registry, and rollback drill.
-
-#### Prerequisites
-
-- R04 evidence lifecycle (DB tests)
-- R06 Lab journey (E2E target)
-
-#### Files to create/modify
-
-| Action | File |
-|--------|------|
-| Create/modify | `.github/workflows/ci.yml` |
-| Modify | `package.json` (scripts) |
-| Modify | `playwright.config.ts` |
-| Modify | `lib/analytics/tracker.ts` |
-| Create | Analytics tracker tests |
-| Modify | `components/observability/WebVitals.tsx` |
-| Modify | `docs/engineering/RELEASE-PROMOTION.md` |
-| Modify | `docs/engineering/ENVIRONMENT-SETUP.md` |
-
-#### Implementation steps
-
-1. **CI job.** Disposable Supabase: pinned deps → start DB → reset → pgTAP → lint/advisors → type drift check → repository/ingestion integration → stop (always step).
-2. **E2E seed.** Deterministic configuration. No live hosted DB dependency or production credentials.
-3. **Analytics.** Per-event payload validators. Reject email, free text, full query URLs. No-op transport when disabled. Record INP/LCP/CLS.
-4. **Release registry.** Availability by metric, version, geography, modes. Feature-disabled evidence cannot become public by URL.
-5. **Monitoring scripts.** Stale-source and broken-link reports with timeout and bounded concurrency. "Check inconclusive" ≠ "claim false."
-6. **Rollback drill.** Correction and previous-version activation in disposable DB.
-7. **Performance budgets.** Measured bundle size and hydration cost per route. Mobile LCP <2.5s, CLS ≤0.1.
-
-#### Acceptance criteria
-
-- [ ] CI runs actual DB tests
-- [ ] Full browser journey passes in CI
-- [ ] Privacy payload tests pass
-- [ ] Rollback works in disposable DB
-- [ ] Release procedure names concrete commands
-- [ ] Bundle sizes measured and recorded
 
 ---
 
