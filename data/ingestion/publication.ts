@@ -12,6 +12,9 @@ export interface ReviewRecord {
   readonly reviewerId: string;
   readonly role: ReviewRole;
   readonly status: "approved";
+  readonly artifactChecksum: string;
+  readonly manifestDigest: string;
+  readonly reviewedAt: string;
 }
 
 export interface PublicationCandidate {
@@ -27,6 +30,8 @@ export interface PublicationStore {
     readonly datasetVersionId: string;
     readonly reviewerId: string;
     readonly role: ReviewRole;
+    readonly artifactChecksum: string;
+    readonly manifestDigest: string;
   }): Promise<ReviewRecord>;
   listReviews(datasetVersionId: string): Promise<readonly ReviewRecord[]>;
   getPublicationCandidates(
@@ -49,6 +54,8 @@ export interface ReviewDatasetVersionInput {
   readonly datasetVersionId: string;
   readonly reviewerId: string;
   readonly role: ReviewRole;
+  readonly artifactChecksum: string;
+  readonly manifestDigest: string;
 }
 
 export interface PublishDatasetVersionInput {
@@ -113,6 +120,16 @@ export async function publishDatasetVersion(
           `Observation ${candidate.observation.id} is not eligible for publication: ${eligibility.reasons.join(", ")}.`,
         );
       }
+      if (
+        candidate.observation.rawAccess !== "permitted" ||
+        candidate.observation.license.redistribution !== "allowed" ||
+        candidate.context.source.license.redistribution !== "allowed" ||
+        candidate.context.dataset.license.redistribution !== "allowed"
+      ) {
+        throw new Error(
+          "Publication is blocked by redistribution restrictions.",
+        );
+      }
     }
 
     await store.publishDraftVersion(input.datasetVersionId);
@@ -138,6 +155,14 @@ export async function rollbackMetricRelease(
 }
 
 function assertRequiredReviews(reviews: readonly ReviewRecord[]): void {
+  if (
+    reviews.length !== 3 ||
+    new Set(reviews.map((r) => r.role)).size !== 3 ||
+    new Set(reviews.map((r) => r.reviewerId.trim())).size !== 3
+  )
+    throw new Error(
+      "Publication requires three independent, nonduplicate review roles and identities.",
+    );
   const approvedRoles = new Set(
     reviews
       .filter((review) => review.status === "approved")

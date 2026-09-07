@@ -22,6 +22,26 @@ export const IngestionManifestSchema = z
       .regex(/^[a-f0-9]{64}$/, "Checksum must be a lowercase sha256 digest."),
     parserId: IdentifierSchema,
     transformationVersion: z.string().regex(/^\d+\.\d+\.\d+$/),
+    supersedesVersionId: IdentifierSchema.optional(),
+    revision: z
+      .object({
+        decidedOn: z.iso.date(),
+        reason: z.string().trim().min(1),
+        materialImpact: z.enum(["none", "minor", "material"]),
+        affectedObservationIds: z.array(IdentifierSchema).min(1),
+      })
+      .strict()
+      .optional(),
+    referenceArtifact: z
+      .object({
+        url: z.url(),
+        checksum: z.string().regex(/^[a-f0-9]{64}$/),
+        publicationVersion: z.string().trim().min(1),
+        extractionLocator: z.string().trim().min(1),
+        mediaType: z.string().trim().min(1),
+      })
+      .strict()
+      .optional(),
     canonicalUnits: z.record(IdentifierSchema, z.string().trim().min(1)),
     reviewerRoles: z
       .array(z.enum(["scientific", "editorial", "licensing"]))

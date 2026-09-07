@@ -24,8 +24,9 @@
     "db:test": "supabase test db",
     "db:lint": "supabase db lint --local --level warning",
     "db:advisors": "supabase db advisors --local",
-    "db:types": "supabase gen types typescript --local",
-    "evidence:ingest": "tsx scripts/evidence/ingest.ts",
+    "db:types": "supabase gen types typescript --local --schema public,private,graphql_public",
+    "evidence:ingest": "node --conditions=react-server --import tsx scripts/evidence/ingest.ts",
+    "test:integration:ingestion": "ATOM_REQUIRE_INGESTION_INTEGRATION=1 vitest run data/ingestion/publication.integration.test.ts",
     "verify": "npm run format:check && npm run typecheck && npm run lint && npm run test && npm run build"
   },
   "dependencies": {

@@ -32,6 +32,264 @@ export type Database = {
       [_ in never]: never;
     };
   };
+  private: {
+    Tables: {
+      dataset_version_reviews: {
+        Row: {
+          artifact_checksum: string | null;
+          dataset_version_id: string;
+          id: string;
+          manifest_digest: string | null;
+          review_role: string;
+          reviewed_at: string;
+          reviewer_id: string;
+        };
+        Insert: {
+          artifact_checksum?: string | null;
+          dataset_version_id: string;
+          id: string;
+          manifest_digest?: string | null;
+          review_role: string;
+          reviewed_at?: string;
+          reviewer_id: string;
+        };
+        Update: {
+          artifact_checksum?: string | null;
+          dataset_version_id?: string;
+          id?: string;
+          manifest_digest?: string | null;
+          review_role?: string;
+          reviewed_at?: string;
+          reviewer_id?: string;
+        };
+        Relationships: [];
+      };
+      evidence_reviewers: {
+        Row: {
+          active: boolean;
+          approved_roles: string[];
+          display_name: string;
+          id: string;
+          identity_reference: string;
+        };
+        Insert: {
+          active?: boolean;
+          approved_roles: string[];
+          display_name: string;
+          id: string;
+          identity_reference: string;
+        };
+        Update: {
+          active?: boolean;
+          approved_roles?: string[];
+          display_name?: string;
+          id?: string;
+          identity_reference?: string;
+        };
+        Relationships: [];
+      };
+      ingestion_events: {
+        Row: {
+          event_type: string;
+          id: string;
+          ingestion_run_id: string;
+          occurred_at: string;
+          sequence_number: number;
+          summary: string;
+        };
+        Insert: {
+          event_type: string;
+          id: string;
+          ingestion_run_id: string;
+          occurred_at?: string;
+          sequence_number: number;
+          summary: string;
+        };
+        Update: {
+          event_type?: string;
+          id?: string;
+          ingestion_run_id?: string;
+          occurred_at?: string;
+          sequence_number?: number;
+          summary?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "ingestion_events_ingestion_run_id_fkey";
+            columns: ["ingestion_run_id"];
+            isOneToOne: false;
+            referencedRelation: "ingestion_runs";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      ingestion_observations: {
+        Row: {
+          observation_id: string;
+          payload: Json;
+        };
+        Insert: {
+          observation_id: string;
+          payload: Json;
+        };
+        Update: {
+          observation_id?: string;
+          payload?: Json;
+        };
+        Relationships: [];
+      };
+      ingestion_runs: {
+        Row: {
+          accepted_record_count: number;
+          attempt: number;
+          completed_at: string | null;
+          created_at: string;
+          dataset_version_id: string | null;
+          failure_summary: string | null;
+          id: string;
+          idempotency_key: string;
+          input_checksum: string;
+          manifest_digest: string | null;
+          pipeline_version: string;
+          rejected_record_count: number;
+          source_record_count: number;
+          started_at: string | null;
+          status: Database["public"]["Enums"]["ingestion_status"];
+        };
+        Insert: {
+          accepted_record_count?: number;
+          attempt?: number;
+          completed_at?: string | null;
+          created_at?: string;
+          dataset_version_id?: string | null;
+          failure_summary?: string | null;
+          id: string;
+          idempotency_key: string;
+          input_checksum: string;
+          manifest_digest?: string | null;
+          pipeline_version: string;
+          rejected_record_count?: number;
+          source_record_count?: number;
+          started_at?: string | null;
+          status?: Database["public"]["Enums"]["ingestion_status"];
+        };
+        Update: {
+          accepted_record_count?: number;
+          attempt?: number;
+          completed_at?: string | null;
+          created_at?: string;
+          dataset_version_id?: string | null;
+          failure_summary?: string | null;
+          id?: string;
+          idempotency_key?: string;
+          input_checksum?: string;
+          manifest_digest?: string | null;
+          pipeline_version?: string;
+          rejected_record_count?: number;
+          source_record_count?: number;
+          started_at?: string | null;
+          status?: Database["public"]["Enums"]["ingestion_status"];
+        };
+        Relationships: [];
+      };
+      release_operations: {
+        Row: {
+          id: string;
+          initiated_by: string;
+          metric_id: string;
+          occurred_at: string;
+          operation: string;
+          previous_dataset_version_id: string | null;
+          reason: string;
+          target_dataset_version_id: string;
+        };
+        Insert: {
+          id: string;
+          initiated_by: string;
+          metric_id: string;
+          occurred_at?: string;
+          operation: string;
+          previous_dataset_version_id?: string | null;
+          reason: string;
+          target_dataset_version_id: string;
+        };
+        Update: {
+          id?: string;
+          initiated_by?: string;
+          metric_id?: string;
+          occurred_at?: string;
+          operation?: string;
+          previous_dataset_version_id?: string | null;
+          reason?: string;
+          target_dataset_version_id?: string;
+        };
+        Relationships: [];
+      };
+      version_artifacts: {
+        Row: {
+          artifact_checksum: string;
+          created_at: string;
+          dataset_version_id: string;
+          manifest: Json;
+          manifest_digest: string;
+        };
+        Insert: {
+          artifact_checksum: string;
+          created_at?: string;
+          dataset_version_id: string;
+          manifest: Json;
+          manifest_digest: string;
+        };
+        Update: {
+          artifact_checksum?: string;
+          created_at?: string;
+          dataset_version_id?: string;
+          manifest?: Json;
+          manifest_digest?: string;
+        };
+        Relationships: [];
+      };
+      version_withdrawals: {
+        Row: {
+          dataset_version_id: string;
+          id: string;
+          initiated_by: string;
+          occurred_at: string;
+          reason: string;
+        };
+        Insert: {
+          dataset_version_id: string;
+          id: string;
+          initiated_by: string;
+          occurred_at?: string;
+          reason: string;
+        };
+        Update: {
+          dataset_version_id?: string;
+          id?: string;
+          initiated_by?: string;
+          occurred_at?: string;
+          reason?: string;
+        };
+        Relationships: [];
+      };
+    };
+    Views: {
+      [_ in never]: never;
+    };
+    Functions: {
+      activate_metric_release: {
+        Args: { dataset_version_id: string; metric_id: string; reason: string };
+        Returns: undefined;
+      };
+    };
+    Enums: {
+      [_ in never]: never;
+    };
+    CompositeTypes: {
+      [_ in never]: never;
+    };
+  };
   public: {
     Tables: {
       corrections: {
@@ -113,6 +371,7 @@ export type Database = {
           published_at: string | null;
           reviewed_at: string | null;
           reviewed_by: string | null;
+          source_version: string | null;
           supersedes_version_id: string | null;
           transformation_version: string;
         };
@@ -127,6 +386,7 @@ export type Database = {
           published_at?: string | null;
           reviewed_at?: string | null;
           reviewed_by?: string | null;
+          source_version?: string | null;
           supersedes_version_id?: string | null;
           transformation_version: string;
         };
@@ -141,6 +401,7 @@ export type Database = {
           published_at?: string | null;
           reviewed_at?: string | null;
           reviewed_by?: string | null;
+          source_version?: string | null;
           supersedes_version_id?: string | null;
           transformation_version?: string;
         };
@@ -165,6 +426,7 @@ export type Database = {
         Row: {
           created_at: string;
           id: string;
+          licence_id: string | null;
           licence_name: string;
           licence_url: string | null;
           publication_status: Database["public"]["Enums"]["publication_status"];
@@ -180,6 +442,7 @@ export type Database = {
         Insert: {
           created_at?: string;
           id: string;
+          licence_id?: string | null;
           licence_name: string;
           licence_url?: string | null;
           publication_status?: Database["public"]["Enums"]["publication_status"];
@@ -195,6 +458,7 @@ export type Database = {
         Update: {
           created_at?: string;
           id?: string;
+          licence_id?: string | null;
           licence_name?: string;
           licence_url?: string | null;
           publication_status?: Database["public"]["Enums"]["publication_status"];
@@ -601,6 +865,7 @@ export type Database = {
           created_at: string;
           id: string;
           last_verified_on: string;
+          licence_id: string | null;
           licence_name: string;
           licence_url: string | null;
           publication_status: Database["public"]["Enums"]["publication_status"];
@@ -621,6 +886,7 @@ export type Database = {
           created_at?: string;
           id: string;
           last_verified_on: string;
+          licence_id?: string | null;
           licence_name: string;
           licence_url?: string | null;
           publication_status?: Database["public"]["Enums"]["publication_status"];
@@ -641,6 +907,7 @@ export type Database = {
           created_at?: string;
           id?: string;
           last_verified_on?: string;
+          licence_id?: string | null;
           licence_name?: string;
           licence_url?: string | null;
           publication_status?: Database["public"]["Enums"]["publication_status"];
@@ -910,6 +1177,9 @@ export type CompositeTypes<
 
 export const Constants = {
   graphql_public: {
+    Enums: {},
+  },
+  private: {
     Enums: {},
   },
   public: {

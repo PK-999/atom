@@ -273,6 +273,14 @@ export function canPublishObservation(
   observation: Observation,
   context: PublicationContext,
 ): PublicationEligibility {
+  return assessPublication(observation, context, true);
+}
+
+function assessPublication(
+  observation: Observation,
+  context: PublicationContext,
+  requirePublished: boolean,
+): PublicationEligibility {
   const reasons: PublicationEligibilityReason[] = [];
   if (!ObservationSchema.safeParse(observation).success) {
     reasons.push("invalid-observation");
@@ -361,8 +369,9 @@ export function canPublishObservation(
     reasons.push("publication-relationship-mismatch");
   }
   if (
-    observation.publicationStatus !== "published" ||
-    context.publication.status !== "published"
+    requirePublished &&
+    (observation.publicationStatus !== "published" ||
+      context.publication.status !== "published")
   ) {
     reasons.push("not-published");
   }
@@ -418,10 +427,9 @@ export function canPrepublishObservation(
   observation: Observation,
   context: PublicationContext,
 ): PublicationEligibility {
-  return canPublishObservation(
-    { ...observation, publicationStatus: "published" },
-    context,
-  );
+  if (!["draft", "in-review"].includes(observation.publicationStatus))
+    return { eligible: false, reasons: ["not-published"] };
+  return assessPublication(observation, context, false);
 }
 
 export function canPublishRawObservation(
