@@ -9,9 +9,9 @@ features. The goal is a calm learning library with purposeful interactive
 exhibits and inspectable sources.
 
 Start with the [2026-09-07 audit](docs/product/2026-09-07-ATOMIC-ENERGY-EXPERIENCE-AUDIT.md),
-[implementation and test plan](docs/superpowers/plans/2026-09-07-learning-platform-recovery.md),
-[delivery tracker](docs/product/DELIVERY-TRACKER.md) and
-[next tasks](docs/product/PENDING-TASKS.md). Root and the Stage 6 worktree have
+[implementation and test plan](docs/superpowers/plans/2026-09-07-learning-platform-recovery.md) and
+[delivery tracker](docs/product/DELIVERY-TRACKER.md) (single source of truth for
+status, task queue, and delegation instructions). Root and the Stage 6 worktree have
 divergent database implementations; reconcile them before running migrations or
 ingestion. Do not run the unverified `scripts/ingest-reference.ts` against an
 external database.

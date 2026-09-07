@@ -2,7 +2,7 @@
 
 Date: 2026-09-07. Scope: the current working directory on `main` at `ab0429c`, including its uncommitted changes, and the separate Stage 6 delivery worktree at `c8cb58a` with its partial edits. This is a repository audit and implementation specification, not a scientific review or approval to release content.
 
-Implementation instructions: [ordered task plan](../superpowers/plans/2026-09-07-learning-platform-recovery.md). Progress: [delivery tracker](DELIVERY-TRACKER.md). Next task: [pending tasks](PENDING-TASKS.md).
+Implementation instructions: [ordered task plan](../superpowers/plans/2026-09-07-learning-platform-recovery.md). Progress and next task: [delivery tracker](DELIVERY-TRACKER.md).
 
 ## 1. Recommendation
 

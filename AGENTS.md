@@ -9,12 +9,11 @@ All coding agents working in this repository must follow this file before making
 Read these first, in order:
 
 1. `docs/product/2026-09-07-ATOMIC-ENERGY-EXPERIENCE-AUDIT.md` — current code findings and learning-library product target.
-2. `docs/product/DELIVERY-TRACKER.md` — current gate status, distinct from historical verification.
-3. `docs/product/PENDING-TASKS.md` — next executable work package.
-4. `docs/superpowers/plans/2026-09-07-learning-platform-recovery.md` — exact files, contracts, steps and test oracles for R01–R19.
-5. The product documents in section 3 and the original stage plan referenced by the assigned work package.
+2. `docs/product/DELIVERY-TRACKER.md` — single source of truth for status, task queue, delegation instructions, and verification records.
+3. `docs/superpowers/plans/2026-09-07-learning-platform-recovery.md` — detailed implementation spec with step-by-step test oracles for R01–R19.
+4. The product documents in section 3 and the original stage plan referenced by the assigned work package.
 
-The current assignment is documentation/review, not permission to implement every recommendation in the same turn. On a subsequent building request, begin with the first uncompleted dependency (currently R01), and finish one bounded task with verification before advancing.
+R01–R03 are complete and independently reviewed. On a subsequent building request, begin with the first uncompleted dependency (currently R04), and finish one bounded task with verification before advancing.
 
 Repository-specific safeguards:
 

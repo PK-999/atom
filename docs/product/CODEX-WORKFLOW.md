@@ -2,8 +2,9 @@
 
 ## Current task selection and handoff
 
-Start from root `AGENTS.md`, the 2026-09-07 audit, `DELIVERY-TRACKER.md`, and
-`PENDING-TASKS.md`. Execute one R01–R19 work package from
+Start from root `AGENTS.md`, the 2026-09-07 audit, and `DELIVERY-TRACKER.md`
+(single source of truth for status, task queue, and delegation instructions).
+Execute one R01–R19 work package from
 `docs/superpowers/plans/2026-09-07-learning-platform-recovery.md` at a time.
 The plan supplies dependencies, paths, interfaces, test oracles and report format.
 Record historical versus newly run verification explicitly. Do not promote a
