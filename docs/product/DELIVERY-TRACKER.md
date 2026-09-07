@@ -29,7 +29,7 @@ Reference documents (read before any implementation work):
 | R08-H | ✅ Complete | R07 | `cab9d80` |
 | R08-S | ✅ Complete | R07 | `cab9d80` |
 | R08-T | ✅ Complete | R07 | `cab9d80` |
-| R09 | ✅ Complete | R08 | in-progress commit |
+| R09 | ✅ Complete | R08 | `91278bc` |
 | R10 | 🔲 **NEXT** | R01 (public rollout after R09) | — |
 | R11 | 🔲 Pending | R09, R10 | — |
 | R12 | 🔲 Pending | R11 | — |
@@ -299,7 +299,7 @@ Each task records which rows apply and evidence for each. "Not applicable" needs
 - Produced engineering verification report `docs/engineering/verification/2026-09-07-comparison-v1.md` and release notes `docs/releases/2026-09-07-comparison-v1.md`
 
 **Evidence:** [task-9-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-9-report.md)
-**Commits:** pending
+**Commits:** `91278bc`
 
 ---
 
