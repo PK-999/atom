@@ -236,6 +236,17 @@ export const METRICS: readonly Metric[] = [
     supportedUnits: ["deaths/TWh", "deaths/PWh"],
   },
   {
+    id: "mortality-rate",
+    category: "human-impact",
+    definition:
+      "Mortality rate per unit of electricity, including accidents and pollution.",
+    valueKind: "numeric",
+    canonicalUnit: "deaths/TWh",
+    rangeSemantics: "point-or-range",
+    geographySupport: ["global", "country", "region"],
+    supportedUnits: ["deaths/TWh", "deaths/PWh"],
+  },
+  {
     id: "air-pollution",
     category: "human-impact",
     definition:

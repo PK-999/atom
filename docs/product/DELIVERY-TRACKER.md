@@ -29,8 +29,8 @@ Reference documents (read before any implementation work):
 | R08-H | ✅ Complete | R07 | `cab9d80` |
 | R08-S | ✅ Complete | R07 | `cab9d80` |
 | R08-T | ✅ Complete | R07 | `cab9d80` |
-| R09 | 🔲 **NEXT** | R08 | — |
-| R10 | 🔲 Preparable | R01 (public rollout after R09) | — |
+| R09 | ✅ Complete | R08 | in-progress commit |
+| R10 | 🔲 **NEXT** | R01 (public rollout after R09) | — |
 | R11 | 🔲 Pending | R09, R10 | — |
 | R12 | 🔲 Pending | R11 | — |
 | R13 | 🔲 Pending | R11, R12 | — |
@@ -283,6 +283,23 @@ Each task records which rows apply and evidence for each. "Not applicable" needs
 
 **Evidence:** [task-8-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-8-report.md)
 **Commits:** `cab9d80`
+
+### R09 — Full Comparison Lab V1 acceptance ✅
+
+**Original stage:** 16 · **Completed:** 2026-09-07 · **Reviewed by:** unit suite + Playwright 3-browser E2E suite + engineering verification
+
+**What was done:**
+- Authored comprehensive E2E acceptance suite in `tests/e2e/regression-drills.spec.ts`
+- Verified representative journeys across all 6 released categories: Environment (`lifecycle-ghg`), Reliability (`capacity-factor`), Economics (`lcoe`), Human Impact (`mortality-rate`), Security (`fuel-energy-density`), Technical (`thermal-efficiency`)
+- Verified scientific invariants in live UI (solar/wind barred from having thermal efficiency)
+- Verified edge cases: legacy alias resolution (`lifecycle-emissions` → `lifecycle-ghg`), corrupt/invalid URL parameters with graceful recovery, single-source views, 9-technology views reflowing into accessible tables
+- Verified all 5 complexity tiers (Kid, Simple, Curious, Technical, Expert)
+- Verified honesty contracts for unreviewed Range and Raw modes
+- Automated WCAG AA accessibility tests via `AxeBuilder` across all views
+- Produced engineering verification report `docs/engineering/verification/2026-09-07-comparison-v1.md` and release notes `docs/releases/2026-09-07-comparison-v1.md`
+
+**Evidence:** [task-9-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-9-report.md)
+**Commits:** pending
 
 ---
 
