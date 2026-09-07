@@ -19,8 +19,8 @@ Reference documents (read before any implementation work):
 | R01 | ✅ Complete | — | `f398203` + `9af23af` |
 | R02 | ✅ Complete | R01 | `4071221` |
 | R03 | ✅ Complete | R01 | `f98d869` `a1f1be7` `443911e` `aba1c04` `a4a3a4d` |
-| R04 | 🔲 **NEXT** | R01, R02 | — |
-| R05 | 🔲 Pending | R02, R03, R04 | — |
+| R04 | ✅ Complete | R01, R02 | `3b6870f` |
+| R05 | 🔲 **NEXT** | R02, R03, R04 | — |
 | R06 | 🔲 Pending | R03, R05 | — |
 | R07 | 🔲 Pending | R04, R05, R06 | — |
 | R08-E | 🔲 Pending | R07 | — |
@@ -194,127 +194,34 @@ Each task records which rows apply and evidence for each. "Not applicable" needs
 
 ---
 
+### R04 — Complete the actual evidence lifecycle ✅
+
+**Original stage:** 6 · **Completed:** 2026-09-07 · **Reviewed by:** full test suite + Postgres integration
+
+**What was done:**
+- Shipped `createEvidenceCliDependencies()` default adapter using validated server-only `SUPABASE_DATABASE_URL`
+- CLI works without any custom env hook (`ATOM_EVIDENCE_INGESTION_ADAPTER` not required)
+- Durable ingestion audit persisting runs/stages before processing and sanitized failure logging
+- Atomic writes: version, observations, and transformations commit in one transaction; forced failure leaves no partial writes
+- Review persistence with role/identity enforcement (rejecting duplicates / same identity across roles)
+- Publication state machine: draft → in-review → published with metadata in single transaction
+- Privileged release activation and rollback preserving append-only operation log
+- RLS verified in live Postgres: anon/authenticated denied private reads/public writes
+- Parser contract with synthetic fixtures failing on malformed headers, duplicate/missing rows, nonnumeric cells
+- Unverified external sources (EIA capacity-factor) documented and held in review without fabricating data
+
+**Evidence:** [task-4-report](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-4-report.md)
+**Commits:** `3b6870f`
+
+---
+
 ## Pending Tasks — Full Delegation Instructions
 
 ---
 
-### R04 — Complete the actual evidence lifecycle 🔲 **NEXT**
+### R05 — Build comparison results and resilient server loading 🔲 **NEXT**
 
-**Original stage:** 6 · **Depends on:** R01 ✅, R02 ✅ · **Task brief:** [task-4-brief.md](../../.superpowers/sdd/2026-09-07-learning-platform-recovery/task-4-brief.md)
-
-**Goal:** Ship a working default transactional ingestion adapter with real Postgres tests, durable audit, review/publication/rollback lifecycle, and RLS verification. This completes Stage 6.
-
-#### Prerequisites
-
-- R01 reconciliation complete: delivery migration chain is canonical
-- R02 unit corrections in place
-- Local Supabase must be running (`npm run db:start`)
-- Read: Stage 6 spec, R01 ADR/verification, existing `data/ingestion/` and `lib/evidence/governance.ts`
-- Inspect `.worktrees/stage-6-9-delivery` read-only for partial orchestration code
-
-#### Files to create/modify
-
-| Action | File | Purpose |
-|--------|------|---------|
-| Modify | `data/ingestion/pipeline.ts` | Complete ingestion orchestration |
-| Modify | `data/ingestion/quality.ts` | Post-normalization validation |
-| Modify | `data/ingestion/publication.ts` | Review/publication transitions |
-| Modify | `data/ingestion/parser-registry.ts` | Explicit parser selection |
-| Create | `data/ingestion/postgres-store.ts` | Real default Postgres adapter |
-| Create | `scripts/evidence/server-adapter.ts` | `createEvidenceCliDependencies()` |
-| Modify | `scripts/evidence/ingest.ts` | CLI without user-supplied module path |
-| Modify | `lib/evidence/governance.ts` | Prepublication validation |
-| Create | CLI-generated migration | Review/ingestion schema changes |
-| Create/modify | `supabase/tests/database/` | pgTAP tests for new schema |
-| Regenerate | `lib/supabase/database.types.ts` | After migration |
-| Create | `data/sources/eia-capacity-factor/` | Reference artifact contract |
-
-#### What it consumes
-
-- `IngestionManifest`, `IngestionStore`, `PublicationStore` interfaces
-- Stage 5 schemas (`lib/evidence/`) and governance contracts
-- Canonical migration chain from R01
-
-#### What it produces
-
-- `createEvidenceCliDependencies()` — default adapter using `SUPABASE_DATABASE_URL`
-- Working CLI: `ingest`, `review`, `publish`, `activate`, `rollback` commands
-- Durable ingestion audit (runs persist across failures)
-- Transactional version/observation writes
-- Immutable version history with append-only operation log
-
-#### Implementation steps
-
-1. **Read existing Stage 6 Task 5 review findings.** Implement remaining fixes rather than restarting. Write tests for: mismatched manifest dataset/source/licence, already-published parser inputs, duplicate IDs, duplicate composite identities, wrong canonical target, normalized-record incompatibility.
-
-2. **Enforce manifest identity and validation.** Draft-only inputs, all three review roles (scientific/editorial/licensing), canonical unit equality with the metric, post-normalization validation before writing observations. Preserve immutable raw artifact references and transformation history.
-
-3. **Implement the default adapter.** `createEvidenceCliDependencies()` uses validated server-only `SUPABASE_DATABASE_URL`. Parameterize SQL. Close the pool in `finally`. The CLI must NOT require `ATOM_EVIDENCE_INGESTION_ADAPTER` env var or user-supplied module path. Parser selection uses explicit registry, never arbitrary executable imports.
-
-4. **Make ingestion audit durable.** Persist a run record before processing. Record successful stages. Write version/observations atomically. Mark failures outside rolled-back transaction with sanitized category/code. Enforce concurrent idempotency in PostgreSQL. Define retry behavior for failed/in-progress keys.
-
-5. **Persist reviews.** Version ID, role, reviewer identity, timestamp, reviewed artifact/manifest identity. Reject duplicate role approvals. Reject one identity covering multiple roles. Synthetic reviewer IDs are test-only.
-
-6. **Publication transitions.** Factor prepublication structural/scientific validation from visibility requirements. Reject withdrawn/published inputs for draft publication. Transition draft→in-review→published with metadata in one transaction. Preserve correction and chronology checks.
-
-7. **Activate releases.** Privileged private function only. Preserve historical versions and append-only operation log. Publication ≠ feature release (a published version can remain feature-disabled).
-
-8. **Replace memory-only tests with real Postgres tests.** Seed synthetic entities in disposable test DB. Verify persisted rows using a second connection, not mocks. Test:
-   - Forced failure after partial writes (no partial publication survives)
-   - Duplicate/concurrent ingestion
-   - Missing review, duplicate reviewer
-   - Restriction, publication transition, activation, rollback
-   - Anon cannot read private reviews
-   - Anon cannot write public evidence
-
-9. **Parser contract.** Prepare a reference artifact contract. Parser tests use synthetic bytes and fail on: malformed header, duplicate row, missing row, nonnumeric cell. If real source artifact or qualified reviewers are unavailable, keep in review — do not invent.
-
-#### Test commands
-
-```bash
-# Focused tests
-npm test -- data/ingestion/
-npm test -- lib/evidence/governance
-
-# Database tests (requires local Supabase)
-npm run db:start
-npm run db:reset
-npm run db:test
-npm run db:lint
-
-# Integration tests
-npm test -- --grep "integration"
-
-# Regenerate types after migration
-npm run db:types
-
-# Full verification
-npm run typecheck
-npm run lint
-npm test
-npm run build
-```
-
-#### Acceptance criteria
-
-- [ ] Default CLI works WITHOUT `ATOM_EVIDENCE_INGESTION_ADAPTER` env var
-- [ ] Transactional writes: forced failure leaves no partial publication
-- [ ] Concurrent idempotency tested in real Postgres
-- [ ] Review persistence with role/identity enforcement
-- [ ] Publication state machine: draft → in-review → published in one transaction
-- [ ] Activation/rollback preserves version history
-- [ ] RLS: anon cannot read private reviews or write public evidence
-- [ ] Durable audit: failed run is inspectable
-- [ ] Parser tests fail on malformed input
-- [ ] All existing tests still pass
-- [ ] Typecheck, lint, build pass
-- [ ] Commit report filed at `.superpowers/sdd/.../task-4-report.md`
-
----
-
-### R05 — Build comparison results and resilient server loading 🔲
-
-**Original stage:** 7 · **Depends on:** R02 ✅, R03 ✅, R04
+**Original stage:** 7 · **Depends on:** R02 ✅, R03 ✅, R04 ✅
 
 **Goal:** Create a headless comparison engine that produces validated domain results with honest failure states. Separate application liveness from database readiness.
 
