@@ -386,11 +386,7 @@ deno_version = 2
 
 [analytics]
 enabled = true
-<<<<<<< HEAD
 port = 55327
-=======
-port = 54327
->>>>>>> 2cfd8b2 (feat: add versioned evidence database)
 # Configure one of the supported backends: `postgres`, `bigquery`.
 backend = "postgres"
 

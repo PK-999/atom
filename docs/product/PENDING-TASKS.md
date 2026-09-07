@@ -11,20 +11,25 @@ that plan. Overall stages live in [DELIVERY-TRACKER.md](DELIVERY-TRACKER.md).
 
 ## Start here
 
-**R01 is the next task.** Reconcile root main and the Stage 6 worktree while
-preserving all user changes. Do not run the current reference ingestion script.
-Do not concatenate the incompatible migrations. Do not jump to new globe,
-reactor or Ask UI because those scaffolds already exist.
+**Review R01, then execute R02.** R01's reconciliation is implemented on
+`codex/atom-recovery-r01-r05` and recorded in
+[ADR 0009](../decisions/0009-evidence-implementation-reconciliation.md) and
+[the recovery verification record](../engineering/verification/2026-09-07-recovery-baseline.md).
+It is not accepted until its independent review closes. The versioned migration
+chain is the only executable candidate; the old root chain remains recoverable
+at `d39e942` and must not be copied back. The retired reference script now
+fails closed.
 
-The audit changed documentation only. None of the following fixes has been
-implemented by the audit.
+Do not jump to new globe, reactor, or Ask UI because those scaffolds already
+exist. Stage 6 remains incomplete until R04 supplies and proves the real default
+transactional adapter.
 
 ## Ordered task tracker
 
 | ID    | Original stage | State                                | Concrete output                                                                             | Verification gate                                                                |
 | ----- | -------------- | ------------------------------------ | ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| R01   | 0/2/6          | Ready                                | Recovery snapshot, schema ADR, chosen migration/repository/env contract                     | Reconciled type/unit/build checks plus disposable DB constraints                 |
-| R02   | 5              | Pending R01                          | Correct land/material unit factors, derivation record                                       | Known-value conversion and range/nonmutation tests                               |
+| R01   | 0/2/6          | Implemented; independent review pending | Recovery snapshot, schema ADR, chosen migration/repository/env contract                  | Local type/build gates and 67 disposable-DB tests pass; review still required    |
+| R02   | 5              | Ready after R01 review               | Correct land/material unit factors, derivation record                                       | Known-value conversion and range/nonmutation tests                               |
 | R03   | 7              | Pending R01                          | Per-field URL fallback, aliases, source ordering and preferences                            | Invalid enums, repeated/empty/unknown IDs, round trips                           |
 | R04   | 6              | Partial prior work; not accepted     | Real default transactional adapter, durable audit, independent reviews and actual DB tests  | Atomic failure, concurrent idempotency, publish/activate/rollback, licensing/RLS |
 | R05   | 7              | Pending R02–R04                      | Validated domain result, geography/unit/representative policies, resilient health/readiness | Repository fixtures and integration; no null→zero                                |

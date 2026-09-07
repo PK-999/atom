@@ -2,11 +2,12 @@
 
 Last updated: 2026-09-07
 
-Current audit baseline: root `main` at `ab0429c` plus existing uncommitted work;
-separate Stage 6 worktree at `c8cb58a` plus partial edits. Historical verification
-at `f49c141` does not verify this working tree.
+Current recovery baseline: branch `codex/atom-recovery-r01-r05`, starting from
+root checkpoint `d39e942` and selectively integrated delivery commits through
+`264d2f5`; separate Stage 6 worktree `c8cb58a` plus its partial edits remains
+untouched. Historical verification at `f49c141` does not verify this branch.
 
-Current branch: `main`
+Current branch: `codex/atom-recovery-r01-r05`
 
 This is the operational tracker for the ATOM Master Delivery To-Do. Product
 specifications remain authoritative when this summary and a source document
@@ -16,18 +17,23 @@ conflict.
 
 Read [the audit](2026-09-07-ATOMIC-ENERGY-EXPERIENCE-AUDIT.md) and
 [R01–R19 implementation/test plan](../superpowers/plans/2026-09-07-learning-platform-recovery.md).
-Next: **R01 — repository/schema reconciliation**. No recovery implementation
-is marked complete by this documentation update.
+Next: **independent R01 review, then R02 — scientific unit corrections**. R01
+implementation and evidence are recorded in
+`docs/decisions/0009-evidence-implementation-reconciliation.md` and
+`docs/engineering/verification/2026-09-07-recovery-baseline.md`. Stage 6 is
+still incomplete because R04's default transactional database adapter and real
+source lifecycle are not accepted.
 
-Audit checks: typecheck passed; 153 tests across 31 files passed; lint exited 0
-with three warnings; production build passed. Direct probes reproduced invalid
-URL fallback and two incorrect unit factors. Database/E2E/browser/hosted and
-scientific acceptance were not rerun. All older test totals below are historical.
+R01 checks: typecheck and production build passed; 175 tests passed with one
+skipped; lint exited 0 with three pre-existing warnings; a disposable local
+reset applied only the three canonical migrations; 67 pgTAP tests, DB lint and
+advisors passed. E2E/browser/hosted and scientific acceptance were not run.
+All older test totals below are historical.
 
 | Package | State | Required evidence before acceptance |
 | --- | --- | --- |
-| R01 | Ready to implement | Preserved changes, schema decision, reconciled tests |
-| R02 | Pending R01 | Hand-derived unit regression tests |
+| R01 | Implemented; independent review pending | Preserved changes, ADR 0009, fail-closed script, canonical local DB verification |
+| R02 | Ready after R01 review | Hand-derived unit regression tests |
 | R03 | Pending R01 | Per-field URL, aliases, round trips and preferences |
 | R04 | Incomplete prior work; pending reconciliation | Real DB adapter, transaction/review/idempotency/rollback tests |
 | R05–R06 | Pending dependencies | Repository-backed domain result and full Lab journey |

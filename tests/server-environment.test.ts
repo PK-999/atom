@@ -9,19 +9,21 @@ describe("server environment", () => {
     expect(parseServerEnv({})).toEqual({});
   });
 
-  it("requires database and service-role credentials together", () => {
-    expect(() =>
-      parseServerEnv({ SUPABASE_SERVICE_ROLE_KEY: "server-secret" }),
-    ).toThrow();
-
+  it("accepts the canonical server-only Supabase API configuration", () => {
     expect(
       parseServerEnv({
-        SUPABASE_DATABASE_URL: "postgresql://localhost:54322/postgres",
-        SUPABASE_SERVICE_ROLE_KEY: "server-secret",
+        SUPABASE_SECRET_KEY: "sb_secret_test",
+        SUPABASE_URL: "https://project.supabase.co",
       }),
     ).toEqual({
-      SUPABASE_DATABASE_URL: "postgresql://localhost:54322/postgres",
-      SUPABASE_SERVICE_ROLE_KEY: "server-secret",
+      secretKey: "sb_secret_test",
+      url: "https://project.supabase.co",
     });
+  });
+
+  it("rejects a partial server-only Supabase API configuration", () => {
+    expect(() =>
+      parseServerEnv({ SUPABASE_URL: "https://project.supabase.co" }),
+    ).toThrow(/configured together/i);
   });
 });

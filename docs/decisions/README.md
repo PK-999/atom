@@ -12,3 +12,4 @@ Architecture decisions are immutable records. When a decision changes, add a new
 | 0006 | Privacy-conscious analytics | Accepted |
 | 0007 | Deployment environments | Accepted |
 | 0008 | Reproducible Next.js build bundler | Provisional |
+| 0009 | Evidence implementation reconciliation | Accepted |
