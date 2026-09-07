@@ -46,8 +46,12 @@ describe("unit conversion", () => {
     [1, "years", "days", 365.25],
     [25, "%", "ratio", 0.25],
     [17, "MW", "MW", 17],
+    [1, "ha/TWh", "m2/MWh", 0.01],
+    [1, "m2/MWh", "ha/TWh", 100],
+    [1, "t/TWh", "kg/MWh", 0.001],
+    [1, "kg/MWh", "t/TWh", 1_000],
   ])("converts %s %s to %s", (value, from, to, expected) => {
-    expect(convertUnit(value, from, to)).toBeCloseTo(expected);
+    expect(convertUnit(value, from, to)).toBeCloseTo(expected, 10);
   });
 
   it("reports compatibility without performing a conversion", () => {
@@ -60,8 +64,16 @@ describe("unit conversion", () => {
     [1, "MW", "MWh"],
     [1, "not-a-unit", "MW"],
     [Number.POSITIVE_INFINITY, "MW", "GW"],
+    [Number.NaN, "MW", "GW"],
+    [Number.NEGATIVE_INFINITY, "MW", "GW"],
   ])("rejects invalid conversion input", (value, from, to) => {
     expect(() => convertUnit(value, from, to)).toThrow();
+  });
+
+  it("rejects conversion across physical dimensions", () => {
+    expect(() => convertUnit(1, "MW", "MWh")).toThrow(
+      /Cannot convert MW \(power\) to MWh \(energy\)/,
+    );
   });
 
   it("normalizes point and range observations without mutating the source", () => {
@@ -100,6 +112,36 @@ describe("unit conversion", () => {
     expect(normalizeObservation(point, "GW").transformation).toEqual(
       point.transformation,
     );
+  });
+
+  it("converts every range endpoint without mutating the source", () => {
+    const range = {
+      ...commonObservation,
+      id: "fixture-area-range",
+      range: {
+        kind: "min-max" as const,
+        lower: 1,
+        representative: 2,
+        upper: 3,
+      },
+      unit: "ha/TWh",
+      valueSemantics: "range" as const,
+    } satisfies NumericObservation;
+
+    const normalized = normalizeObservation(range, "m2/MWh");
+
+    expect(normalized.range).toEqual({
+      kind: "min-max",
+      lower: 0.01,
+      representative: 0.02,
+      upper: 0.03,
+    });
+    expect(range.range).toEqual({
+      kind: "min-max",
+      lower: 1,
+      representative: 2,
+      upper: 3,
+    });
   });
 
   it("preserves transformation lineage and deep-clones normalized evidence", () => {

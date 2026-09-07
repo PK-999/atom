@@ -38,15 +38,17 @@ const UNIT_REGISTRY: Readonly<Record<string, UnitDefinition>> = Object.freeze({
 
   // Area intensity
   "m2/MWh": { dimension: "area-intensity", factorToBase: 1 },
-  "ha/TWh": { dimension: "area-intensity", factorToBase: 10_000_000 }, // 1 ha = 10,000 m2, 1 TWh = 1,000,000 MWh
+  // 1 ha/TWh = 10,000 m² / 1,000,000 MWh = 0.01 m²/MWh.
+  "ha/TWh": { dimension: "area-intensity", factorToBase: 0.01 },
 
   // Volume intensity
   "L/MWh": { dimension: "volume-intensity", factorToBase: 1 },
   "m3/MWh": { dimension: "volume-intensity", factorToBase: 1000 }, // 1 m3 = 1000 L
 
   // Mass intensity
-  "t/TWh": { dimension: "mass-intensity", factorToBase: 1 },
-  "kg/MWh": { dimension: "mass-intensity", factorToBase: 1 }, // 1 t/TWh = 1 kg/MWh
+  // 1 t/TWh = 1,000 kg / 1,000,000 MWh = 0.001 kg/MWh.
+  "t/TWh": { dimension: "mass-intensity", factorToBase: 0.001 },
+  "kg/MWh": { dimension: "mass-intensity", factorToBase: 1 },
 
   // Economics
   "USD/kW": { dimension: "currency-power", factorToBase: 1 },
