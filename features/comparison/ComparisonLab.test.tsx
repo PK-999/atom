@@ -12,6 +12,7 @@ import { vi } from "vitest";
 
 import { ComparisonLab } from "./ComparisonLab";
 import { mockComparison, mockInitialState } from "./test-fixtures";
+import { COMPLEXITY_PREFERENCE_KEY } from "@/lib/preferences/complexity-preference";
 
 const mockPush = vi.fn();
 vi.mock("next/navigation", () => ({
@@ -45,6 +46,57 @@ afterEach(() => {
 });
 
 describe("ComparisonLab", () => {
+  it("uses a stored level when the URL omits level for display and serialization", async () => {
+    window.history.replaceState(null, "", "/compare");
+    window.localStorage.setItem(COMPLEXITY_PREFERENCE_KEY, "expert");
+
+    render(
+      <ComparisonLab
+        comparison={mockComparison}
+        initialState={mockInitialState}
+      />,
+    );
+
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Expert" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      ),
+    );
+    expect(
+      screen.getByText(/These interface values are not a published synthesis/),
+    ).toBeVisible();
+
+    fireEvent.click(screen.getByRole("button", { name: "Range" }));
+
+    expect(mockPush).toHaveBeenCalledWith(
+      expect.stringContaining("level=expert"),
+      expect.anything(),
+    );
+  });
+
+  it("keeps an explicit URL level authoritative over stored preference", async () => {
+    window.history.replaceState(null, "", "/compare?level=technical");
+    window.localStorage.setItem(COMPLEXITY_PREFERENCE_KEY, "expert");
+
+    render(
+      <ComparisonLab
+        comparison={mockComparison}
+        initialState={{ ...mockInitialState, level: "technical" }}
+      />,
+    );
+
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Technical" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      ),
+    );
+    expect(
+      screen.getByText(/The representative values differ substantially/),
+    ).toBeVisible();
+  });
+
   it("renders the useful default with direct values, units, and an honest evidence state", () => {
     render(
       <ComparisonLab

@@ -18,7 +18,10 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useMemo, useState, useTransition, type CSSProperties } from "react";
 
-import { ComplexitySelector } from "@/components/settings/ComplexitySelector";
+import {
+  ComplexitySelector,
+  useComplexityPreference,
+} from "@/components/settings/ComplexitySelector";
 
 import { getComparisonScale, projectObservation } from "./comparison-model";
 import type {
@@ -212,15 +215,20 @@ export function ComparisonLab({
   // We still keep some local UI state (like table view or expansion)
   const [view, setView] = useState<"chart" | "table">("chart");
   const [sourcesExpanded, setSourcesExpanded] = useState(false);
+  const [activeLevel, setActiveLevel] = useComplexityPreference(
+    initialState.level,
+  );
 
   // We map the initial state directly for UI purposes.
   // When a user interacts, we update the URL, which re-renders this component via RSC.
   const selectedIds = initialState.sources;
   const displayMode = initialState.mode;
+  const activeState = { ...initialState, level: activeLevel };
 
   // Update complexity URL state when selector changes
   const handleComplexityChange = (newLevel: ComplexityLevel) => {
-    const newState = { ...initialState, level: newLevel };
+    setActiveLevel(newLevel);
+    const newState = { ...activeState, level: newLevel };
     const query = serializeComparisonState(newState);
     startTransition(() => {
       router.push(`${pathname}?${query.toString()}`, { scroll: false });
@@ -228,7 +236,7 @@ export function ComparisonLab({
   };
 
   const setDisplayMode = (newMode: DisplayMode) => {
-    const newState = { ...initialState, mode: newMode };
+    const newState = { ...activeState, mode: newMode };
     const query = serializeComparisonState(newState);
     startTransition(() => {
       router.push(`${pathname}?${query.toString()}`, { scroll: false });
@@ -238,7 +246,7 @@ export function ComparisonLab({
   const removeSource = (technologyId: string) => {
     if (selectedIds.length <= 2) return;
     const newState = {
-      ...initialState,
+      ...activeState,
       sources: selectedIds.filter((id) => id !== technologyId),
     };
     const query = serializeComparisonState(newState);
@@ -285,7 +293,7 @@ export function ComparisonLab({
           </nav>
           <ComplexitySelector
             onChange={handleComplexityChange}
-            value={initialState.level}
+            value={activeLevel}
           />
         </header>
 
@@ -532,7 +540,7 @@ export function ComparisonLab({
             </h2>
             <p aria-live="polite">
               {displayMode === "typical"
-                ? explanations[initialState.level]
+                ? explanations[activeLevel]
                 : unavailableExplanations[displayMode]}
             </p>
             <Link href="/methodology">Read how ATOM reviews evidence</Link>
