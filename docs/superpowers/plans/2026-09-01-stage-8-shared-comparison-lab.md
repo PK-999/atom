@@ -1,5 +1,11 @@
 # Stage 8 Shared Comparison Lab Experience Implementation Plan
 
+> **2026-09-07 execution correction:** Follow recovery plan R06 after its R03/R05
+> dependencies in `2026-09-07-learning-platform-recovery.md`. The approved visual
+> direction persists; the current page is still a prototype. Reuse shared shell,
+> evidence and chart primitives and implement the empty/error/restricted states
+> before treating repository integration as complete.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Replace the Comparison Lab preview wiring with the repository-backed engine and complete the approved responsive, accessible comparison workflow.

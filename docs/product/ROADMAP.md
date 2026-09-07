@@ -1,5 +1,15 @@
 # ATOM Product Roadmap
 
+## Current execution order
+
+The phases below are the original thematic roadmap, not the current execution
+order. ADR `0001-comparison-lab-priority.md` and `DELIVERY-TRACKER.md` place the
+complete Comparison Lab before Nuclear 101. The 2026-09-07 learning experience
+audit expands organization and coverage without silently reversing that decision.
+Execute `docs/superpowers/plans/2026-09-07-learning-platform-recovery.md` using
+its R01–R19 dependency table. It maps every package to the original stages and
+adds explicit tests. New content preparation can precede public lesson release.
+
 ## Guiding Principle
 
 Build one exceptional coherent experience at a time.

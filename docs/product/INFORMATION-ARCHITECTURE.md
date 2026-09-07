@@ -1,5 +1,17 @@
 # ATOM Information Architecture
 
+## Learning-library extension — 2026-09-07
+
+The current route map is a specification, not proof those routes are implemented.
+Only `/`, `/compare`, `/methodology`, `/design-system` and `/health` currently
+exist. Follow the [audit route and coverage model](2026-09-07-ATOMIC-ENERGY-EXPERIENCE-AUDIT.md)
+and recovery plan R10–R12 for `/learn`, `/topics`, `/topics/[topic]`, `/explore`,
+`/search`, `/glossary/[term]`, `/evidence`, dataset-version evidence routes,
+`/about` and `/corrections`. Keep `/learn/[lesson]` as the lesson contract.
+Navigation and search include only published, reachable destinations. The
+homepage offers guided starting questions and one featured working exhibit,
+not every feature/control at once.
+
 ## Route Map
 
 | Route | Purpose | Rendering default | Release |

@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 
+import { WebVitals } from "@/components/observability/WebVitals";
+
 import "./globals.css";
 
 const themeBootstrapScript = `(function(){var mode="system";try{var stored=localStorage.getItem("atom:preferences:v1:theme");if(stored==="light"||stored==="dark"||stored==="system")mode=stored}catch(error){}var prefersDark=typeof matchMedia==="function"&&matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=mode==="dark"||(mode==="system"&&prefersDark)?"dark":"light"})()`;
@@ -38,7 +40,10 @@ export default function RootLayout({
           data-theme-bootstrap
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <WebVitals />
+        {children}
+      </body>
     </html>
   );
 }

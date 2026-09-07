@@ -1,5 +1,11 @@
 # Stage 7 Headless Comparison Engine Implementation Plan
 
+> **2026-09-07 execution correction:** Start with recovery plan R01/R02/R03/R05
+> in `2026-09-07-learning-platform-recovery.md`. Preserve its explicit URL alias,
+> empty-selection and preference rules, and the null/range/geography regression
+> cases. Current code has not passed this stage. Reconcile interfaces before
+> using older implementation examples below.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Implement the complete framework-independent Comparison Lab state, projection, formatting, provenance, and analytics API against the Stage 6 evidence repository.

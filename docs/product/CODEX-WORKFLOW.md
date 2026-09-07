@@ -1,5 +1,17 @@
 # ATOM Codex Workflow
 
+## Current task selection and handoff
+
+Start from root `AGENTS.md`, the 2026-09-07 audit, `DELIVERY-TRACKER.md`, and
+`PENDING-TASKS.md`. Execute one R01–R19 work package from
+`docs/superpowers/plans/2026-09-07-learning-platform-recovery.md` at a time.
+The plan supplies dependencies, paths, interfaces, test oracles and report format.
+Record historical versus newly run verification explicitly. Do not promote a
+stage based on schema tests, mock UI or an agent's completion claim. Avoid
+parallel edits to shared contracts; independent read-only reviews are useful.
+Use available tooling if a preferred plugin is missing; installation is not a
+prerequisite for ordinary implementation. Existing visual approval persists.
+
 ## 1. Objective
 
 Use Codex as a disciplined product-development agent, not a one-shot website generator.

@@ -4,6 +4,33 @@ ATOM is an evidence-first interactive energy-literacy platform centered on nucle
 
 All coding agents working in this repository must follow this file before making changes.
 
+## Current execution entry point — updated 2026-09-07
+
+Read these first, in order:
+
+1. `docs/product/2026-09-07-ATOMIC-ENERGY-EXPERIENCE-AUDIT.md` — current code findings and learning-library product target.
+2. `docs/product/DELIVERY-TRACKER.md` — current gate status, distinct from historical verification.
+3. `docs/product/PENDING-TASKS.md` — next executable work package.
+4. `docs/superpowers/plans/2026-09-07-learning-platform-recovery.md` — exact files, contracts, steps and test oracles for R01–R19.
+5. The product documents in section 3 and the original stage plan referenced by the assigned work package.
+
+The current assignment is documentation/review, not permission to implement every recommendation in the same turn. On a subsequent building request, begin with the first uncompleted dependency (currently R01), and finish one bounded task with verification before advancing.
+
+Repository-specific safeguards:
+
+- Run `git status --short` and `git worktree list` before editing. Root `main` and `.worktrees/stage-6-9-delivery` contain divergent implementations and user changes. Do not copy both migration histories into one directory or reset either tree. Follow R01's reconciliation procedure.
+- The 2026-09-01 tracker/log assertions that Stages 6–8 and 10–16 were locally verified are superseded by the 2026-09-07 audit. Metric definitions and scaffold tests are not released evidence or working products.
+- Do not execute `scripts/ingest-reference.ts` against any external database. Its checksum, extraction and licensing/publication assumptions are unverified; quarantine it through R01.
+- Before using new intensity units, finish R02. Before using invalid comparison URLs, finish R03. Missing observations must not become zero; use explicit result states.
+- `lib/evidence` owns scientific validation/calculation; a repository owns data retrieval; React owns presentation. Do not bypass that sequence with direct unvalidated DB-to-chart mapping.
+- Reuse the existing shell, tokens, overlays, evidence and chart primitives. New feature scaffolds are not a reason to duplicate these.
+- Public routes, navigation and search must include only published/released content. Do not import `test-fixtures.ts` into production or fabricate reviewer identities to publish evidence.
+- Keep `/learn/[lesson]` and existing evidence route conventions. New route aliases must be explicit; do not invent a second lesson URL hierarchy.
+- Keep the approved Comparison-Lab-first release order unless an explicit product decision changes ADR 0001. Learning catalog preparation is allowed before lesson release.
+- A “subagent done” message is not verification. Read its diff, check its test evidence, review it independently when available, and resolve failures before marking a task accepted. Do not require a plugin installation for ordinary work that can be done with available tools.
+- Never describe schema validation as proof of scientific truth or hallucination prevention. Scientific/editorial/licensing review is a separate recorded gate; test reviewer IDs are synthetic only.
+- Every implementation handoff uses the plan's task report template. Update tracker status with command results, actual content/data versions and unverified gates. Do not mark a whole stage complete because a single task passes.
+
 ---
 
 ## 1. Product Mission

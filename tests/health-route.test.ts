@@ -1,8 +1,18 @@
 // @vitest-environment node
 
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { GET } from "@/app/health/route";
+
+vi.mock("@/lib/supabase/server", () => ({
+  createClient: async () => ({
+    from: () => ({
+      select: () => ({
+        limit: () => Promise.resolve({ data: [{ id: 1 }], error: null }),
+      }),
+    }),
+  }),
+}));
 
 describe("GET /health", () => {
   it("returns a non-sensitive service health contract", async () => {
@@ -14,6 +24,7 @@ describe("GET /health", () => {
       service: "atom",
       status: "ok",
       version: 1,
+      db_status: "ok",
     });
   });
 });

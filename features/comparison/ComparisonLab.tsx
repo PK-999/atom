@@ -15,12 +15,10 @@ import { Triangle } from "@phosphor-icons/react/Triangle";
 import { X } from "@phosphor-icons/react/X";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState, type CSSProperties } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { useMemo, useState, useTransition, type CSSProperties } from "react";
 
-import {
-  ComplexitySelector,
-  useComplexityPreference,
-} from "@/components/settings/ComplexitySelector";
+import { ComplexitySelector } from "@/components/settings/ComplexitySelector";
 
 import { getComparisonScale, projectObservation } from "./comparison-model";
 import type {
@@ -55,6 +53,7 @@ const unavailableExplanations: Record<
 
 interface ComparisonLabProps {
   comparison: PreviewComparison;
+  initialState: ComparisonUrlState;
 }
 
 type ChartStyle = CSSProperties & {
@@ -199,18 +198,54 @@ function EvidenceDialog({
   );
 }
 
-export function ComparisonLab({ comparison }: ComparisonLabProps) {
-  const [selectedIds, setSelectedIds] = useState(() =>
-    comparison.observations.map((observation) => observation.technologyId),
-  );
-  const [displayMode, setDisplayMode] = useState<DisplayMode>(
-    comparison.defaultMode,
-  );
-  const [complexity, selectComplexity] = useComplexityPreference(
-    comparison.defaultComplexity,
-  );
+import type { ComparisonUrlState } from "./comparison-url";
+import { serializeComparisonUrl } from "./comparison-url";
+
+export function ComparisonLab({
+  comparison,
+  initialState,
+}: ComparisonLabProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [, startTransition] = useTransition();
+
+  // We still keep some local UI state (like table view or expansion)
   const [view, setView] = useState<"chart" | "table">("chart");
   const [sourcesExpanded, setSourcesExpanded] = useState(false);
+
+  // We map the initial state directly for UI purposes.
+  // When a user interacts, we update the URL, which re-renders this component via RSC.
+  const selectedIds = initialState.sources;
+  const displayMode = initialState.mode;
+
+  // Update complexity URL state when selector changes
+  const handleComplexityChange = (newLevel: ComplexityLevel) => {
+    const newState = { ...initialState, level: newLevel };
+    const query = serializeComparisonUrl(newState);
+    startTransition(() => {
+      router.push(`${pathname}?${query.toString()}`, { scroll: false });
+    });
+  };
+
+  const setDisplayMode = (newMode: DisplayMode) => {
+    const newState = { ...initialState, mode: newMode };
+    const query = serializeComparisonUrl(newState);
+    startTransition(() => {
+      router.push(`${pathname}?${query.toString()}`, { scroll: false });
+    });
+  };
+
+  const removeSource = (technologyId: string) => {
+    if (selectedIds.length <= 2) return;
+    const newState = {
+      ...initialState,
+      sources: selectedIds.filter((id) => id !== technologyId),
+    };
+    const query = serializeComparisonUrl(newState);
+    startTransition(() => {
+      router.push(`${pathname}?${query.toString()}`, { scroll: false });
+    });
+  };
 
   const selectedObservations = useMemo(
     () =>
@@ -222,14 +257,6 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
   const scaleMaximum = getComparisonScale(comparison.observations);
   const evidenceObservation =
     selectedObservations[0] ?? comparison.observations[0];
-
-  function removeSource(technologyId: string) {
-    setSelectedIds((current) =>
-      current.length <= 2
-        ? current
-        : current.filter((id) => id !== technologyId),
-    );
-  }
 
   return (
     <main className={styles.page}>
@@ -256,7 +283,10 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
             </Link>
             <Link href="/methodology">Learn</Link>
           </nav>
-          <ComplexitySelector onChange={selectComplexity} value={complexity} />
+          <ComplexitySelector
+            onChange={handleComplexityChange}
+            value={initialState.level}
+          />
         </header>
 
         <section className={styles.intro} aria-labelledby="comparison-title">
@@ -502,7 +532,7 @@ export function ComparisonLab({ comparison }: ComparisonLabProps) {
             </h2>
             <p aria-live="polite">
               {displayMode === "typical"
-                ? explanations[complexity]
+                ? explanations[initialState.level]
                 : unavailableExplanations[displayMode]}
             </p>
             <Link href="/methodology">Read how ATOM reviews evidence</Link>

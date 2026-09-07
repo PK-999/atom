@@ -8,8 +8,20 @@ import {
 } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
+import { vi } from "vitest";
+
 import { ComparisonLab } from "./ComparisonLab";
-import { previewComparison } from "./preview-data";
+import { mockComparison, mockInitialState } from "./test-fixtures";
+
+const mockPush = vi.fn();
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: mockPush,
+    replace: vi.fn(),
+  }),
+  useSearchParams: () => new URLSearchParams(),
+  usePathname: () => "/compare",
+}));
 
 beforeEach(() => {
   const values = new Map<string, string>();
@@ -27,11 +39,19 @@ beforeEach(() => {
     } satisfies Storage,
   });
 });
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  mockPush.mockClear();
+});
 
 describe("ComparisonLab", () => {
   it("renders the useful default with direct values, units, and an honest evidence state", () => {
-    render(<ComparisonLab comparison={previewComparison} />);
+    render(
+      <ComparisonLab
+        comparison={mockComparison}
+        initialState={mockInitialState}
+      />,
+    );
 
     expect(
       screen.getByRole("heading", {
@@ -53,20 +73,28 @@ describe("ComparisonLab", () => {
   });
 
   it("removes a source while preserving the remaining comparison", () => {
-    render(<ComparisonLab comparison={previewComparison} />);
+    render(
+      <ComparisonLab
+        comparison={mockComparison}
+        initialState={mockInitialState}
+      />,
+    );
 
     fireEvent.click(screen.getByRole("button", { name: "Remove Coal" }));
 
-    const summary = screen.getByRole("list", {
-      name: "Accessible comparison summary",
-    });
-    expect(within(summary).queryByText(/Coal: 820/)).not.toBeInTheDocument();
-    expect(within(summary).getByText(/Nuclear: 12/)).toBeVisible();
-    expect(screen.getByText("4 technologies selected")).toBeVisible();
+    expect(mockPush).toHaveBeenCalledWith(
+      expect.stringContaining("sources=nuclear%2Csolar%2Cwind%2Cgas"),
+      expect.anything(),
+    );
   });
 
   it("opens the compact source picker without duplicating source controls", () => {
-    render(<ComparisonLab comparison={previewComparison} />);
+    render(
+      <ComparisonLab
+        comparison={mockComparison}
+        initialState={mockInitialState}
+      />,
+    );
     const sourcePicker = screen.getByRole("button", {
       name: "5 technologies selected",
     });
@@ -80,70 +108,29 @@ describe("ComparisonLab", () => {
     ).toHaveLength(1);
   });
 
-  it("preserves the comparison when complexity changes", () => {
-    render(<ComparisonLab comparison={previewComparison} />);
+  it("calls router.push when complexity changes", () => {
+    render(
+      <ComparisonLab
+        comparison={mockComparison}
+        initialState={mockInitialState}
+      />,
+    );
 
-    fireEvent.click(screen.getByRole("button", { name: "Remove Coal" }));
-    fireEvent.click(screen.getByRole("button", { name: "Range" }));
     fireEvent.click(screen.getByRole("button", { name: "Technical" }));
 
-    expect(screen.getByRole("button", { name: "Range" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    );
-    expect(screen.getByRole("button", { name: "Technical" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    );
-    expect(
-      screen.queryByText("Coal", { selector: "[data-chart-label]" }),
-    ).not.toBeInTheDocument();
-    expect(screen.getAllByText("Range evidence pending review")).toHaveLength(
-      4,
-    );
-  });
-
-  it("persists the complexity preference across remounts", async () => {
-    const first = render(<ComparisonLab comparison={previewComparison} />);
-
-    fireEvent.click(screen.getByRole("button", { name: "Technical" }));
-    await waitFor(() =>
-      expect(
-        window.localStorage.getItem("atom:preferences:v1:complexity"),
-      ).toBe("technical"),
-    );
-
-    first.unmount();
-    render(<ComparisonLab comparison={previewComparison} />);
-    await waitFor(() =>
-      expect(screen.getByRole("button", { name: "Technical" })).toHaveAttribute(
-        "aria-pressed",
-        "true",
-      ),
-    );
-  });
-
-  it("keeps complexity changes working when storage is unavailable", () => {
-    Object.defineProperty(window, "localStorage", {
-      configurable: true,
-      get() {
-        throw new DOMException("Storage disabled", "SecurityError");
-      },
-    });
-    render(<ComparisonLab comparison={previewComparison} />);
-
-    fireEvent.click(screen.getByRole("button", { name: "Expert" }));
-
-    expect(screen.getByRole("button", { name: "Expert" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
+    expect(mockPush).toHaveBeenCalledWith(
+      expect.stringContaining("level=technical"),
+      expect.anything(),
     );
   });
 
   it("explains unavailable evidence instead of interpreting typical values", () => {
-    render(<ComparisonLab comparison={previewComparison} />);
-
-    fireEvent.click(screen.getByRole("button", { name: "Range" }));
+    render(
+      <ComparisonLab
+        comparison={mockComparison}
+        initialState={{ ...mockInitialState, mode: "range" }}
+      />,
+    );
 
     expect(
       screen.getByText(/reviewed range evidence is not available/i),
@@ -154,7 +141,13 @@ describe("ComparisonLab", () => {
   });
 
   it("provides a table with the same typical values and units", () => {
-    render(<ComparisonLab comparison={previewComparison} />);
+    // We can simulate state changes if they are local. The table view is still local state.
+    render(
+      <ComparisonLab
+        comparison={mockComparison}
+        initialState={mockInitialState}
+      />,
+    );
 
     fireEvent.click(screen.getByRole("button", { name: "Table view" }));
 
@@ -167,7 +160,12 @@ describe("ComparisonLab", () => {
   });
 
   it("opens evidence details without hover and restores focus when closed", async () => {
-    render(<ComparisonLab comparison={previewComparison} />);
+    render(
+      <ComparisonLab
+        comparison={mockComparison}
+        initialState={mockInitialState}
+      />,
+    );
     const trigger = screen.getByRole("button", {
       name: "Explore the evidence",
     });
@@ -185,7 +183,12 @@ describe("ComparisonLab", () => {
   });
 
   it("opens the passport for an individual displayed value", () => {
-    render(<ComparisonLab comparison={previewComparison} />);
+    render(
+      <ComparisonLab
+        comparison={mockComparison}
+        initialState={mockInitialState}
+      />,
+    );
 
     const solarValue = screen.getByRole("button", {
       name: "Inspect evidence for Solar",
@@ -198,7 +201,12 @@ describe("ComparisonLab", () => {
   });
 
   it("uses a distinct honest state for challenging a preview value", () => {
-    render(<ComparisonLab comparison={previewComparison} />);
+    render(
+      <ComparisonLab
+        comparison={mockComparison}
+        initialState={mockInitialState}
+      />,
+    );
 
     fireEvent.click(
       screen.getByRole("button", { name: "Challenge this number" }),

@@ -1,4 +1,5 @@
-export type { ComplexityLevel } from "@/lib/preferences/complexity-preference";
+import type { ComplexityLevel } from "@/lib/preferences/complexity-preference";
+export type { ComplexityLevel };
 
 export type DisplayMode = "typical" | "range" | "raw";
 
@@ -11,20 +12,28 @@ export interface PreviewObservation {
   color: string;
   marker: EnergyMarker;
   typicalValue: number;
-  range: null;
-  evidenceStatus: "unreviewed";
-  source: null;
-  verifiedAt: null;
+  range: {
+    min: number;
+    max: number;
+    semantics:
+      "min-max" | "p10-p90" | "p25-p75" | "confidence-interval" | "scenarios";
+  } | null;
+  evidenceStatus: "reviewed" | "unreviewed";
+  source: {
+    name: string;
+    url: string | null;
+  } | null;
+  verifiedAt: string | null;
 }
 
 export interface PreviewComparison {
   metricId: string;
   metricName: string;
   metricShortName: string;
-  geography: "Global";
-  unit: "g CO₂e / kWh";
-  defaultComplexity: "curious";
-  defaultMode: "typical";
+  geography: string;
+  unit: string;
+  defaultComplexity: ComplexityLevel;
+  defaultMode: DisplayMode;
   observations: PreviewObservation[];
 }
 

@@ -8,6 +8,14 @@ export function projectObservation(
   observation: PreviewObservation,
   mode: DisplayMode,
 ): ObservationProjection {
+  if (observation.evidenceStatus === "unreviewed") {
+    return {
+      kind: "unavailable",
+      label:
+        "We do not currently have reliable comparable data for this technology and metric.",
+    };
+  }
+
   if (mode === "typical") {
     return {
       kind: "value",
@@ -17,9 +25,16 @@ export function projectObservation(
   }
 
   if (mode === "range") {
+    if (observation.range) {
+      return {
+        kind: "value",
+        label: `${observation.range.min} - ${observation.range.max}`,
+        value: observation.typicalValue, // for the bar chart typical dot
+      };
+    }
     return {
       kind: "unavailable",
-      label: "Range evidence pending review",
+      label: "Range evidence unavailable",
     };
   }
 

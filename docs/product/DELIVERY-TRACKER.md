@@ -1,14 +1,48 @@
 # ATOM Delivery Tracker
 
-Last updated: 2026-09-01
+Last updated: 2026-09-07
 
-Last verified implementation commit: `f49c141`
+Current audit baseline: root `main` at `ab0429c` plus existing uncommitted work;
+separate Stage 6 worktree at `c8cb58a` plus partial edits. Historical verification
+at `f49c141` does not verify this working tree.
 
 Current branch: `main`
 
 This is the operational tracker for the ATOM Master Delivery To-Do. Product
 specifications remain authoritative when this summary and a source document
 conflict.
+
+## Active recovery and learning plan
+
+Read [the audit](2026-09-07-ATOMIC-ENERGY-EXPERIENCE-AUDIT.md) and
+[R01–R19 implementation/test plan](../superpowers/plans/2026-09-07-learning-platform-recovery.md).
+Next: **R01 — repository/schema reconciliation**. No recovery implementation
+is marked complete by this documentation update.
+
+Audit checks: typecheck passed; 153 tests across 31 files passed; lint exited 0
+with three warnings; production build passed. Direct probes reproduced invalid
+URL fallback and two incorrect unit factors. Database/E2E/browser/hosted and
+scientific acceptance were not rerun. All older test totals below are historical.
+
+| Package | State | Required evidence before acceptance |
+| --- | --- | --- |
+| R01 | Ready to implement | Preserved changes, schema decision, reconciled tests |
+| R02 | Pending R01 | Hand-derived unit regression tests |
+| R03 | Pending R01 | Per-field URL, aliases, round trips and preferences |
+| R04 | Incomplete prior work; pending reconciliation | Real DB adapter, transaction/review/idempotency/rollback tests |
+| R05–R06 | Pending dependencies | Repository-backed domain result and full Lab journey |
+| R07 | Pending R04–R06 | Deterministic CI DB/E2E, monitoring and rollback |
+| R08–R09 | Not accepted | Reviewed category releases and full catalog gates |
+| R10 | Preparation after R01 | Validated content graph and curriculum |
+| R11–R12 | Pending R09/R10 | Reviewed lessons, coherent discovery and source routes |
+| R13–R18 | Unconnected scaffolds only | Complete radiation/debate/reactor/globe/India/grid/Ask slices |
+| R19 | Not operational | Successful checks, handled failure and release records |
+
+The earlier promotion of Stages 6–8 and 10–16 to “Locally verified” is retracted:
+the code and recorded evidence do not satisfy those gates. Existing scaffolds
+remain useful, but most missing work is local implementation, not an external
+dependency. “Complete” below for Stages 0–5 refers to accepted historical gates;
+changed code still requires regression verification.
 
 ## Status Rules
 
@@ -36,28 +70,28 @@ unverified value.
 | 3 | Visual direction selection | Complete | Passed | Preserve the approved Digital Science Museum / Scientific Editorial blend. |
 | 4 | Design system and application shell | Complete | Passed | Reuse the verified shell and primitive contracts in the flagship. |
 | 5 | Evidence domain and governance | Complete | Passed | Preserve the contracts while Stage 6 adds database enforcement. |
-| 6 | Supabase and ingestion platform | Not started | Not passed | Design migrations and prove one licensed observation through the pipeline. |
-| 7 | Headless comparison engine | Not started | Not passed | Implement tested URL state and comparison-domain APIs. |
-| 8 | Shared Comparison Lab experience | Prototype only | Not passed | Replace preview fixtures with reviewed repository-backed test evidence. |
+| 6 | Supabase and ingestion platform | In progress | Not passed | Reconcile schemas and prove real transactional ingestion; R01/R04. |
+| 7 | Headless comparison engine | In progress | Not passed | Correct URL fallback and validated repository results; R03/R05. |
+| 8 | Shared Comparison Lab experience | Prototype only | Not passed | Complete selectors, evidence and state behavior; R06. |
 | 9 | Release and observability foundation | Foundation only | Not passed | Add monitoring, analytics, category registry, performance budgets, and rollback drills. |
-| 10 | Environment metrics | Not started | Not passed | Research and review lifecycle greenhouse-gas emissions first. |
-| 11 | Reliability and grid metrics | Not started | Not passed | Define geography- and grid-sensitive operational metrics. |
-| 12 | Economics metrics | Not started | Not passed | Define currency year, geography, financing, vintage, and market boundaries. |
-| 13 | Human impact metrics | Not started | Not passed | Define neutral, method-aware impact categories and review protocol. |
-| 14 | Energy security metrics | Not started | Not passed | Define geography, trade period, processing, and scenario boundaries. |
-| 15 | Technical metrics | Not started | Not passed | Define technology-variant and operating-context boundaries. |
-| 16 | Comparison Lab V1 | Not started | Not passed | Begin only after category releases 10–15 pass their gates. |
-| 17 | Nuclear 101 | Not started | Not passed | Begin after Comparison Lab V1 per approved roadmap override. |
-| 18 | Radiation Explorer | Not started | Not passed | Define tested radiation quantities and analogy safeguards. |
-| 19 | Debate Engine | Not started | Not passed | Define claim/evidence/consensus/uncertainty model. |
-| 20 | Reactor Explorer | Not started | Not passed | Define reactor-system model before rendering work. |
-| 21 | Nuclear Globe | Not started | Not passed | Define versioned facility ingestion and accessible map fallback. |
-| 22 | India Experience | Not started | Not passed | Complete national evidence and context research first. |
-| 23 | Grid / Power-a-City Simulator | Not started | Not passed | Define and test the annual arithmetic model. |
-| 24 | Ask ATOM | Not started | Not passed | Wait for mature evidence retrieval and citation coverage. |
+| 10 | Environment metrics | Foundation only | Not passed | Registry exists; research, ingest and review real evidence via R08. |
+| 11 | Reliability and grid metrics | Foundation only | Not passed | Definitions/scenarios require context and evidence; R08. |
+| 12 | Economics metrics | Foundation only | Not passed | Currency/year/financing/market-aware evidence; R08. |
+| 13 | Human impact metrics | Foundation only | Not passed | Distinct neutral impact methods and reviews; R08. |
+| 14 | Energy security metrics | Foundation only | Not passed | Geography/trade/processing/scenario evidence; R08. |
+| 15 | Technical metrics | Foundation only | Not passed | Variant-aware definitions and evidence; R08. |
+| 16 | Comparison Lab V1 | Not started | Not passed | All category gates and actual regression drills; R09. |
+| 17 | Nuclear 101 | Foundation only | Local implementation and review pending | R10–R12: catalog, seven lessons and discovery. |
+| 18 | Radiation Explorer | Foundation only | Local implementation and review pending | R13: quantity-safe explorer and reviewed scenarios. |
+| 19 | Debate Engine | Foundation only | Local implementation and review pending | R14: render context, citations and uncertainty. |
+| 20 | Reactor Explorer | Foundation only | Local implementation and review pending | R15: reviewed diagram, parts and text equivalent. |
+| 21 | Nuclear Globe | Foundation only | Local implementation and review pending | R16: dated facility directory then map. |
+| 22 | India Experience | Foundation only | Local implementation and review pending | R16: sourced national context and denominators. |
+| 23 | Grid / Power-a-City Simulator | Foundation only | Local implementation and review pending | R17: explicit annual arithmetic, no false reliability label. |
+| 24 | Ask ATOM | Foundation only | Retrieval and UI implementation pending | R18: evaluated citation support and abstention. |
 | 25 | Continuous operations | Not started | Not passed | Activate alongside the first public evidence release. |
 
-## Current Focus
+## Historical accepted foundation records
 
 ### Stage 5 — Evidence Domain and Editorial Governance
 
@@ -271,12 +305,12 @@ Acceptance sequence:
 
 ### Stage 6 — Supabase and Evidence Ingestion
 
-Status: **Not started**
+Status: **In progress — divergent partial implementations; R01/R04**
 
 Acceptance sequence:
 
-- [ ] Design reviewed PostgreSQL migrations and publication/version fields.
-- [ ] Enforce public reads for published evidence and deny anonymous writes.
+- [ ] Reconcile reviewed PostgreSQL migrations and publication/version fields.
+- [ ] Verify public read rules and denied anonymous writes in the reconciled DB.
 - [ ] Implement checksum, validation, normalization, conversion, QA, derivation,
   review, and publication steps.
 - [ ] Preserve source metadata, access date, version, licence, checksum, and
@@ -288,7 +322,7 @@ Acceptance sequence:
 
 ### Stage 7 — Headless Comparison Engine
 
-Status: **Not started**
+Status: **In progress — R03/R05 required**
 
 Acceptance sequence:
 
@@ -303,7 +337,7 @@ Acceptance sequence:
 
 ### Stage 8 — Shared Comparison Lab Experience
 
-Status: **Prototype only**
+Status: **Prototype only — R06 required**
 
 Already demonstrated in the preview:
 
@@ -350,7 +384,7 @@ Still required:
 
 ### Stages 10–15 — Metric Category Releases
 
-Status: **Not started**
+Status: **Foundation only — metric registry is not reviewed evidence; R08 required**
 
 Every category must repeat the same gate: define → source → license → ingest →
 review → explain L1–L5 → verify evidence interactions → run scientific,
@@ -368,7 +402,7 @@ versioned dataset.
 
 ### Stage 16 — Comparison Lab V1 Completion
 
-Status: **Not started**
+Status: **Not started as an accepted release — R09 required**
 
 - [ ] Audit the complete specification catalog and disclose every unsupported,
   partial, incompatible, unavailable, or license-restricted combination.

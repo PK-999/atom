@@ -1,5 +1,11 @@
 # Stage 9 Release and Observability Foundation Implementation Plan
 
+> **2026-09-07 execution correction:** Follow recovery plan R07 in
+> `2026-09-07-learning-platform-recovery.md`. Current CI does not run real DB
+> publication tests; analytics is a transport scaffold, and heading-only browser
+> loops are not rollback or scientific acceptance. Preserve exact measured
+> results and required database/browser gates before advancing release status.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Make metric categories independently activatable and reversible, with privacy-conscious analytics, operational monitoring, measured performance budgets, and reproducible release drills.

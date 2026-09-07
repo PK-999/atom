@@ -1,5 +1,13 @@
 # Stage 6 Supabase and Evidence Ingestion Implementation Plan
 
+> **2026-09-07 execution correction:** Read `2026-09-07-learning-platform-recovery.md`
+> R01/R04 first. The root and delivery migration chains conflict; this plan is
+> retained as design detail, not permission to concatenate them. Its sample
+> repeated `stage-6-reviewer` approvals are synthetic test mechanics only and
+> cannot satisfy independent scientific/editorial/licensing review. Require a
+> shipped default DB adapter and actual transactional integration tests. A
+> memory-store test or published-looking fixture does not satisfy the exit gate.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build a versioned, RLS-protected Supabase evidence store and prove one licensed institutional observation through deterministic ingestion, review, publication, inspection, and rollback.

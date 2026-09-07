@@ -1,5 +1,17 @@
 type UnitDimension =
-  "emissions-intensity" | "power" | "energy" | "duration" | "ratio";
+  | "emissions-intensity"
+  | "power"
+  | "energy"
+  | "duration"
+  | "ratio"
+  | "area-intensity"
+  | "volume-intensity"
+  | "mass-intensity"
+  | "currency-power"
+  | "currency-energy"
+  | "mortality-intensity"
+  | "energy-density"
+  | "power-density";
 
 interface UnitDefinition {
   dimension: UnitDimension;
@@ -23,6 +35,32 @@ const UNIT_REGISTRY: Readonly<Record<string, UnitDefinition>> = Object.freeze({
   Wh: { dimension: "energy", factorToBase: 1 },
   W: { dimension: "power", factorToBase: 1 },
   years: { dimension: "duration", factorToBase: 365.25 },
+
+  // Area intensity
+  "m2/MWh": { dimension: "area-intensity", factorToBase: 1 },
+  "ha/TWh": { dimension: "area-intensity", factorToBase: 10_000_000 }, // 1 ha = 10,000 m2, 1 TWh = 1,000,000 MWh
+
+  // Volume intensity
+  "L/MWh": { dimension: "volume-intensity", factorToBase: 1 },
+  "m3/MWh": { dimension: "volume-intensity", factorToBase: 1000 }, // 1 m3 = 1000 L
+
+  // Mass intensity
+  "t/TWh": { dimension: "mass-intensity", factorToBase: 1 },
+  "kg/MWh": { dimension: "mass-intensity", factorToBase: 1 }, // 1 t/TWh = 1 kg/MWh
+
+  // Economics
+  "USD/kW": { dimension: "currency-power", factorToBase: 1 },
+  "USD/MWh": { dimension: "currency-energy", factorToBase: 1 },
+
+  // Human impact
+  "deaths/TWh": { dimension: "mortality-intensity", factorToBase: 1 },
+  "deaths/PWh": { dimension: "mortality-intensity", factorToBase: 0.001 },
+
+  // Energy density
+  "MJ/kg": { dimension: "energy-density", factorToBase: 1 },
+
+  // Power density
+  "W/m2": { dimension: "power-density", factorToBase: 1 },
 });
 
 export class UnitConversionError extends Error {
