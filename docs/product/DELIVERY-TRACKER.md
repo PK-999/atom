@@ -34,8 +34,8 @@ Reference documents (read before any implementation work):
 | R11 | ✅ Complete | R09, R10 | `06bbfb2` |
 | R12 | ✅ Complete | R11 | `664e402` |
 | R13 | ✅ Complete | R11, R12 | `d899e6a` |
-| R14 | 🔲 **NEXT** | R12 | — |
-| R15 | 🔲 Pending | R12 | — |
+| R14 | ✅ Complete | R12 | `1cb48a7` |
+| R15 | 🔲 **NEXT** | R12 | — |
 | R16-G | 🔲 Pending | R12 | — |
 | R16-I | 🔲 Pending | R12 | — |
 | R17 | 🔲 Pending | R02, R08, R12 | — |
@@ -521,24 +521,28 @@ type LessonRecord = {
 
 ---
 
-### R14 — Debate engine 🔲
+### R14 — Debate engine ✅
 
 **Original stage:** 19 · **Depends on:** R12
+
+**Status:** Complete — commit `1cb48a7`. Verified with `npm run verify` and 15 Playwright E2E tests across Chromium, Firefox, and WebKit (`tests/e2e/debate.spec.ts`).
 
 **Goal:** Balanced debate pages with context, citations, and uncertainty.
 
 #### Files
 
-- `lib/debate/schemas.ts`, `features/debate/DebateViewer.tsx`, citation resolver
-- `app/debates/[topic]/page.tsx`, `content/debates/`
+- `lib/debate/schemas.ts`, `lib/debate/debate-model.ts`, `lib/debate/debate-model.test.ts`
+- `features/debate/DebateViewer.tsx`, `features/debate/DebateViewer.module.css`, `features/debate/DebateViewer.test.tsx`
+- `app/debates/page.tsx`, `app/debates/[topic]/page.tsx`, `content/debates/` (`waste.json`, `costs.json`, `safety.json`)
 - `tests/e2e/debate.spec.ts`
 
 #### Key rules
 
 - Supporting, disputing, and contextualizing claims with resolved evidence IDs
-- First topic: waste (reviewed content only)
+- First topic: waste (reviewed content only); expanded with costs and safety
 - Narrative order + evidence strength, NOT equal-size columns
-- Expand incrementally: costs, safety, Chernobyl, Fukushima, proliferation, etc.
+- Attributable scientific consensus with explicit basis and asOf dates (never unsupported facts)
+- Expandable citation drawers and missing evidence limitation callouts
 
 ---
 
