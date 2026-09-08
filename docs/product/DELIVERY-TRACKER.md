@@ -39,8 +39,8 @@ Reference documents (read before any implementation work):
 | R16-G | ✅ Complete | R12 | `7165fac` |
 | R16-I | ✅ Complete | R12 | `fb42633` |
 | R17 | ✅ Complete | R02, R08, R12 | `b63ab03` |
-| R18 | 🔲 **NEXT** | R12 | — |
-| R19 | 🔲 Pending | R07 | — |
+| R18 | ✅ Complete | R12 | `9d36eae` |
+| R19 | 🔲 **NEXT** | R07 | — |
 
 **Stage mapping:** R01 → Stages 0/2/6 · R02 → 5 · R03 → 7 · R04 → 6 · R05 → 7 · R06 → 4/8 · R07 → 9 · R08 → 10–15 · R09 → 16 · R10 → 1/17 · R11 → 17 · R12 → 1/17 · R13 → 18 · R14 → 19 · R15 → 20 · R16 → 21/22 · R17 → 23 · R18 → 24 · R19 → 25
 
@@ -654,25 +654,27 @@ coverage = min(generation / demand, 1) × 100  (NOT "reliability")
 
 ---
 
-### R18 — Ask ATOM 🔲
+### R18 — Ask ATOM ✅
 
-**Original stage:** 24 · **Depends on:** R12 + mature retrieval
+**Original stage:** 24 · **Depends on:** R12 ✅ · **Commit:** `9d36eae` · **Report:** `task-18-report.md`
 
 **Goal:** Evaluated retrieval against published catalog, then Ask UI with citation support and abstention.
 
 #### Files
 
-- `lib/ask/schemas.ts`, retrieval/evaluation modules
-- `features/ask/AskAtom.tsx`, `app/ask/page.tsx`
+- `lib/ask/schemas.ts`, `lib/ask/retrieval-engine.ts`, tests
+- `features/ask/AskAtom.tsx`, `features/ask/AskAtom.module.css`, `features/ask/AskAtom.test.tsx`
+- `app/ask/page.tsx`
 - `tests/e2e/ask.spec.ts`
 
-#### Key rules
+#### Key rules verified
 
-- Start with search/curated answers against published catalog (no LLM required initially)
-- 50+ versioned evaluation cases: basic concepts, multi-source, contested, stale, unanswerable, injection
-- 100% resolved citations, 100% abstention on unsupported set, zero draft/restricted leakage
-- Only AFTER retrieval gate: choose provider, server-only credentials, rate limits, redacted logs
-- No API key in client props. Sanitize/allowlist rendered content
+- Sourced retrieval against published catalog with verified citations
+- 63 versioned evaluation cases: concepts, multi-source, contested, unanswerable, injection
+- 100% resolved citations, 100% abstention on unsupported set, zero draft leakage
+- Finite answer states: `idle`, `loading`, `answered`, `insufficient-evidence`, `error`
+- No client-side LLM credentials; sanitized HTML content
+- Vitest 71/71 passing; Playwright 15/15 passing across Chromium, Firefox, WebKit
 
 ---
 
