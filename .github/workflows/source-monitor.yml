@@ -1,0 +1,29 @@
+name: Source Freshness & Monitoring
+
+on:
+  schedule:
+    # Run every Sunday at 03:00 UTC
+    - cron: "0 3 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  monitor-sources:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.20.0
+          cache: npm
+      - run: npm ci
+      - name: Check evidence sources reachability and freshness
+        run: npm run monitoring:sources
+      - name: Archive monitoring report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-monitoring-report
+          path: docs/engineering/verification/latest-source-monitoring.json

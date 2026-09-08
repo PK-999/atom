@@ -23,14 +23,19 @@ function createClientQuery(
   };
 }
 
+const emptySubscribe = () => () => {};
+function useIsClient() {
+  return React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+}
+
 export function AskAtom({ initialQuery = "" }: { initialQuery?: string }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const [prompt, setPrompt] = useState(initialQuery);
   const [level, setLevel] = useState<AskExplanationLevel>("standard");
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
   const [response, setResponse] = useState<AskResponse | null>(() => {
     if (initialQuery.trim()) {
       try {

@@ -1,3 +1,5 @@
+import path from "node:path";
+
 export interface SourceVerificationTarget {
   id: string;
   title: string;
@@ -208,6 +210,76 @@ export async function checkSingleSource(
   };
 }
 
+export const CORE_MONITORED_SOURCES: SourceVerificationTarget[] = [
+  {
+    id: "ipcc-ar5-wg3",
+    title: "IPCC Working Group III Fifth Assessment Report, Annex III",
+    url: "https://www.ipcc.ch/report/ar5/wg3/",
+    lastVerifiedOn: "2026-08-30",
+  },
+  {
+    id: "unece-lca-2021",
+    title: "UNECE Life Cycle Assessment of Electricity Generation Options",
+    url: "https://unece.org/sed/documents/2021/10/reports/life-cycle-assessment-electricity-generation-options",
+    lastVerifiedOn: "2026-08-30",
+  },
+  {
+    id: "unscear-2020-2021",
+    title: "UNSCEAR 2020/2021 Report to the General Assembly, Annex B",
+    url: "https://www.unscear.org/unscear/en/publications/2020_2021_1.html",
+    lastVerifiedOn: "2026-08-30",
+  },
+  {
+    id: "owid-safest-sources",
+    title: "Our World in Data: Safest Sources of Energy",
+    url: "https://ourworldindata.org/safest-sources-of-energy",
+    lastVerifiedOn: "2026-08-30",
+  },
+  {
+    id: "iaea-pris",
+    title: "IAEA Power Reactor Information System (PRIS)",
+    url: "https://pris.iaea.org",
+    lastVerifiedOn: "2026-08-30",
+  },
+  {
+    id: "iaea-waste-trends",
+    title:
+      "IAEA Status and Trends in Spent Fuel and Radioactive Waste Management",
+    url: "https://www.iaea.org/publications/14746/status-and-trends-in-spent-fuel-and-radioactive-waste-management",
+    lastVerifiedOn: "2026-08-30",
+  },
+  {
+    id: "us-nrc-pwr",
+    title: "US Nuclear Regulatory Commission: Pressurized Water Reactors",
+    url: "https://www.nrc.gov/reactors/pwrs.html",
+    lastVerifiedOn: "2026-08-30",
+  },
+  {
+    id: "us-nrc-bwr",
+    title: "US Nuclear Regulatory Commission: Boiling Water Reactors",
+    url: "https://www.nrc.gov/reactors/bwrs.html",
+    lastVerifiedOn: "2026-08-30",
+  },
+  {
+    id: "cea-india-exec-summary",
+    title: "Central Electricity Authority (CEA) Monthly Executive Summary",
+    url: "https://cea.nic.in/executive-summary/?lang=en",
+    lastVerifiedOn: "2026-08-30",
+  },
+  {
+    id: "dae-india",
+    title: "Department of Atomic Energy (DAE) Government of India",
+    url: "https://dae.gov.in",
+    lastVerifiedOn: "2026-08-30",
+  },
+  {
+    id: "npcil-india",
+    title: "Nuclear Power Corporation of India Limited (NPCIL)",
+    url: "https://www.npcil.nic.in",
+    lastVerifiedOn: "2026-08-30",
+  },
+];
+
 export async function runSourceMonitoring(
   sources: SourceVerificationTarget[],
   options: CheckSourcesOptions = {},
@@ -236,4 +308,102 @@ export async function runSourceMonitoring(
   };
 
   return report;
+}
+
+export interface CliMonitoringOptions extends CheckSourcesOptions {
+  writeReport?: boolean;
+  reportPath?: string;
+  exitOnError?: boolean;
+}
+
+export async function checkSourcesCli(
+  args: string[] = process.argv.slice(2),
+  options: CliMonitoringOptions = {},
+): Promise<MonitoringReport> {
+  const isDryRun = args.includes("--dry-run");
+  const timeoutArg = args
+    .find((a) => a.startsWith("--timeout="))
+    ?.split("=")[1];
+  const concurrencyArg = args
+    .find((a) => a.startsWith("--concurrency="))
+    ?.split("=")[1];
+  const reportPathArg = args
+    .find((a) => a.startsWith("--report-out="))
+    ?.split("=")[1];
+
+  const timeoutMs = timeoutArg
+    ? parseInt(timeoutArg, 10)
+    : (options.timeoutMs ?? DEFAULT_TIMEOUT_MS);
+  const concurrency = concurrencyArg
+    ? parseInt(concurrencyArg, 10)
+    : (options.concurrency ?? DEFAULT_CONCURRENCY);
+  const reportPath =
+    reportPathArg ??
+    options.reportPath ??
+    path.join(
+      process.cwd(),
+      "docs/engineering/verification/latest-source-monitoring.json",
+    );
+  const writeReport = options.writeReport ?? true;
+  const exitOnError = options.exitOnError ?? true;
+
+  const fetchFn = isDryRun
+    ? async () => new Response(null, { status: 200 })
+    : (options.fetchFn ?? fetch);
+
+  console.log(
+    `[ATOM Monitor] Checking ${CORE_MONITORED_SOURCES.length} evidence sources...`,
+  );
+  const report = await runSourceMonitoring(CORE_MONITORED_SOURCES, {
+    timeoutMs,
+    concurrency,
+    fetchFn,
+    staleThresholdDays: options.staleThresholdDays,
+    maxRetries: options.maxRetries,
+  });
+
+  console.log(
+    `\n================ ATOM Source Monitoring Report ================`,
+  );
+  console.log(`Timestamp:    ${report.timestamp}`);
+  console.log(`Total:        ${report.totalChecked}`);
+  console.log(`Healthy:      ${report.healthyCount}`);
+  console.log(`Inconclusive: ${report.inconclusiveCount}`);
+  console.log(`Broken:       ${report.brokenCount}`);
+  console.log(`Stale:        ${report.staleCount}`);
+  console.log(
+    `===============================================================\n`,
+  );
+
+  for (const res of report.results) {
+    const symbol =
+      res.status === "healthy" ? "✓" : res.status === "broken" ? "✗" : "⚠";
+    console.log(
+      `[${symbol}] ${res.id.padEnd(24)} [${res.status.padEnd(12)}] ${res.message}`,
+    );
+  }
+
+  if (writeReport) {
+    const fs = await import("node:fs/promises");
+    await fs.mkdir(path.dirname(reportPath), { recursive: true });
+    await fs.writeFile(reportPath, JSON.stringify(report, null, 2), "utf-8");
+    console.log(`\nReport written to: ${reportPath}`);
+  }
+
+  if (exitOnError && report.brokenCount > 0) {
+    process.exit(1);
+  }
+
+  return report;
+}
+
+if (
+  process.argv[1] &&
+  (process.argv[1].endsWith("check-sources.ts") ||
+    process.argv[1].endsWith("check-sources.js"))
+) {
+  checkSourcesCli().catch((err) => {
+    console.error("Source monitoring error:", err);
+    process.exit(1);
+  });
 }

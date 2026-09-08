@@ -41,7 +41,10 @@ test.describe("Ask ATOM Evidence Engine (R18)", () => {
     await input.press("Enter");
 
     await expect(
-      main.getByRole("heading", { level: 2, name: /Synthesized Evidence Answer/i }),
+      main.getByRole("heading", {
+        level: 2,
+        name: /Synthesized Evidence Answer/i,
+      }),
     ).toBeVisible();
 
     await expect(page.getByText(/12 gCO2eq\/kWh/i).first()).toBeVisible();
@@ -63,11 +66,16 @@ test.describe("Ask ATOM Evidence Engine (R18)", () => {
     await input.press("Enter");
 
     await expect(
-      main.getByRole("heading", { level: 2, name: /Evidence Boundary Abstention/i }),
+      main.getByRole("heading", {
+        level: 2,
+        name: /Evidence Boundary Abstention/i,
+      }),
     ).toBeVisible();
 
     await expect(
-      page.getByText(/ATOM does not currently have verified peer-reviewed scientific evidence/i),
+      page.getByText(
+        /ATOM does not currently have verified peer-reviewed scientific evidence/i,
+      ),
     ).toBeVisible();
   });
 
@@ -81,7 +89,10 @@ test.describe("Ask ATOM Evidence Engine (R18)", () => {
     await input.press("Enter");
 
     await expect(
-      main.getByRole("heading", { level: 2, name: /Synthesized Evidence Answer/i }),
+      main.getByRole("heading", {
+        level: 2,
+        name: /Synthesized Evidence Answer/i,
+      }),
     ).toBeVisible();
 
     // Switch to Simple inside main
@@ -92,9 +103,7 @@ test.describe("Ask ATOM Evidence Engine (R18)", () => {
 
     // Switch to Technical inside main
     await main.getByRole("button", { name: "Technical" }).click();
-    await expect(
-      page.getByText(/Harmonized LCA methods/i),
-    ).toBeVisible();
+    await expect(page.getByText(/Harmonized LCA methods/i)).toBeVisible();
   });
 
   test("submits question via suggested topic chip", async ({ page }) => {
@@ -108,7 +117,10 @@ test.describe("Ask ATOM Evidence Engine (R18)", () => {
     await suggestedChip.click();
 
     await expect(
-      main.getByRole("heading", { level: 2, name: /Synthesized Evidence Answer/i }),
+      main.getByRole("heading", {
+        level: 2,
+        name: /Synthesized Evidence Answer/i,
+      }),
     ).toBeVisible();
 
     await expect(page.getByText(/Bhabha/i).first()).toBeVisible();

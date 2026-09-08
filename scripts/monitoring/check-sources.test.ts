@@ -128,4 +128,36 @@ describe("check-sources monitoring", () => {
     expect(report.brokenCount).toBe(0);
     expect(report.inconclusiveCount).toBe(0);
   });
+
+  it("exports valid canonical CORE_MONITORED_SOURCES with unique ids and valid https urls", async () => {
+    const { CORE_MONITORED_SOURCES } = await import("./check-sources");
+    expect(CORE_MONITORED_SOURCES.length).toBeGreaterThanOrEqual(10);
+    const ids = new Set<string>();
+    for (const source of CORE_MONITORED_SOURCES) {
+      expect(ids.has(source.id)).toBe(false);
+      ids.add(source.id);
+      expect(source.url.startsWith("https://")).toBe(true);
+      expect(new URL(source.url).protocol).toBe("https:");
+    }
+  });
+
+  it("runs checkSourcesCli in dry-run mode and writes report", async () => {
+    const { checkSourcesCli } = await import("./check-sources");
+    const testReportPath = "/tmp/atom-test-monitoring-report.json";
+    const report = await checkSourcesCli(
+      ["--dry-run", `--report-out=${testReportPath}`],
+      {
+        exitOnError: false,
+      },
+    );
+    expect(report.totalChecked).toBeGreaterThan(0);
+    expect(report.brokenCount).toBe(0);
+    expect(report.healthyCount).toBe(report.totalChecked);
+
+    const fs = await import("node:fs/promises");
+    const written = await fs.readFile(testReportPath, "utf-8");
+    const parsed = JSON.parse(written);
+    expect(parsed.totalChecked).toBe(report.totalChecked);
+    await fs.unlink(testReportPath);
+  });
 });
