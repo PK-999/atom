@@ -38,8 +38,8 @@ Reference documents (read before any implementation work):
 | R15 | ✅ Complete | R12 | `bf07478` |
 | R16-G | ✅ Complete | R12 | `7165fac` |
 | R16-I | ✅ Complete | R12 | `fb42633` |
-| R17 | 🔲 **NEXT** | R02, R08, R12 | — |
-| R18 | 🔲 Pending | R12 | — |
+| R17 | ✅ Complete | R02, R08, R12 | `b63ab03` |
+| R18 | 🔲 **NEXT** | R12 | — |
 | R19 | 🔲 Pending | R07 | — |
 
 **Stage mapping:** R01 → Stages 0/2/6 · R02 → 5 · R03 → 7 · R04 → 6 · R05 → 7 · R06 → 4/8 · R07 → 9 · R08 → 10–15 · R09 → 16 · R10 → 1/17 · R11 → 17 · R12 → 1/17 · R13 → 18 · R14 → 19 · R15 → 20 · R16 → 21/22 · R17 → 23 · R18 → 24 · R19 → 25
@@ -617,20 +617,20 @@ type LessonRecord = {
 
 ---
 
-### R17 — Annual grid learning simulator 🔲
+### R17 — Annual grid learning simulator ✅
 
-**Original stage:** 23 · **Depends on:** R02 ✅, R08, R12
+**Original stage:** 23 · **Depends on:** R02 ✅, R08 ✅, R12 ✅ · **Commit:** `b63ab03` · **Report:** `task-17-report.md`
 
-**Goal:** Explicit annual grid arithmetic with honest controls. Remove hidden 0.6 load factor. Annual balance ≠ hourly reliability.
+**Goal:** Explicit annual grid arithmetic with honest controls. Removed hidden 0.6 load factor. Annual energy coverage ≠ hourly reliability.
 
 #### Files
 
-- `lib/simulator/grid-model.ts`, `schemas.ts`, tests
-- `features/simulator/GridSimulator.tsx`
+- `lib/simulator/grid-model.ts`, `lib/simulator/schemas.ts`, tests
+- `features/simulator/GridSimulator.tsx`, `features/simulator/GridSimulator.module.css`, `features/simulator/GridSimulator.test.tsx`
 - `app/grid/page.tsx`
 - `tests/e2e/grid.spec.ts`
 
-#### Key formulas
+#### Key formulas verified
 
 ```
 generation = Σ(capacityMW × capacityFactor × hoursPerYear)
@@ -639,16 +639,17 @@ surplus = max(generation − demand, 0)
 coverage = min(generation / demand, 1) × 100  (NOT "reliability")
 ```
 
-#### Required test cases
+#### Required test cases verified
 
 ```
 - 1000 MW × 0.9 × 8760 = 7,884,000 MWh
-- All zeros
+- All zeros (coverage = null / N/A)
 - Factor 0 and factor 1
 - Fractional inputs
 - Surplus and shortfall
-- Invalid NaN/Infinity/negative
-- 8784-hour leap scenario
+- Invalid NaN/Infinity/negative rejection
+- 8784-hour leap scenario: 1000 MW × 0.9 × 8784 = 7,905,600 MWh
+- Vitest 18/18 passing; Playwright 15/15 passing across Chromium, Firefox, WebKit
 ```
 
 ---
