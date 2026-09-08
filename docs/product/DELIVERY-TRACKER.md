@@ -37,8 +37,8 @@ Reference documents (read before any implementation work):
 | R14 | ✅ Complete | R12 | `1cb48a7` |
 | R15 | ✅ Complete | R12 | `bf07478` |
 | R16-G | ✅ Complete | R12 | `7165fac` |
-| R16-I | 🔲 **NEXT** | R12 | — |
-| R17 | 🔲 Pending | R02, R08, R12 | — |
+| R16-I | ✅ Complete | R12 | `fb42633` |
+| R17 | 🔲 **NEXT** | R02, R08, R12 | — |
 | R18 | 🔲 Pending | R12 | — |
 | R19 | 🔲 Pending | R07 | — |
 
@@ -594,23 +594,26 @@ type LessonRecord = {
 - Resilient design: full directory remains usable if map/WebGL is unavailable
 - Grounded in IAEA PRIS publication and as-of dates
 
-### R16-I — India experience 🔲
+### R16-I — India experience ✅
 
-**Original stage:** 22 · **Depends on:** R12
+**Original stage:** 22 · **Depends on:** R12 · **Commit:** `fb42633` · **Report:** `task-16-india-report.md`
 
 **Goal:** Sourced India national profile with explicit generation/capacity context.
 
 #### Files
 
-- `lib/national/schemas.ts`, `features/national/NationalProfile.tsx`
+- `lib/national/schemas.ts`, `lib/national/national-model.ts`, `features/national/NationalProfile.tsx`
+- `features/national/NationalProfile.module.css`, `features/national/NationalProfile.test.tsx`
 - `app/india/page.tsx`
+- `tests/e2e/india.spec.ts`
 
-#### Key rules
+#### Key rules verified
 
 - Distinct generation mix, installed capacity, and primary-energy denominators
-- Explicit year/unit/source and complete/partial coverage
+- Explicit year/unit/source and complete/partial coverage (CEA FY 2023-24)
 - PHWR, fleet history, three-stage programme, breeder, thorium narratives
-- 2050 outputs labeled as scenarios with assumptions
+- 2050 outputs labeled as scenarios with assumptions (2032 DAE target & 2047 Net Zero)
+- Vitest 15/15 passing; Playwright 15/15 passing across Chromium, Firefox, WebKit
 
 ---
 
