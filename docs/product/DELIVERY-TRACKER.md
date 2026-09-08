@@ -35,8 +35,8 @@ Reference documents (read before any implementation work):
 | R12 | ✅ Complete | R11 | `664e402` |
 | R13 | ✅ Complete | R11, R12 | `d899e6a` |
 | R14 | ✅ Complete | R12 | `1cb48a7` |
-| R15 | 🔲 **NEXT** | R12 | — |
-| R16-G | 🔲 Pending | R12 | — |
+| R15 | ✅ Complete | R12 | `bf07478` |
+| R16-G | 🔲 **NEXT** | R12 | — |
 | R16-I | 🔲 Pending | R12 | — |
 | R17 | 🔲 Pending | R02, R08, R12 | — |
 | R18 | 🔲 Pending | R12 | — |
@@ -546,24 +546,28 @@ type LessonRecord = {
 
 ---
 
-### R15 — Reactor explorer 🔲
+### R15 — Reactor explorer ✅
 
 **Original stage:** 20 · **Depends on:** R12 + approved exhibit target
+
+**Status:** Complete — commit `bf07478`. Verified with `npm run verify` and 15 Playwright E2E tests across Chromium, Firefox, and WebKit (`tests/e2e/reactor.spec.ts`).
 
 **Goal:** Reviewed reactor parts/flows explorer with diagram/text/keyboard equivalence.
 
 #### Files
 
-- `lib/reactor/schemas.ts`, `features/reactor/ReactorExplorer.tsx`
-- `app/reactors/page.tsx`
+- `lib/reactor/schemas.ts`, `lib/reactor/reactor-model.ts`, `lib/reactor/reactor-model.test.ts`
+- `features/reactor/ReactorExplorer.tsx`, `features/reactor/ReactorExplorer.module.css`, `features/reactor/ReactorExplorer.test.tsx`
+- `app/reactors/page.tsx`, `app/reactors/[concept]/page.tsx`
 - `tests/e2e/reactor.spec.ts`
 
 #### Key rules
 
 - Parts and flow connections with stable IDs, labels, descriptions, citations
-- PWR first with public educational schematic
+- PWR first with public educational schematic (expanded with BWR and PHWR/CANDU)
 - `selectPart(partId)` through one state path for diagram click AND keyboard
 - Every selectable part has a labeled text control; reduced motion uses static steps
+- Multi-tier explanation controls (Simple L1-L2, Standard L3, Technical L4-L5) with flow temperature/pressure parameters
 
 ---
 
