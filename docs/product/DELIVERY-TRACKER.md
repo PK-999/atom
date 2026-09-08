@@ -36,8 +36,8 @@ Reference documents (read before any implementation work):
 | R13 | ✅ Complete | R11, R12 | `d899e6a` |
 | R14 | ✅ Complete | R12 | `1cb48a7` |
 | R15 | ✅ Complete | R12 | `bf07478` |
-| R16-G | 🔲 **NEXT** | R12 | — |
-| R16-I | 🔲 Pending | R12 | — |
+| R16-G | ✅ Complete | R12 | `7165fac` |
+| R16-I | 🔲 **NEXT** | R12 | — |
 | R17 | 🔲 Pending | R02, R08, R12 | — |
 | R18 | 🔲 Pending | R12 | — |
 | R19 | 🔲 Pending | R07 | — |
@@ -571,23 +571,28 @@ type LessonRecord = {
 
 ---
 
-### R16-G — Facility directory and globe 🔲
+### R16-G — Facility directory and globe ✅
 
 **Original stage:** 21 · **Depends on:** R12
 
-**Goal:** Dated facility directory (server-readable list) then lazy MapLibre map.
+**Status:** Complete — commit `7165fac`. Verified with `npm run verify` and 15 Playwright E2E tests across Chromium, Firefox, and WebKit (`tests/e2e/globe.spec.ts`).
+
+**Goal:** Dated facility directory (server-readable list) and synchronized geospatial projection.
 
 #### Files
 
-- `lib/globe/schemas.ts`, `facility-model.ts` and tests
-- `features/globe/GlobeViewer.tsx`, `app/globe/page.tsx`
+- `lib/globe/schemas.ts`, `lib/globe/facility-model.ts`, `lib/globe/facility-model.test.ts`
+- `features/globe/GlobeViewer.tsx`, `features/globe/GlobeViewer.module.css`, `features/globe/GlobeViewer.test.tsx`
+- `app/globe/page.tsx`
+- `tests/e2e/globe.spec.ts`
 
 #### Key rules
 
 - Per-unit facility IDs, status history, capacity basis (net/gross), explicit unknown capacity
-- Server-readable directory first; map is lazy-loaded
-- Test identical map/list counts and IDs
-- WebGL failure → directory still usable
+- Server-readable directory first with identical map/list counts and IDs
+- Mixed-status multi-unit facility transparency
+- Resilient design: full directory remains usable if map/WebGL is unavailable
+- Grounded in IAEA PRIS publication and as-of dates
 
 ### R16-I — India experience 🔲
 
