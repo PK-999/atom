@@ -1,0 +1,100 @@
+{
+  "id": "costs",
+  "slug": "costs",
+  "question": "Is nuclear energy too expensive and slow to build compared to renewables?",
+  "summary": "Nuclear power is capital-intensive with long lead times and high initial financing risks in Western deregulated markets. However, reactors offer 60 to 80+ year operating lifetimes, high capacity factors (>90%), and low system integration and balancing costs compared to variable renewable electricity requiring long-duration storage.",
+  "status": "published",
+  "citations": [
+    {
+      "id": "cit-lazard-lcoe-2023",
+      "title": "Levelized Cost of Energy Analysis (LCOE 16.0)",
+      "publisher": "Lazard Financial Advisory",
+      "year": 2023,
+      "url": "https://www.lazard.com/research-insights/levelized-cost-of-energyplus/",
+      "sourceTier": "A",
+      "locator": "LCOE Version 16.0, pp. 8-12"
+    },
+    {
+      "id": "cit-iea-projected-costs-2020",
+      "title": "Projected Costs of Generating Electricity 2020 Edition",
+      "publisher": "IEA / OECD Nuclear Energy Agency",
+      "year": 2020,
+      "url": "https://www.iea.org/reports/projected-costs-of-generating-electricity-2020",
+      "sourceTier": "A",
+      "locator": "Executive Summary & Chapter 3, pp. 35-58"
+    },
+    {
+      "id": "cit-mit-future-nuclear-2018",
+      "title": "The Future of Nuclear Energy in a Carbon-Constrained World",
+      "publisher": "Massachusetts Institute of Technology Energy Initiative",
+      "year": 2018,
+      "url": "https://energy.mit.edu/research/future-nuclear-energy-carbon-constrained-world/",
+      "sourceTier": "A",
+      "locator": "Chapter 2: Cost Reduction and Financing"
+    }
+  ],
+  "arguments": [
+    {
+      "id": "arg-costs-capital-intensity",
+      "relationship": "disputing",
+      "title": "High upfront capital costs and construction delays in Western builds",
+      "body": "First-of-a-kind (FOAK) Gen III+ projects in Western Europe and North America (Vogtle 3 & 4, Olkiluoto 3, Flamanville 3, Hinkley Point C) suffered major multi-billion-dollar cost overruns and construction durations extending past 10-15 years. High interest rates significantly amplify total project cost when debt accumulates during prolonged construction.",
+      "citationIds": ["cit-lazard-lcoe-2023", "cit-mit-future-nuclear-2018"],
+      "evidenceIds": [],
+      "strength": "established",
+      "order": 1
+    },
+    {
+      "id": "arg-costs-system-integration",
+      "relationship": "supporting",
+      "title": "Extremely low system balancing and grid transmission overhead",
+      "body": "While standalone LCOE favors utility-scale solar and wind at low grid penetrations, total system electricity costs rise exponentially as variable renewables pass 70-80% due to overbuilding, curtailment, grid transmission expansion, and battery backup. Firm low-carbon power from nuclear minimizes system-level capacity overbuilding.",
+      "citationIds": [
+        "cit-iea-projected-costs-2020",
+        "cit-mit-future-nuclear-2018"
+      ],
+      "evidenceIds": [],
+      "strength": "preponderance",
+      "order": 2
+    },
+    {
+      "id": "arg-costs-lifetime-amortization",
+      "relationship": "supporting",
+      "title": "Amortized asset lifetime exceeds 60 to 80 years with low operating marginal cost",
+      "body": "Once the initial capital debt is paid down, nuclear power plants have among the lowest marginal operating costs of any power source (~$25-35/MWh). Life extensions to 60 or 80 years offer levelized costs below almost all new generation alternatives.",
+      "citationIds": ["cit-iea-projected-costs-2020"],
+      "evidenceIds": [],
+      "strength": "established",
+      "order": 3
+    },
+    {
+      "id": "arg-costs-geographical-divergence",
+      "relationship": "contextualizing",
+      "title": "Continuous series construction in Asia achieves radically lower overnight costs",
+      "body": "South Korea (KEPCO APR1400) and China (CNNC/CGN Hualong One) have demonstrated construction durations between 5 and 7 years at overnight capital costs around $2,500–$3,500/kW, compared to >$8,000–$12,000/kW in the US and Europe. Supply chain standardization and experienced labor teams are key drivers of cost divergence.",
+      "citationIds": [
+        "cit-iea-projected-costs-2020",
+        "cit-mit-future-nuclear-2018"
+      ],
+      "evidenceIds": [],
+      "strength": "established",
+      "order": 4
+    }
+  ],
+  "consensus": {
+    "statement": "Nuclear energy involves higher upfront capital expenditure and higher financial risk than wind or solar, but nuclear provides firm dispatchable generation that lowers total system balancing costs in deep decarbonization scenarios.",
+    "basis": "IEA/OECD Projected Costs of Generating Electricity and MIT Energy Initiative system modeling",
+    "asOf": "2026-02-10",
+    "citationIds": [
+      "cit-iea-projected-costs-2020",
+      "cit-mit-future-nuclear-2018"
+    ]
+  },
+  "uncertainty": {
+    "statement": "Whether factory-fabricated Small Modular Reactors (SMRs) can achieve promised learning-curve cost reductions remains unproven until multi-unit commercial order books are delivered.",
+    "basis": "Financial and engineering analyst reviews of commercial SMR progress",
+    "asOf": "2026-02-10",
+    "citationIds": ["cit-lazard-lcoe-2023"]
+  },
+  "missingEvidenceNote": "Commercial Nth-of-a-kind SMR serial manufacturing cost data is not yet empirically available; existing cost figures are vendor projections."
+}

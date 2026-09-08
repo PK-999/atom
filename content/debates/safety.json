@@ -1,0 +1,88 @@
+{
+  "id": "safety",
+  "slug": "safety",
+  "question": "How does the safety of nuclear energy compare with other electricity sources?",
+  "summary": "Statistically, nuclear power is among the safest energy sources in terms of historical mortality rates per TWh produced, on par with wind and solar and orders of magnitude safer than fossil fuels. However, nuclear accidents carry unique low-probability high-consequence risks, including major land exclusion zones and psychological/social displacement trauma.",
+  "status": "published",
+  "citations": [
+    {
+      "id": "cit-unscear-2020-fukushima",
+      "title": "UNSCEAR 2020/2021 Report: Levels and Effects of Radiation Exposure due to the 2011 Nuclear Accident at Fukushima",
+      "publisher": "United Nations Scientific Committee on the Effects of Atomic Radiation",
+      "year": 2021,
+      "url": "https://www.unscear.org/unscear/en/publications/2020b.html",
+      "sourceTier": "A",
+      "locator": "Annex B, Scientific Findings"
+    },
+    {
+      "id": "cit-our-world-in-data-energy-safety",
+      "title": "What are the safest and cleanest sources of energy?",
+      "publisher": "Our World in Data (Markandya & Wilkinson / Sovacool synthesis)",
+      "year": 2020,
+      "url": "https://ourworldindata.org/safest-sources-of-energy",
+      "sourceTier": "A",
+      "locator": "Death rates per TWh of electricity produced"
+    },
+    {
+      "id": "cit-who-health-chernobyl-2006",
+      "title": "Health Effects of the Chernobyl Accident and Special Health Care Programmes",
+      "publisher": "World Health Organization",
+      "year": 2006,
+      "url": "https://www.who.int/publications/i/item/9241594178",
+      "sourceTier": "A",
+      "locator": "Chernobyl Forum Report, Chapter 2"
+    }
+  ],
+  "arguments": [
+    {
+      "id": "arg-safety-mortality-rate",
+      "relationship": "supporting",
+      "title": "Statistically among the lowest mortality rates per unit electricity generated",
+      "body": "Comprehensive epidemiological syntheses calculate nuclear mortality at ~0.03 to 0.07 deaths per TWh generated (including Chernobyl and Fukushima impacts), comparable to solar (0.02-0.05) and wind (0.04), and over 300 to 800 times lower than coal (24.6 to 100+ deaths/TWh) and oil (18.4 deaths/TWh) which cause routine lethal air particulate pollution.",
+      "citationIds": ["cit-our-world-in-data-energy-safety"],
+      "evidenceIds": [],
+      "strength": "established",
+      "order": 1
+    },
+    {
+      "id": "arg-safety-accident-consequences",
+      "relationship": "disputing",
+      "title": "Accidents carry catastrophic land contamination and social displacement costs",
+      "body": "While direct radiological fatalities were limited in Fukushima and localized in Chernobyl, large-scale releases of radioactive cesium and iodine necessitated the indefinite evacuation of more than 150,000 residents, immense psychological stress, disruption of local livelihoods, and remediation costs exceeding $200 billion.",
+      "citationIds": [
+        "cit-unscear-2020-fukushima",
+        "cit-who-health-chernobyl-2006"
+      ],
+      "evidenceIds": [],
+      "strength": "established",
+      "order": 2
+    },
+    {
+      "id": "arg-safety-passive-safety",
+      "relationship": "contextualizing",
+      "title": "Generation III+ and IV designs incorporate passive shutdown mechanisms",
+      "body": "Modern reactors (such as the AP1000, VVER-1200, and advanced SMRs) feature passive safety systems that rely on natural circulation, gravity-fed water tanks, and convection without requiring active AC electrical power or emergency operator intervention for 72+ hours post-station blackout.",
+      "citationIds": ["cit-unscear-2020-fukushima"],
+      "evidenceIds": [],
+      "strength": "preponderance",
+      "order": 3
+    }
+  ],
+  "consensus": {
+    "statement": "Nuclear electricity causes orders of magnitude fewer human casualties per TWh than fossil fuel combustion under all peer-reviewed epidemiological methodologies, while public risk perception remains strongly driven by the catastrophic spatial and economic potential of rare meltdowns.",
+    "basis": "UNSCEAR, WHO, and peer-reviewed epidemiological meta-analyses",
+    "asOf": "2026-01-20",
+    "citationIds": [
+      "cit-unscear-2020-fukushima",
+      "cit-our-world-in-data-energy-safety",
+      "cit-who-health-chernobyl-2006"
+    ]
+  },
+  "uncertainty": {
+    "statement": "Debate persists within radiobiology regarding the Linear No-Threshold (LNT) model versus hormesis or threshold hypotheses for ultra-low radiation doses (<10 mSv).",
+    "basis": "UNSCEAR and ICRP radiation protection recommendations",
+    "asOf": "2026-01-20",
+    "citationIds": ["cit-unscear-2020-fukushima"]
+  },
+  "missingEvidenceNote": "Longitudinal psychosocial health studies of relocated populations suffer from confounding factors including natural disaster trauma and socioeconomic displacement."
+}
