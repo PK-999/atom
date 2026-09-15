@@ -136,4 +136,33 @@ describe("ComparisonEvidence", () => {
       screen.getByRole("button", { name: "Challenge this number" }),
     ).toBeVisible();
   });
+
+  it("renders source as a hyperlink when source URL is provided", () => {
+    const obsWithSourceUrl = {
+      ...reviewedObservation,
+      source: {
+        name: "UNSCEAR 2020 Report",
+        url: "https://www.unscear.org/report",
+      },
+    };
+
+    render(
+      <EvidenceDialog
+        appearance="primary"
+        comparison={mockComparison}
+        observation={obsWithSourceUrl}
+        triggerLabel="Explore the evidence"
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Explore the evidence" }),
+    );
+
+    const link = screen.getByRole("link", { name: "UNSCEAR 2020 Report" });
+    expect(link).toBeVisible();
+    expect(link).toHaveAttribute("href", "https://www.unscear.org/report");
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", "noopener noreferrer");
+  });
 });

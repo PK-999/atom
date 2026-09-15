@@ -3,6 +3,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowRight } from "@phosphor-icons/react/ArrowRight";
 import { BookOpen } from "@phosphor-icons/react/BookOpen";
+import { CaretDown } from "@phosphor-icons/react/CaretDown";
 import { Circle } from "@phosphor-icons/react/Circle";
 import { Diamond } from "@phosphor-icons/react/Diamond";
 import { Flask } from "@phosphor-icons/react/Flask";
@@ -13,10 +14,17 @@ import { ShareNetwork } from "@phosphor-icons/react/ShareNetwork";
 import { Square } from "@phosphor-icons/react/Square";
 import { Triangle } from "@phosphor-icons/react/Triangle";
 import { X } from "@phosphor-icons/react/X";
-import { useState, useMemo, type CSSProperties } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  type CSSProperties,
+} from "react";
 
 import { METRICS } from "@/lib/evidence/metrics";
 import type { Metric } from "@/lib/evidence/schemas";
+import { getUnitDisplayLabel } from "@/lib/evidence/units";
 import type {
   ComparisonState,
   DisplayMode,
@@ -26,24 +34,24 @@ import type {
 } from "./comparison-types";
 import styles from "./ComparisonLab.module.css";
 
-export interface TechnologyInfo {
-  id: string;
-  name: string;
-  marker: EnergyMarker;
-  color: string;
+import {
+  TECHNOLOGY_CATALOG,
+  type TechnologyCatalogEntry,
+} from "./comparison-technology-catalog";
+
+export type TechnologyInfo = TechnologyCatalogEntry;
+export const AVAILABLE_TECHNOLOGIES: readonly TechnologyInfo[] =
+  TECHNOLOGY_CATALOG;
+
+export interface GeographyOption {
+  readonly id: string;
+  readonly name: string;
 }
 
-export const AVAILABLE_TECHNOLOGIES: readonly TechnologyInfo[] = [
-  { id: "nuclear", name: "Nuclear", marker: "circle", color: "#7B61FF" },
-  { id: "solar", name: "Solar", marker: "square", color: "#FFB020" },
-  { id: "wind", name: "Wind", marker: "triangle", color: "#00CF9D" },
-  { id: "gas", name: "Gas", marker: "diamond", color: "#FF5E5E" },
-  { id: "coal", name: "Coal", marker: "pentagon", color: "#737373" },
-  { id: "hydro", name: "Hydro", marker: "triangle", color: "#2B8CEE" },
-  { id: "storage", name: "Storage", marker: "square", color: "#FF8A00" },
-  { id: "biomass", name: "Biomass", marker: "pentagon", color: "#48A868" },
-  { id: "geothermal", name: "Geothermal", marker: "diamond", color: "#E05638" },
-];
+export const AVAILABLE_GEOGRAPHIES: readonly GeographyOption[] = [
+  { id: "global", name: "Global" },
+  { id: "india", name: "India" },
+] as const;
 
 export function SourceMarker({ marker }: { marker: EnergyMarker }) {
   const iconProps = { size: 18, weight: "fill" as const, "aria-hidden": true };
@@ -137,6 +145,16 @@ export function ComparisonControls({
   const [metricQuery, setMetricQuery] = useState("");
   const [shareDialogOpen, setShareDialogOpen] = useState(false);
   const [copiedNotification, setCopiedNotification] = useState(false);
+  const copiedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Clean up the clipboard-copied timer on unmount to avoid setState on an
+  // unmounted component (React 19 silences this, but it is still a resource leak).
+  useEffect(
+    () => () => {
+      if (copiedTimerRef.current !== null) clearTimeout(copiedTimerRef.current);
+    },
+    [],
+  );
 
   const selectedIds = state.sources;
   const unselectedTechnologies = useMemo(
@@ -155,6 +173,8 @@ export function ComparisonControls({
     return METRICS.filter(
       (m) =>
         m.id.toLowerCase().includes(q) ||
+        (m.name && m.name.toLowerCase().includes(q)) ||
+        (m.shortName && m.shortName.toLowerCase().includes(q)) ||
         m.definition.toLowerCase().includes(q) ||
         m.category.toLowerCase().includes(q),
     );
@@ -194,7 +214,12 @@ export function ComparisonControls({
       if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(canonicalUrl);
         setCopiedNotification(true);
-        setTimeout(() => setCopiedNotification(false), 3000);
+        if (copiedTimerRef.current !== null)
+          clearTimeout(copiedTimerRef.current);
+        copiedTimerRef.current = setTimeout(
+          () => setCopiedNotification(false),
+          3000,
+        );
       }
     } catch {
       // Clipboard write failed (e.g. lack of permissions); selectable dialog will still display
@@ -299,15 +324,7 @@ export function ComparisonControls({
                   Select an electricity technology to add to the comparison
                   exhibit.
                 </Dialog.Description>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns:
-                      "repeat(auto-fill, minmax(180px, 1fr))",
-                    gap: "12px",
-                    marginTop: "16px",
-                  }}
-                >
+                <div className={styles.dialogTechGrid}>
                   {unselectedTechnologies.map((tech) => (
                     <button
                       key={tech.id}
@@ -316,18 +333,7 @@ export function ComparisonControls({
                         setAddSourceOpen(false);
                       }}
                       type="button"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                        padding: "12px 16px",
-                        border: "1px solid #d1cec5",
-                        borderRadius: "10px",
-                        background: "#fffdf8",
-                        cursor: "pointer",
-                        fontWeight: 600,
-                        color: "#101823",
-                      }}
+                      className={styles.dialogTechButton}
                     >
                       <span style={{ color: tech.color }}>
                         <SourceMarker marker={tech.marker} />
@@ -357,16 +363,7 @@ export function ComparisonControls({
           <Dialog.Trigger asChild>
             <button
               type="button"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                background: "transparent",
-                border: 0,
-                color: "inherit",
-                cursor: "pointer",
-                font: "inherit",
-              }}
+              className={styles.contextButton}
               aria-label={`Current metric: ${metricShortName}. Click to change.`}
             >
               <BookOpen aria-hidden size={20} />
@@ -394,59 +391,24 @@ export function ComparisonControls({
                 </Dialog.Close>
               </div>
 
-              <div
-                style={{
-                  position: "relative",
-                  marginBlock: "16px 20px",
-                }}
-              >
+              <div className={styles.searchWrapper}>
                 <input
                   type="search"
                   placeholder="Search metrics by name or definition..."
                   value={metricQuery}
                   onChange={(e) => setMetricQuery(e.target.value)}
-                  style={{
-                    width: "100%",
-                    padding: "12px 16px 12px 42px",
-                    borderRadius: "10px",
-                    border: "1px solid #c7c4bb",
-                    background: "#fffdf8",
-                    font: "inherit",
-                    color: "#101823",
-                  }}
+                  className={styles.searchInput}
                   aria-label="Search comparison metrics"
                 />
-                <span
-                  style={{
-                    position: "absolute",
-                    left: "14px",
-                    top: "50%",
-                    translate: "0 -50%",
-                    color: "#6b7280",
-                    pointerEvents: "none",
-                  }}
-                >
+                <span className={styles.searchIcon}>
                   <MagnifyingGlass aria-hidden size={18} />
                 </span>
               </div>
 
               {recentMetricIds.length > 0 && !metricQuery ? (
-                <div style={{ marginBottom: "20px" }}>
-                  <p
-                    style={{
-                      fontSize: "0.8rem",
-                      fontWeight: 700,
-                      color: "#5553b9",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      margin: "0 0 8px",
-                    }}
-                  >
-                    Recently Viewed
-                  </p>
-                  <div
-                    style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}
-                  >
+                <div className={styles.metricSection}>
+                  <p className={styles.metricSectionTitle}>Recently Viewed</p>
+                  <div className={styles.metricChipRow}>
                     {recentMetricIds.map((id) => {
                       const m = METRICS.find((def) => def.id === id);
                       if (!m) return null;
@@ -455,17 +417,9 @@ export function ComparisonControls({
                           key={id}
                           onClick={() => handleSelectMetric(id)}
                           type="button"
-                          style={{
-                            padding: "6px 12px",
-                            borderRadius: "8px",
-                            border: "1px solid #d1cec5",
-                            background: "#fffdf8",
-                            cursor: "pointer",
-                            fontSize: "0.9rem",
-                            fontWeight: 600,
-                          }}
+                          className={styles.metricChip}
                         >
-                          {m.id}
+                          {m.shortName ?? m.name ?? m.id}
                         </button>
                       );
                     })}
@@ -474,17 +428,8 @@ export function ComparisonControls({
               ) : null}
 
               {relatedMetrics.length > 0 && !metricQuery ? (
-                <div style={{ marginBottom: "20px" }}>
-                  <p
-                    style={{
-                      fontSize: "0.8rem",
-                      fontWeight: 700,
-                      color: "#5553b9",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      margin: "0 0 8px",
-                    }}
-                  >
+                <div className={styles.metricSection}>
+                  <p className={styles.metricSectionTitle}>
                     Related in{" "}
                     {
                       CATEGORY_NAMES[
@@ -492,99 +437,48 @@ export function ComparisonControls({
                       ]
                     }
                   </p>
-                  <div
-                    style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}
-                  >
+                  <div className={styles.metricChipRow}>
                     {relatedMetrics.map((m) => (
                       <button
                         key={m.id}
                         onClick={() => handleSelectMetric(m.id)}
                         type="button"
-                        style={{
-                          padding: "6px 12px",
-                          borderRadius: "8px",
-                          border: "1px solid #d1cec5",
-                          background: "#fffdf8",
-                          cursor: "pointer",
-                          fontSize: "0.9rem",
-                        }}
+                        className={styles.metricChip}
                       >
-                        {m.id}
+                        {m.shortName ?? m.name ?? m.id}
                       </button>
                     ))}
                   </div>
                 </div>
               ) : null}
 
-              <div
-                style={{
-                  display: "grid",
-                  gap: "18px",
-                  maxHeight: "50vh",
-                  overflowY: "auto",
-                  paddingRight: "4px",
-                }}
-              >
+              <div className={styles.metricListScroll}>
                 {Array.from(groupedMetrics.entries()).map(
                   ([category, items]) => (
                     <div key={category}>
-                      <h3
-                        style={{
-                          margin: "0 0 8px",
-                          fontSize: "0.95rem",
-                          fontWeight: 700,
-                          color: "#293545",
-                        }}
-                      >
+                      <h3 className={styles.metricSectionTitle}>
                         {CATEGORY_NAMES[category]}
                       </h3>
-                      <div style={{ display: "grid", gap: "6px" }}>
+                      <div className={styles.metricGroupItems}>
                         {items.map((metric) => (
                           <button
                             key={metric.id}
                             onClick={() => handleSelectMetric(metric.id)}
                             type="button"
-                            style={{
-                              textAlign: "left",
-                              padding: "10px 14px",
-                              borderRadius: "8px",
-                              border: "1px solid #e5e3db",
-                              background:
-                                metric.id === state.metric
-                                  ? "#eef0ff"
-                                  : "#fffdf8",
-                              cursor: "pointer",
-                            }}
+                            className={styles.metricRow}
+                            data-active={metric.id === state.metric}
                           >
-                            <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                              }}
-                            >
-                              <strong style={{ color: "#101823" }}>
-                                {metric.id}
+                            <div className={styles.metricRowTop}>
+                              <strong className={styles.metricRowTitle}>
+                                {metric.shortName ?? metric.name ?? metric.id}
                               </strong>
-                              <span
-                                style={{
-                                  fontSize: "0.78rem",
-                                  color: "#556170",
-                                  background: "#ece8df",
-                                  padding: "2px 6px",
-                                  borderRadius: "4px",
-                                }}
-                              >
-                                {metric.canonicalUnit}
+                              <span className={styles.metricRowUnit}>
+                                {metric.canonicalUnit
+                                  ? getUnitDisplayLabel(metric.canonicalUnit)
+                                  : ""}
                               </span>
                             </div>
-                            <p
-                              style={{
-                                margin: "4px 0 0",
-                                fontSize: "0.85rem",
-                                color: "#556170",
-                              }}
-                            >
+                            <p className={styles.metricRowDesc}>
                               {metric.definition}
                             </p>
                           </button>
@@ -602,26 +496,30 @@ export function ComparisonControls({
           •
         </span>
 
-        <button
-          onClick={() =>
-            onGeographyChange(state.region === "global" ? "india" : "global")
-          }
-          type="button"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            background: "transparent",
-            border: 0,
-            color: "inherit",
-            cursor: "pointer",
-            font: "inherit",
-          }}
-          aria-label={`Geography: ${geography}. Click to toggle.`}
-        >
+        <div className={styles.geographySelectWrapper}>
           <Globe aria-hidden size={20} />
-          <span>{geography}</span>
-        </button>
+          <label htmlFor="geography-select" className={styles.srOnly}>
+            Select comparison geography
+          </label>
+          <select
+            id="geography-select"
+            value={state.region}
+            onChange={(e) => onGeographyChange(e.target.value)}
+            className={styles.geographySelect}
+            aria-label={`Geography: ${geography}`}
+          >
+            {AVAILABLE_GEOGRAPHIES.map((geo) => (
+              <option key={geo.id} value={geo.id}>
+                {geo.name}
+              </option>
+            ))}
+          </select>
+          <CaretDown
+            aria-hidden
+            size={14}
+            className={styles.geographySelectArrow}
+          />
+        </div>
 
         <span aria-hidden className={styles.separator}>
           •
@@ -655,16 +553,7 @@ export function ComparisonControls({
             onUnitsChange(state.units === "scientific" ? "human" : "scientific")
           }
           type="button"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            background: "transparent",
-            border: 0,
-            color: "inherit",
-            cursor: "pointer",
-            font: "inherit",
-          }}
+          className={styles.contextButton}
           aria-label={`Unit system: ${state.units}. Click to toggle.`}
         >
           <Flask aria-hidden size={20} />
@@ -678,16 +567,7 @@ export function ComparisonControls({
         <button
           onClick={handleShare}
           type="button"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            background: "transparent",
-            border: 0,
-            color: "inherit",
-            cursor: "pointer",
-            font: "inherit",
-          }}
+          className={styles.contextButton}
           aria-label="Share canonical comparison URL"
         >
           <ShareNetwork aria-hidden size={18} />
@@ -701,17 +581,7 @@ export function ComparisonControls({
         <button
           onClick={onResetComparison}
           type="button"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            background: "transparent",
-            border: 0,
-            color: "#a9b6c8",
-            cursor: "pointer",
-            font: "inherit",
-            fontSize: "0.85rem",
-          }}
+          className={`${styles.contextButton} ${styles.contextButtonReset}`}
           aria-label="Reset comparison to default parameters"
         >
           Reset
@@ -743,22 +613,13 @@ export function ComparisonControls({
               Select and copy this link to share the exact comparison
               parameters.
             </Dialog.Description>
-            <div style={{ marginTop: "16px" }}>
+            <div className={styles.shareInputWrapper}>
               <input
                 readOnly
                 type="text"
                 value={canonicalUrl}
                 onClick={(e) => (e.target as HTMLInputElement).select()}
-                style={{
-                  width: "100%",
-                  padding: "12px 14px",
-                  borderRadius: "8px",
-                  border: "1px solid #c7c4bb",
-                  background: "#fffdf8",
-                  fontFamily: "var(--font-geist-mono), monospace",
-                  fontSize: "0.9rem",
-                  color: "#101823",
-                }}
+                className={styles.shareInput}
                 aria-label="Canonical comparison link"
               />
             </div>

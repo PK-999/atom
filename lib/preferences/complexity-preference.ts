@@ -1,22 +1,52 @@
 export type ComplexityLevel =
-  "kid" | "simple" | "curious" | "technical" | "expert";
+  "beginner" | "explorer" | "curious" | "deep-dive" | "geeky";
+
+export const COMPLEXITY_LEVELS: readonly ComplexityLevel[] = [
+  "beginner",
+  "explorer",
+  "curious",
+  "deep-dive",
+  "geeky",
+];
+
+export const COMPLEXITY_LABELS: Record<ComplexityLevel, string> = {
+  beginner: "Beginner",
+  explorer: "Explorer",
+  curious: "Curious",
+  "deep-dive": "Deep-Dive",
+  geeky: "Geeky",
+};
+
+export const COMPLEXITY_DESCRIPTIONS: Record<ComplexityLevel, string> = {
+  beginner: "Simple language, fun analogies, no jargon",
+  explorer: "Clear explanations with basic scientific terms",
+  curious: "Full context, trade-offs, and methodology",
+  "deep-dive": "Technical detail, equations, engineering context",
+  geeky: "Research-grade depth, raw data, uncertainty analysis",
+};
 
 export const COMPLEXITY_PREFERENCE_KEY =
-  "atom:preferences:v1:complexity" as const;
+  "atom:preferences:v2:complexity" as const;
 const COMPLEXITY_PREFERENCE_EVENT = "atom:complexity-preference-change";
 
-const complexityLevels = new Set<ComplexityLevel>([
-  "kid",
-  "simple",
-  "curious",
-  "technical",
-  "expert",
-]);
+const LEGACY_KEY = "atom:preferences:v1:complexity" as const;
+const LEGACY_MAP: Record<string, ComplexityLevel> = {
+  kid: "beginner",
+  simple: "explorer",
+  curious: "curious",
+  technical: "deep-dive",
+  expert: "geeky",
+};
+
+const complexityLevels = new Set<ComplexityLevel>(COMPLEXITY_LEVELS);
 
 function parseComplexityLevel(value: string | null): ComplexityLevel | null {
-  return value && complexityLevels.has(value as ComplexityLevel)
-    ? (value as ComplexityLevel)
-    : null;
+  if (!value) return null;
+  if (complexityLevels.has(value as ComplexityLevel))
+    return value as ComplexityLevel;
+  // Migrate old v1 values
+  if (value in LEGACY_MAP) return LEGACY_MAP[value]!;
+  return null;
 }
 
 export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
@@ -30,11 +60,12 @@ export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
 
   function readStoredPreference(): ComplexityLevel | null {
     try {
-      return parseComplexityLevel(
-        window.localStorage.getItem(COMPLEXITY_PREFERENCE_KEY),
-      );
+      // Try new key first, fall back to legacy
+      const stored =
+        window.localStorage.getItem(COMPLEXITY_PREFERENCE_KEY) ??
+        window.localStorage.getItem(LEGACY_KEY);
+      return parseComplexityLevel(stored);
     } catch {
-      // The in-memory preference remains authoritative when storage is blocked.
       return null;
     }
   }
@@ -68,6 +99,8 @@ export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
 
       try {
         window.localStorage.setItem(COMPLEXITY_PREFERENCE_KEY, level);
+        // Clean up legacy key
+        window.localStorage.removeItem(LEGACY_KEY);
       } catch {
         // Preference persistence is best-effort and never blocks interaction.
       }
@@ -82,7 +115,8 @@ export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
     },
     subscribe(listener: () => void) {
       const handleStorage = (event: StorageEvent) => {
-        if (event.key !== COMPLEXITY_PREFERENCE_KEY) return;
+        if (event.key !== COMPLEXITY_PREFERENCE_KEY && event.key !== LEGACY_KEY)
+          return;
         if (readUrlPreference()) return;
         current = parseComplexityLevel(event.newValue) ?? fallback;
         notify();

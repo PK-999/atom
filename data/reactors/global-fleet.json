@@ -1,0 +1,6919 @@
+[
+  {
+    "id": "kashiwazaki-kariwa",
+    "name": "Kashiwazaki-Kariwa Nuclear Power Station",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Asia",
+    "latitude": 37.426,
+    "longitude": 138.599,
+    "status": "operating",
+    "totalCapacityMWe": 7965,
+    "reactorCount": 7,
+    "primaryReactorType": "ABWR",
+    "firstCommercialYear": 1985,
+    "operator": "Tokyo Electric Power Company (TEPCO)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR",
+        "netMWe": 1067,
+        "status": "shutdown",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR",
+        "netMWe": 1067,
+        "status": "shutdown",
+        "commercialYear": 1990
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "BWR",
+        "netMWe": 1067,
+        "status": "shutdown",
+        "commercialYear": 1993
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "BWR",
+        "netMWe": 1067,
+        "status": "shutdown",
+        "commercialYear": 1994
+      },
+      {
+        "unitName": "Unit 5",
+        "type": "BWR",
+        "netMWe": 1067,
+        "status": "shutdown",
+        "commercialYear": 1990
+      },
+      {
+        "unitName": "Unit 6",
+        "type": "ABWR",
+        "netMWe": 1315,
+        "status": "operating",
+        "commercialYear": 1996
+      },
+      {
+        "unitName": "Unit 7",
+        "type": "ABWR",
+        "netMWe": 1315,
+        "status": "operating",
+        "commercialYear": 1997
+      }
+    ],
+    "iaeaPrisId": "JP-40",
+    "age": 41,
+    "city": "Kashiwazaki / Kariwa",
+    "stateProvince": "Niigata Prefecture"
+  },
+  {
+    "id": "bruce",
+    "name": "Bruce Nuclear Generating Station",
+    "country": "Canada",
+    "countryCode": "CA",
+    "region": "North America",
+    "latitude": 44.325,
+    "longitude": -81.599,
+    "status": "operating",
+    "totalCapacityMWe": 6550,
+    "reactorCount": 8,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 1977,
+    "operator": "Bruce Power",
+    "units": [
+      {
+        "unitName": "Bruce A1",
+        "type": "CANDU-791",
+        "netMWe": 774,
+        "status": "operating",
+        "commercialYear": 1977
+      },
+      {
+        "unitName": "Bruce A2",
+        "type": "CANDU-791",
+        "netMWe": 774,
+        "status": "operating",
+        "commercialYear": 1977
+      },
+      {
+        "unitName": "Bruce A3",
+        "type": "CANDU-791",
+        "netMWe": 770,
+        "status": "operating",
+        "commercialYear": 1978
+      },
+      {
+        "unitName": "Bruce A4",
+        "type": "CANDU-791",
+        "netMWe": 769,
+        "status": "operating",
+        "commercialYear": 1979
+      },
+      {
+        "unitName": "Bruce B5",
+        "type": "CANDU-750",
+        "netMWe": 817,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Bruce B6",
+        "type": "CANDU-750",
+        "netMWe": 817,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "Bruce B7",
+        "type": "CANDU-750",
+        "netMWe": 817,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Bruce B8",
+        "type": "CANDU-750",
+        "netMWe": 812,
+        "status": "operating",
+        "commercialYear": 1987
+      }
+    ],
+    "iaeaPrisId": "CA-10",
+    "age": 49,
+    "city": "Tiverton",
+    "stateProvince": "Ontario"
+  },
+  {
+    "id": "kori-shin-kori",
+    "name": "Kori & Saeul Nuclear Power Complex",
+    "country": "South Korea",
+    "countryCode": "KR",
+    "region": "Asia",
+    "latitude": 35.317,
+    "longitude": 129.299,
+    "status": "operating",
+    "totalCapacityMWe": 7489,
+    "reactorCount": 7,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1978,
+    "operator": "Korea Hydro & Nuclear Power (KHNP)",
+    "units": [
+      {
+        "unitName": "Kori 2",
+        "type": "WH 2-Loop",
+        "netMWe": 640,
+        "status": "operating",
+        "commercialYear": 1983
+      },
+      {
+        "unitName": "Kori 3",
+        "type": "WH 3-Loop",
+        "netMWe": 997,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Kori 4",
+        "type": "WH 3-Loop",
+        "netMWe": 1014,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Shin-Kori 1",
+        "type": "OPR-1000",
+        "netMWe": 996,
+        "status": "operating",
+        "commercialYear": 2011
+      },
+      {
+        "unitName": "Shin-Kori 2",
+        "type": "OPR-1000",
+        "netMWe": 996,
+        "status": "operating",
+        "commercialYear": 2012
+      },
+      {
+        "unitName": "Saeul 1",
+        "type": "APR-1400",
+        "netMWe": 1400,
+        "status": "operating",
+        "commercialYear": 2016
+      },
+      {
+        "unitName": "Saeul 2",
+        "type": "APR-1400",
+        "netMWe": 1400,
+        "status": "operating",
+        "commercialYear": 2019
+      }
+    ],
+    "iaeaPrisId": "KR-20",
+    "age": 48,
+    "city": "Gijang / Ulju",
+    "stateProvince": "Busan / Ulsan"
+  },
+  {
+    "id": "hanul",
+    "name": "Hanul Nuclear Power Plant",
+    "country": "South Korea",
+    "countryCode": "KR",
+    "region": "Asia",
+    "latitude": 37.094,
+    "longitude": 129.384,
+    "status": "operating",
+    "totalCapacityMWe": 7314,
+    "reactorCount": 7,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1988,
+    "operator": "KHNP",
+    "units": [
+      {
+        "unitName": "Hanul 1",
+        "type": "France CPI",
+        "netMWe": 966,
+        "status": "operating",
+        "commercialYear": 1988
+      },
+      {
+        "unitName": "Hanul 2",
+        "type": "France CPI",
+        "netMWe": 967,
+        "status": "operating",
+        "commercialYear": 1989
+      },
+      {
+        "unitName": "Hanul 3",
+        "type": "OPR-1000",
+        "netMWe": 997,
+        "status": "operating",
+        "commercialYear": 1998
+      },
+      {
+        "unitName": "Hanul 4",
+        "type": "OPR-1000",
+        "netMWe": 999,
+        "status": "operating",
+        "commercialYear": 1999
+      },
+      {
+        "unitName": "Hanul 5",
+        "type": "OPR-1000",
+        "netMWe": 998,
+        "status": "operating",
+        "commercialYear": 2004
+      },
+      {
+        "unitName": "Hanul 6",
+        "type": "OPR-1000",
+        "netMWe": 997,
+        "status": "operating",
+        "commercialYear": 2005
+      },
+      {
+        "unitName": "Shin-Hanul 1",
+        "type": "APR-1400",
+        "netMWe": 1390,
+        "status": "operating",
+        "commercialYear": 2022
+      }
+    ],
+    "iaeaPrisId": "KR-24",
+    "age": 38,
+    "city": "Uljin",
+    "stateProvince": "North Gyeongsang"
+  },
+  {
+    "id": "zaporizhzhia",
+    "name": "Zaporizhzhia Nuclear Power Plant",
+    "country": "Ukraine",
+    "countryCode": "UA",
+    "region": "Europe",
+    "latitude": 47.512,
+    "longitude": 34.585,
+    "status": "shutdown",
+    "totalCapacityMWe": 5700,
+    "reactorCount": 6,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1985,
+    "operator": "Energoatom (contested)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-1000/V-320",
+        "netMWe": 950,
+        "status": "shutdown",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-1000/V-320",
+        "netMWe": 950,
+        "status": "shutdown",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "VVER-1000/V-320",
+        "netMWe": 950,
+        "status": "shutdown",
+        "commercialYear": 1987
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "VVER-1000/V-320",
+        "netMWe": 950,
+        "status": "shutdown",
+        "commercialYear": 1988
+      },
+      {
+        "unitName": "Unit 5",
+        "type": "VVER-1000/V-320",
+        "netMWe": 950,
+        "status": "shutdown",
+        "commercialYear": 1989
+      },
+      {
+        "unitName": "Unit 6",
+        "type": "VVER-1000/V-320",
+        "netMWe": 950,
+        "status": "shutdown",
+        "commercialYear": 1996
+      }
+    ],
+    "iaeaPrisId": "UA-12",
+    "age": 41,
+    "city": "Enerhodar",
+    "stateProvince": "Zaporizhzhia Oblast"
+  },
+  {
+    "id": "gravelines",
+    "name": "Gravelines Nuclear Power Station",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 51.015,
+    "longitude": 2.136,
+    "status": "operating",
+    "totalCapacityMWe": 5460,
+    "reactorCount": 6,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1980,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CP1",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1980
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CP1",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1980
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "CP1",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "CP1",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "Unit 5",
+        "type": "CP1",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 6",
+        "type": "CP1",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "FR-22",
+    "age": 46,
+    "city": "Gravelines",
+    "stateProvince": "Hauts-de-France"
+  },
+  {
+    "id": "paluel",
+    "name": "Paluel Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 49.858,
+    "longitude": 0.635,
+    "status": "operating",
+    "totalCapacityMWe": 5320,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1985,
+    "operator": "EDF",
+    "units": [
+      {
+        "unitName": "Paluel 1",
+        "type": "P4",
+        "netMWe": 1330,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Paluel 2",
+        "type": "P4",
+        "netMWe": 1330,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Paluel 3",
+        "type": "P4",
+        "netMWe": 1330,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Paluel 4",
+        "type": "P4",
+        "netMWe": 1330,
+        "status": "operating",
+        "commercialYear": 1986
+      }
+    ],
+    "iaeaPrisId": "FR-33",
+    "age": 41,
+    "city": "Paluel",
+    "stateProvince": "Normandy"
+  },
+  {
+    "id": "cattenom",
+    "name": "Cattenom Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 49.417,
+    "longitude": 6.218,
+    "status": "operating",
+    "totalCapacityMWe": 5200,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1987,
+    "operator": "EDF",
+    "units": [
+      {
+        "unitName": "Cattenom 1",
+        "type": "P4",
+        "netMWe": 1300,
+        "status": "operating",
+        "commercialYear": 1987
+      },
+      {
+        "unitName": "Cattenom 2",
+        "type": "P4",
+        "netMWe": 1300,
+        "status": "operating",
+        "commercialYear": 1988
+      },
+      {
+        "unitName": "Cattenom 3",
+        "type": "P4",
+        "netMWe": 1300,
+        "status": "operating",
+        "commercialYear": 1991
+      },
+      {
+        "unitName": "Cattenom 4",
+        "type": "P4",
+        "netMWe": 1300,
+        "status": "operating",
+        "commercialYear": 1992
+      }
+    ],
+    "iaeaPrisId": "FR-13",
+    "age": 39,
+    "city": "Cattenom",
+    "stateProvince": "Grand Est"
+  },
+  {
+    "id": "fuqing",
+    "name": "Fuqing Nuclear Power Plant",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 25.444,
+    "longitude": 119.447,
+    "status": "operating",
+    "totalCapacityMWe": 6150,
+    "reactorCount": 6,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 2014,
+    "operator": "China National Nuclear Corporation (CNNC)",
+    "units": [
+      {
+        "unitName": "Fuqing 1",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2014
+      },
+      {
+        "unitName": "Fuqing 2",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2015
+      },
+      {
+        "unitName": "Fuqing 3",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2016
+      },
+      {
+        "unitName": "Fuqing 4",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2017
+      },
+      {
+        "unitName": "Fuqing 5",
+        "type": "Hualong One",
+        "netMWe": 1075,
+        "status": "operating",
+        "commercialYear": 2021
+      },
+      {
+        "unitName": "Fuqing 6",
+        "type": "Hualong One",
+        "netMWe": 1075,
+        "status": "operating",
+        "commercialYear": 2022
+      }
+    ],
+    "iaeaPrisId": "CN-18",
+    "age": 12,
+    "city": "Fuqing",
+    "stateProvince": "Fujian"
+  },
+  {
+    "id": "tianwan",
+    "name": "Tianwan Nuclear Power Plant",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 34.689,
+    "longitude": 119.46,
+    "status": "mixed",
+    "totalCapacityMWe": 6070,
+    "reactorCount": 8,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 2007,
+    "operator": "Jiangsu Nuclear Power Corporation",
+    "units": [
+      {
+        "unitName": "Tianwan 1",
+        "type": "VVER-1000",
+        "netMWe": 990,
+        "status": "operating",
+        "commercialYear": 2007
+      },
+      {
+        "unitName": "Tianwan 2",
+        "type": "VVER-1000",
+        "netMWe": 990,
+        "status": "operating",
+        "commercialYear": 2007
+      },
+      {
+        "unitName": "Tianwan 3",
+        "type": "VVER-1000",
+        "netMWe": 1060,
+        "status": "operating",
+        "commercialYear": 2018
+      },
+      {
+        "unitName": "Tianwan 4",
+        "type": "VVER-1000",
+        "netMWe": 1060,
+        "status": "operating",
+        "commercialYear": 2018
+      },
+      {
+        "unitName": "Tianwan 5",
+        "type": "CNP-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2020
+      },
+      {
+        "unitName": "Tianwan 6",
+        "type": "CNP-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2021
+      },
+      {
+        "unitName": "Tianwan 7",
+        "type": "VVER-1200",
+        "netMWe": 1171,
+        "status": "under-construction",
+        "commercialYear": 2026
+      },
+      {
+        "unitName": "Tianwan 8",
+        "type": "VVER-1200",
+        "netMWe": 1171,
+        "status": "under-construction",
+        "commercialYear": 2027
+      }
+    ],
+    "iaeaPrisId": "CN-11",
+    "age": 19,
+    "city": "Lianyungang",
+    "stateProvince": "Jiangsu"
+  },
+  {
+    "id": "barakah",
+    "name": "Barakah Nuclear Power Plant",
+    "country": "United Arab Emirates",
+    "countryCode": "AE",
+    "region": "Middle East",
+    "latitude": 23.968,
+    "longitude": 52.261,
+    "status": "operating",
+    "totalCapacityMWe": 5380,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 2021,
+    "operator": "Nawah Energy Company",
+    "units": [
+      {
+        "unitName": "Barakah 1",
+        "type": "APR-1400",
+        "netMWe": 1345,
+        "status": "operating",
+        "commercialYear": 2021
+      },
+      {
+        "unitName": "Barakah 2",
+        "type": "APR-1400",
+        "netMWe": 1345,
+        "status": "operating",
+        "commercialYear": 2022
+      },
+      {
+        "unitName": "Barakah 3",
+        "type": "APR-1400",
+        "netMWe": 1345,
+        "status": "operating",
+        "commercialYear": 2023
+      },
+      {
+        "unitName": "Barakah 4",
+        "type": "APR-1400",
+        "netMWe": 1345,
+        "status": "operating",
+        "commercialYear": 2024
+      }
+    ],
+    "iaeaPrisId": "AE-01",
+    "age": 5,
+    "city": "Al Dhafra",
+    "stateProvince": "Abu Dhabi"
+  },
+  {
+    "id": "palo-verde",
+    "name": "Palo Verde Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 33.396,
+    "longitude": -112.868,
+    "status": "operating",
+    "totalCapacityMWe": 3937,
+    "reactorCount": 3,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1986,
+    "operator": "Arizona Public Service (APS)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CE System 80",
+        "netMWe": 1311,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CE System 80",
+        "netMWe": 1314,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "CE System 80",
+        "netMWe": 1312,
+        "status": "operating",
+        "commercialYear": 1988
+      }
+    ],
+    "iaeaPrisId": "US-528",
+    "age": 40,
+    "city": "Wintersburg",
+    "stateProvince": "Arizona"
+  },
+  {
+    "id": "vogtle",
+    "name": "Alvin W. Vogtle Electric Generating Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 33.142,
+    "longitude": -81.762,
+    "status": "operating",
+    "totalCapacityMWe": 4536,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1987,
+    "operator": "Southern Nuclear",
+    "units": [
+      {
+        "unitName": "Vogtle 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1150,
+        "status": "operating",
+        "commercialYear": 1987
+      },
+      {
+        "unitName": "Vogtle 2",
+        "type": "WH 4-Loop",
+        "netMWe": 1149,
+        "status": "operating",
+        "commercialYear": 1989
+      },
+      {
+        "unitName": "Vogtle 3",
+        "type": "AP1000",
+        "netMWe": 1117,
+        "status": "operating",
+        "commercialYear": 2023
+      },
+      {
+        "unitName": "Vogtle 4",
+        "type": "AP1000",
+        "netMWe": 1120,
+        "status": "operating",
+        "commercialYear": 2024
+      }
+    ],
+    "iaeaPrisId": "US-424",
+    "age": 39,
+    "city": "Waynesboro",
+    "stateProvince": "Georgia"
+  },
+  {
+    "id": "kudankulam",
+    "name": "Kudankulam Nuclear Power Plant",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Asia",
+    "latitude": 8.169,
+    "longitude": 77.712,
+    "status": "mixed",
+    "totalCapacityMWe": 5834,
+    "reactorCount": 6,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 2014,
+    "operator": "Nuclear Power Corporation of India (NPCIL)",
+    "units": [
+      {
+        "unitName": "Kudankulam 1",
+        "type": "VVER-1000",
+        "netMWe": 917,
+        "status": "operating",
+        "commercialYear": 2014
+      },
+      {
+        "unitName": "Kudankulam 2",
+        "type": "VVER-1000",
+        "netMWe": 917,
+        "status": "operating",
+        "commercialYear": 2016
+      },
+      {
+        "unitName": "Kudankulam 3",
+        "type": "VVER-1000",
+        "netMWe": 1000,
+        "status": "under-construction",
+        "commercialYear": 2025
+      },
+      {
+        "unitName": "Kudankulam 4",
+        "type": "VVER-1000",
+        "netMWe": 1000,
+        "status": "under-construction",
+        "commercialYear": 2025
+      },
+      {
+        "unitName": "Kudankulam 5",
+        "type": "VVER-1000",
+        "netMWe": 1000,
+        "status": "under-construction",
+        "commercialYear": 2027
+      },
+      {
+        "unitName": "Kudankulam 6",
+        "type": "VVER-1000",
+        "netMWe": 1000,
+        "status": "under-construction",
+        "commercialYear": 2027
+      }
+    ],
+    "iaeaPrisId": "IN-855",
+    "age": 12,
+    "city": "Radhapuram",
+    "stateProvince": "Tamil Nadu"
+  },
+  {
+    "id": "tarapur",
+    "name": "Tarapur Atomic Power Station",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Asia",
+    "latitude": 19.829,
+    "longitude": 72.656,
+    "status": "operating",
+    "totalCapacityMWe": 1280,
+    "reactorCount": 4,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 1969,
+    "operator": "NPCIL",
+    "units": [
+      {
+        "unitName": "TAPS 1",
+        "type": "BWR-1",
+        "netMWe": 150,
+        "status": "operating",
+        "commercialYear": 1969
+      },
+      {
+        "unitName": "TAPS 2",
+        "type": "BWR-1",
+        "netMWe": 150,
+        "status": "operating",
+        "commercialYear": 1969
+      },
+      {
+        "unitName": "TAPS 3",
+        "type": "IPHWR-540",
+        "netMWe": 490,
+        "status": "operating",
+        "commercialYear": 2006
+      },
+      {
+        "unitName": "TAPS 4",
+        "type": "IPHWR-540",
+        "netMWe": 490,
+        "status": "operating",
+        "commercialYear": 2005
+      }
+    ],
+    "iaeaPrisId": "IN-221",
+    "age": 57,
+    "city": "Tarapur",
+    "stateProvince": "Maharashtra"
+  },
+  {
+    "id": "olkiluoto",
+    "name": "Olkiluoto Nuclear Power Plant",
+    "country": "Finland",
+    "countryCode": "FI",
+    "region": "Europe",
+    "latitude": 61.237,
+    "longitude": 21.441,
+    "status": "operating",
+    "totalCapacityMWe": 3380,
+    "reactorCount": 3,
+    "primaryReactorType": "EPR",
+    "firstCommercialYear": 1979,
+    "operator": "Teollisuuden Voima Oyj (TVO)",
+    "units": [
+      {
+        "unitName": "Olkiluoto 1",
+        "type": "BWR-2500",
+        "netMWe": 890,
+        "status": "operating",
+        "commercialYear": 1979
+      },
+      {
+        "unitName": "Olkiluoto 2",
+        "type": "BWR-2500",
+        "netMWe": 890,
+        "status": "operating",
+        "commercialYear": 1982
+      },
+      {
+        "unitName": "Olkiluoto 3",
+        "type": "EPR-1600",
+        "netMWe": 1600,
+        "status": "operating",
+        "commercialYear": 2023
+      }
+    ],
+    "iaeaPrisId": "FI-18",
+    "age": 47,
+    "city": "Eurajoki",
+    "stateProvince": "Satakunta"
+  },
+  {
+    "id": "hinkley-point",
+    "name": "Hinkley Point Nuclear Power Station",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "region": "Europe",
+    "latitude": 51.208,
+    "longitude": -3.129,
+    "status": "mixed",
+    "totalCapacityMWe": 3260,
+    "reactorCount": 2,
+    "primaryReactorType": "EPR",
+    "firstCommercialYear": 2027,
+    "operator": "EDF Energy",
+    "units": [
+      {
+        "unitName": "Hinkley Point C1",
+        "type": "EPR",
+        "netMWe": 1630,
+        "status": "under-construction",
+        "commercialYear": 2029
+      },
+      {
+        "unitName": "Hinkley Point C2",
+        "type": "EPR",
+        "netMWe": 1630,
+        "status": "under-construction",
+        "commercialYear": 2030
+      }
+    ],
+    "iaeaPrisId": "GB-29",
+    "age": -1,
+    "city": "Bridgwater",
+    "stateProvince": "Somerset, England"
+  },
+  {
+    "id": "sizewell",
+    "name": "Sizewell Nuclear Power Station",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "region": "Europe",
+    "latitude": 52.213,
+    "longitude": 1.618,
+    "status": "operating",
+    "totalCapacityMWe": 1198,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1995,
+    "operator": "EDF Energy",
+    "units": [
+      {
+        "unitName": "Sizewell B",
+        "type": "SNUPPS 4-Loop",
+        "netMWe": 1198,
+        "status": "operating",
+        "commercialYear": 1995
+      }
+    ],
+    "iaeaPrisId": "GB-28",
+    "age": 31,
+    "city": "Leiston",
+    "stateProvince": "Suffolk, England"
+  },
+  {
+    "id": "forsmark",
+    "name": "Forsmark Nuclear Power Plant",
+    "country": "Sweden",
+    "countryCode": "SE",
+    "region": "Europe",
+    "latitude": 60.404,
+    "longitude": 18.199,
+    "status": "operating",
+    "totalCapacityMWe": 3271,
+    "reactorCount": 3,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1980,
+    "operator": "Forsmarks Kraftgrupp (Vattenfall)",
+    "units": [
+      {
+        "unitName": "Forsmark 1",
+        "type": "ABB-III",
+        "netMWe": 990,
+        "status": "operating",
+        "commercialYear": 1980
+      },
+      {
+        "unitName": "Forsmark 2",
+        "type": "ABB-III",
+        "netMWe": 1118,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "Forsmark 3",
+        "type": "ABB-III",
+        "netMWe": 1163,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "SE-03",
+    "age": 46,
+    "city": "Östhammar",
+    "stateProvince": "Uppsala County"
+  },
+  {
+    "id": "rostov",
+    "name": "Rostov Nuclear Power Plant",
+    "country": "Russia",
+    "countryCode": "RU",
+    "region": "Europe",
+    "latitude": 47.601,
+    "longitude": 42.368,
+    "status": "operating",
+    "totalCapacityMWe": 3968,
+    "reactorCount": 4,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 2001,
+    "operator": "Rosenergoatom",
+    "units": [
+      {
+        "unitName": "Rostov 1",
+        "type": "VVER-1000/V-320",
+        "netMWe": 989,
+        "status": "operating",
+        "commercialYear": 2001
+      },
+      {
+        "unitName": "Rostov 2",
+        "type": "VVER-1000/V-320",
+        "netMWe": 989,
+        "status": "operating",
+        "commercialYear": 2010
+      },
+      {
+        "unitName": "Rostov 3",
+        "type": "VVER-1000/V-320",
+        "netMWe": 995,
+        "status": "operating",
+        "commercialYear": 2015
+      },
+      {
+        "unitName": "Rostov 4",
+        "type": "VVER-1000/V-320",
+        "netMWe": 995,
+        "status": "operating",
+        "commercialYear": 2018
+      }
+    ],
+    "iaeaPrisId": "RU-27",
+    "age": 25,
+    "city": "Volgodonsk",
+    "stateProvince": "Rostov Oblast"
+  },
+  {
+    "id": "balakovo",
+    "name": "Balakovo Nuclear Power Plant",
+    "country": "Russia",
+    "countryCode": "RU",
+    "region": "Europe",
+    "latitude": 52.091,
+    "longitude": 47.954,
+    "status": "operating",
+    "totalCapacityMWe": 3800,
+    "reactorCount": 4,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1986,
+    "operator": "Rosenergoatom",
+    "units": [
+      {
+        "unitName": "Balakovo 1",
+        "type": "VVER-1000",
+        "netMWe": 950,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Balakovo 2",
+        "type": "VVER-1000",
+        "netMWe": 950,
+        "status": "operating",
+        "commercialYear": 1988
+      },
+      {
+        "unitName": "Balakovo 3",
+        "type": "VVER-1000",
+        "netMWe": 950,
+        "status": "operating",
+        "commercialYear": 1989
+      },
+      {
+        "unitName": "Balakovo 4",
+        "type": "VVER-1000",
+        "netMWe": 950,
+        "status": "operating",
+        "commercialYear": 1993
+      }
+    ],
+    "iaeaPrisId": "RU-19",
+    "age": 40,
+    "city": "Balakovo",
+    "stateProvince": "Saratov Oblast"
+  },
+  {
+    "id": "beloyarsk",
+    "name": "Beloyarsk Fast Breeder Station",
+    "country": "Russia",
+    "countryCode": "RU",
+    "region": "Europe",
+    "latitude": 56.841,
+    "longitude": 61.322,
+    "status": "operating",
+    "totalCapacityMWe": 1380,
+    "reactorCount": 2,
+    "primaryReactorType": "FBR",
+    "firstCommercialYear": 1981,
+    "operator": "Rosenergoatom",
+    "units": [
+      {
+        "unitName": "BN-600",
+        "type": "Sodium Fast Reactor",
+        "netMWe": 560,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "BN-800",
+        "type": "Sodium Fast Reactor",
+        "netMWe": 820,
+        "status": "operating",
+        "commercialYear": 2016
+      }
+    ],
+    "iaeaPrisId": "RU-16",
+    "age": 45,
+    "city": "Zarechny",
+    "stateProvince": "Sverdlovsk Oblast"
+  },
+  {
+    "id": "koeberg",
+    "name": "Koeberg Nuclear Power Station",
+    "country": "South Africa",
+    "countryCode": "ZA",
+    "region": "Africa",
+    "latitude": -33.677,
+    "longitude": 18.431,
+    "status": "operating",
+    "totalCapacityMWe": 1860,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1984,
+    "operator": "Eskom",
+    "units": [
+      {
+        "unitName": "Koeberg 1",
+        "type": "CP1 (Framatome)",
+        "netMWe": 930,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "Koeberg 2",
+        "type": "CP1 (Framatome)",
+        "netMWe": 930,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "ZA-01",
+    "age": 42,
+    "city": "Cape Town",
+    "stateProvince": "Western Cape"
+  },
+  {
+    "id": "angra",
+    "name": "Central Nuclear Almirante Álvaro Alberto (Angra)",
+    "country": "Brazil",
+    "countryCode": "BR",
+    "region": "South America",
+    "latitude": -23.007,
+    "longitude": -44.457,
+    "status": "mixed",
+    "totalCapacityMWe": 1884,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1985,
+    "operator": "Eletronuclear",
+    "units": [
+      {
+        "unitName": "Angra 1",
+        "type": "WH 2-Loop",
+        "netMWe": 609,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Angra 2",
+        "type": "Siemens KWU",
+        "netMWe": 1275,
+        "status": "operating",
+        "commercialYear": 2001
+      }
+    ],
+    "iaeaPrisId": "BR-01",
+    "age": 41,
+    "city": "Angra dos Reis",
+    "stateProvince": "Rio de Janeiro"
+  },
+  {
+    "id": "atucha",
+    "name": "Atucha Nuclear Power Plant",
+    "country": "Argentina",
+    "countryCode": "AR",
+    "region": "South America",
+    "latitude": -33.968,
+    "longitude": -59.206,
+    "status": "operating",
+    "totalCapacityMWe": 1062,
+    "reactorCount": 2,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 1974,
+    "operator": "Nucleoeléctrica Argentina S.A.",
+    "units": [
+      {
+        "unitName": "Atucha 1",
+        "type": "PHWR (Siemens)",
+        "netMWe": 362,
+        "status": "operating",
+        "commercialYear": 1974
+      },
+      {
+        "unitName": "Atucha 2",
+        "type": "PHWR (Siemens)",
+        "netMWe": 700,
+        "status": "operating",
+        "commercialYear": 2014
+      }
+    ],
+    "iaeaPrisId": "AR-01",
+    "age": 52,
+    "city": "Lima",
+    "stateProvince": "Buenos Aires Province"
+  },
+  {
+    "id": "almaraz",
+    "name": "Almaraz Nuclear Power Plant",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Europe",
+    "latitude": 39.808,
+    "longitude": -5.698,
+    "status": "operating",
+    "totalCapacityMWe": 2017,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1983,
+    "operator": "Centrales Nucleares Almaraz-Trillo",
+    "units": [
+      {
+        "unitName": "Almaraz 1",
+        "type": "WH 3-Loop",
+        "netMWe": 1011,
+        "status": "operating",
+        "commercialYear": 1983
+      },
+      {
+        "unitName": "Almaraz 2",
+        "type": "WH 3-Loop",
+        "netMWe": 1006,
+        "status": "operating",
+        "commercialYear": 1984
+      }
+    ],
+    "iaeaPrisId": "ES-01",
+    "age": 43,
+    "city": "Almaraz",
+    "stateProvince": "Extremadura"
+  },
+  {
+    "id": "doel",
+    "name": "Doel Nuclear Power Station",
+    "country": "Belgium",
+    "countryCode": "BE",
+    "region": "Europe",
+    "latitude": 51.325,
+    "longitude": 4.259,
+    "status": "operating",
+    "totalCapacityMWe": 2911,
+    "reactorCount": 3,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1975,
+    "operator": "Engie Electrabel",
+    "units": [
+      {
+        "unitName": "Doel 1",
+        "type": "WH 2-Loop",
+        "netMWe": 445,
+        "status": "operating",
+        "commercialYear": 1975
+      },
+      {
+        "unitName": "Doel 2",
+        "type": "WH 2-Loop",
+        "netMWe": 445,
+        "status": "operating",
+        "commercialYear": 1975
+      },
+      {
+        "unitName": "Doel 4",
+        "type": "WH 3-Loop",
+        "netMWe": 1021,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "BE-01",
+    "age": 51,
+    "city": "Beveren",
+    "stateProvince": "East Flanders"
+  },
+  {
+    "id": "browns-ferry",
+    "name": "Browns Ferry Nuclear Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 34.704,
+    "longitude": -87.118,
+    "status": "operating",
+    "totalCapacityMWe": 3440,
+    "reactorCount": 3,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1974,
+    "operator": "Tennessee Valley Authority (TVA)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-4",
+        "netMWe": 1200,
+        "status": "operating",
+        "commercialYear": 1974
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-4",
+        "netMWe": 1200,
+        "status": "operating",
+        "commercialYear": 1975
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "BWR-4",
+        "netMWe": 1210,
+        "status": "operating",
+        "commercialYear": 1977
+      }
+    ],
+    "iaeaPrisId": "US-259",
+    "age": 52,
+    "city": "Athens",
+    "stateProvince": "Alabama"
+  },
+  {
+    "id": "braidwood",
+    "name": "Braidwood Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 41.144,
+    "longitude": -88.228,
+    "status": "operating",
+    "totalCapacityMWe": 2389,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1988,
+    "operator": "Constellation Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1194,
+        "status": "operating",
+        "commercialYear": 1988
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 4-Loop",
+        "netMWe": 1195,
+        "status": "operating",
+        "commercialYear": 1988
+      }
+    ],
+    "iaeaPrisId": "US-275",
+    "age": 38,
+    "city": "Braceville",
+    "stateProvince": "Illinois"
+  },
+  {
+    "id": "byron",
+    "name": "Byron Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 42.074,
+    "longitude": -89.282,
+    "status": "operating",
+    "totalCapacityMWe": 2347,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1985,
+    "operator": "Constellation Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1164,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 4-Loop",
+        "netMWe": 1183,
+        "status": "operating",
+        "commercialYear": 1987
+      }
+    ],
+    "iaeaPrisId": "US-274",
+    "age": 41,
+    "city": "Byron",
+    "stateProvince": "Illinois"
+  },
+  {
+    "id": "peach-bottom",
+    "name": "Peach Bottom Atomic Power Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 39.758,
+    "longitude": -76.269,
+    "status": "operating",
+    "totalCapacityMWe": 2602,
+    "reactorCount": 2,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1974,
+    "operator": "Constellation Energy",
+    "units": [
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-4",
+        "netMWe": 1300,
+        "status": "operating",
+        "commercialYear": 1974
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "BWR-4",
+        "netMWe": 1302,
+        "status": "operating",
+        "commercialYear": 1974
+      }
+    ],
+    "iaeaPrisId": "US-277",
+    "age": 52,
+    "city": "Delta",
+    "stateProvince": "Pennsylvania"
+  },
+  {
+    "id": "south-texas",
+    "name": "South Texas Project Electric Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 28.796,
+    "longitude": -96.049,
+    "status": "operating",
+    "totalCapacityMWe": 2560,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1988,
+    "operator": "STP Nuclear Operating Company",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1280,
+        "status": "operating",
+        "commercialYear": 1988
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 4-Loop",
+        "netMWe": 1280,
+        "status": "operating",
+        "commercialYear": 1989
+      }
+    ],
+    "iaeaPrisId": "US-498",
+    "age": 38,
+    "city": "Bay City",
+    "stateProvince": "Texas"
+  },
+  {
+    "id": "oconee",
+    "name": "Oconee Nuclear Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 34.793,
+    "longitude": -82.898,
+    "status": "operating",
+    "totalCapacityMWe": 2554,
+    "reactorCount": 3,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1973,
+    "operator": "Duke Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "B&W 177",
+        "netMWe": 846,
+        "status": "operating",
+        "commercialYear": 1973
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "B&W 177",
+        "netMWe": 848,
+        "status": "operating",
+        "commercialYear": 1974
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "B&W 177",
+        "netMWe": 860,
+        "status": "operating",
+        "commercialYear": 1974
+      }
+    ],
+    "iaeaPrisId": "US-269",
+    "age": 53,
+    "city": "Seneca",
+    "stateProvince": "South Carolina"
+  },
+  {
+    "id": "diablo-canyon",
+    "name": "Diablo Canyon Power Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 35.211,
+    "longitude": -120.854,
+    "status": "operating",
+    "totalCapacityMWe": 2240,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1985,
+    "operator": "Pacific Gas and Electric",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1138,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 4-Loop",
+        "netMWe": 1118,
+        "status": "operating",
+        "commercialYear": 1986
+      }
+    ],
+    "iaeaPrisId": "US-275-DC",
+    "age": 41,
+    "city": "Avila Beach",
+    "stateProvince": "California"
+  },
+  {
+    "id": "calvert-cliffs",
+    "name": "Calvert Cliffs Nuclear Power Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 38.435,
+    "longitude": -76.434,
+    "status": "operating",
+    "totalCapacityMWe": 1756,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1975,
+    "operator": "Constellation Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CE 2-Loop",
+        "netMWe": 877,
+        "status": "operating",
+        "commercialYear": 1975
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CE 2-Loop",
+        "netMWe": 879,
+        "status": "operating",
+        "commercialYear": 1977
+      }
+    ],
+    "iaeaPrisId": "US-317",
+    "age": 51,
+    "city": "Lusby",
+    "stateProvince": "Maryland"
+  },
+  {
+    "id": "sequoyah",
+    "name": "Sequoyah Nuclear Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 35.226,
+    "longitude": -85.089,
+    "status": "operating",
+    "totalCapacityMWe": 2300,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1981,
+    "operator": "Tennessee Valley Authority (TVA)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1150,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 4-Loop",
+        "netMWe": 1150,
+        "status": "operating",
+        "commercialYear": 1982
+      }
+    ],
+    "iaeaPrisId": "US-327",
+    "age": 45,
+    "city": "Soddy-Daisy",
+    "stateProvince": "Tennessee"
+  },
+  {
+    "id": "susquehanna",
+    "name": "Susquehanna Steam Electric Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 41.092,
+    "longitude": -76.149,
+    "status": "operating",
+    "totalCapacityMWe": 2520,
+    "reactorCount": 2,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1983,
+    "operator": "Talen Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-4",
+        "netMWe": 1257,
+        "status": "operating",
+        "commercialYear": 1983
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-4",
+        "netMWe": 1263,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "US-387",
+    "age": 43,
+    "city": "Salem Township",
+    "stateProvince": "Pennsylvania"
+  },
+  {
+    "id": "darlington",
+    "name": "Darlington Nuclear Generating Station",
+    "country": "Canada",
+    "countryCode": "CA",
+    "region": "North America",
+    "latitude": 43.869,
+    "longitude": -78.718,
+    "status": "operating",
+    "totalCapacityMWe": 3512,
+    "reactorCount": 4,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 1990,
+    "operator": "Ontario Power Generation",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CANDU-850",
+        "netMWe": 878,
+        "status": "operating",
+        "commercialYear": 1992
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CANDU-850",
+        "netMWe": 878,
+        "status": "operating",
+        "commercialYear": 1990
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "CANDU-850",
+        "netMWe": 878,
+        "status": "operating",
+        "commercialYear": 1993
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "CANDU-850",
+        "netMWe": 878,
+        "status": "operating",
+        "commercialYear": 1993
+      }
+    ],
+    "iaeaPrisId": "CA-14",
+    "age": 36,
+    "city": "Bowmanville",
+    "stateProvince": "Ontario"
+  },
+  {
+    "id": "pickering",
+    "name": "Pickering Nuclear Generating Station",
+    "country": "Canada",
+    "countryCode": "CA",
+    "region": "North America",
+    "latitude": 43.811,
+    "longitude": -79.066,
+    "status": "mixed",
+    "totalCapacityMWe": 3094,
+    "reactorCount": 6,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 1971,
+    "operator": "Ontario Power Generation",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CANDU-500A",
+        "netMWe": 515,
+        "status": "shutdown",
+        "commercialYear": 1971,
+        "shutdownYear": 2024
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "CANDU-500A",
+        "netMWe": 515,
+        "status": "shutdown",
+        "commercialYear": 1973,
+        "shutdownYear": 2024
+      },
+      {
+        "unitName": "Unit 5",
+        "type": "CANDU-500B",
+        "netMWe": 516,
+        "status": "operating",
+        "commercialYear": 1983
+      },
+      {
+        "unitName": "Unit 6",
+        "type": "CANDU-500B",
+        "netMWe": 516,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "Unit 7",
+        "type": "CANDU-500B",
+        "netMWe": 516,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 8",
+        "type": "CANDU-500B",
+        "netMWe": 516,
+        "status": "operating",
+        "commercialYear": 1986
+      }
+    ],
+    "iaeaPrisId": "CA-15",
+    "age": 55,
+    "city": "Pickering",
+    "stateProvince": "Ontario"
+  },
+  {
+    "id": "point-lepreau",
+    "name": "Point Lepreau Nuclear Generating Station",
+    "country": "Canada",
+    "countryCode": "CA",
+    "region": "North America",
+    "latitude": 45.068,
+    "longitude": -66.453,
+    "status": "operating",
+    "totalCapacityMWe": 660,
+    "reactorCount": 1,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 1983,
+    "operator": "NB Power",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CANDU-6",
+        "netMWe": 660,
+        "status": "operating",
+        "commercialYear": 1983
+      }
+    ],
+    "iaeaPrisId": "CA-16",
+    "age": 43,
+    "city": "Point Lepreau",
+    "stateProvince": "New Brunswick"
+  },
+  {
+    "id": "laguna-verde",
+    "name": "Laguna Verde Nuclear Power Station",
+    "country": "Mexico",
+    "countryCode": "MX",
+    "region": "North America",
+    "latitude": 19.721,
+    "longitude": -96.406,
+    "status": "operating",
+    "totalCapacityMWe": 1610,
+    "reactorCount": 2,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1990,
+    "operator": "CFE (Comisión Federal de Electricidad)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-5",
+        "netMWe": 805,
+        "status": "operating",
+        "commercialYear": 1990
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-5",
+        "netMWe": 805,
+        "status": "operating",
+        "commercialYear": 1995
+      }
+    ],
+    "iaeaPrisId": "MX-01",
+    "age": 36,
+    "city": "Alto Lucero",
+    "stateProvince": "Veracruz"
+  },
+  {
+    "id": "saint-alban",
+    "name": "Saint-Alban Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 45.405,
+    "longitude": 4.755,
+    "status": "operating",
+    "totalCapacityMWe": 2670,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1986,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "P4 (Framatome)",
+        "netMWe": 1335,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "P4 (Framatome)",
+        "netMWe": 1335,
+        "status": "operating",
+        "commercialYear": 1987
+      }
+    ],
+    "iaeaPrisId": "FR-51",
+    "age": 40,
+    "city": "Saint-Alban-du-Rhône",
+    "stateProvince": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "id": "belleville",
+    "name": "Belleville Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 47.511,
+    "longitude": 2.876,
+    "status": "operating",
+    "totalCapacityMWe": 2620,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1988,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "P4 (Framatome)",
+        "netMWe": 1310,
+        "status": "operating",
+        "commercialYear": 1988
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "P4 (Framatome)",
+        "netMWe": 1310,
+        "status": "operating",
+        "commercialYear": 1989
+      }
+    ],
+    "iaeaPrisId": "FR-52",
+    "age": 38,
+    "city": "Belleville-sur-Loire",
+    "stateProvince": "Centre-Val de Loire"
+  },
+  {
+    "id": "bugey",
+    "name": "Bugey Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 45.799,
+    "longitude": 5.271,
+    "status": "mixed",
+    "totalCapacityMWe": 3580,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1979,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit 2",
+        "type": "CP0",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1979
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "CP0",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1979
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "CP0",
+        "netMWe": 880,
+        "status": "operating",
+        "commercialYear": 1979
+      },
+      {
+        "unitName": "Unit 5",
+        "type": "CP0",
+        "netMWe": 880,
+        "status": "operating",
+        "commercialYear": 1980
+      }
+    ],
+    "iaeaPrisId": "FR-53",
+    "age": 47,
+    "city": "Saint-Vulbas",
+    "stateProvince": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "id": "flamanville",
+    "name": "Flamanville Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 49.537,
+    "longitude": -1.882,
+    "status": "operating",
+    "totalCapacityMWe": 4310,
+    "reactorCount": 3,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1986,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "P4",
+        "netMWe": 1330,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "P4",
+        "netMWe": 1330,
+        "status": "operating",
+        "commercialYear": 1987
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "EPR-1650",
+        "netMWe": 1650,
+        "status": "operating",
+        "commercialYear": 2024
+      }
+    ],
+    "iaeaPrisId": "FR-54",
+    "age": 40,
+    "city": "Flamanville",
+    "stateProvince": "Normandy"
+  },
+  {
+    "id": "chooz",
+    "name": "Chooz Nuclear Power Station",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 50.091,
+    "longitude": 4.79,
+    "status": "operating",
+    "totalCapacityMWe": 3000,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 2000,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Chooz B1",
+        "type": "N4",
+        "netMWe": 1500,
+        "status": "operating",
+        "commercialYear": 2000
+      },
+      {
+        "unitName": "Chooz B2",
+        "type": "N4",
+        "netMWe": 1500,
+        "status": "operating",
+        "commercialYear": 2000
+      }
+    ],
+    "iaeaPrisId": "FR-55",
+    "age": 26,
+    "city": "Chooz",
+    "stateProvince": "Grand Est"
+  },
+  {
+    "id": "civaux",
+    "name": "Civaux Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 46.457,
+    "longitude": 0.655,
+    "status": "operating",
+    "totalCapacityMWe": 2990,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 2002,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Civaux 1",
+        "type": "N4",
+        "netMWe": 1495,
+        "status": "operating",
+        "commercialYear": 2002
+      },
+      {
+        "unitName": "Civaux 2",
+        "type": "N4",
+        "netMWe": 1495,
+        "status": "operating",
+        "commercialYear": 2002
+      }
+    ],
+    "iaeaPrisId": "FR-56",
+    "age": 24,
+    "city": "Civaux",
+    "stateProvince": "Nouvelle-Aquitaine"
+  },
+  {
+    "id": "tricastin",
+    "name": "Tricastin Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 44.329,
+    "longitude": 4.732,
+    "status": "operating",
+    "totalCapacityMWe": 3660,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1980,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CP1",
+        "netMWe": 915,
+        "status": "operating",
+        "commercialYear": 1980
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CP1",
+        "netMWe": 915,
+        "status": "operating",
+        "commercialYear": 1980
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "CP1",
+        "netMWe": 915,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "CP1",
+        "netMWe": 915,
+        "status": "operating",
+        "commercialYear": 1981
+      }
+    ],
+    "iaeaPrisId": "FR-57",
+    "age": 46,
+    "city": "Saint-Paul-Trois-Châteaux",
+    "stateProvince": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "id": "torness",
+    "name": "Torness Nuclear Power Station",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "region": "Europe",
+    "latitude": 55.968,
+    "longitude": -2.409,
+    "status": "operating",
+    "totalCapacityMWe": 1205,
+    "reactorCount": 2,
+    "primaryReactorType": "AGR",
+    "firstCommercialYear": 1988,
+    "operator": "EDF Energy",
+    "units": [
+      {
+        "unitName": "Torness 1",
+        "type": "AGR",
+        "netMWe": 600,
+        "status": "operating",
+        "commercialYear": 1988
+      },
+      {
+        "unitName": "Torness 2",
+        "type": "AGR",
+        "netMWe": 605,
+        "status": "operating",
+        "commercialYear": 1989
+      }
+    ],
+    "iaeaPrisId": "GB-25",
+    "age": 38,
+    "city": "Dunbar",
+    "stateProvince": "East Lothian, Scotland"
+  },
+  {
+    "id": "heysham",
+    "name": "Heysham Nuclear Power Station",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "region": "Europe",
+    "latitude": 54.029,
+    "longitude": -2.915,
+    "status": "operating",
+    "totalCapacityMWe": 2400,
+    "reactorCount": 4,
+    "primaryReactorType": "AGR",
+    "firstCommercialYear": 1983,
+    "operator": "EDF Energy",
+    "units": [
+      {
+        "unitName": "Heysham 1-1",
+        "type": "AGR",
+        "netMWe": 580,
+        "status": "operating",
+        "commercialYear": 1983
+      },
+      {
+        "unitName": "Heysham 1-2",
+        "type": "AGR",
+        "netMWe": 575,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "Heysham 2-1",
+        "type": "AGR",
+        "netMWe": 620,
+        "status": "operating",
+        "commercialYear": 1988
+      },
+      {
+        "unitName": "Heysham 2-2",
+        "type": "AGR",
+        "netMWe": 625,
+        "status": "operating",
+        "commercialYear": 1988
+      }
+    ],
+    "iaeaPrisId": "GB-26",
+    "age": 43,
+    "city": "Heysham",
+    "stateProvince": "Lancashire, England"
+  },
+  {
+    "id": "hartlepool",
+    "name": "Hartlepool Nuclear Power Station",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "region": "Europe",
+    "latitude": 54.635,
+    "longitude": -1.181,
+    "status": "operating",
+    "totalCapacityMWe": 1180,
+    "reactorCount": 2,
+    "primaryReactorType": "AGR",
+    "firstCommercialYear": 1983,
+    "operator": "EDF Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "AGR",
+        "netMWe": 590,
+        "status": "operating",
+        "commercialYear": 1983
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "AGR",
+        "netMWe": 590,
+        "status": "operating",
+        "commercialYear": 1984
+      }
+    ],
+    "iaeaPrisId": "GB-27",
+    "age": 43,
+    "city": "Hartlepool",
+    "stateProvince": "County Durham, England"
+  },
+  {
+    "id": "isar",
+    "name": "Isar Nuclear Power Plant",
+    "country": "Germany",
+    "countryCode": "DE",
+    "region": "Europe",
+    "latitude": 48.605,
+    "longitude": 12.293,
+    "status": "decommissioned",
+    "totalCapacityMWe": 2387,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1979,
+    "operator": "PreussenElektra",
+    "units": [
+      {
+        "unitName": "Isar 1",
+        "type": "BWR-69",
+        "netMWe": 878,
+        "status": "decommissioned",
+        "commercialYear": 1979,
+        "shutdownYear": 2011
+      },
+      {
+        "unitName": "Isar 2",
+        "type": "Konvoi PWR",
+        "netMWe": 1410,
+        "status": "shutdown",
+        "commercialYear": 1988,
+        "shutdownYear": 2023
+      }
+    ],
+    "iaeaPrisId": "DE-01",
+    "age": 47,
+    "city": "Essenbach",
+    "stateProvince": "Bavaria"
+  },
+  {
+    "id": "brokdorf",
+    "name": "Brokdorf Nuclear Power Plant",
+    "country": "Germany",
+    "countryCode": "DE",
+    "region": "Europe",
+    "latitude": 53.851,
+    "longitude": 9.317,
+    "status": "shutdown",
+    "totalCapacityMWe": 1410,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1986,
+    "operator": "PreussenElektra",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "KWU PWR",
+        "netMWe": 1410,
+        "status": "shutdown",
+        "commercialYear": 1986,
+        "shutdownYear": 2021
+      }
+    ],
+    "iaeaPrisId": "DE-02",
+    "age": 40,
+    "city": "Brokdorf",
+    "stateProvince": "Schleswig-Holstein"
+  },
+  {
+    "id": "asco",
+    "name": "Ascó Nuclear Power Plant",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Europe",
+    "latitude": 41.2,
+    "longitude": 0.567,
+    "status": "operating",
+    "totalCapacityMWe": 1992,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1984,
+    "operator": "ANAV (Endesa / Iberdrola)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 3-Loop",
+        "netMWe": 995,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 3-Loop",
+        "netMWe": 997,
+        "status": "operating",
+        "commercialYear": 1986
+      }
+    ],
+    "iaeaPrisId": "ES-02",
+    "age": 42,
+    "city": "Ascó",
+    "stateProvince": "Catalonia"
+  },
+  {
+    "id": "cofrentes",
+    "name": "Cofrentes Nuclear Power Plant",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Europe",
+    "latitude": 39.217,
+    "longitude": -1.05,
+    "status": "operating",
+    "totalCapacityMWe": 1064,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1985,
+    "operator": "Iberdrola",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-6",
+        "netMWe": 1064,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "ES-03",
+    "age": 41,
+    "city": "Cofrentes",
+    "stateProvince": "Valencian Community"
+  },
+  {
+    "id": "tihange",
+    "name": "Tihange Nuclear Power Station",
+    "country": "Belgium",
+    "countryCode": "BE",
+    "region": "Europe",
+    "latitude": 50.534,
+    "longitude": 5.273,
+    "status": "operating",
+    "totalCapacityMWe": 2008,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1975,
+    "operator": "Electrabel (Engie)",
+    "units": [
+      {
+        "unitName": "Tihange 1",
+        "type": "Framatome 3-Loop",
+        "netMWe": 962,
+        "status": "operating",
+        "commercialYear": 1975
+      },
+      {
+        "unitName": "Tihange 3",
+        "type": "Framatome 3-Loop",
+        "netMWe": 1046,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "BE-02",
+    "age": 51,
+    "city": "Huy",
+    "stateProvince": "Liège"
+  },
+  {
+    "id": "ringhals",
+    "name": "Ringhals Nuclear Power Plant",
+    "country": "Sweden",
+    "countryCode": "SE",
+    "region": "Europe",
+    "latitude": 57.259,
+    "longitude": 12.118,
+    "status": "operating",
+    "totalCapacityMWe": 2190,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1981,
+    "operator": "Vattenfall",
+    "units": [
+      {
+        "unitName": "Ringhals 3",
+        "type": "WH 3-Loop",
+        "netMWe": 1062,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "Ringhals 4",
+        "type": "WH 3-Loop",
+        "netMWe": 1128,
+        "status": "operating",
+        "commercialYear": 1983
+      }
+    ],
+    "iaeaPrisId": "SE-02",
+    "age": 45,
+    "city": "Varberg",
+    "stateProvince": "Halland County"
+  },
+  {
+    "id": "oskarshamn",
+    "name": "Oskarshamn Nuclear Power Plant",
+    "country": "Sweden",
+    "countryCode": "SE",
+    "region": "Europe",
+    "latitude": 57.415,
+    "longitude": 16.671,
+    "status": "operating",
+    "totalCapacityMWe": 1400,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1985,
+    "operator": "OKG (Uniper)",
+    "units": [
+      {
+        "unitName": "Unit 3",
+        "type": "ABB Atom BWR-75",
+        "netMWe": 1400,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "SE-03",
+    "age": 41,
+    "city": "Oskarshamn",
+    "stateProvince": "Kalmar County"
+  },
+  {
+    "id": "goesgen",
+    "name": "Gösgen Nuclear Power Plant",
+    "country": "Switzerland",
+    "countryCode": "CH",
+    "region": "Europe",
+    "latitude": 47.366,
+    "longitude": 7.967,
+    "status": "operating",
+    "totalCapacityMWe": 1010,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1979,
+    "operator": "Kernkraftwerk Gösgen-Däniken AG",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "Siemens KWU",
+        "netMWe": 1010,
+        "status": "operating",
+        "commercialYear": 1979
+      }
+    ],
+    "iaeaPrisId": "CH-01",
+    "age": 47,
+    "city": "Däniken",
+    "stateProvince": "Solothurn"
+  },
+  {
+    "id": "leibstadt",
+    "name": "Leibstadt Nuclear Power Plant",
+    "country": "Switzerland",
+    "countryCode": "CH",
+    "region": "Europe",
+    "latitude": 47.601,
+    "longitude": 8.185,
+    "status": "operating",
+    "totalCapacityMWe": 1233,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1984,
+    "operator": "Kernkraftwerk Leibstadt AG",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-6",
+        "netMWe": 1233,
+        "status": "operating",
+        "commercialYear": 1984
+      }
+    ],
+    "iaeaPrisId": "CH-02",
+    "age": 42,
+    "city": "Leibstadt",
+    "stateProvince": "Aargau"
+  },
+  {
+    "id": "loviisa",
+    "name": "Loviisa Nuclear Power Plant",
+    "country": "Finland",
+    "countryCode": "FI",
+    "region": "Europe",
+    "latitude": 60.37,
+    "longitude": 26.347,
+    "status": "operating",
+    "totalCapacityMWe": 1014,
+    "reactorCount": 2,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1977,
+    "operator": "Fortum",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-440/V-213",
+        "netMWe": 507,
+        "status": "operating",
+        "commercialYear": 1977
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-440/V-213",
+        "netMWe": 507,
+        "status": "operating",
+        "commercialYear": 1980
+      }
+    ],
+    "iaeaPrisId": "FI-02",
+    "age": 49,
+    "city": "Loviisa",
+    "stateProvince": "Uusimaa"
+  },
+  {
+    "id": "temelin",
+    "name": "Temelín Nuclear Power Station",
+    "country": "Czech Republic",
+    "countryCode": "CZ",
+    "region": "Europe",
+    "latitude": 49.18,
+    "longitude": 14.377,
+    "status": "operating",
+    "totalCapacityMWe": 2056,
+    "reactorCount": 2,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 2002,
+    "operator": "ČEZ Group",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-1000/320",
+        "netMWe": 1028,
+        "status": "operating",
+        "commercialYear": 2002
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-1000/320",
+        "netMWe": 1028,
+        "status": "operating",
+        "commercialYear": 2003
+      }
+    ],
+    "iaeaPrisId": "CZ-01",
+    "age": 24,
+    "city": "Temelín",
+    "stateProvince": "South Bohemian Region"
+  },
+  {
+    "id": "dukovany",
+    "name": "Dukovany Nuclear Power Station",
+    "country": "Czech Republic",
+    "countryCode": "CZ",
+    "region": "Europe",
+    "latitude": 49.085,
+    "longitude": 16.15,
+    "status": "operating",
+    "totalCapacityMWe": 2040,
+    "reactorCount": 4,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1985,
+    "operator": "ČEZ Group",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-440/213",
+        "netMWe": 510,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-440/213",
+        "netMWe": 510,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "VVER-440/213",
+        "netMWe": 510,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "VVER-440/213",
+        "netMWe": 510,
+        "status": "operating",
+        "commercialYear": 1987
+      }
+    ],
+    "iaeaPrisId": "CZ-02",
+    "age": 41,
+    "city": "Dukovany",
+    "stateProvince": "Vysočina Region"
+  },
+  {
+    "id": "mochovce",
+    "name": "Mochovce Nuclear Power Plant",
+    "country": "Slovakia",
+    "countryCode": "SK",
+    "region": "Europe",
+    "latitude": 48.261,
+    "longitude": 18.455,
+    "status": "operating",
+    "totalCapacityMWe": 1413,
+    "reactorCount": 3,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1998,
+    "operator": "Slovenské elektrárne",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-440/213",
+        "netMWe": 471,
+        "status": "operating",
+        "commercialYear": 1998
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-440/213",
+        "netMWe": 471,
+        "status": "operating",
+        "commercialYear": 2000
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "VVER-440/213+",
+        "netMWe": 471,
+        "status": "operating",
+        "commercialYear": 2023
+      }
+    ],
+    "iaeaPrisId": "SK-01",
+    "age": 28,
+    "city": "Mochovce",
+    "stateProvince": "Nitra Region"
+  },
+  {
+    "id": "paks",
+    "name": "Paks Nuclear Power Plant",
+    "country": "Hungary",
+    "countryCode": "HU",
+    "region": "Europe",
+    "latitude": 46.572,
+    "longitude": 18.854,
+    "status": "operating",
+    "totalCapacityMWe": 2000,
+    "reactorCount": 4,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1982,
+    "operator": "MVM Paks Nuclear Power Plant Ltd.",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-440/213",
+        "netMWe": 500,
+        "status": "operating",
+        "commercialYear": 1982
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-440/213",
+        "netMWe": 500,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "VVER-440/213",
+        "netMWe": 500,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "VVER-440/213",
+        "netMWe": 500,
+        "status": "operating",
+        "commercialYear": 1987
+      }
+    ],
+    "iaeaPrisId": "HU-01",
+    "age": 44,
+    "city": "Paks",
+    "stateProvince": "Tolna County"
+  },
+  {
+    "id": "kozloduy",
+    "name": "Kozloduy Nuclear Power Plant",
+    "country": "Bulgaria",
+    "countryCode": "BG",
+    "region": "Europe",
+    "latitude": 43.746,
+    "longitude": 23.77,
+    "status": "operating",
+    "totalCapacityMWe": 2000,
+    "reactorCount": 2,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1987,
+    "operator": "Kozloduy NPP Plc",
+    "units": [
+      {
+        "unitName": "Unit 5",
+        "type": "VVER-1000/320",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 1987
+      },
+      {
+        "unitName": "Unit 6",
+        "type": "VVER-1000/320",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 1991
+      }
+    ],
+    "iaeaPrisId": "BG-01",
+    "age": 39,
+    "city": "Kozloduy",
+    "stateProvince": "Vratsa Province"
+  },
+  {
+    "id": "cernavoda",
+    "name": "Cernavodă Nuclear Power Plant",
+    "country": "Romania",
+    "countryCode": "RO",
+    "region": "Europe",
+    "latitude": 44.321,
+    "longitude": 28.057,
+    "status": "operating",
+    "totalCapacityMWe": 1414,
+    "reactorCount": 2,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 1996,
+    "operator": "SN Nuclearelectrica",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CANDU-6",
+        "netMWe": 706,
+        "status": "operating",
+        "commercialYear": 1996
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CANDU-6",
+        "netMWe": 708,
+        "status": "operating",
+        "commercialYear": 2007
+      }
+    ],
+    "iaeaPrisId": "RO-01",
+    "age": 30,
+    "city": "Cernavodă",
+    "stateProvince": "Constanța County"
+  },
+  {
+    "id": "krsko",
+    "name": "Krško Nuclear Power Plant",
+    "country": "Slovenia",
+    "countryCode": "SI",
+    "region": "Europe",
+    "latitude": 45.938,
+    "longitude": 15.516,
+    "status": "operating",
+    "totalCapacityMWe": 688,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1983,
+    "operator": "Nuklearna Elektrarna Krško (NEK)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 2-Loop",
+        "netMWe": 688,
+        "status": "operating",
+        "commercialYear": 1983
+      }
+    ],
+    "iaeaPrisId": "SI-01",
+    "age": 43,
+    "city": "Krško",
+    "stateProvince": "Lower Sava"
+  },
+  {
+    "id": "borssele",
+    "name": "Borssele Nuclear Power Station",
+    "country": "Netherlands",
+    "countryCode": "NL",
+    "region": "Europe",
+    "latitude": 51.431,
+    "longitude": 3.717,
+    "status": "operating",
+    "totalCapacityMWe": 482,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1973,
+    "operator": "EPZ",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "Siemens KWU",
+        "netMWe": 482,
+        "status": "operating",
+        "commercialYear": 1973
+      }
+    ],
+    "iaeaPrisId": "NL-01",
+    "age": 53,
+    "city": "Borssele",
+    "stateProvince": "Zeeland"
+  },
+  {
+    "id": "taishan",
+    "name": "Taishan Nuclear Power Plant",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 21.918,
+    "longitude": 112.982,
+    "status": "operating",
+    "totalCapacityMWe": 3320,
+    "reactorCount": 2,
+    "primaryReactorType": "EPR",
+    "firstCommercialYear": 2018,
+    "operator": "TNPJVC (CGN / EDF)",
+    "units": [
+      {
+        "unitName": "Taishan 1",
+        "type": "EPR-1750",
+        "netMWe": 1660,
+        "status": "operating",
+        "commercialYear": 2018
+      },
+      {
+        "unitName": "Taishan 2",
+        "type": "EPR-1750",
+        "netMWe": 1660,
+        "status": "operating",
+        "commercialYear": 2019
+      }
+    ],
+    "iaeaPrisId": "CN-11",
+    "age": 8,
+    "city": "Taishan",
+    "stateProvince": "Guangdong"
+  },
+  {
+    "id": "yangjiang",
+    "name": "Yangjiang Nuclear Power Station",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 21.708,
+    "longitude": 112.261,
+    "status": "operating",
+    "totalCapacityMWe": 6000,
+    "reactorCount": 6,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 2014,
+    "operator": "CGN (China General Nuclear)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2014
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2015
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2016
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2017
+      },
+      {
+        "unitName": "Unit 5",
+        "type": "ACPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2018
+      },
+      {
+        "unitName": "Unit 6",
+        "type": "ACPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2019
+      }
+    ],
+    "iaeaPrisId": "CN-12",
+    "age": 12,
+    "city": "Yangjiang",
+    "stateProvince": "Guangdong"
+  },
+  {
+    "id": "sanmen",
+    "name": "Sanmen Nuclear Power Station",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 29.103,
+    "longitude": 121.642,
+    "status": "mixed",
+    "totalCapacityMWe": 2300,
+    "reactorCount": 2,
+    "primaryReactorType": "AP1000",
+    "firstCommercialYear": 2018,
+    "operator": "CNNC (China National Nuclear Corporation)",
+    "units": [
+      {
+        "unitName": "Sanmen 1",
+        "type": "AP1000",
+        "netMWe": 1150,
+        "status": "operating",
+        "commercialYear": 2018
+      },
+      {
+        "unitName": "Sanmen 2",
+        "type": "AP1000",
+        "netMWe": 1150,
+        "status": "operating",
+        "commercialYear": 2018
+      }
+    ],
+    "iaeaPrisId": "CN-13",
+    "age": 8,
+    "city": "Sanmen County",
+    "stateProvince": "Zhejiang"
+  },
+  {
+    "id": "qinshan",
+    "name": "Qinshan Nuclear Power Plant",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 30.435,
+    "longitude": 120.957,
+    "status": "operating",
+    "totalCapacityMWe": 4100,
+    "reactorCount": 7,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1991,
+    "operator": "CNNC",
+    "units": [
+      {
+        "unitName": "Qinshan 1",
+        "type": "CNP-300",
+        "netMWe": 310,
+        "status": "operating",
+        "commercialYear": 1991
+      },
+      {
+        "unitName": "Qinshan 2-1",
+        "type": "CNP-600",
+        "netMWe": 610,
+        "status": "operating",
+        "commercialYear": 2002
+      },
+      {
+        "unitName": "Qinshan 2-2",
+        "type": "CNP-600",
+        "netMWe": 610,
+        "status": "operating",
+        "commercialYear": 2004
+      },
+      {
+        "unitName": "Qinshan 2-3",
+        "type": "CNP-600",
+        "netMWe": 610,
+        "status": "operating",
+        "commercialYear": 2010
+      },
+      {
+        "unitName": "Qinshan 2-4",
+        "type": "CNP-600",
+        "netMWe": 610,
+        "status": "operating",
+        "commercialYear": 2011
+      },
+      {
+        "unitName": "Qinshan 3-1",
+        "type": "CANDU-6",
+        "netMWe": 677,
+        "status": "operating",
+        "commercialYear": 2002
+      },
+      {
+        "unitName": "Qinshan 3-2",
+        "type": "CANDU-6",
+        "netMWe": 677,
+        "status": "operating",
+        "commercialYear": 2003
+      }
+    ],
+    "iaeaPrisId": "CN-14",
+    "age": 35,
+    "city": "Haiyan County",
+    "stateProvince": "Zhejiang"
+  },
+  {
+    "id": "shidaowan",
+    "name": "Shidaowan Nuclear Power Plant (HTR-PM)",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 36.963,
+    "longitude": 122.518,
+    "status": "operating",
+    "totalCapacityMWe": 211,
+    "reactorCount": 1,
+    "primaryReactorType": "HTGR",
+    "firstCommercialYear": 2023,
+    "operator": "Huaneng Nuclear Power Development",
+    "units": [
+      {
+        "unitName": "HTR-PM",
+        "type": "High Temp Gas Pebble-Bed",
+        "netMWe": 211,
+        "status": "operating",
+        "commercialYear": 2023
+      }
+    ],
+    "iaeaPrisId": "CN-15",
+    "age": 3,
+    "city": "Rongcheng",
+    "stateProvince": "Shandong"
+  },
+  {
+    "id": "ohi",
+    "name": "Ōi Nuclear Power Plant",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Asia",
+    "latitude": 35.541,
+    "longitude": 135.656,
+    "status": "operating",
+    "totalCapacityMWe": 2360,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1991,
+    "operator": "Kansai Electric Power Company",
+    "units": [
+      {
+        "unitName": "Unit 3",
+        "type": "WH 4-Loop",
+        "netMWe": 1180,
+        "status": "operating",
+        "commercialYear": 1991
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "WH 4-Loop",
+        "netMWe": 1180,
+        "status": "operating",
+        "commercialYear": 1993
+      }
+    ],
+    "iaeaPrisId": "JP-12",
+    "age": 35,
+    "city": "Ōi",
+    "stateProvince": "Fukui Prefecture"
+  },
+  {
+    "id": "takahama",
+    "name": "Takahama Nuclear Power Plant",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Asia",
+    "latitude": 35.522,
+    "longitude": 135.505,
+    "status": "operating",
+    "totalCapacityMWe": 3392,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1974,
+    "operator": "Kansai Electric Power Company",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 3-Loop",
+        "netMWe": 826,
+        "status": "operating",
+        "commercialYear": 1974
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 3-Loop",
+        "netMWe": 826,
+        "status": "operating",
+        "commercialYear": 1975
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "MHI 3-Loop",
+        "netMWe": 870,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "MHI 3-Loop",
+        "netMWe": 870,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "JP-13",
+    "age": 52,
+    "city": "Takahama",
+    "stateProvince": "Fukui Prefecture"
+  },
+  {
+    "id": "sendai",
+    "name": "Sendai Nuclear Power Plant",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Asia",
+    "latitude": 31.834,
+    "longitude": 130.189,
+    "status": "operating",
+    "totalCapacityMWe": 1780,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1984,
+    "operator": "Kyushu Electric Power Company",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "MHI 3-Loop",
+        "netMWe": 890,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "MHI 3-Loop",
+        "netMWe": 890,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "JP-14",
+    "age": 42,
+    "city": "Satsumasendai",
+    "stateProvince": "Kagoshima Prefecture"
+  },
+  {
+    "id": "genkai",
+    "name": "Genkai Nuclear Power Plant",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Asia",
+    "latitude": 33.515,
+    "longitude": 129.837,
+    "status": "operating",
+    "totalCapacityMWe": 2360,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1994,
+    "operator": "Kyushu Electric Power Company",
+    "units": [
+      {
+        "unitName": "Unit 3",
+        "type": "MHI 4-Loop",
+        "netMWe": 1180,
+        "status": "operating",
+        "commercialYear": 1994
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "MHI 4-Loop",
+        "netMWe": 1180,
+        "status": "operating",
+        "commercialYear": 1997
+      }
+    ],
+    "iaeaPrisId": "JP-15",
+    "age": 32,
+    "city": "Genkai",
+    "stateProvince": "Saga Prefecture"
+  },
+  {
+    "id": "fukushima-daiichi",
+    "name": "Fukushima Daiichi Nuclear Power Station",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Asia",
+    "latitude": 37.421,
+    "longitude": 141.033,
+    "status": "decommissioned",
+    "totalCapacityMWe": 4696,
+    "reactorCount": 6,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1971,
+    "operator": "TEPCO",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-3",
+        "netMWe": 460,
+        "status": "decommissioned",
+        "commercialYear": 1971,
+        "shutdownYear": 2011
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-4",
+        "netMWe": 784,
+        "status": "decommissioned",
+        "commercialYear": 1974,
+        "shutdownYear": 2011
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "BWR-4",
+        "netMWe": 784,
+        "status": "decommissioned",
+        "commercialYear": 1976,
+        "shutdownYear": 2011
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "BWR-4",
+        "netMWe": 784,
+        "status": "decommissioned",
+        "commercialYear": 1978,
+        "shutdownYear": 2011
+      },
+      {
+        "unitName": "Unit 5",
+        "type": "BWR-4",
+        "netMWe": 784,
+        "status": "decommissioned",
+        "commercialYear": 1978,
+        "shutdownYear": 2013
+      },
+      {
+        "unitName": "Unit 6",
+        "type": "BWR-5",
+        "netMWe": 1100,
+        "status": "decommissioned",
+        "commercialYear": 1979,
+        "shutdownYear": 2013
+      }
+    ],
+    "iaeaPrisId": "JP-99",
+    "age": 55,
+    "city": "Ōkuma / Futaba",
+    "stateProvince": "Fukushima Prefecture"
+  },
+  {
+    "id": "hanbit",
+    "name": "Hanbit Nuclear Power Plant",
+    "country": "South Korea",
+    "countryCode": "KR",
+    "region": "Asia",
+    "latitude": 35.415,
+    "longitude": 126.419,
+    "status": "operating",
+    "totalCapacityMWe": 5875,
+    "reactorCount": 6,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1986,
+    "operator": "KHNP (Korea Hydro & Nuclear Power)",
+    "units": [
+      {
+        "unitName": "Hanbit 1",
+        "type": "WH 3-Loop",
+        "netMWe": 950,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Hanbit 2",
+        "type": "WH 3-Loop",
+        "netMWe": 950,
+        "status": "operating",
+        "commercialYear": 1987
+      },
+      {
+        "unitName": "Hanbit 3",
+        "type": "OPR-1000",
+        "netMWe": 990,
+        "status": "operating",
+        "commercialYear": 1995
+      },
+      {
+        "unitName": "Hanbit 4",
+        "type": "OPR-1000",
+        "netMWe": 995,
+        "status": "operating",
+        "commercialYear": 1996
+      },
+      {
+        "unitName": "Hanbit 5",
+        "type": "OPR-1000",
+        "netMWe": 995,
+        "status": "operating",
+        "commercialYear": 2002
+      },
+      {
+        "unitName": "Hanbit 6",
+        "type": "OPR-1000",
+        "netMWe": 995,
+        "status": "operating",
+        "commercialYear": 2002
+      }
+    ],
+    "iaeaPrisId": "KR-11",
+    "age": 40,
+    "city": "Yeonggwang",
+    "stateProvince": "South Jeolla"
+  },
+  {
+    "id": "wolsong",
+    "name": "Wolsong Nuclear Power Plant",
+    "country": "South Korea",
+    "countryCode": "KR",
+    "region": "Asia",
+    "latitude": 35.713,
+    "longitude": 129.475,
+    "status": "mixed",
+    "totalCapacityMWe": 3824,
+    "reactorCount": 5,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 1983,
+    "operator": "KHNP",
+    "units": [
+      {
+        "unitName": "Wolsong 1",
+        "type": "CANDU-6",
+        "netMWe": 679,
+        "status": "shutdown",
+        "commercialYear": 1983,
+        "shutdownYear": 2019
+      },
+      {
+        "unitName": "Wolsong 2",
+        "type": "CANDU-6",
+        "netMWe": 700,
+        "status": "operating",
+        "commercialYear": 1997
+      },
+      {
+        "unitName": "Wolsong 3",
+        "type": "CANDU-6",
+        "netMWe": 700,
+        "status": "operating",
+        "commercialYear": 1998
+      },
+      {
+        "unitName": "Wolsong 4",
+        "type": "CANDU-6",
+        "netMWe": 700,
+        "status": "operating",
+        "commercialYear": 1999
+      },
+      {
+        "unitName": "Shin-Wolsong 1",
+        "type": "OPR-1000",
+        "netMWe": 1045,
+        "status": "operating",
+        "commercialYear": 2012
+      }
+    ],
+    "iaeaPrisId": "KR-12",
+    "age": 43,
+    "city": "Gyeongju",
+    "stateProvince": "North Gyeongsang"
+  },
+  {
+    "id": "kakrapar",
+    "name": "Kakrapar Atomic Power Station",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Asia",
+    "latitude": 21.238,
+    "longitude": 73.35,
+    "status": "operating",
+    "totalCapacityMWe": 1840,
+    "reactorCount": 4,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 1993,
+    "operator": "Nuclear Power Corporation of India Limited (NPCIL)",
+    "units": [
+      {
+        "unitName": "KAPS-1",
+        "type": "IPHWR-220",
+        "netMWe": 220,
+        "status": "operating",
+        "commercialYear": 1993
+      },
+      {
+        "unitName": "KAPS-2",
+        "type": "IPHWR-220",
+        "netMWe": 220,
+        "status": "operating",
+        "commercialYear": 1995
+      },
+      {
+        "unitName": "KAPS-3",
+        "type": "IPHWR-700",
+        "netMWe": 700,
+        "status": "operating",
+        "commercialYear": 2023
+      },
+      {
+        "unitName": "KAPS-4",
+        "type": "IPHWR-700",
+        "netMWe": 700,
+        "status": "operating",
+        "commercialYear": 2024
+      }
+    ],
+    "iaeaPrisId": "IN-11",
+    "age": 33,
+    "city": "Vyara",
+    "stateProvince": "Gujarat"
+  },
+  {
+    "id": "rawatbhata",
+    "name": "Rajasthan Atomic Power Station (Rawatbhata)",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Asia",
+    "latitude": 24.872,
+    "longitude": 75.596,
+    "status": "operating",
+    "totalCapacityMWe": 1180,
+    "reactorCount": 6,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 1973,
+    "operator": "NPCIL",
+    "units": [
+      {
+        "unitName": "RAPS-1",
+        "type": "CANDU",
+        "netMWe": 100,
+        "status": "shutdown",
+        "commercialYear": 1973,
+        "shutdownYear": 2004
+      },
+      {
+        "unitName": "RAPS-2",
+        "type": "IPHWR-220",
+        "netMWe": 200,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "RAPS-3",
+        "type": "IPHWR-220",
+        "netMWe": 220,
+        "status": "operating",
+        "commercialYear": 2000
+      },
+      {
+        "unitName": "RAPS-4",
+        "type": "IPHWR-220",
+        "netMWe": 220,
+        "status": "operating",
+        "commercialYear": 2000
+      },
+      {
+        "unitName": "RAPS-5",
+        "type": "IPHWR-220",
+        "netMWe": 220,
+        "status": "operating",
+        "commercialYear": 2010
+      },
+      {
+        "unitName": "RAPS-6",
+        "type": "IPHWR-220",
+        "netMWe": 220,
+        "status": "operating",
+        "commercialYear": 2010
+      }
+    ],
+    "iaeaPrisId": "IN-12",
+    "age": 53,
+    "city": "Rawatbhata",
+    "stateProvince": "Rajasthan"
+  },
+  {
+    "id": "kaiga",
+    "name": "Kaiga Generating Station",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Asia",
+    "latitude": 14.865,
+    "longitude": 74.438,
+    "status": "operating",
+    "totalCapacityMWe": 880,
+    "reactorCount": 4,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 2000,
+    "operator": "NPCIL",
+    "units": [
+      {
+        "unitName": "Kaiga 1",
+        "type": "IPHWR-220",
+        "netMWe": 220,
+        "status": "operating",
+        "commercialYear": 2000
+      },
+      {
+        "unitName": "Kaiga 2",
+        "type": "IPHWR-220",
+        "netMWe": 220,
+        "status": "operating",
+        "commercialYear": 2000
+      },
+      {
+        "unitName": "Kaiga 3",
+        "type": "IPHWR-220",
+        "netMWe": 220,
+        "status": "operating",
+        "commercialYear": 2007
+      },
+      {
+        "unitName": "Kaiga 4",
+        "type": "IPHWR-220",
+        "netMWe": 220,
+        "status": "operating",
+        "commercialYear": 2011
+      }
+    ],
+    "iaeaPrisId": "IN-13",
+    "age": 26,
+    "city": "Kaiga",
+    "stateProvince": "Karnataka"
+  },
+  {
+    "id": "kalpakkam",
+    "name": "Madras Atomic Power Station (Kalpakkam)",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Asia",
+    "latitude": 12.559,
+    "longitude": 80.176,
+    "status": "operating",
+    "totalCapacityMWe": 440,
+    "reactorCount": 2,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 1984,
+    "operator": "NPCIL",
+    "units": [
+      {
+        "unitName": "MAPS-1",
+        "type": "IPHWR-220",
+        "netMWe": 220,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "MAPS-2",
+        "type": "IPHWR-220",
+        "netMWe": 220,
+        "status": "operating",
+        "commercialYear": 1986
+      }
+    ],
+    "iaeaPrisId": "IN-14",
+    "age": 42,
+    "city": "Kalpakkam",
+    "stateProvince": "Tamil Nadu"
+  },
+  {
+    "id": "karachi",
+    "name": "Karachi Nuclear Power Complex (KANUPP)",
+    "country": "Pakistan",
+    "countryCode": "PK",
+    "region": "Asia",
+    "latitude": 24.845,
+    "longitude": 66.786,
+    "status": "operating",
+    "totalCapacityMWe": 2200,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 2021,
+    "operator": "PAEC (Pakistan Atomic Energy Commission)",
+    "units": [
+      {
+        "unitName": "K-2",
+        "type": "Hualong One (HPR-1000)",
+        "netMWe": 1100,
+        "status": "operating",
+        "commercialYear": 2021
+      },
+      {
+        "unitName": "K-3",
+        "type": "Hualong One (HPR-1000)",
+        "netMWe": 1100,
+        "status": "operating",
+        "commercialYear": 2022
+      }
+    ],
+    "iaeaPrisId": "PK-01",
+    "age": 5,
+    "city": "Paradise Point",
+    "stateProvince": "Sindh"
+  },
+  {
+    "id": "chashma",
+    "name": "Chashma Nuclear Power Plant",
+    "country": "Pakistan",
+    "countryCode": "PK",
+    "region": "Asia",
+    "latitude": 32.392,
+    "longitude": 71.464,
+    "status": "operating",
+    "totalCapacityMWe": 1330,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 2000,
+    "operator": "PAEC",
+    "units": [
+      {
+        "unitName": "CHASNUPP-1",
+        "type": "CNP-300",
+        "netMWe": 325,
+        "status": "operating",
+        "commercialYear": 2000
+      },
+      {
+        "unitName": "CHASNUPP-2",
+        "type": "CNP-300",
+        "netMWe": 325,
+        "status": "operating",
+        "commercialYear": 2011
+      },
+      {
+        "unitName": "CHASNUPP-3",
+        "type": "CNP-300",
+        "netMWe": 340,
+        "status": "operating",
+        "commercialYear": 2016
+      },
+      {
+        "unitName": "CHASNUPP-4",
+        "type": "CNP-300",
+        "netMWe": 340,
+        "status": "operating",
+        "commercialYear": 2017
+      }
+    ],
+    "iaeaPrisId": "PK-02",
+    "age": 26,
+    "city": "Kundian",
+    "stateProvince": "Punjab"
+  },
+  {
+    "id": "south-ukraine",
+    "name": "South Ukraine Nuclear Power Plant",
+    "country": "Ukraine",
+    "countryCode": "UA",
+    "region": "Europe",
+    "latitude": 47.817,
+    "longitude": 31.219,
+    "status": "operating",
+    "totalCapacityMWe": 3000,
+    "reactorCount": 3,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1983,
+    "operator": "Energoatom",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-1000/302",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 1983
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-1000/338",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "VVER-1000/320",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 1989
+      }
+    ],
+    "iaeaPrisId": "UA-12",
+    "age": 43,
+    "city": "Yuzhnoukrainsk",
+    "stateProvince": "Mykolaiv Oblast"
+  },
+  {
+    "id": "rivne",
+    "name": "Rivne Nuclear Power Plant",
+    "country": "Ukraine",
+    "countryCode": "UA",
+    "region": "Europe",
+    "latitude": 51.328,
+    "longitude": 25.892,
+    "status": "operating",
+    "totalCapacityMWe": 2835,
+    "reactorCount": 4,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1981,
+    "operator": "Energoatom",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-440/213",
+        "netMWe": 420,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-440/213",
+        "netMWe": 415,
+        "status": "operating",
+        "commercialYear": 1982
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "VVER-1000/320",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 1987
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "VVER-1000/320",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2004
+      }
+    ],
+    "iaeaPrisId": "UA-13",
+    "age": 45,
+    "city": "Varash",
+    "stateProvince": "Rivne Oblast"
+  },
+  {
+    "id": "chernobyl",
+    "name": "Chernobyl Nuclear Power Plant",
+    "country": "Ukraine",
+    "countryCode": "UA",
+    "region": "Europe",
+    "latitude": 51.389,
+    "longitude": 30.099,
+    "status": "decommissioned",
+    "totalCapacityMWe": 3800,
+    "reactorCount": 4,
+    "primaryReactorType": "RBMK",
+    "firstCommercialYear": 1978,
+    "operator": "State Enterprise Chernobyl NPP",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "RBMK-1000",
+        "netMWe": 950,
+        "status": "decommissioned",
+        "commercialYear": 1978,
+        "shutdownYear": 1996
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "RBMK-1000",
+        "netMWe": 950,
+        "status": "decommissioned",
+        "commercialYear": 1979,
+        "shutdownYear": 1991
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "RBMK-1000",
+        "netMWe": 950,
+        "status": "decommissioned",
+        "commercialYear": 1982,
+        "shutdownYear": 2000
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "RBMK-1000",
+        "netMWe": 950,
+        "status": "decommissioned",
+        "commercialYear": 1984,
+        "shutdownYear": 1986
+      }
+    ],
+    "iaeaPrisId": "UA-99",
+    "age": 48,
+    "city": "Pripyat",
+    "stateProvince": "Kyiv Oblast"
+  },
+  {
+    "id": "leningrad-ii",
+    "name": "Leningrad Nuclear Power Plant II",
+    "country": "Russia",
+    "countryCode": "RU",
+    "region": "Europe",
+    "latitude": 59.843,
+    "longitude": 29.076,
+    "status": "operating",
+    "totalCapacityMWe": 2398,
+    "reactorCount": 2,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 2018,
+    "operator": "Rosenergoatom",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-1200/V-491",
+        "netMWe": 1199,
+        "status": "operating",
+        "commercialYear": 2018
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-1200/V-491",
+        "netMWe": 1199,
+        "status": "operating",
+        "commercialYear": 2021
+      }
+    ],
+    "iaeaPrisId": "RU-31",
+    "age": 8,
+    "city": "Sosnovy Bor",
+    "stateProvince": "Leningrad Oblast"
+  },
+  {
+    "id": "novovoronezh-ii",
+    "name": "Novovoronezh Nuclear Power Plant II",
+    "country": "Russia",
+    "countryCode": "RU",
+    "region": "Europe",
+    "latitude": 51.275,
+    "longitude": 39.2,
+    "status": "operating",
+    "totalCapacityMWe": 2400,
+    "reactorCount": 2,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 2017,
+    "operator": "Rosenergoatom",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-1200",
+        "netMWe": 1200,
+        "status": "operating",
+        "commercialYear": 2017
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-1200",
+        "netMWe": 1200,
+        "status": "operating",
+        "commercialYear": 2019
+      }
+    ],
+    "iaeaPrisId": "RU-32",
+    "age": 9,
+    "city": "Novovoronezh",
+    "stateProvince": "Voronezh Oblast"
+  },
+  {
+    "id": "kursk-ii",
+    "name": "Kursk Nuclear Power Plant II",
+    "country": "Russia",
+    "countryCode": "RU",
+    "region": "Europe",
+    "latitude": 51.675,
+    "longitude": 35.604,
+    "status": "under-construction",
+    "totalCapacityMWe": 2400,
+    "reactorCount": 2,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 2026,
+    "operator": "Rosenergoatom",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-TOI",
+        "netMWe": 1200,
+        "status": "under-construction",
+        "commercialYear": 2026
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-TOI",
+        "netMWe": 1200,
+        "status": "under-construction",
+        "commercialYear": 2027
+      }
+    ],
+    "iaeaPrisId": "RU-33",
+    "age": 0,
+    "city": "Kurchatov",
+    "stateProvince": "Kursk Oblast"
+  },
+  {
+    "id": "akademik-lomonosov",
+    "name": "Akademik Lomonosov Floating Nuclear Power Plant",
+    "country": "Russia",
+    "countryCode": "RU",
+    "region": "Asia",
+    "latitude": 69.702,
+    "longitude": 170.306,
+    "status": "operating",
+    "totalCapacityMWe": 70,
+    "reactorCount": 2,
+    "primaryReactorType": "KLT-40S",
+    "firstCommercialYear": 2020,
+    "operator": "Rosenergoatom",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "KLT-40S",
+        "netMWe": 35,
+        "status": "operating",
+        "commercialYear": 2020
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "KLT-40S",
+        "netMWe": 35,
+        "status": "operating",
+        "commercialYear": 2020
+      }
+    ],
+    "iaeaPrisId": "RU-34",
+    "age": 6,
+    "city": "Pevek",
+    "stateProvince": "Chukotka Autonomous Okrug"
+  },
+  {
+    "id": "bushehr",
+    "name": "Bushehr Nuclear Power Plant",
+    "country": "Iran",
+    "countryCode": "IR",
+    "region": "Middle East",
+    "latitude": 28.831,
+    "longitude": 50.887,
+    "status": "operating",
+    "totalCapacityMWe": 1000,
+    "reactorCount": 1,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 2013,
+    "operator": "Nuclear Power Production and Development Company of Iran",
+    "units": [
+      {
+        "unitName": "Bushehr 1",
+        "type": "VVER-1000/446",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2013
+      }
+    ],
+    "iaeaPrisId": "IR-01",
+    "age": 13,
+    "city": "Bushehr",
+    "stateProvince": "Bushehr Province"
+  },
+  {
+    "id": "akkuyu",
+    "name": "Akkuyu Nuclear Power Plant",
+    "country": "Turkey",
+    "countryCode": "TR",
+    "region": "Middle East",
+    "latitude": 36.143,
+    "longitude": 33.535,
+    "status": "under-construction",
+    "totalCapacityMWe": 4800,
+    "reactorCount": 4,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 2026,
+    "operator": "Akkuyu Nükleer A.Ş. (Rosatom)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-1200",
+        "netMWe": 1200,
+        "status": "under-construction",
+        "commercialYear": 2026
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-1200",
+        "netMWe": 1200,
+        "status": "under-construction",
+        "commercialYear": 2027
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "VVER-1200",
+        "netMWe": 1200,
+        "status": "under-construction",
+        "commercialYear": 2028
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "VVER-1200",
+        "netMWe": 1200,
+        "status": "under-construction",
+        "commercialYear": 2029
+      }
+    ],
+    "iaeaPrisId": "TR-01",
+    "age": 0,
+    "city": "Büyükeceli",
+    "stateProvince": "Mersin Province"
+  },
+  {
+    "id": "el-dabaa",
+    "name": "El Dabaa Nuclear Power Plant",
+    "country": "Egypt",
+    "countryCode": "EG",
+    "region": "Africa",
+    "latitude": 31.049,
+    "longitude": 28.469,
+    "status": "under-construction",
+    "totalCapacityMWe": 4800,
+    "reactorCount": 4,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 2028,
+    "operator": "Nuclear Power Plants Authority (NPPA)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-1200",
+        "netMWe": 1200,
+        "status": "under-construction",
+        "commercialYear": 2028
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-1200",
+        "netMWe": 1200,
+        "status": "under-construction",
+        "commercialYear": 2029
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "VVER-1200",
+        "netMWe": 1200,
+        "status": "under-construction",
+        "commercialYear": 2030
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "VVER-1200",
+        "netMWe": 1200,
+        "status": "under-construction",
+        "commercialYear": 2031
+      }
+    ],
+    "iaeaPrisId": "EG-01",
+    "age": 0,
+    "city": "El Dabaa",
+    "stateProvince": "Matrouh Governorate"
+  },
+  {
+    "id": "embalse",
+    "name": "Embalse Nuclear Power Station",
+    "country": "Argentina",
+    "countryCode": "AR",
+    "region": "Latin America",
+    "latitude": -32.232,
+    "longitude": -64.442,
+    "status": "operating",
+    "totalCapacityMWe": 656,
+    "reactorCount": 1,
+    "primaryReactorType": "PHWR",
+    "firstCommercialYear": 1984,
+    "operator": "Nucleoeléctrica Argentina S.A.",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CANDU-6",
+        "netMWe": 656,
+        "status": "operating",
+        "commercialYear": 1984
+      }
+    ],
+    "iaeaPrisId": "AR-02",
+    "age": 42,
+    "city": "Embalse",
+    "stateProvince": "Córdoba Province"
+  },
+  {
+    "id": "maanshan",
+    "name": "Maanshan Nuclear Power Plant",
+    "country": "Taiwan",
+    "countryCode": "TW",
+    "region": "Asia",
+    "latitude": 21.958,
+    "longitude": 120.751,
+    "status": "operating",
+    "totalCapacityMWe": 1902,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1984,
+    "operator": "Taipower",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 3-Loop",
+        "netMWe": 951,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 3-Loop",
+        "netMWe": 951,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "TW-03",
+    "age": 42,
+    "city": "Hengchun",
+    "stateProvince": "Pingtung County"
+  },
+  {
+    "id": "metsamor",
+    "name": "Metsamor Nuclear Power Plant (Armenian NPP)",
+    "country": "Armenia",
+    "countryCode": "AM",
+    "region": "Asia",
+    "latitude": 40.181,
+    "longitude": 44.148,
+    "status": "operating",
+    "totalCapacityMWe": 448,
+    "reactorCount": 1,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1980,
+    "operator": "HAEK CJSC",
+    "units": [
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-440/V-270",
+        "netMWe": 448,
+        "status": "operating",
+        "commercialYear": 1980
+      }
+    ],
+    "iaeaPrisId": "AM-01",
+    "age": 46,
+    "city": "Metsamor",
+    "stateProvince": "Armavir Province"
+  },
+  {
+    "id": "arkansas-nuclear-one",
+    "name": "Arkansas Nuclear One",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 35.31,
+    "longitude": -93.231,
+    "status": "operating",
+    "totalCapacityMWe": 1839,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1974,
+    "operator": "Entergy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "B&W 177",
+        "netMWe": 836,
+        "status": "operating",
+        "commercialYear": 1974
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CE 2-Loop",
+        "netMWe": 1003,
+        "status": "operating",
+        "commercialYear": 1980
+      }
+    ],
+    "iaeaPrisId": "US-313",
+    "age": 52,
+    "city": "Russellville",
+    "stateProvince": "Arkansas"
+  },
+  {
+    "id": "beaver-valley",
+    "name": "Beaver Valley Power Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 40.622,
+    "longitude": -80.433,
+    "status": "operating",
+    "totalCapacityMWe": 1872,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1976,
+    "operator": "Energy Harbor (Vistra)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 3-Loop",
+        "netMWe": 908,
+        "status": "operating",
+        "commercialYear": 1976
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 3-Loop",
+        "netMWe": 964,
+        "status": "operating",
+        "commercialYear": 1987
+      }
+    ],
+    "iaeaPrisId": "US-334",
+    "age": 50,
+    "city": "Shippingport",
+    "stateProvince": "Pennsylvania"
+  },
+  {
+    "id": "brunswick",
+    "name": "Brunswick Nuclear Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 33.958,
+    "longitude": -78.01,
+    "status": "operating",
+    "totalCapacityMWe": 1870,
+    "reactorCount": 2,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1975,
+    "operator": "Duke Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-4",
+        "netMWe": 938,
+        "status": "operating",
+        "commercialYear": 1977
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-4",
+        "netMWe": 932,
+        "status": "operating",
+        "commercialYear": 1975
+      }
+    ],
+    "iaeaPrisId": "US-325",
+    "age": 51,
+    "city": "Southport",
+    "stateProvince": "North Carolina"
+  },
+  {
+    "id": "callaway",
+    "name": "Callaway Nuclear Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 38.762,
+    "longitude": -91.784,
+    "status": "operating",
+    "totalCapacityMWe": 1215,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1984,
+    "operator": "Ameren Missouri",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1215,
+        "status": "operating",
+        "commercialYear": 1984
+      }
+    ],
+    "iaeaPrisId": "US-483",
+    "age": 42,
+    "city": "Fulton",
+    "stateProvince": "Missouri"
+  },
+  {
+    "id": "catawba",
+    "name": "Catawba Nuclear Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 35.051,
+    "longitude": -81.07,
+    "status": "operating",
+    "totalCapacityMWe": 2320,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1985,
+    "operator": "Duke Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1160,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 4-Loop",
+        "netMWe": 1160,
+        "status": "operating",
+        "commercialYear": 1986
+      }
+    ],
+    "iaeaPrisId": "US-413",
+    "age": 41,
+    "city": "York",
+    "stateProvince": "South Carolina"
+  },
+  {
+    "id": "clinton",
+    "name": "Clinton Power Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 40.172,
+    "longitude": -88.834,
+    "status": "operating",
+    "totalCapacityMWe": 1065,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1987,
+    "operator": "Constellation Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-6",
+        "netMWe": 1065,
+        "status": "operating",
+        "commercialYear": 1987
+      }
+    ],
+    "iaeaPrisId": "US-461",
+    "age": 39,
+    "city": "Clinton",
+    "stateProvince": "Illinois"
+  },
+  {
+    "id": "columbia",
+    "name": "Columbia Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 46.471,
+    "longitude": -119.333,
+    "status": "operating",
+    "totalCapacityMWe": 1207,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1984,
+    "operator": "Energy Northwest",
+    "units": [
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-5",
+        "netMWe": 1207,
+        "status": "operating",
+        "commercialYear": 1984
+      }
+    ],
+    "iaeaPrisId": "US-397",
+    "age": 42,
+    "city": "Richland",
+    "stateProvince": "Washington"
+  },
+  {
+    "id": "comanche-peak",
+    "name": "Comanche Peak Nuclear Power Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 32.298,
+    "longitude": -97.785,
+    "status": "operating",
+    "totalCapacityMWe": 2430,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1990,
+    "operator": "Vistra Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1218,
+        "status": "operating",
+        "commercialYear": 1990
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 4-Loop",
+        "netMWe": 1212,
+        "status": "operating",
+        "commercialYear": 1993
+      }
+    ],
+    "iaeaPrisId": "US-445",
+    "age": 36,
+    "city": "Glen Rose",
+    "stateProvince": "Texas"
+  },
+  {
+    "id": "cooper",
+    "name": "Cooper Nuclear Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 40.362,
+    "longitude": -95.641,
+    "status": "operating",
+    "totalCapacityMWe": 830,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1974,
+    "operator": "Nebraska Public Power District",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-4",
+        "netMWe": 830,
+        "status": "operating",
+        "commercialYear": 1974
+      }
+    ],
+    "iaeaPrisId": "US-298",
+    "age": 52,
+    "city": "Brownville",
+    "stateProvince": "Nebraska"
+  },
+  {
+    "id": "donald-c-cook",
+    "name": "Donald C. Cook Nuclear Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 41.976,
+    "longitude": -86.566,
+    "status": "operating",
+    "totalCapacityMWe": 2191,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1975,
+    "operator": "Indiana Michigan Power (AEP)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1030,
+        "status": "operating",
+        "commercialYear": 1975
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 4-Loop",
+        "netMWe": 1161,
+        "status": "operating",
+        "commercialYear": 1978
+      }
+    ],
+    "iaeaPrisId": "US-315",
+    "age": 51,
+    "city": "Bridgman",
+    "stateProvince": "Michigan"
+  },
+  {
+    "id": "dresden",
+    "name": "Dresden Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 41.389,
+    "longitude": -88.271,
+    "status": "mixed",
+    "totalCapacityMWe": 1788,
+    "reactorCount": 3,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1960,
+    "operator": "Constellation Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-1",
+        "netMWe": 197,
+        "status": "shutdown",
+        "commercialYear": 1960,
+        "shutdownYear": 1978
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-3",
+        "netMWe": 894,
+        "status": "operating",
+        "commercialYear": 1970
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "BWR-3",
+        "netMWe": 894,
+        "status": "operating",
+        "commercialYear": 1971
+      }
+    ],
+    "iaeaPrisId": "US-237",
+    "age": 66,
+    "city": "Morris",
+    "stateProvince": "Illinois"
+  },
+  {
+    "id": "edwin-i-hatch",
+    "name": "Edwin I. Hatch Nuclear Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 31.934,
+    "longitude": -82.344,
+    "status": "operating",
+    "totalCapacityMWe": 1848,
+    "reactorCount": 2,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1975,
+    "operator": "Southern Nuclear",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-4",
+        "netMWe": 924,
+        "status": "operating",
+        "commercialYear": 1975
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-4",
+        "netMWe": 924,
+        "status": "operating",
+        "commercialYear": 1979
+      }
+    ],
+    "iaeaPrisId": "US-321",
+    "age": 51,
+    "city": "Baxley",
+    "stateProvince": "Georgia"
+  },
+  {
+    "id": "fermi",
+    "name": "Enrico Fermi Nuclear Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 41.963,
+    "longitude": -83.258,
+    "status": "operating",
+    "totalCapacityMWe": 1115,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1988,
+    "operator": "DTE Energy",
+    "units": [
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-4",
+        "netMWe": 1115,
+        "status": "operating",
+        "commercialYear": 1988
+      }
+    ],
+    "iaeaPrisId": "US-341",
+    "age": 38,
+    "city": "Frenchtown Township",
+    "stateProvince": "Michigan"
+  },
+  {
+    "id": "grand-gulf",
+    "name": "Grand Gulf Nuclear Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 32.008,
+    "longitude": -91.048,
+    "status": "operating",
+    "totalCapacityMWe": 1419,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1985,
+    "operator": "Entergy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-6",
+        "netMWe": 1419,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "US-416",
+    "age": 41,
+    "city": "Port Gibson",
+    "stateProvince": "Mississippi"
+  },
+  {
+    "id": "hope-creek",
+    "name": "Hope Creek Nuclear Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 39.468,
+    "longitude": -75.536,
+    "status": "operating",
+    "totalCapacityMWe": 1172,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1986,
+    "operator": "PSEG Nuclear",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-4",
+        "netMWe": 1172,
+        "status": "operating",
+        "commercialYear": 1986
+      }
+    ],
+    "iaeaPrisId": "US-354",
+    "age": 40,
+    "city": "Lower Alloways Creek",
+    "stateProvince": "New Jersey"
+  },
+  {
+    "id": "james-a-fitzpatrick",
+    "name": "James A. FitzPatrick Nuclear Power Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 43.522,
+    "longitude": -76.398,
+    "status": "operating",
+    "totalCapacityMWe": 838,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1975,
+    "operator": "Constellation Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-4",
+        "netMWe": 838,
+        "status": "operating",
+        "commercialYear": 1975
+      }
+    ],
+    "iaeaPrisId": "US-333",
+    "age": 51,
+    "city": "Oswego",
+    "stateProvince": "New York"
+  },
+  {
+    "id": "joseph-m-farley",
+    "name": "Joseph M. Farley Nuclear Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 31.223,
+    "longitude": -85.112,
+    "status": "operating",
+    "totalCapacityMWe": 1752,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1977,
+    "operator": "Southern Nuclear",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 3-Loop",
+        "netMWe": 876,
+        "status": "operating",
+        "commercialYear": 1977
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 3-Loop",
+        "netMWe": 876,
+        "status": "operating",
+        "commercialYear": 1981
+      }
+    ],
+    "iaeaPrisId": "US-348",
+    "age": 49,
+    "city": "Dothan",
+    "stateProvince": "Alabama"
+  },
+  {
+    "id": "lasalle-county",
+    "name": "LaSalle County Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 41.246,
+    "longitude": -88.67,
+    "status": "operating",
+    "totalCapacityMWe": 2276,
+    "reactorCount": 2,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1984,
+    "operator": "Constellation Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-5",
+        "netMWe": 1138,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-5",
+        "netMWe": 1138,
+        "status": "operating",
+        "commercialYear": 1984
+      }
+    ],
+    "iaeaPrisId": "US-373",
+    "age": 42,
+    "city": "Marseilles",
+    "stateProvince": "Illinois"
+  },
+  {
+    "id": "limerick",
+    "name": "Limerick Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 40.226,
+    "longitude": -75.587,
+    "status": "operating",
+    "totalCapacityMWe": 2317,
+    "reactorCount": 2,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1986,
+    "operator": "Constellation Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-4",
+        "netMWe": 1158,
+        "status": "operating",
+        "commercialYear": 1986
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-4",
+        "netMWe": 1159,
+        "status": "operating",
+        "commercialYear": 1990
+      }
+    ],
+    "iaeaPrisId": "US-352",
+    "age": 40,
+    "city": "Limerick Township",
+    "stateProvince": "Pennsylvania"
+  },
+  {
+    "id": "mcguire",
+    "name": "McGuire Nuclear Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 35.432,
+    "longitude": -80.948,
+    "status": "operating",
+    "totalCapacityMWe": 2258,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1981,
+    "operator": "Duke Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1129,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 4-Loop",
+        "netMWe": 1129,
+        "status": "operating",
+        "commercialYear": 1984
+      }
+    ],
+    "iaeaPrisId": "US-369",
+    "age": 45,
+    "city": "Huntersville",
+    "stateProvince": "North Carolina"
+  },
+  {
+    "id": "millstone",
+    "name": "Millstone Power Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 41.312,
+    "longitude": -72.168,
+    "status": "operating",
+    "totalCapacityMWe": 2110,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1975,
+    "operator": "Dominion Energy",
+    "units": [
+      {
+        "unitName": "Unit 2",
+        "type": "CE 2-Loop",
+        "netMWe": 884,
+        "status": "operating",
+        "commercialYear": 1975
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "WH 4-Loop",
+        "netMWe": 1226,
+        "status": "operating",
+        "commercialYear": 1986
+      }
+    ],
+    "iaeaPrisId": "US-336",
+    "age": 51,
+    "city": "Waterford",
+    "stateProvince": "Connecticut"
+  },
+  {
+    "id": "monticello",
+    "name": "Monticello Nuclear Generating Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 45.333,
+    "longitude": -93.848,
+    "status": "operating",
+    "totalCapacityMWe": 647,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1971,
+    "operator": "Xcel Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-3",
+        "netMWe": 647,
+        "status": "operating",
+        "commercialYear": 1971
+      }
+    ],
+    "iaeaPrisId": "US-263",
+    "age": 55,
+    "city": "Monticello",
+    "stateProvince": "Minnesota"
+  },
+  {
+    "id": "nine-mile-point",
+    "name": "Nine Mile Point Nuclear Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 43.521,
+    "longitude": -76.408,
+    "status": "operating",
+    "totalCapacityMWe": 1928,
+    "reactorCount": 2,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1969,
+    "operator": "Constellation Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-2",
+        "netMWe": 620,
+        "status": "operating",
+        "commercialYear": 1969
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-5",
+        "netMWe": 1308,
+        "status": "operating",
+        "commercialYear": 1988
+      }
+    ],
+    "iaeaPrisId": "US-220",
+    "age": 57,
+    "city": "Oswego",
+    "stateProvince": "New York"
+  },
+  {
+    "id": "north-anna",
+    "name": "North Anna Nuclear Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 38.061,
+    "longitude": -77.79,
+    "status": "operating",
+    "totalCapacityMWe": 1892,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1978,
+    "operator": "Dominion Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 3-Loop",
+        "netMWe": 948,
+        "status": "operating",
+        "commercialYear": 1978
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 3-Loop",
+        "netMWe": 944,
+        "status": "operating",
+        "commercialYear": 1980
+      }
+    ],
+    "iaeaPrisId": "US-338",
+    "age": 48,
+    "city": "Mineral",
+    "stateProvince": "Virginia"
+  },
+  {
+    "id": "point-beach",
+    "name": "Point Beach Nuclear Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 44.281,
+    "longitude": -87.536,
+    "status": "operating",
+    "totalCapacityMWe": 1194,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1970,
+    "operator": "NextEra Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 2-Loop",
+        "netMWe": 597,
+        "status": "operating",
+        "commercialYear": 1970
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 2-Loop",
+        "netMWe": 597,
+        "status": "operating",
+        "commercialYear": 1972
+      }
+    ],
+    "iaeaPrisId": "US-266",
+    "age": 56,
+    "city": "Two Rivers",
+    "stateProvince": "Wisconsin"
+  },
+  {
+    "id": "prairie-island",
+    "name": "Prairie Island Nuclear Generating Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 44.622,
+    "longitude": -92.633,
+    "status": "operating",
+    "totalCapacityMWe": 1040,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1973,
+    "operator": "Xcel Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 2-Loop",
+        "netMWe": 520,
+        "status": "operating",
+        "commercialYear": 1973
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 2-Loop",
+        "netMWe": 520,
+        "status": "operating",
+        "commercialYear": 1974
+      }
+    ],
+    "iaeaPrisId": "US-282",
+    "age": 53,
+    "city": "Red Wing",
+    "stateProvince": "Minnesota"
+  },
+  {
+    "id": "quad-cities",
+    "name": "Quad Cities Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 41.726,
+    "longitude": -90.31,
+    "status": "operating",
+    "totalCapacityMWe": 1819,
+    "reactorCount": 2,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1973,
+    "operator": "Constellation Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-3",
+        "netMWe": 909,
+        "status": "operating",
+        "commercialYear": 1973
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-3",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1973
+      }
+    ],
+    "iaeaPrisId": "US-254",
+    "age": 53,
+    "city": "Cordova",
+    "stateProvince": "Illinois"
+  },
+  {
+    "id": "salem",
+    "name": "Salem Nuclear Power Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 39.462,
+    "longitude": -75.535,
+    "status": "operating",
+    "totalCapacityMWe": 2328,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1977,
+    "operator": "PSEG Nuclear",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1169,
+        "status": "operating",
+        "commercialYear": 1977
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 4-Loop",
+        "netMWe": 1159,
+        "status": "operating",
+        "commercialYear": 1981
+      }
+    ],
+    "iaeaPrisId": "US-272",
+    "age": 49,
+    "city": "Lower Alloways Creek",
+    "stateProvince": "New Jersey"
+  },
+  {
+    "id": "st-lucie",
+    "name": "St. Lucie Nuclear Power Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 27.348,
+    "longitude": -80.246,
+    "status": "operating",
+    "totalCapacityMWe": 1962,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1976,
+    "operator": "Florida Power & Light (FPL)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CE 2-Loop",
+        "netMWe": 981,
+        "status": "operating",
+        "commercialYear": 1976
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CE 2-Loop",
+        "netMWe": 981,
+        "status": "operating",
+        "commercialYear": 1983
+      }
+    ],
+    "iaeaPrisId": "US-335",
+    "age": 50,
+    "city": "Jensen Beach",
+    "stateProvince": "Florida"
+  },
+  {
+    "id": "surry",
+    "name": "Surry Nuclear Power Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 37.165,
+    "longitude": -76.698,
+    "status": "operating",
+    "totalCapacityMWe": 1676,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1972,
+    "operator": "Dominion Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 3-Loop",
+        "netMWe": 838,
+        "status": "operating",
+        "commercialYear": 1972
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 3-Loop",
+        "netMWe": 838,
+        "status": "operating",
+        "commercialYear": 1973
+      }
+    ],
+    "iaeaPrisId": "US-280",
+    "age": 54,
+    "city": "Surry County",
+    "stateProvince": "Virginia"
+  },
+  {
+    "id": "turkey-point",
+    "name": "Turkey Point Nuclear Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 25.434,
+    "longitude": -80.331,
+    "status": "operating",
+    "totalCapacityMWe": 1642,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1972,
+    "operator": "Florida Power & Light (FPL)",
+    "units": [
+      {
+        "unitName": "Unit 3",
+        "type": "WH 3-Loop",
+        "netMWe": 821,
+        "status": "operating",
+        "commercialYear": 1972
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "WH 3-Loop",
+        "netMWe": 821,
+        "status": "operating",
+        "commercialYear": 1973
+      }
+    ],
+    "iaeaPrisId": "US-250",
+    "age": 54,
+    "city": "Homestead",
+    "stateProvince": "Florida"
+  },
+  {
+    "id": "watts-bar",
+    "name": "Watts Bar Nuclear Plant",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 35.602,
+    "longitude": -84.789,
+    "status": "operating",
+    "totalCapacityMWe": 2337,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1996,
+    "operator": "Tennessee Valley Authority (TVA)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1167,
+        "status": "operating",
+        "commercialYear": 1996
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 4-Loop",
+        "netMWe": 1170,
+        "status": "operating",
+        "commercialYear": 2016
+      }
+    ],
+    "iaeaPrisId": "US-390",
+    "age": 30,
+    "city": "Spring City",
+    "stateProvince": "Tennessee"
+  },
+  {
+    "id": "wolf-creek",
+    "name": "Wolf Creek Generating Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 38.239,
+    "longitude": -95.689,
+    "status": "operating",
+    "totalCapacityMWe": 1200,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1985,
+    "operator": "Wolf Creek Nuclear Operating Corp",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 4-Loop",
+        "netMWe": 1200,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "US-482",
+    "age": 41,
+    "city": "Burlington",
+    "stateProvince": "Kansas"
+  },
+  {
+    "id": "three-mile-island",
+    "name": "Three Mile Island Nuclear Station",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "North America",
+    "latitude": 40.153,
+    "longitude": -76.725,
+    "status": "shutdown",
+    "totalCapacityMWe": 1640,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1974,
+    "operator": "Constellation Energy",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "B&W 177",
+        "netMWe": 837,
+        "status": "shutdown",
+        "commercialYear": 1974,
+        "shutdownYear": 2019
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "B&W 177",
+        "netMWe": 906,
+        "status": "decommissioned",
+        "commercialYear": 1978,
+        "shutdownYear": 1979
+      }
+    ],
+    "iaeaPrisId": "US-289",
+    "age": 52,
+    "city": "Londonderry Township",
+    "stateProvince": "Pennsylvania"
+  },
+  {
+    "id": "blayais",
+    "name": "Blayais Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 45.256,
+    "longitude": -0.693,
+    "status": "operating",
+    "totalCapacityMWe": 3640,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1981,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CP1",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CP1",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1983
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "CP1",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1983
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "CP1",
+        "netMWe": 910,
+        "status": "operating",
+        "commercialYear": 1983
+      }
+    ],
+    "iaeaPrisId": "FR-58",
+    "age": 45,
+    "city": "Braud-et-Saint-Louis",
+    "stateProvince": "Nouvelle-Aquitaine"
+  },
+  {
+    "id": "chinon",
+    "name": "Chinon Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 47.23,
+    "longitude": 0.17,
+    "status": "operating",
+    "totalCapacityMWe": 3620,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1984,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit B1",
+        "type": "CP2",
+        "netMWe": 905,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "Unit B2",
+        "type": "CP2",
+        "netMWe": 905,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit B3",
+        "type": "CP2",
+        "netMWe": 905,
+        "status": "operating",
+        "commercialYear": 1987
+      },
+      {
+        "unitName": "Unit B4",
+        "type": "CP2",
+        "netMWe": 905,
+        "status": "operating",
+        "commercialYear": 1988
+      }
+    ],
+    "iaeaPrisId": "FR-59",
+    "age": 42,
+    "city": "Avoine",
+    "stateProvince": "Centre-Val de Loire"
+  },
+  {
+    "id": "cruas",
+    "name": "Cruas Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 44.733,
+    "longitude": 4.756,
+    "status": "operating",
+    "totalCapacityMWe": 3660,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1984,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CP2",
+        "netMWe": 915,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CP2",
+        "netMWe": 915,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "CP2",
+        "netMWe": 915,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "CP2",
+        "netMWe": 915,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "FR-60",
+    "age": 42,
+    "city": "Cruas",
+    "stateProvince": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "id": "dampierre",
+    "name": "Dampierre Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 47.733,
+    "longitude": 2.518,
+    "status": "operating",
+    "totalCapacityMWe": 3560,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1980,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CP1",
+        "netMWe": 890,
+        "status": "operating",
+        "commercialYear": 1980
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CP1",
+        "netMWe": 890,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "CP1",
+        "netMWe": 890,
+        "status": "operating",
+        "commercialYear": 1981
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "CP1",
+        "netMWe": 890,
+        "status": "operating",
+        "commercialYear": 1981
+      }
+    ],
+    "iaeaPrisId": "FR-61",
+    "age": 46,
+    "city": "Dampierre-en-Burly",
+    "stateProvince": "Centre-Val de Loire"
+  },
+  {
+    "id": "golfech",
+    "name": "Golfech Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 44.111,
+    "longitude": 0.846,
+    "status": "operating",
+    "totalCapacityMWe": 2620,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1991,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "P4",
+        "netMWe": 1310,
+        "status": "operating",
+        "commercialYear": 1991
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "P4",
+        "netMWe": 1310,
+        "status": "operating",
+        "commercialYear": 1994
+      }
+    ],
+    "iaeaPrisId": "FR-62",
+    "age": 35,
+    "city": "Golfech",
+    "stateProvince": "Occitanie"
+  },
+  {
+    "id": "nogent",
+    "name": "Nogent Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 48.515,
+    "longitude": 3.518,
+    "status": "operating",
+    "totalCapacityMWe": 2620,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1988,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "P4",
+        "netMWe": 1310,
+        "status": "operating",
+        "commercialYear": 1988
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "P4",
+        "netMWe": 1310,
+        "status": "operating",
+        "commercialYear": 1989
+      }
+    ],
+    "iaeaPrisId": "FR-63",
+    "age": 38,
+    "city": "Nogent-sur-Seine",
+    "stateProvince": "Grand Est"
+  },
+  {
+    "id": "penly",
+    "name": "Penly Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 49.976,
+    "longitude": 1.213,
+    "status": "operating",
+    "totalCapacityMWe": 2660,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1990,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "P4",
+        "netMWe": 1330,
+        "status": "operating",
+        "commercialYear": 1990
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "P4",
+        "netMWe": 1330,
+        "status": "operating",
+        "commercialYear": 1992
+      }
+    ],
+    "iaeaPrisId": "FR-64",
+    "age": 36,
+    "city": "Saint-Martin-en-Campagne",
+    "stateProvince": "Normandy"
+  },
+  {
+    "id": "saint-laurent",
+    "name": "Saint-Laurent Nuclear Power Plant",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Europe",
+    "latitude": 47.72,
+    "longitude": 1.578,
+    "status": "operating",
+    "totalCapacityMWe": 1830,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1983,
+    "operator": "Électricité de France (EDF)",
+    "units": [
+      {
+        "unitName": "Unit B1",
+        "type": "CP2",
+        "netMWe": 915,
+        "status": "operating",
+        "commercialYear": 1983
+      },
+      {
+        "unitName": "Unit B2",
+        "type": "CP2",
+        "netMWe": 915,
+        "status": "operating",
+        "commercialYear": 1983
+      }
+    ],
+    "iaeaPrisId": "FR-65",
+    "age": 43,
+    "city": "Saint-Laurent-Nouan",
+    "stateProvince": "Centre-Val de Loire"
+  },
+  {
+    "id": "daya-bay",
+    "name": "Daya Bay Nuclear Power Plant",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 22.598,
+    "longitude": 114.542,
+    "status": "operating",
+    "totalCapacityMWe": 1888,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1994,
+    "operator": "CGN (China General Nuclear)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "M310",
+        "netMWe": 944,
+        "status": "operating",
+        "commercialYear": 1994
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "M310",
+        "netMWe": 944,
+        "status": "operating",
+        "commercialYear": 1994
+      }
+    ],
+    "iaeaPrisId": "CN-16",
+    "age": 32,
+    "city": "Shenzhen",
+    "stateProvince": "Guangdong"
+  },
+  {
+    "id": "ling-ao",
+    "name": "Ling Ao Nuclear Power Plant",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 22.604,
+    "longitude": 114.551,
+    "status": "operating",
+    "totalCapacityMWe": 3904,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 2002,
+    "operator": "CGN",
+    "units": [
+      {
+        "unitName": "Phase I-1",
+        "type": "M310",
+        "netMWe": 950,
+        "status": "operating",
+        "commercialYear": 2002
+      },
+      {
+        "unitName": "Phase I-2",
+        "type": "M310",
+        "netMWe": 950,
+        "status": "operating",
+        "commercialYear": 2003
+      },
+      {
+        "unitName": "Phase II-1",
+        "type": "CPR-1000",
+        "netMWe": 1002,
+        "status": "operating",
+        "commercialYear": 2010
+      },
+      {
+        "unitName": "Phase II-2",
+        "type": "CPR-1000",
+        "netMWe": 1002,
+        "status": "operating",
+        "commercialYear": 2011
+      }
+    ],
+    "iaeaPrisId": "CN-17",
+    "age": 24,
+    "city": "Shenzhen",
+    "stateProvince": "Guangdong"
+  },
+  {
+    "id": "haiyang",
+    "name": "Haiyang Nuclear Power Plant",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 36.708,
+    "longitude": 121.381,
+    "status": "operating",
+    "totalCapacityMWe": 2300,
+    "reactorCount": 2,
+    "primaryReactorType": "AP1000",
+    "firstCommercialYear": 2018,
+    "operator": "SPIC (State Power Investment Corp)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "AP1000",
+        "netMWe": 1150,
+        "status": "operating",
+        "commercialYear": 2018
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "AP1000",
+        "netMWe": 1150,
+        "status": "operating",
+        "commercialYear": 2019
+      }
+    ],
+    "iaeaPrisId": "CN-18",
+    "age": 8,
+    "city": "Haiyang",
+    "stateProvince": "Shandong"
+  },
+  {
+    "id": "hongyanhe",
+    "name": "Hongyanhe Nuclear Power Plant",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 39.799,
+    "longitude": 121.48,
+    "status": "operating",
+    "totalCapacityMWe": 6244,
+    "reactorCount": 6,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 2013,
+    "operator": "Liaoning Hongyanhe Nuclear Power Co.",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2013
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2014
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2015
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2016
+      },
+      {
+        "unitName": "Unit 5",
+        "type": "ACPR-1000",
+        "netMWe": 1061,
+        "status": "operating",
+        "commercialYear": 2021
+      },
+      {
+        "unitName": "Unit 6",
+        "type": "ACPR-1000",
+        "netMWe": 1061,
+        "status": "operating",
+        "commercialYear": 2022
+      }
+    ],
+    "iaeaPrisId": "CN-19",
+    "age": 13,
+    "city": "Wafangdian",
+    "stateProvince": "Liaoning"
+  },
+  {
+    "id": "ningde",
+    "name": "Ningde Nuclear Power Plant",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 27.043,
+    "longitude": 120.285,
+    "status": "operating",
+    "totalCapacityMWe": 4072,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 2013,
+    "operator": "CGN",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CPR-1000",
+        "netMWe": 1018,
+        "status": "operating",
+        "commercialYear": 2013
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CPR-1000",
+        "netMWe": 1018,
+        "status": "operating",
+        "commercialYear": 2014
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "CPR-1000",
+        "netMWe": 1018,
+        "status": "operating",
+        "commercialYear": 2015
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "CPR-1000",
+        "netMWe": 1018,
+        "status": "operating",
+        "commercialYear": 2016
+      }
+    ],
+    "iaeaPrisId": "CN-20",
+    "age": 13,
+    "city": "Fuding",
+    "stateProvince": "Fujian"
+  },
+  {
+    "id": "fangchenggang",
+    "name": "Fangchenggang Nuclear Power Plant",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 21.673,
+    "longitude": 108.354,
+    "status": "operating",
+    "totalCapacityMWe": 4000,
+    "reactorCount": 4,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 2016,
+    "operator": "CGN",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2016
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CPR-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2016
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "Hualong One",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2023
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "Hualong One",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2024
+      }
+    ],
+    "iaeaPrisId": "CN-21",
+    "age": 10,
+    "city": "Fangchenggang",
+    "stateProvince": "Guangxi"
+  },
+  {
+    "id": "changjiang",
+    "name": "Changjiang Nuclear Power Plant",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Asia",
+    "latitude": 19.461,
+    "longitude": 108.898,
+    "status": "operating",
+    "totalCapacityMWe": 1220,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 2015,
+    "operator": "CNNC",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "CNP-600",
+        "netMWe": 610,
+        "status": "operating",
+        "commercialYear": 2015
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "CNP-600",
+        "netMWe": 610,
+        "status": "operating",
+        "commercialYear": 2016
+      }
+    ],
+    "iaeaPrisId": "CN-22",
+    "age": 11,
+    "city": "Changjiang",
+    "stateProvince": "Hainan"
+  },
+  {
+    "id": "ikata",
+    "name": "Ikata Nuclear Power Plant",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Asia",
+    "latitude": 33.49,
+    "longitude": 132.311,
+    "status": "operating",
+    "totalCapacityMWe": 890,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1994,
+    "operator": "Shikoku Electric Power Company",
+    "units": [
+      {
+        "unitName": "Unit 3",
+        "type": "MHI 3-Loop",
+        "netMWe": 890,
+        "status": "operating",
+        "commercialYear": 1994
+      }
+    ],
+    "iaeaPrisId": "JP-16",
+    "age": 32,
+    "city": "Ikata",
+    "stateProvince": "Ehime Prefecture"
+  },
+  {
+    "id": "onagawa",
+    "name": "Onagawa Nuclear Power Plant",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Asia",
+    "latitude": 38.401,
+    "longitude": 141.499,
+    "status": "operating",
+    "totalCapacityMWe": 825,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1995,
+    "operator": "Tohoku Electric Power Company",
+    "units": [
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-5",
+        "netMWe": 825,
+        "status": "operating",
+        "commercialYear": 1995
+      }
+    ],
+    "iaeaPrisId": "JP-17",
+    "age": 31,
+    "city": "Onagawa",
+    "stateProvince": "Miyagi Prefecture"
+  },
+  {
+    "id": "shimane",
+    "name": "Shimane Nuclear Power Plant",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Asia",
+    "latitude": 35.539,
+    "longitude": 132.999,
+    "status": "operating",
+    "totalCapacityMWe": 820,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1989,
+    "operator": "Chugoku Electric Power Company",
+    "units": [
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-5",
+        "netMWe": 820,
+        "status": "operating",
+        "commercialYear": 1989
+      }
+    ],
+    "iaeaPrisId": "JP-18",
+    "age": 37,
+    "city": "Matsue",
+    "stateProvince": "Shimane Prefecture"
+  },
+  {
+    "id": "hamaoka",
+    "name": "Hamaoka Nuclear Power Plant",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Asia",
+    "latitude": 34.623,
+    "longitude": 138.143,
+    "status": "shutdown",
+    "totalCapacityMWe": 3617,
+    "reactorCount": 3,
+    "primaryReactorType": "ABWR",
+    "firstCommercialYear": 1987,
+    "operator": "Chubu Electric Power Company",
+    "units": [
+      {
+        "unitName": "Unit 3",
+        "type": "BWR-5",
+        "netMWe": 1056,
+        "status": "shutdown",
+        "commercialYear": 1987
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "BWR-5",
+        "netMWe": 1092,
+        "status": "shutdown",
+        "commercialYear": 1993
+      },
+      {
+        "unitName": "Unit 5",
+        "type": "ABWR",
+        "netMWe": 1469,
+        "status": "shutdown",
+        "commercialYear": 2005
+      }
+    ],
+    "iaeaPrisId": "JP-19",
+    "age": 39,
+    "city": "Omaezaki",
+    "stateProvince": "Shizuoka Prefecture"
+  },
+  {
+    "id": "shika",
+    "name": "Shika Nuclear Power Plant",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Asia",
+    "latitude": 37.06,
+    "longitude": 136.726,
+    "status": "shutdown",
+    "totalCapacityMWe": 1899,
+    "reactorCount": 2,
+    "primaryReactorType": "ABWR",
+    "firstCommercialYear": 1993,
+    "operator": "Hokuriku Electric Power Company",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-5",
+        "netMWe": 540,
+        "status": "shutdown",
+        "commercialYear": 1993
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "ABWR",
+        "netMWe": 1359,
+        "status": "shutdown",
+        "commercialYear": 2006
+      }
+    ],
+    "iaeaPrisId": "JP-20",
+    "age": 33,
+    "city": "Shika",
+    "stateProvince": "Ishikawa Prefecture"
+  },
+  {
+    "id": "tomari",
+    "name": "Tomari Nuclear Power Plant",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Asia",
+    "latitude": 43.036,
+    "longitude": 140.513,
+    "status": "shutdown",
+    "totalCapacityMWe": 2070,
+    "reactorCount": 3,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1989,
+    "operator": "Hokkaido Electric Power Company",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "MHI 2-Loop",
+        "netMWe": 579,
+        "status": "shutdown",
+        "commercialYear": 1989
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "MHI 2-Loop",
+        "netMWe": 579,
+        "status": "shutdown",
+        "commercialYear": 1991
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "MHI 3-Loop",
+        "netMWe": 912,
+        "status": "shutdown",
+        "commercialYear": 2009
+      }
+    ],
+    "iaeaPrisId": "JP-21",
+    "age": 37,
+    "city": "Tomari",
+    "stateProvince": "Hokkaido"
+  },
+  {
+    "id": "kola",
+    "name": "Kola Nuclear Power Plant",
+    "country": "Russia",
+    "countryCode": "RU",
+    "region": "Europe",
+    "latitude": 67.467,
+    "longitude": 32.483,
+    "status": "operating",
+    "totalCapacityMWe": 1760,
+    "reactorCount": 4,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1973,
+    "operator": "Rosenergoatom",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-440/230",
+        "netMWe": 440,
+        "status": "operating",
+        "commercialYear": 1973
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-440/230",
+        "netMWe": 440,
+        "status": "operating",
+        "commercialYear": 1974
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "VVER-440/213",
+        "netMWe": 440,
+        "status": "operating",
+        "commercialYear": 1982
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "VVER-440/213",
+        "netMWe": 440,
+        "status": "operating",
+        "commercialYear": 1984
+      }
+    ],
+    "iaeaPrisId": "RU-35",
+    "age": 53,
+    "city": "Polyarnye Zori",
+    "stateProvince": "Murmansk Oblast"
+  },
+  {
+    "id": "smolensk",
+    "name": "Smolensk Nuclear Power Plant",
+    "country": "Russia",
+    "countryCode": "RU",
+    "region": "Europe",
+    "latitude": 54.168,
+    "longitude": 33.248,
+    "status": "operating",
+    "totalCapacityMWe": 3000,
+    "reactorCount": 3,
+    "primaryReactorType": "RBMK",
+    "firstCommercialYear": 1983,
+    "operator": "Rosenergoatom",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "RBMK-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 1983
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "RBMK-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "RBMK-1000",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 1990
+      }
+    ],
+    "iaeaPrisId": "RU-36",
+    "age": 43,
+    "city": "Desnogorsk",
+    "stateProvince": "Smolensk Oblast"
+  },
+  {
+    "id": "kalinin",
+    "name": "Kalinin Nuclear Power Plant",
+    "country": "Russia",
+    "countryCode": "RU",
+    "region": "Europe",
+    "latitude": 57.905,
+    "longitude": 35.06,
+    "status": "operating",
+    "totalCapacityMWe": 4000,
+    "reactorCount": 4,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1985,
+    "operator": "Rosenergoatom",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-1000/338",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 1985
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-1000/338",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 1987
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "VVER-1000/320",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2005
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "VVER-1000/320",
+        "netMWe": 1000,
+        "status": "operating",
+        "commercialYear": 2012
+      }
+    ],
+    "iaeaPrisId": "RU-37",
+    "age": 41,
+    "city": "Udomlya",
+    "stateProvince": "Tver Oblast"
+  },
+  {
+    "id": "calder-hall",
+    "name": "Calder Hall (Sellafield)",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "region": "Europe",
+    "latitude": 54.42,
+    "longitude": -3.498,
+    "status": "decommissioned",
+    "totalCapacityMWe": 200,
+    "reactorCount": 4,
+    "primaryReactorType": "Magnox",
+    "firstCommercialYear": 1956,
+    "operator": "UKAEA / Sellafield Ltd",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "Magnox",
+        "netMWe": 50,
+        "status": "decommissioned",
+        "commercialYear": 1956,
+        "shutdownYear": 2003
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "Magnox",
+        "netMWe": 50,
+        "status": "decommissioned",
+        "commercialYear": 1957,
+        "shutdownYear": 2003
+      },
+      {
+        "unitName": "Unit 3",
+        "type": "Magnox",
+        "netMWe": 50,
+        "status": "decommissioned",
+        "commercialYear": 1958,
+        "shutdownYear": 2003
+      },
+      {
+        "unitName": "Unit 4",
+        "type": "Magnox",
+        "netMWe": 50,
+        "status": "decommissioned",
+        "commercialYear": 1959,
+        "shutdownYear": 2003
+      }
+    ],
+    "iaeaPrisId": "GB-01-HIST",
+    "age": 70,
+    "city": "Seascale",
+    "stateProvince": "Cumbria, England"
+  },
+  {
+    "id": "beznau",
+    "name": "Beznau Nuclear Power Plant",
+    "country": "Switzerland",
+    "countryCode": "CH",
+    "region": "Europe",
+    "latitude": 47.552,
+    "longitude": 8.228,
+    "status": "operating",
+    "totalCapacityMWe": 730,
+    "reactorCount": 2,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1969,
+    "operator": "Axpo Power AG",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "WH 2-Loop",
+        "netMWe": 365,
+        "status": "operating",
+        "commercialYear": 1969
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "WH 2-Loop",
+        "netMWe": 365,
+        "status": "operating",
+        "commercialYear": 1972
+      }
+    ],
+    "iaeaPrisId": "CH-03",
+    "age": 57,
+    "city": "Döttingen",
+    "stateProvince": "Aargau"
+  },
+  {
+    "id": "ostrovets",
+    "name": "Belarusian Nuclear Power Plant (Ostrovets)",
+    "country": "Belarus",
+    "countryCode": "BY",
+    "region": "Europe",
+    "latitude": 54.757,
+    "longitude": 26.092,
+    "status": "operating",
+    "totalCapacityMWe": 2388,
+    "reactorCount": 2,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 2021,
+    "operator": "Belarusian NPP State Enterprise",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-1200/V-491",
+        "netMWe": 1194,
+        "status": "operating",
+        "commercialYear": 2021
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-1200/V-491",
+        "netMWe": 1194,
+        "status": "operating",
+        "commercialYear": 2023
+      }
+    ],
+    "iaeaPrisId": "BY-01",
+    "age": 5,
+    "city": "Astravyets",
+    "stateProvince": "Grodno Region"
+  },
+  {
+    "id": "rooppur",
+    "name": "Rooppur Nuclear Power Plant",
+    "country": "Bangladesh",
+    "countryCode": "BD",
+    "region": "Asia",
+    "latitude": 24.068,
+    "longitude": 89.047,
+    "status": "under-construction",
+    "totalCapacityMWe": 2400,
+    "reactorCount": 2,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 2026,
+    "operator": "Bangladesh Atomic Energy Commission (BAEC)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "VVER-1200",
+        "netMWe": 1200,
+        "status": "under-construction",
+        "commercialYear": 2026
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "VVER-1200",
+        "netMWe": 1200,
+        "status": "under-construction",
+        "commercialYear": 2027
+      }
+    ],
+    "iaeaPrisId": "BD-01",
+    "age": 0,
+    "city": "Ishwardi",
+    "stateProvince": "Pabna District"
+  },
+  {
+    "id": "trillo",
+    "name": "Trillo Nuclear Power Plant",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Europe",
+    "latitude": 40.701,
+    "longitude": -2.622,
+    "status": "operating",
+    "totalCapacityMWe": 1043,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1988,
+    "operator": "Centrales Nucleares Almaraz-Trillo (CNAT)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "KWU PWR",
+        "netMWe": 1043,
+        "status": "operating",
+        "commercialYear": 1988
+      }
+    ],
+    "iaeaPrisId": "ES-04",
+    "age": 38,
+    "city": "Trillo",
+    "stateProvince": "Castilla-La Mancha"
+  },
+  {
+    "id": "vandellos",
+    "name": "Vandellòs Nuclear Power Plant",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Europe",
+    "latitude": 40.951,
+    "longitude": 0.867,
+    "status": "operating",
+    "totalCapacityMWe": 1087,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1988,
+    "operator": "ANAV",
+    "units": [
+      {
+        "unitName": "Unit 2",
+        "type": "WH 3-Loop",
+        "netMWe": 1087,
+        "status": "operating",
+        "commercialYear": 1988
+      }
+    ],
+    "iaeaPrisId": "ES-05",
+    "age": 38,
+    "city": "Vandellòs",
+    "stateProvince": "Catalonia"
+  },
+  {
+    "id": "grohnde",
+    "name": "Grohnde Nuclear Power Plant",
+    "country": "Germany",
+    "countryCode": "DE",
+    "region": "Europe",
+    "latitude": 52.035,
+    "longitude": 9.412,
+    "status": "shutdown",
+    "totalCapacityMWe": 1360,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1985,
+    "operator": "PreussenElektra",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "KWU PWR",
+        "netMWe": 1360,
+        "status": "shutdown",
+        "commercialYear": 1985,
+        "shutdownYear": 2021
+      }
+    ],
+    "iaeaPrisId": "DE-03",
+    "age": 41,
+    "city": "Emmerthal",
+    "stateProvince": "Lower Saxony"
+  },
+  {
+    "id": "gundremmingen",
+    "name": "Gundremmingen Nuclear Power Plant",
+    "country": "Germany",
+    "countryCode": "DE",
+    "region": "Europe",
+    "latitude": 48.514,
+    "longitude": 10.402,
+    "status": "shutdown",
+    "totalCapacityMWe": 2572,
+    "reactorCount": 2,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1984,
+    "operator": "RWE Power AG",
+    "units": [
+      {
+        "unitName": "Unit B",
+        "type": "BWR-72",
+        "netMWe": 1284,
+        "status": "shutdown",
+        "commercialYear": 1984,
+        "shutdownYear": 2017
+      },
+      {
+        "unitName": "Unit C",
+        "type": "BWR-72",
+        "netMWe": 1288,
+        "status": "shutdown",
+        "commercialYear": 1985,
+        "shutdownYear": 2021
+      }
+    ],
+    "iaeaPrisId": "DE-04",
+    "age": 42,
+    "city": "Gundremmingen",
+    "stateProvince": "Bavaria"
+  },
+  {
+    "id": "neckarwestheim",
+    "name": "Neckarwestheim Nuclear Power Plant",
+    "country": "Germany",
+    "countryCode": "DE",
+    "region": "Europe",
+    "latitude": 49.041,
+    "longitude": 9.175,
+    "status": "shutdown",
+    "totalCapacityMWe": 1310,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1989,
+    "operator": "EnBW",
+    "units": [
+      {
+        "unitName": "Unit 2",
+        "type": "Konvoi PWR",
+        "netMWe": 1310,
+        "status": "shutdown",
+        "commercialYear": 1989,
+        "shutdownYear": 2023
+      }
+    ],
+    "iaeaPrisId": "DE-05",
+    "age": 37,
+    "city": "Neckarwestheim",
+    "stateProvince": "Baden-Württemberg"
+  },
+  {
+    "id": "emsland",
+    "name": "Emsland Nuclear Power Plant",
+    "country": "Germany",
+    "countryCode": "DE",
+    "region": "Europe",
+    "latitude": 52.473,
+    "longitude": 7.318,
+    "status": "shutdown",
+    "totalCapacityMWe": 1335,
+    "reactorCount": 1,
+    "primaryReactorType": "PWR",
+    "firstCommercialYear": 1988,
+    "operator": "RWE Power AG",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "Konvoi PWR",
+        "netMWe": 1335,
+        "status": "shutdown",
+        "commercialYear": 1988,
+        "shutdownYear": 2023
+      }
+    ],
+    "iaeaPrisId": "DE-06",
+    "age": 38,
+    "city": "Lingen",
+    "stateProvince": "Lower Saxony"
+  },
+  {
+    "id": "bohunice",
+    "name": "Bohunice Nuclear Power Plant",
+    "country": "Slovakia",
+    "countryCode": "SK",
+    "region": "Europe",
+    "latitude": 48.493,
+    "longitude": 17.677,
+    "status": "operating",
+    "totalCapacityMWe": 1010,
+    "reactorCount": 2,
+    "primaryReactorType": "VVER",
+    "firstCommercialYear": 1984,
+    "operator": "Slovenské elektrárne",
+    "units": [
+      {
+        "unitName": "V2 Unit 3",
+        "type": "VVER-440/213",
+        "netMWe": 505,
+        "status": "operating",
+        "commercialYear": 1984
+      },
+      {
+        "unitName": "V2 Unit 4",
+        "type": "VVER-440/213",
+        "netMWe": 505,
+        "status": "operating",
+        "commercialYear": 1985
+      }
+    ],
+    "iaeaPrisId": "SK-02",
+    "age": 42,
+    "city": "Jaslovské Bohunice",
+    "stateProvince": "Trnava Region"
+  },
+  {
+    "id": "barseback",
+    "name": "Barsebäck Nuclear Power Plant",
+    "country": "Sweden",
+    "countryCode": "SE",
+    "region": "Europe",
+    "latitude": 55.748,
+    "longitude": 12.92,
+    "status": "decommissioned",
+    "totalCapacityMWe": 1200,
+    "reactorCount": 2,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1975,
+    "operator": "Barsebäck Kraft AB (Uniper)",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "ABB Atom BWR",
+        "netMWe": 600,
+        "status": "decommissioned",
+        "commercialYear": 1975,
+        "shutdownYear": 1999
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "ABB Atom BWR",
+        "netMWe": 600,
+        "status": "decommissioned",
+        "commercialYear": 1977,
+        "shutdownYear": 2005
+      }
+    ],
+    "iaeaPrisId": "SE-04",
+    "age": 51,
+    "city": "Kävlinge",
+    "stateProvince": "Skåne County"
+  },
+  {
+    "id": "ignalina",
+    "name": "Ignalina Nuclear Power Plant",
+    "country": "Lithuania",
+    "countryCode": "LT",
+    "region": "Europe",
+    "latitude": 55.604,
+    "longitude": 26.619,
+    "status": "decommissioned",
+    "totalCapacityMWe": 2720,
+    "reactorCount": 2,
+    "primaryReactorType": "RBMK",
+    "firstCommercialYear": 1983,
+    "operator": "State Enterprise Ignalina NPP",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "RBMK-1500",
+        "netMWe": 1360,
+        "status": "decommissioned",
+        "commercialYear": 1983,
+        "shutdownYear": 2004
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "RBMK-1500",
+        "netMWe": 1360,
+        "status": "decommissioned",
+        "commercialYear": 1987,
+        "shutdownYear": 2009
+      }
+    ],
+    "iaeaPrisId": "LT-01",
+    "age": 43,
+    "city": "Visaginas",
+    "stateProvince": "Utena County"
+  },
+  {
+    "id": "caorso",
+    "name": "Caorso Nuclear Power Plant",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Europe",
+    "latitude": 45.071,
+    "longitude": 9.872,
+    "status": "decommissioned",
+    "totalCapacityMWe": 860,
+    "reactorCount": 1,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1981,
+    "operator": "Sogin",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-4",
+        "netMWe": 860,
+        "status": "decommissioned",
+        "commercialYear": 1981,
+        "shutdownYear": 1990
+      }
+    ],
+    "iaeaPrisId": "IT-01",
+    "age": 45,
+    "city": "Caorso",
+    "stateProvince": "Emilia-Romagna"
+  },
+  {
+    "id": "kuosheng",
+    "name": "Kuosheng Nuclear Power Plant",
+    "country": "Taiwan",
+    "countryCode": "TW",
+    "region": "Asia",
+    "latitude": 25.204,
+    "longitude": 121.66,
+    "status": "shutdown",
+    "totalCapacityMWe": 1970,
+    "reactorCount": 2,
+    "primaryReactorType": "BWR",
+    "firstCommercialYear": 1981,
+    "operator": "Taipower",
+    "units": [
+      {
+        "unitName": "Unit 1",
+        "type": "BWR-6",
+        "netMWe": 985,
+        "status": "shutdown",
+        "commercialYear": 1981,
+        "shutdownYear": 2021
+      },
+      {
+        "unitName": "Unit 2",
+        "type": "BWR-6",
+        "netMWe": 985,
+        "status": "shutdown",
+        "commercialYear": 1983,
+        "shutdownYear": 2023
+      }
+    ],
+    "iaeaPrisId": "TW-02",
+    "age": 45,
+    "city": "Wanli",
+    "stateProvince": "New Taipei"
+  }
+]

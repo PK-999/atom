@@ -133,8 +133,8 @@ export function AskAtom({ initialQuery = "" }: { initialQuery?: string }) {
                 <span className={styles.levelLabel}>Explanation Level:</span>
                 <button
                   type="button"
-                  onClick={() => handleLevelChange("simple")}
-                  className={`${styles.levelBtn} ${level === "simple" ? styles.levelBtnActive : ""}`}
+                  onClick={() => handleLevelChange("explorer")}
+                  className={`${styles.levelBtn} ${level === "explorer" ? styles.levelBtnActive : ""}`}
                 >
                   Simple
                 </button>
@@ -147,8 +147,8 @@ export function AskAtom({ initialQuery = "" }: { initialQuery?: string }) {
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleLevelChange("technical")}
-                  className={`${styles.levelBtn} ${level === "technical" ? styles.levelBtnActive : ""}`}
+                  onClick={() => handleLevelChange("deep-dive")}
+                  className={`${styles.levelBtn} ${level === "deep-dive" ? styles.levelBtnActive : ""}`}
                 >
                   Technical
                 </button>

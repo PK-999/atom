@@ -351,9 +351,9 @@ export function askAtom(query: AskQuery): AskResponse {
   }
 
   const answerText =
-    level === "simple"
+    level === "explorer"
       ? bestEntry.simple
-      : level === "technical"
+      : level === "deep-dive"
         ? bestEntry.technical
         : bestEntry.standard;
 

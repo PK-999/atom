@@ -17,9 +17,9 @@ export const AnswerStateSchema = z.enum([
 ]);
 
 export const AskExplanationLevelSchema = z.enum([
-  "simple",
+  "explorer",
   "standard",
-  "technical",
+  "deep-dive",
 ]);
 
 export const AskCitationSchema = z

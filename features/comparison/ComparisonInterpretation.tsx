@@ -70,7 +70,7 @@ export function ComparisonInterpretation({
       </h2>
       <p aria-live="polite">{result.text}</p>
       {result.limitations && (
-        <p className="text-xs text-muted-foreground mt-2">
+        <p className={styles.limitations}>
           <strong>Limitations:</strong> {result.limitations}
         </p>
       )}

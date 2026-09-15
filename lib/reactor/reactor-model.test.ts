@@ -11,9 +11,9 @@ import {
 import type { ReactorSystem } from "./schemas";
 
 describe("Reactor Model & Systems Integrity (R15)", () => {
-  it("loads all three canonical reactor systems: PWR, BWR, and PHWR", () => {
+  it("loads all canonical and advanced reactor systems including SMR and HTGR", () => {
     const systems = listReactorSystems();
-    expect(systems.length).toBeGreaterThanOrEqual(3);
+    expect(systems.length).toBeGreaterThanOrEqual(8);
 
     const pwr = getReactorSystem("pwr");
     expect(pwr).not.toBeNull();
@@ -27,6 +27,16 @@ describe("Reactor Model & Systems Integrity (R15)", () => {
     const phwr = getReactorSystem("phwr");
     expect(phwr).not.toBeNull();
     expect(phwr?.type).toBe("PHWR");
+
+    const smr = getReactorSystem("smr");
+    expect(smr).not.toBeNull();
+    expect(smr?.type).toBe("SMR");
+    expect(smr?.components.length).toBeGreaterThanOrEqual(7);
+
+    const htgr = getReactorSystem("htgr");
+    expect(htgr).not.toBeNull();
+    expect(htgr?.type).toBe("HTGR");
+    expect(htgr?.components.length).toBeGreaterThanOrEqual(7);
   });
 
   it("verifies referential integrity across all canonical systems with zero orphan connections", () => {

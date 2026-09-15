@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 
+import { AppShell } from "@/components/layout/AppShell";
 import { ComparisonLab } from "@/features/comparison/ComparisonLab";
 import { parseComparisonState } from "@/features/comparison/comparison-url";
 import { fetchComparisonData } from "@/features/comparison/comparison-api";
 
 export const metadata: Metadata = {
-  title: "Energy Comparison Lab",
+  title: "Energy Comparison Lab | ATOM",
   description:
     "Compare electricity technologies while keeping the evidence behind every number within reach.",
 };
@@ -19,5 +20,9 @@ export default async function ComparisonPage({
   const state = parseComparisonState(params);
   const comparison = await fetchComparisonData(state);
 
-  return <ComparisonLab comparison={comparison} initialState={state} />;
+  return (
+    <AppShell>
+      <ComparisonLab comparison={comparison} initialState={state} />
+    </AppShell>
+  );
 }

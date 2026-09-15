@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import { LessonViewer } from "./LessonViewer";
 import type { LessonRecord, Topic } from "@/lib/education/schemas";
@@ -14,13 +14,13 @@ const sampleLesson: LessonRecord = {
   conceptIds: ["energy-conservation"],
   claimIds: ["fuel-energy-density"],
   contentByLevel: {
-    kid: "Energy is the ability to do work.",
-    simple: "Energy is measured in kilowatt-hours and power in watts.",
+    beginner: "Energy is the ability to do work.",
+    explorer: "Energy is measured in kilowatt-hours and power in watts.",
     curious:
       "Chemical fuels store energy in electron bonds (~4 eV), while nuclear fuels store energy in nuclei (~200 MeV).",
-    technical:
+    "deep-dive":
       "Specific energy density governs fuel logistics: uranium dioxide yields ~500,000 MJ/kg.",
-    expert: "Mass-energy equivalence governs nuclear mass defect in fission.",
+    geeky: "Mass-energy equivalence governs nuclear mass defect in fission.",
   },
   checkpointIds: ["chk-energy-density"],
   nextLessonId: "atom",
@@ -50,11 +50,11 @@ const sampleNextLesson: LessonRecord = {
   conceptIds: [],
   claimIds: [],
   contentByLevel: {
-    kid: "Atoms are tiny.",
-    simple: "Atoms have protons.",
+    beginner: "Atoms are tiny.",
+    explorer: "Atoms have protons.",
     curious: "Atoms have nuclei.",
-    technical: "Atomic cross sections.",
-    expert: "Binding energy.",
+    "deep-dive": "Atomic cross sections.",
+    geeky: "Binding energy.",
   },
   checkpointIds: [],
   nextLessonId: null,
@@ -103,7 +103,9 @@ describe("LessonViewer", () => {
     );
   });
 
-  it("dynamically updates explanation content when complexity level is changed", () => {
+  it("adapts explanation content based on stored complexity level", () => {
+    window.localStorage.setItem("atom:preferences:v1:complexity", "beginner");
+
     render(
       <LessonViewer
         lesson={sampleLesson}
@@ -112,24 +114,9 @@ describe("LessonViewer", () => {
       />,
     );
 
-    // Default level is "curious"
     const explanationEl = screen.getByTestId("lesson-explanation");
     expect(explanationEl).toHaveTextContent(
-      "Chemical fuels store energy in electron bonds",
-    );
-
-    // Switch to Kid (level 1)
-    const kidBtn = screen.getByRole("button", { name: "Kid" });
-    fireEvent.click(kidBtn);
-    expect(explanationEl).toHaveTextContent(
       "Energy is the ability to do work.",
-    );
-
-    // Switch to Expert (level 5)
-    const expertBtn = screen.getByRole("button", { name: "Expert" });
-    fireEvent.click(expertBtn);
-    expect(explanationEl).toHaveTextContent(
-      "Mass-energy equivalence governs nuclear mass defect",
     );
   });
 });

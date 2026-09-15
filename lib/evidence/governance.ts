@@ -206,9 +206,14 @@ export function assessFreshness(input: FreshnessInput): FreshnessResult {
   const asOf = parseCalendarDate(input.asOf);
   const millisecondsPerDay = 86_400_000;
   const ageDays = (asOf.getTime() - verified.getTime()) / millisecondsPerDay;
-  if (ageDays < 0 || !Number.isInteger(ageDays)) {
+  if (ageDays < 0) {
     throw new Error(
       "The verification date cannot be after the assessment date.",
+    );
+  }
+  if (!Number.isInteger(ageDays)) {
+    throw new Error(
+      "Date arithmetic produced a fractional day; lastVerifiedAt and asOf must be calendar dates (YYYY-MM-DD).",
     );
   }
   const due = new Date(
@@ -240,6 +245,8 @@ export type PublicationEligibilityReason =
   | "observation-study-relationship-mismatch"
   | "metric-relationship-mismatch"
   | "geography-relationship-mismatch"
+  | "geography-scope-mismatch"
+  | "metric-geography-unsupported"
   | "technology-relationship-mismatch"
   | "observation-study-mismatch"
   | "observation-metric-mismatch"
@@ -349,11 +356,11 @@ function assessPublication(
   if (!validateObservationAgainstMetric(observation, context.metric).valid) {
     reasons.push("observation-metric-mismatch");
   }
-  if (
-    observation.geographyScope !== context.geography.scope ||
-    !context.metric.geographySupport.includes(context.geography.scope)
-  ) {
-    reasons.push("geography-relationship-mismatch");
+  if (observation.geographyScope !== context.geography.scope) {
+    reasons.push("geography-scope-mismatch");
+  }
+  if (!context.metric.geographySupport.includes(context.geography.scope)) {
+    reasons.push("metric-geography-unsupported");
   }
   if (
     observation.license.id !== context.dataset.license.id ||

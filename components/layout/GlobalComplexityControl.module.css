@@ -1,0 +1,87 @@
+.depthControl {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--atom-surface-elevated, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--atom-border-default, rgba(255, 255, 255, 0.12));
+  border-radius: var(--atom-radius-full, 9999px);
+  padding: 4px 12px 4px 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--atom-text-primary, #f0f2f5);
+  text-decoration: none;
+  transition: all var(--atom-motion-fast, 150ms) ease;
+  white-space: nowrap;
+}
+
+.depthControl:hover {
+  background: var(--atom-surface-panel, rgba(255, 255, 255, 0.1));
+  border-color: var(--atom-accent, #00d4ff);
+  color: var(--atom-accent, #00d4ff);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+}
+
+.depthBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--atom-accent, #00d4ff);
+  color: var(--atom-text-inverse, #0a0e1a);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.depthLabel {
+  color: var(--atom-text-secondary, #9ca3af);
+  font-weight: 500;
+}
+
+.depthName {
+  color: var(--atom-text-primary, #f0f2f5);
+  font-weight: 700;
+}
+
+.depthChange {
+  font-size: 0.75rem;
+  color: var(--atom-accent, #00d4ff);
+  font-weight: 700;
+  margin-left: 2px;
+  opacity: 0.85;
+}
+
+.depthControl:hover .depthChange {
+  opacity: 1;
+}
+
+/* Light mode overrides */
+:global([data-theme="light"]) .depthControl {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .depthControl:hover {
+  background: #f1f5f9;
+  border-color: #0891b2;
+  color: #0891b2;
+}
+
+:global([data-theme="light"]) .depthBadge {
+  background: #0891b2;
+  color: #ffffff;
+}
+
+:global([data-theme="light"]) .depthLabel {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .depthName {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .depthChange {
+  color: #0891b2;
+}

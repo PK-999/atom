@@ -119,8 +119,8 @@ export function assessComparability(
   if (unique(observations.map(({ methodology }) => methodology)).length > 1) {
     addIssue(
       "methodology-mismatch",
-      "blocker",
-      "The observations use materially different methodologies.",
+      "warning",
+      "The observations use materially different methodologies; interpret the comparison with care.",
     );
   }
 

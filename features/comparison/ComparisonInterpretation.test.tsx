@@ -11,7 +11,7 @@ describe("ComparisonInterpretation", () => {
   it("renders 5 distinct complexity levels for lifecycle-ghg", () => {
     const { rerender } = render(
       <ComparisonInterpretation
-        level="kid"
+        level="beginner"
         metricId="lifecycle-ghg"
         metricName="Lifecycle greenhouse-gas emissions"
         displayMode="typical"
@@ -21,7 +21,7 @@ describe("ComparisonInterpretation", () => {
 
     rerender(
       <ComparisonInterpretation
-        level="simple"
+        level="explorer"
         metricId="lifecycle-ghg"
         metricName="Lifecycle greenhouse-gas emissions"
         displayMode="typical"
@@ -47,7 +47,7 @@ describe("ComparisonInterpretation", () => {
 
     rerender(
       <ComparisonInterpretation
-        level="technical"
+        level="deep-dive"
         metricId="lifecycle-ghg"
         metricName="Lifecycle greenhouse-gas emissions"
         displayMode="typical"
@@ -59,7 +59,7 @@ describe("ComparisonInterpretation", () => {
 
     rerender(
       <ComparisonInterpretation
-        level="expert"
+        level="geeky"
         metricId="lifecycle-ghg"
         metricName="Lifecycle greenhouse-gas emissions"
         displayMode="typical"

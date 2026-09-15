@@ -2,9 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   listTopics,
   getTopic,
-  listAllLessons,
   listPublishedLessons,
-  getLesson,
   getPublishedLesson,
   getCheckpointsForLesson,
   listGlossaryTerms,
@@ -38,11 +36,11 @@ describe("Education Catalog (R10)", () => {
   it("retrieves published lessons with all 5 complexity tiers present", () => {
     const lesson = getPublishedLesson("energy");
     expect(lesson).not.toBeNull();
-    expect(lesson?.contentByLevel.kid).toBeTruthy();
-    expect(lesson?.contentByLevel.simple).toBeTruthy();
+    expect(lesson?.contentByLevel.beginner).toBeTruthy();
+    expect(lesson?.contentByLevel.explorer).toBeTruthy();
     expect(lesson?.contentByLevel.curious).toBeTruthy();
-    expect(lesson?.contentByLevel.technical).toBeTruthy();
-    expect(lesson?.contentByLevel.expert).toBeTruthy();
+    expect(lesson?.contentByLevel["deep-dive"]).toBeTruthy();
+    expect(lesson?.contentByLevel.geeky).toBeTruthy();
   });
 
   it("retrieves checkpoints associated with a lesson", () => {

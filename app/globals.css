@@ -1,75 +1,120 @@
 @import "tailwindcss";
 
+/* =========================================================
+   ATOM — Design System Tokens
+   Dark-first premium energy literacy platform
+   ========================================================= */
+
 :root {
-  --atom-surface-canvas: #f1eee7;
-  --atom-surface-panel: #fffdf8;
-  --atom-surface-reading: #ffffff;
-  --atom-text-primary: #101823;
+  /* --- Surface --- */
+  --atom-surface-canvas: #0a0e1a;
+  --atom-surface-panel: #111827;
+  --atom-surface-elevated: #1a2332;
+  --atom-surface-reading: #f5f1e9;
+  --atom-surface-glass: rgba(17, 24, 39, 0.7);
+
+  /* --- Text --- */
+  --atom-text-primary: #f0f2f5;
+  --atom-text-secondary: #9ca3af;
+  --atom-text-muted: #6b7280;
   --atom-text-reading: #101823;
-  --atom-text-muted: #5f6d7d;
-  --atom-text-inverse: #fffdf8;
-  --atom-border-subtle: rgb(16 24 35 / 18%);
-  --atom-border-default: rgb(16 24 35 / 30%);
-  --atom-border-strong: rgb(16 24 35 / 48%);
-  --atom-interactive-primary: #6867d3;
-  --atom-interactive-strong: #4d4bb4;
-  --atom-control-muted: #8290a5;
-  --atom-focus-ring: #6867d3;
-  --atom-positive: #28775b;
-  --atom-warning: #9a5b14;
-  --atom-negative: #a13f4c;
-  --atom-information: #3768a8;
-  --atom-energy-nuclear: #a997ff;
-  --atom-energy-solar: #f0b82d;
-  --atom-energy-wind: #43c8bf;
-  --atom-energy-gas: #4d7de8;
-  --atom-energy-coal: #8c96a3;
-  --atom-energy-hydro: #298dbd;
-  --atom-energy-storage: #8b69c7;
-  --atom-energy-biomass: #668d45;
-  --atom-energy-geothermal: #ba654c;
+  --atom-text-inverse: #0a0e1a;
+
+  /* --- Border --- */
+  --atom-border-subtle: rgba(255, 255, 255, 0.06);
+  --atom-border-default: rgba(255, 255, 255, 0.12);
+  --atom-border-strong: rgba(255, 255, 255, 0.2);
+
+  /* --- Accent (electric blue) --- */
+  --atom-accent: #00d4ff;
+  --atom-accent-soft: rgba(0, 212, 255, 0.15);
+  --atom-accent-hover: #33ddff;
+  --atom-accent-glow: 0 0 20px rgba(0, 212, 255, 0.3);
+
+  /* --- Secondary accent (emerald) --- */
+  --atom-accent-secondary: #22ff66;
+  --atom-accent-secondary-soft: rgba(34, 255, 102, 0.12);
+
+  /* --- Interactive --- */
+  --atom-interactive-primary: #00d4ff;
+  --atom-interactive-hover: #33ddff;
+  --atom-interactive-active: #00b8d9;
+  --atom-focus-ring: #00d4ff;
+
+  /* --- Feedback --- */
+  --atom-positive: #22c55e;
+  --atom-warning: #f59e0b;
+  --atom-negative: #ef4444;
+  --atom-information: #3b82f6;
+
+  /* --- Energy Source Tokens --- */
+  --atom-energy-nuclear: #a78bfa;
+  --atom-energy-solar: #fbbf24;
+  --atom-energy-wind: #34d399;
+  --atom-energy-gas: #f87171;
+  --atom-energy-coal: #9ca3af;
+  --atom-energy-hydro: #38bdf8;
+  --atom-energy-storage: #c084fc;
+  --atom-energy-biomass: #84cc16;
+  --atom-energy-geothermal: #fb923c;
+
+  /* --- Spacing --- */
   --atom-space-1: 4px;
   --atom-space-2: 8px;
   --atom-space-3: 12px;
   --atom-space-4: 16px;
+  --atom-space-5: 20px;
   --atom-space-6: 24px;
   --atom-space-8: 32px;
+  --atom-space-10: 40px;
   --atom-space-12: 48px;
   --atom-space-16: 64px;
   --atom-space-24: 96px;
-  --atom-motion-fast: 160ms;
-  --atom-motion-ui: 240ms;
-  --atom-radius-control: 12px;
-  --atom-radius-panel: 20px;
-  color-scheme: light;
+
+  /* --- Motion --- */
+  --atom-motion-fast: 150ms;
+  --atom-motion-ui: 250ms;
+  --atom-motion-slow: 400ms;
+  --atom-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- Radius --- */
+  --atom-radius-sm: 6px;
+  --atom-radius-md: 12px;
+  --atom-radius-lg: 20px;
+  --atom-radius-xl: 28px;
+  --atom-radius-full: 9999px;
+
+  color-scheme: dark;
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   line-height: 1.5;
 }
 
-:root[data-theme="dark"] {
-  --atom-surface-canvas: #071727;
-  --atom-surface-panel: #0e2135;
-  --atom-surface-reading: #f5f1e9;
-  --atom-text-primary: #f7f2e8;
-  --atom-text-reading: #101823;
-  --atom-text-muted: #b3bfce;
-  --atom-text-inverse: #10152f;
-  --atom-border-subtle: rgb(218 226 245 / 22%);
-  --atom-border-default: rgb(218 226 245 / 36%);
-  --atom-border-strong: rgb(218 226 245 / 58%);
-  --atom-interactive-primary: #a8a9ff;
-  --atom-interactive-strong: #c5c3ff;
-  --atom-focus-ring: #c5c3ff;
-  --atom-positive: #79d3ae;
-  --atom-warning: #f3bd6d;
-  --atom-negative: #ff9aaa;
-  --atom-information: #8cbcff;
-  color-scheme: dark;
-}
-
+/* --- Light theme override --- */
 :root[data-theme="light"] {
+  --atom-surface-canvas: #f8fafc;
+  --atom-surface-panel: #ffffff;
+  --atom-surface-elevated: #f1f5f9;
+  --atom-surface-glass: rgba(255, 255, 255, 0.7);
+  --atom-text-primary: #0f172a;
+  --atom-text-secondary: #475569;
+  --atom-text-muted: #94a3b8;
+  --atom-text-inverse: #f8fafc;
+  --atom-border-subtle: rgba(15, 23, 42, 0.06);
+  --atom-border-default: rgba(15, 23, 42, 0.12);
+  --atom-border-strong: rgba(15, 23, 42, 0.2);
+  --atom-accent: #0891b2;
+  --atom-accent-soft: rgba(8, 145, 178, 0.1);
+  --atom-accent-hover: #06b6d4;
+  --atom-accent-glow: none;
+  --atom-interactive-primary: #0891b2;
+  --atom-interactive-hover: #06b6d4;
+  --atom-focus-ring: #0891b2;
   color-scheme: light;
 }
+
+/* =========================================================
+   Base Reset & Defaults
+   ========================================================= */
 
 * {
   box-sizing: border-box;
@@ -79,53 +124,258 @@ body {
   margin: 0;
   background: var(--atom-surface-canvas);
   color: var(--atom-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-  color: var(--atom-interactive-strong);
+  color: var(--atom-accent);
   text-underline-offset: 0.2em;
+  text-decoration: none;
+  transition: color var(--atom-motion-fast) ease;
+}
+
+a:hover {
+  color: var(--atom-accent-hover);
 }
 
 :focus-visible {
-  outline: 3px solid var(--atom-focus-ring);
-  outline-offset: 3px;
+  outline: 2px solid var(--atom-focus-ring);
+  outline-offset: 2px;
 }
 
-.foundation {
-  display: grid;
-  width: min(100% - 2rem, 44rem);
-  min-height: 100svh;
+/* =========================================================
+   Glass Panel Utility
+   ========================================================= */
+
+.atom-glass {
+  background: var(--atom-surface-glass);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-lg);
+}
+
+.atom-card {
+  background: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-lg);
+  padding: var(--atom-space-6);
+  transition:
+    border-color var(--atom-motion-fast) ease,
+    box-shadow var(--atom-motion-fast) ease;
+}
+
+.atom-card:hover {
+  border-color: var(--atom-border-default);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.atom-card-interactive {
+  cursor: pointer;
+}
+
+.atom-card-interactive:hover {
+  border-color: var(--atom-accent);
+  box-shadow: var(--atom-accent-glow);
+}
+
+/* =========================================================
+   Glow Effect Utilities
+   ========================================================= */
+
+.atom-glow {
+  box-shadow: var(--atom-accent-glow);
+}
+
+.atom-glow-text {
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+/* =========================================================
+   Button Utilities
+   ========================================================= */
+
+.atom-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--atom-space-2);
+  padding: var(--atom-space-3) var(--atom-space-6);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: var(--atom-radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all var(--atom-motion-fast) ease;
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.atom-btn-primary {
+  background: var(--atom-accent);
+  color: var(--atom-text-inverse);
+}
+
+.atom-btn-primary:hover {
+  background: var(--atom-accent-hover);
+  box-shadow: var(--atom-accent-glow);
+}
+
+.atom-btn-secondary {
+  background: transparent;
+  color: var(--atom-text-primary);
+  border: 1px solid var(--atom-border-default);
+}
+
+.atom-btn-secondary:hover {
+  border-color: var(--atom-accent);
+  color: var(--atom-accent);
+}
+
+.atom-btn-ghost {
+  background: transparent;
+  color: var(--atom-text-secondary);
+}
+
+.atom-btn-ghost:hover {
+  color: var(--atom-text-primary);
+  background: var(--atom-accent-soft);
+}
+
+.atom-btn-lg {
+  padding: var(--atom-space-4) var(--atom-space-8);
+  font-size: 1.0625rem;
+  border-radius: var(--atom-radius-md);
+}
+
+/* =========================================================
+   Typography
+   ========================================================= */
+
+.atom-display {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.atom-h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.atom-h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.atom-h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.atom-body-lg {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--atom-text-secondary);
+}
+
+.atom-body {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.atom-caption {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--atom-text-muted);
+}
+
+.atom-mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+.atom-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--atom-accent);
+}
+
+/* =========================================================
+   Layout
+   ========================================================= */
+
+.atom-container {
+  width: 100%;
+  max-width: 76rem;
   margin-inline: auto;
-  align-content: center;
-  gap: 1rem;
-  padding-block: 3rem;
+  padding-inline: var(--atom-space-5);
 }
 
-.foundation > * {
-  margin: 0;
+.atom-container-narrow {
+  max-width: 48rem;
 }
 
-.foundation h1 {
-  font-size: clamp(3rem, 10vw, 6rem);
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+.atom-section {
+  padding-block: var(--atom-space-16);
 }
 
-.foundation-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.25rem;
+/* =========================================================
+   Chip / Badge
+   ========================================================= */
+
+.atom-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--atom-space-1);
+  padding: var(--atom-space-1) var(--atom-space-3);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--atom-radius-full);
+  background: var(--atom-accent-soft);
+  color: var(--atom-accent);
 }
 
-.eyebrow,
-.status {
-  font-size: 0.875rem;
+/* =========================================================
+   Slider Track
+   ========================================================= */
+
+.atom-slider-track {
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--atom-surface-elevated);
+  border-radius: var(--atom-radius-full);
+  outline: none;
 }
 
-.status {
-  margin-top: 2rem;
-  opacity: 0.75;
+.atom-slider-track::-webkit-slider-thumb {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--atom-accent);
+  cursor: pointer;
+  box-shadow: var(--atom-accent-glow);
+  border: 2px solid var(--atom-surface-canvas);
+  transition: box-shadow var(--atom-motion-fast) ease;
 }
+
+.atom-slider-track::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 24px rgba(0, 212, 255, 0.5);
+}
+
+/* =========================================================
+   Reduced Motion
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   *,

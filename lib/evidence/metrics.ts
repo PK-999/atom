@@ -6,6 +6,8 @@ export const METRICS: readonly Metric[] = [
   // ====================
   {
     id: "lifecycle-ghg",
+    name: "Lifecycle greenhouse-gas emissions",
+    shortName: "Lifecycle emissions",
     category: "environment",
     definition:
       "Lifecycle greenhouse gas emissions per unit of electricity generated.",
@@ -17,6 +19,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "land-use",
+    name: "Direct and indirect land use",
+    shortName: "Land use",
     category: "environment",
     definition: "Direct and indirect land area required per unit of energy.",
     valueKind: "numeric",
@@ -27,6 +31,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "water-withdrawal",
+    name: "Operational water withdrawal",
+    shortName: "Water withdrawal",
     category: "environment",
     definition: "Volume of water removed from a source per unit of energy.",
     valueKind: "numeric",
@@ -37,6 +43,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "water-consumption",
+    name: "Operational water consumption",
+    shortName: "Water consumption",
     category: "environment",
     definition: "Volume of water withdrawn and not returned to the source.",
     valueKind: "numeric",
@@ -47,6 +55,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "material-requirements",
+    name: "Material requirements",
+    shortName: "Material requirements",
     category: "environment",
     definition:
       "Total mass of critical materials required for plant construction and operation.",
@@ -58,6 +68,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "mining-intensity",
+    name: "Mining intensity",
+    shortName: "Mining intensity",
     category: "environment",
     definition: "Ore and rock moved per unit of energy produced.",
     valueKind: "numeric",
@@ -68,6 +80,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "waste-volume",
+    name: "Waste volume",
+    shortName: "Waste volume",
     category: "environment",
     definition: "Volume of hazardous or operational waste generated.",
     valueKind: "numeric",
@@ -78,6 +92,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "waste-persistence",
+    name: "Waste persistence",
+    shortName: "Waste persistence",
     category: "environment",
     definition:
       "Categorical scale of how long hazardous waste remains biologically toxic.",
@@ -91,6 +107,8 @@ export const METRICS: readonly Metric[] = [
   // ====================
   {
     id: "capacity-factor",
+    name: "Annual capacity factor",
+    shortName: "Capacity factor",
     category: "reliability",
     definition:
       "Ratio of actual electrical output to maximum possible output over a period.",
@@ -102,6 +120,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "dispatchability",
+    name: "Dispatchability",
+    shortName: "Dispatchability",
     category: "reliability",
     definition: "Ability of the power source to be turned on or off on demand.",
     valueKind: "categorical",
@@ -110,6 +130,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "variability",
+    name: "Generation variability",
+    shortName: "Variability",
     category: "reliability",
     definition:
       "Inherent variability in power generation due to external forces.",
@@ -119,6 +141,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "firm-capacity",
+    name: "Firm capacity contribution",
+    shortName: "Firm capacity",
     category: "reliability",
     definition:
       "Percentage of capacity guaranteed to be available at peak load.",
@@ -130,6 +154,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "storage-dependence",
+    name: "Energy storage dependence",
+    shortName: "Storage dependence",
     category: "reliability",
     definition:
       "Degree to which the technology relies on external energy storage for firm operation.",
@@ -143,6 +169,8 @@ export const METRICS: readonly Metric[] = [
   // ====================
   {
     id: "capital-cost",
+    name: "Overnight capital cost",
+    shortName: "Capital cost",
     category: "economics",
     definition: "Overnight capital cost of construction.",
     valueKind: "numeric",
@@ -153,6 +181,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "operating-cost",
+    name: "Operating & maintenance cost",
+    shortName: "Operating cost",
     category: "economics",
     definition: "Fixed and variable operation and maintenance costs.",
     valueKind: "numeric",
@@ -163,6 +193,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "fuel-cost",
+    name: "Fuel cost",
+    shortName: "Fuel cost",
     category: "economics",
     definition: "Cost of fuel per unit of electricity generated.",
     valueKind: "numeric",
@@ -173,6 +205,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "lcoe",
+    name: "Levelized Cost of Energy",
+    shortName: "LCOE",
     category: "economics",
     definition: "Levelized Cost of Energy over the plant lifetime.",
     valueKind: "numeric",
@@ -183,6 +217,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "construction-duration",
+    name: "Construction duration",
+    shortName: "Build time",
     category: "economics",
     definition:
       "Typical time required from project start to commercial operation.",
@@ -194,6 +230,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "plant-lifetime",
+    name: "Plant operational lifetime",
+    shortName: "Plant lifetime",
     category: "economics",
     definition: "Expected operational lifetime of the facility.",
     valueKind: "numeric",
@@ -204,6 +242,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "decommissioning-cost",
+    name: "Decommissioning cost",
+    shortName: "Decommissioning",
     category: "economics",
     definition: "Cost to safely decommission the plant and restore the site.",
     valueKind: "numeric",
@@ -214,6 +254,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "financing-sensitivity",
+    name: "Financing rate sensitivity",
+    shortName: "Financing sensitivity",
     category: "economics",
     definition: "Sensitivity of LCOE to changes in discount rates.",
     valueKind: "categorical",
@@ -226,6 +268,8 @@ export const METRICS: readonly Metric[] = [
   // ====================
   {
     id: "mortality",
+    name: "Mortality rate per unit electricity",
+    shortName: "Mortality rate",
     category: "human-impact",
     definition:
       "Mortality rate per unit of electricity, including accidents and pollution.",
@@ -235,19 +279,11 @@ export const METRICS: readonly Metric[] = [
     geographySupport: ["global", "country", "region"],
     supportedUnits: ["deaths/TWh", "deaths/PWh"],
   },
-  {
-    id: "mortality-rate",
-    category: "human-impact",
-    definition:
-      "Mortality rate per unit of electricity, including accidents and pollution.",
-    valueKind: "numeric",
-    canonicalUnit: "deaths/TWh",
-    rangeSemantics: "point-or-range",
-    geographySupport: ["global", "country", "region"],
-    supportedUnits: ["deaths/TWh", "deaths/PWh"],
-  },
+  // Note: "mortality-rate" was a duplicate of "mortality" and has been removed.
   {
     id: "air-pollution",
+    name: "Air pollution health impact",
+    shortName: "Air pollution",
     category: "human-impact",
     definition:
       "Mortality or morbidity directly attributed to air pollution from operations.",
@@ -259,6 +295,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "occupational-impacts",
+    name: "Occupational safety impacts",
+    shortName: "Occupational impacts",
     category: "human-impact",
     definition:
       "Occupational hazard rate in mining, construction, and operation.",
@@ -270,6 +308,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "accident-risk",
+    name: "Severe accident risk",
+    shortName: "Accident risk",
     category: "human-impact",
     definition: "Scale and frequency of severe acute accidents.",
     valueKind: "categorical",
@@ -278,6 +318,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "displacement",
+    name: "Population displacement risk",
+    shortName: "Displacement",
     category: "human-impact",
     definition: "Likelihood and scale of population displacement.",
     valueKind: "categorical",
@@ -290,6 +332,8 @@ export const METRICS: readonly Metric[] = [
   // ====================
   {
     id: "fuel-energy-density",
+    name: "Fuel energy density",
+    shortName: "Energy density",
     category: "energy-security",
     definition: "Energy released per unit mass of fuel.",
     valueKind: "numeric",
@@ -300,6 +344,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "fuel-stockpiling",
+    name: "On-site fuel stockpiling",
+    shortName: "Fuel stockpiling",
     category: "energy-security",
     definition: "Typical duration of fuel supply that can be stored on-site.",
     valueKind: "numeric",
@@ -310,6 +356,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "import-dependency",
+    name: "Fuel & component import dependency",
+    shortName: "Import dependency",
     category: "energy-security",
     definition:
       "Percentage of fuel or critical components that must be imported.",
@@ -321,6 +369,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "supply-chain-concentration",
+    name: "Supply chain concentration",
+    shortName: "Supply concentration",
     category: "energy-security",
     definition:
       "Concentration of critical supply chain components in a single country or region.",
@@ -336,6 +386,8 @@ export const METRICS: readonly Metric[] = [
   // ====================
   {
     id: "power-density",
+    name: "Spatial power density",
+    shortName: "Power density",
     category: "technical",
     definition: "Electrical power generated per unit of land or spatial area.",
     valueKind: "numeric",
@@ -346,6 +398,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "thermal-efficiency",
+    name: "Thermal conversion efficiency",
+    shortName: "Thermal efficiency",
     category: "technical",
     definition: "Percentage of thermal energy converted to electricity.",
     valueKind: "numeric",
@@ -356,6 +410,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "refueling-cycle",
+    name: "Refueling cycle duration",
+    shortName: "Refueling cycle",
     category: "technical",
     definition: "Typical duration between necessary refueling outages.",
     valueKind: "numeric",
@@ -366,6 +422,8 @@ export const METRICS: readonly Metric[] = [
   },
   {
     id: "typical-capacity",
+    name: "Typical unit generating capacity",
+    shortName: "Typical unit capacity",
     category: "technical",
     definition: "Typical nameplate capacity of a single generating unit.",
     valueKind: "numeric",
@@ -374,24 +432,13 @@ export const METRICS: readonly Metric[] = [
     geographySupport: ["global", "country", "region"],
     supportedUnits: ["MW", "GW", "kW", "W"],
   },
-  {
-    id: "unit-capacity",
-    category: "technical",
-    definition: "Typical nameplate capacity of a single generating unit.",
-    valueKind: "numeric",
-    canonicalUnit: "MW",
-    rangeSemantics: "point-or-range",
-    geographySupport: ["global", "country", "region"],
-    supportedUnits: ["MW", "GW", "kW", "W"],
-  },
-  {
-    id: "typical-unit-capacity",
-    category: "technical",
-    definition: "Typical nameplate capacity of a single generating unit.",
-    valueKind: "numeric",
-    canonicalUnit: "MW",
-    rangeSemantics: "point-or-range",
-    geographySupport: ["global", "country", "region"],
-    supportedUnits: ["MW", "GW", "kW", "W"],
-  },
+  // Note: "unit-capacity" and "typical-unit-capacity" were duplicates of "typical-capacity" and have been removed.
 ];
+
+export const METRIC_MAP: ReadonlyMap<string, Metric> = new Map(
+  METRICS.map((m) => [m.id, m]),
+);
+
+export function getMetric(id: string): Metric | undefined {
+  return METRIC_MAP.get(id);
+}

@@ -2,7 +2,13 @@ import React from "react";
 import { describe, expect, it } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { ReactorExplorer } from "./ReactorExplorer";
-import { PWR_SYSTEM_DATA } from "../../lib/reactor/reactor-model";
+import {
+  PWR_SYSTEM_DATA,
+  BWR_SYSTEM_DATA,
+  PHWR_SYSTEM_DATA,
+  SMR_SYSTEM_DATA,
+  HTGR_SYSTEM_DATA,
+} from "../../lib/reactor/reactor-model";
 
 describe("ReactorExplorer Component (R15)", () => {
   it("renders the reactor title, summary, and plant schematic", () => {
@@ -103,5 +109,169 @@ describe("ReactorExplorer Component (R15)", () => {
 
     expect(screen.getByText(/Westinghouse AP1000/i)).toBeDefined();
     expect(screen.getByText(/Framatome EPR/i)).toBeDefined();
+  });
+
+  it("renders BWR architecture with bottom-entry control rods and direct steam cycle", () => {
+    render(<ReactorExplorer system={BWR_SYSTEM_DATA} />);
+
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: /Boiling Water Reactor \(BWR\)/i,
+      }),
+    ).toBeDefined();
+
+    // Click Bottom-Entry Control Rods via diagram
+    const rodsSvg = screen.getByRole("button", {
+      name: "Select Bottom-Entry Control Rods",
+    });
+    fireEvent.click(rodsSvg);
+
+    expect(
+      screen.getByRole("heading", {
+        level: 3,
+        name: "Bottom-Entry Control Rods",
+      }),
+    ).toBeDefined();
+    expect(
+      screen.getByText(/Cruciform control blades inserted from the bottom/i),
+    ).toBeDefined();
+  });
+
+  it("renders PHWR architecture with horizontal calandria and heavy water moderator", () => {
+    render(<ReactorExplorer system={PHWR_SYSTEM_DATA} />);
+
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: /Pressurized Heavy Water Reactor/i,
+      }),
+    ).toBeDefined();
+
+    // Click Horizontal Calandria Vessel via diagram
+    const calandriaSvg = screen.getByRole("button", {
+      name: "Select Horizontal Calandria Vessel",
+    });
+    fireEvent.click(calandriaSvg);
+
+    expect(
+      screen.getByRole("heading", {
+        level: 3,
+        name: "Horizontal Calandria Vessel",
+      }),
+    ).toBeDefined();
+    expect(
+      screen.getByText(
+        /Contains heavy water moderator at near-atmospheric pressure/i,
+      ),
+    ).toBeDefined();
+  });
+
+  it("updates power level simulator state when buttons are clicked", () => {
+    render(<ReactorExplorer system={PWR_SYSTEM_DATA} />);
+
+    // SCRAM button
+    const scramBtn = screen.getByRole("radio", { name: /SCRAM/i });
+    fireEvent.click(scramBtn);
+    expect(scramBtn.getAttribute("aria-checked")).toBe("true");
+    expect(screen.getByText("0%")).toBeDefined();
+
+    // 50% power button
+    const halfBtn = screen.getByRole("radio", { name: /50% Reduced/i });
+    fireEvent.click(halfBtn);
+    expect(halfBtn.getAttribute("aria-checked")).toBe("true");
+    expect(screen.getByText("50%")).toBeDefined();
+
+    // 100% full power button
+    const fullBtn = screen.getByRole("radio", { name: /100% Full Power/i });
+    fireEvent.click(fullBtn);
+    expect(fullBtn.getAttribute("aria-checked")).toBe("true");
+    expect(screen.getByText("100%")).toBeDefined();
+  });
+
+  it("filters circuit loops via legend controls", () => {
+    render(<ReactorExplorer system={PWR_SYSTEM_DATA} />);
+
+    const primaryBtn = screen.getByRole("button", { name: /Primary/i });
+    fireEvent.click(primaryBtn);
+    expect(primaryBtn.className).toContain("legendBtnActive");
+
+    const secondaryBtn = screen.getByRole("button", { name: /Secondary/i });
+    fireEvent.click(secondaryBtn);
+    expect(secondaryBtn.className).toContain("legendBtnActive");
+
+    const allBtn = screen.getByRole("button", { name: /All Circuits/i });
+    fireEvent.click(allBtn);
+    expect(allBtn.className).toContain("legendBtnActive");
+  });
+
+  it("renders SMR architecture with integral pressure vessel and helical-coil steam generator", () => {
+    render(<ReactorExplorer system={SMR_SYSTEM_DATA} />);
+
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: /Small Modular Reactor/i,
+      }),
+    ).toBeDefined();
+
+    // Verify SMR components are rendered in text list
+    expect(
+      screen.getByRole("button", { name: "Integral Reactor Pressure Vessel" }),
+    ).toBeDefined();
+    expect(
+      screen.getByRole("button", { name: "Helical-Coil Steam Generator" }),
+    ).toBeDefined();
+
+    // Click Helical-Coil Steam Generator via diagram button
+    const sgSvg = screen.getByRole("button", {
+      name: "Select Helical-Coil Steam Generator",
+    });
+    fireEvent.click(sgSvg);
+
+    expect(
+      screen.getByRole("heading", {
+        level: 3,
+        name: "Helical-Coil Steam Generator",
+      }),
+    ).toBeDefined();
+    expect(
+      screen.getByText(/Transfers primary heat to secondary feedwater/i),
+    ).toBeDefined();
+  });
+
+  it("renders HTGR architecture with TRISO fuel and high-efficiency steam turbine", () => {
+    render(<ReactorExplorer system={HTGR_SYSTEM_DATA} />);
+
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: /High-Temperature Gas-Cooled Reactor/i,
+      }),
+    ).toBeDefined();
+
+    // Verify HTGR components are rendered in text list
+    expect(
+      screen.getByRole("button", { name: "TRISO Particle Fuel Elements" }),
+    ).toBeDefined();
+    expect(
+      screen.getByRole("button", { name: "Helium Gas Circulator" }),
+    ).toBeDefined();
+
+    // Click TRISO Particle Fuel Elements via diagram button
+    const fuelSvg = screen.getByRole("button", {
+      name: "Select TRISO Particle Fuel Elements",
+    });
+    fireEvent.click(fuelSvg);
+
+    expect(
+      screen.getByRole("heading", {
+        level: 3,
+        name: "TRISO Particle Fuel Elements",
+      }),
+    ).toBeDefined();
+    expect(
+      screen.getByText(/Ceramic micro-containment resistant to temperatures/i),
+    ).toBeDefined();
   });
 });

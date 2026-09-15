@@ -8,12 +8,12 @@ test("LessonSchema validates a valid lesson", () => {
     moduleId: "nuclear-101",
     order: 1,
     explanations: {
-      kid: "An atom is a tiny building block.",
-      simple: "Atoms are the basic units of matter.",
+      beginner: "An atom is a tiny building block.",
+      explorer: "Atoms are the basic units of matter.",
       curious: "Atoms consist of a nucleus and electrons.",
-      technical:
+      "deep-dive":
         "An atom comprises protons, neutrons, and electrons bound by electromagnetic forces.",
-      expert: "Quantum mechanical model of the atom...",
+      geeky: "Quantum mechanical model of the atom...",
     },
     conceptIds: ["nucleus", "electron"],
   };

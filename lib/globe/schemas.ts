@@ -65,6 +65,8 @@ export const FacilitySchema = z
     name: NonEmptyStringSchema,
     countryCode: z.string().length(2).toUpperCase(),
     countryName: NonEmptyStringSchema,
+    city: z.string().optional(),
+    stateProvince: z.string().optional(),
     coordinates: CoordinatesSchema,
     status: FacilityStatusSchema,
     reactorCount: z.number().int().nonnegative(),

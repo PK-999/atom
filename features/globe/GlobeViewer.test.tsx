@@ -104,4 +104,74 @@ describe("GlobeViewer Component (R16-G)", () => {
       screen.getByText(/No facilities match the selected filters/i),
     ).toBeDefined();
   });
+
+  it("displays verified city and stateProvince in inspector and directory table, with popup retired", () => {
+    render(<GlobeViewer facilities={CANONICAL_FACILITIES} />);
+
+    // Check Kudankulam's city/state appears in inspector and directory table (popup retired)
+    const kudankulamLocations = screen.getAllByText(/Radhapuram, Tamil Nadu/i);
+    expect(kudankulamLocations.length).toBe(2);
+
+    // Verify popup region is retired and no longer rendered
+    expect(screen.queryByLabelText(/Facility details for/i)).toBeNull();
+
+    // Check Kakrapar's city/state appears in directory table
+    const kakraparLocations = screen.getAllByText(/Vyara, Gujarat/i);
+    expect(kakraparLocations.length).toBeGreaterThanOrEqual(1);
+
+    // Switch to 2D view and click Kakrapar pin
+    const mode2DBtn = screen.getByRole("button", { name: /2D Map/i });
+    fireEvent.click(mode2DBtn);
+
+    const pin = screen.getAllByRole("button", { name: /Select facility/i })[1];
+    fireEvent.click(pin);
+
+    // Kakrapar selected: now appears in inspector and table
+    expect(screen.getAllByText(/Vyara, Gujarat/i).length).toBe(2);
+  });
+
+  it("sets unified 320% focus zoom level on facility selection in both 2D and 3D", () => {
+    render(<GlobeViewer facilities={CANONICAL_FACILITIES} />);
+
+    // Initially at 100%
+    expect(screen.getByText("100%")).toBeDefined();
+
+    // Click Kakrapar in table
+    const kakraparRow = screen.getAllByText("Kakrapar Atomic Power Station")[0];
+    fireEvent.click(kakraparRow);
+
+    // Zoom badge should reach unified 320%
+    expect(screen.getByText("320%")).toBeDefined();
+
+    // Switch to 2D view and click Kudankulam pin
+    const mode2DBtn = screen.getByRole("button", { name: /2D Map/i });
+    fireEvent.click(mode2DBtn);
+
+    const pin = screen.getAllByRole("button", { name: /Select facility/i })[0];
+    fireEvent.click(pin);
+
+    // Both reach the exact same 320% zoom level
+    expect(screen.getByText("320%")).toBeDefined();
+  });
+
+  it("prevents browser default page scroll on wheel zoom over the map", () => {
+    render(<GlobeViewer facilities={CANONICAL_FACILITIES} />);
+
+    // Switch to 2D view
+    const mode2DBtn = screen.getByRole("button", { name: /2D Map/i });
+    fireEvent.click(mode2DBtn);
+
+    const svg = screen.getByRole("img", {
+      name: /World map showing nuclear facility/i,
+    });
+    const wheelEvent = new WheelEvent("wheel", {
+      deltaY: -100,
+      cancelable: true,
+      bubbles: true,
+    });
+    const dispatched = svg.dispatchEvent(wheelEvent);
+
+    // dispatchEvent returns false if event was preventDefault'd
+    expect(dispatched).toBe(false);
+  });
 });

@@ -152,10 +152,24 @@ export function EvidenceDialog({
             <div>
               <dt>Source</dt>
               <dd>
-                {observation.source?.name ??
-                  (isReviewed
-                    ? "IPCC AR5 WGIII Annex III"
-                    : "Evidence review pending")}
+                {observation.source?.name ? (
+                  observation.source.url ? (
+                    <a
+                      href={observation.source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.sourceLink}
+                    >
+                      {observation.source.name}
+                    </a>
+                  ) : (
+                    observation.source.name
+                  )
+                ) : isReviewed ? (
+                  "IPCC AR5 WGIII Annex III"
+                ) : (
+                  "Evidence review pending"
+                )}
               </dd>
             </div>
             <div>

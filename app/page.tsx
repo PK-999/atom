@@ -1,611 +1,190 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
-import { listTopics, listPublishedLessons } from "@/lib/education/catalog";
+import { OnboardingHero } from "@/components/onboarding/OnboardingHero";
+import styles from "./HomePage.module.css";
 
 export const metadata: Metadata = {
-  title: "ATOM — Understand energy through evidence",
+  title: "ATOM — Understand Nuclear Energy Through Evidence",
   description:
-    "An evidence-first interactive energy-literacy platform centered on nuclear energy and the wider electricity system.",
+    "An evidence-first interactive energy-literacy platform centered on nuclear energy, risk, radiation, electricity systems, and trade-offs. Adaptable from beginner to geeky.",
 };
 
-export default function HomePage() {
-  const topics = listTopics().filter((t) => t.status === "published");
-  const lessons = listPublishedLessons();
+interface FeatureItem {
+  title: string;
+  badge: string;
+  icon: string;
+  description: string;
+  href: string;
+  actionText: string;
+}
 
+const FEATURES: FeatureItem[] = [
+  {
+    title: "How Nuclear Works",
+    badge: "Interactive Physics",
+    icon: "⚛️",
+    description:
+      "Explore the science of atoms, induced fission reactions, radioactive decay chains, and how thermal energy turns water to steam to spin turbines.",
+    href: "/how-it-works",
+    actionText: "Explore reactor physics",
+  },
+  {
+    title: "Incidents & FAQs",
+    badge: "Case Studies",
+    icon: "📋",
+    description:
+      "Objective, peer-reviewed post-mortems and timelines for Chernobyl, Fukushima Daiichi, and Three Mile Island with official IAEA & UNSCEAR data.",
+    href: "/incidents",
+    actionText: "Read incident analyses",
+  },
+  {
+    title: "Myth Busting",
+    badge: "Evidence Checks",
+    icon: "🔍",
+    description:
+      "Can reactors explode like atomic bombs? Is radioactive waste unsolvable? Ten widespread claims examined with scientific citations.",
+    href: "/myths",
+    actionText: "Inspect myth checks",
+  },
+  {
+    title: "Energy Comparison Lab",
+    badge: "Empirical Tool",
+    icon: "📊",
+    description:
+      "Compare nuclear, solar, wind, hydro, gas, and coal across lifecycle greenhouse gas emissions, land footprint, capacity factor, and safety statistics.",
+    href: "/compare",
+    actionText: "Launch Comparison Lab",
+  },
+  {
+    title: "Global Reactor Fleet & Map",
+    badge: "Geospatial Data",
+    icon: "🗺️",
+    description:
+      "Interactive map of commercial nuclear reactors worldwide. Inspect reactor designs (PWR, BWR, PHWR), operating status, age, and electricity output.",
+    href: "/reactors",
+    actionText: "Browse global reactors",
+  },
+  {
+    title: "Interactive Simulators",
+    badge: "Hands-on Lab",
+    icon: "🎮",
+    description:
+      "Experience fission chain reactions, radioactive decay half-life, reactor control rod mechanics, and annual hourly electricity grid balance.",
+    href: "/simulations",
+    actionText: "Run interactive simulations",
+  },
+  {
+    title: "Radiation Around Us",
+    badge: "Dose Explorer",
+    icon: "☢️",
+    description:
+      "From eating bananas and transatlantic flights to dental X-rays and nuclear power plant workers. Put microSieverts in honest perspective.",
+    href: "/radiation",
+    actionText: "Explore radiation doses",
+  },
+  {
+    title: "Evidence Debate Engine",
+    badge: "Q&A & Chat",
+    icon: "💬",
+    description:
+      "Interactive Q&A grounded strictly in peer-reviewed scientific papers and IPCC/IAEA assessments. Test your hypotheses against empirical evidence.",
+    href: "/debates",
+    actionText: "Enter the debate",
+  },
+  {
+    title: "Sources & Methodology",
+    badge: "Peer-Reviewed",
+    icon: "📚",
+    description:
+      "Complete transparency: inspect system boundaries, unit conversions, data lineage, and bibliography backing every calculation on ATOM.",
+    href: "/methodology",
+    actionText: "Review scientific sources",
+  },
+];
+
+const PRINCIPLES = [
+  {
+    title: "Evidence Before Persuasion",
+    text: "ATOM does not ask you to trust us. ATOM provides transparent data so you can verify everything yourself.",
+  },
+  {
+    title: "Never Hide Uncertainty",
+    text: "Where peer-reviewed estimates differ across methodologies or vintages, we display explicit ranges rather than fake certainty.",
+  },
+  {
+    title: "Complexity Changes Presentation",
+    text: "Adjusting from Beginner to Geeky simplifies language and diagrams, but never alters scientific evidence.",
+  },
+  {
+    title: "Every Claim Inspectable",
+    text: "No invented numbers. Every quantitative claim is linked to published, peer-reviewed source literature with open system boundaries.",
+  },
+];
+
+export default function HomePage() {
   return (
     <AppShell>
-      <div
-        style={{
-          maxWidth: "64rem",
-          margin: "0 auto",
-          padding: "3rem 1.5rem 6rem",
-        }}
-      >
-        {/* Hero Section */}
-        <section style={{ textAlign: "center", marginBottom: "4rem" }}>
-          <p
-            style={{
-              fontSize: "0.875rem",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-              color: "#7c3aed",
-              marginBottom: "1rem",
-            }}
-          >
-            Evidence-First Energy Literacy
-          </p>
-          <h1
-            style={{
-              fontSize: "3.5rem",
-              fontWeight: 900,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.1,
-              marginBottom: "1.25rem",
-              color: "#111827",
-            }}
-          >
-            ATOM
-          </h1>
-          <p
-            style={{
-              fontSize: "1.25rem",
-              color: "#4b5563",
-              maxWidth: "40rem",
-              margin: "0 auto 2rem",
-              lineHeight: 1.6,
-            }}
-          >
-            Understand energy systems, their trade-offs, and the evidence behind
-            important quantitative claims.
-          </p>
+      <div className={styles.pageWrapper}>
+        {/* Hero Onboarding Section with Interactive Level Slider */}
+        <OnboardingHero />
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "1rem",
-              flexWrap: "wrap",
-              marginBottom: "2rem",
-            }}
-          >
-            <Link
-              href="/learn"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                padding: "0.875rem 1.75rem",
-                backgroundColor: "#7c3aed",
-                color: "#ffffff",
-                borderRadius: "0.5rem",
-                fontWeight: 700,
-                textDecoration: "none",
-                boxShadow: "0 2px 8px rgba(124, 58, 237, 0.25)",
-              }}
-            >
-              Start the Curriculum →
-            </Link>
-            <Link
-              href="/compare"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                padding: "0.875rem 1.75rem",
-                backgroundColor: "#ffffff",
-                border: "1px solid #d1d5db",
-                color: "#111827",
-                borderRadius: "0.5rem",
-                fontWeight: 600,
-                textDecoration: "none",
-              }}
-            >
-              Open the Comparison Lab
-            </Link>
-            <Link
-              href="/methodology"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                padding: "0.875rem 1.25rem",
-                color: "#4b5563",
-                fontWeight: 600,
-                textDecoration: "underline",
-              }}
-            >
-              Read the evidence policy
-            </Link>
+        {/* Core Capabilities & Features */}
+        <section aria-labelledby="features-heading">
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionEyebrow}>What You Can Explore</span>
+            <h2 id="features-heading" className={styles.sectionTitle}>
+              Nine dimensions of energy literacy
+            </h2>
+            <p className={styles.sectionDescription}>
+              From core physics and nuclear safety history to grid reliability
+              and empirical life-cycle comparisons.
+            </p>
           </div>
 
-          <p
-            role="status"
-            style={{
-              fontSize: "0.8125rem",
-              color: "#6b7280",
-              maxWidth: "32rem",
-              margin: "0 auto",
-            }}
-          >
-            Digital Science Museum direction selected. All quantitative claims
-            are backed by immutable, peer-reviewed data records.
-          </p>
-        </section>
-
-        {/* Three Core Questions Section */}
-        <section style={{ marginBottom: "4rem" }}>
-          <h2
-            style={{
-              fontSize: "1.75rem",
-              fontWeight: 800,
-              textAlign: "center",
-              marginBottom: "2rem",
-            }}
-          >
-            Three Questions That Shape the Energy Debate
-          </h2>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(18rem, 1fr))",
-              gap: "1.5rem",
-            }}
-          >
-            <div
-              style={{
-                padding: "1.5rem",
-                backgroundColor: "#ffffff",
-                border: "1px solid #e5e7eb",
-                borderRadius: "0.75rem",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-              }}
-            >
-              <div>
-                <span
-                  style={{
-                    fontSize: "1.75rem",
-                    display: "block",
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  🌍
-                </span>
-                <h3
-                  style={{
-                    fontSize: "1.125rem",
-                    fontWeight: 700,
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  How much land and fuel does clean power really need?
-                </h3>
-                <p
-                  style={{
-                    color: "#4b5563",
-                    fontSize: "0.875rem",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  Compare the physical spatial footprint, mineral requirements,
-                  and fuel mass differences between nuclear fission, solar PV,
-                  wind, and fossil fuels.
-                </p>
-              </div>
-              <div style={{ marginTop: "1.25rem" }}>
-                <Link
-                  href="/learn/energy"
-                  style={{
-                    color: "#7c3aed",
-                    fontWeight: 600,
-                    fontSize: "0.875rem",
-                    textDecoration: "none",
-                  }}
-                >
-                  Explore Fuel Density →
-                </Link>
-              </div>
-            </div>
-
-            <div
-              style={{
-                padding: "1.5rem",
-                backgroundColor: "#ffffff",
-                border: "1px solid #e5e7eb",
-                borderRadius: "0.75rem",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-              }}
-            >
-              <div>
-                <span
-                  style={{
-                    fontSize: "1.75rem",
-                    display: "block",
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  🛡️
-                </span>
-                <h3
-                  style={{
-                    fontSize: "1.125rem",
-                    fontWeight: 700,
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  What are the empirical health and accident risks?
-                </h3>
-                <p
-                  style={{
-                    color: "#4b5563",
-                    fontSize: "0.875rem",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  Inspect historical mortality data per terawatt-hour,
-                  defense-in-depth barrier engineering, and international
-                  radiation safety thresholds.
-                </p>
-              </div>
-              <div style={{ marginTop: "1.25rem" }}>
-                <Link
-                  href="/learn/safety"
-                  style={{
-                    color: "#7c3aed",
-                    fontWeight: 600,
-                    fontSize: "0.875rem",
-                    textDecoration: "none",
-                  }}
-                >
-                  Inspect Safety Barriers →
-                </Link>
-              </div>
-            </div>
-
-            <div
-              style={{
-                padding: "1.5rem",
-                backgroundColor: "#ffffff",
-                border: "1px solid #e5e7eb",
-                borderRadius: "0.75rem",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-              }}
-            >
-              <div>
-                <span
-                  style={{
-                    fontSize: "1.75rem",
-                    display: "block",
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  ⚡
-                </span>
-                <h3
-                  style={{
-                    fontSize: "1.125rem",
-                    fontWeight: 700,
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  How do zero-carbon technologies build a reliable grid?
-                </h3>
-                <p
-                  style={{
-                    color: "#4b5563",
-                    fontSize: "0.875rem",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  Examine capacity factors, dispatchability, seasonality, and
-                  grid inertia to understand how steady power pairs with
-                  variable renewables.
-                </p>
-              </div>
-              <div style={{ marginTop: "1.25rem" }}>
-                <Link
-                  href="/learn/electricity-generation"
-                  style={{
-                    color: "#7c3aed",
-                    fontWeight: 600,
-                    fontSize: "0.875rem",
-                    textDecoration: "none",
-                  }}
-                >
-                  Examine Grid Reliability →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Featured Exhibit: Comparison Lab */}
-        <section
-          style={{
-            marginBottom: "4rem",
-            padding: "2.5rem",
-            backgroundColor: "#ffffff",
-            border: "1px solid #e5e7eb",
-            borderRadius: "1rem",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.04)",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              flexWrap: "wrap",
-              gap: "1.5rem",
-              marginBottom: "1.5rem",
-            }}
-          >
-            <div>
-              <span
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  color: "#7c3aed",
-                  letterSpacing: "0.05em",
-                  marginBottom: "0.5rem",
-                  display: "inline-block",
-                }}
-              >
-                Flagship Interactive Tool
-              </span>
-              <h2
-                style={{
-                  fontSize: "2rem",
-                  fontWeight: 800,
-                  margin: "0 0 0.5rem 0",
-                }}
-              >
-                Energy Comparison Lab V1
-              </h2>
-              <p
-                style={{
-                  color: "#4b5563",
-                  maxWidth: "34rem",
-                  margin: 0,
-                  lineHeight: 1.6,
-                }}
-              >
-                Benchmark nuclear against solar, wind, hydro, coal, and gas
-                across 34 standardized metrics spanning environmental impact,
-                economics, reliability, and human safety.
-              </p>
-            </div>
-            <Link
-              href="/compare"
-              style={{
-                display: "inline-block",
-                padding: "0.75rem 1.5rem",
-                backgroundColor: "#7c3aed",
-                color: "#ffffff",
-                borderRadius: "0.5rem",
-                fontWeight: 600,
-                textDecoration: "none",
-              }}
-            >
-              Launch Comparison Lab →
-            </Link>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(10rem, 1fr))",
-              gap: "1rem",
-              paddingTop: "1.5rem",
-              borderTop: "1px solid #f3f4f6",
-            }}
-          >
-            <div style={{ textAlign: "center" }}>
-              <div
-                style={{
-                  fontSize: "1.5rem",
-                  fontWeight: 800,
-                  color: "#7c3aed",
-                }}
-              >
-                34
-              </div>
-              <div style={{ fontSize: "0.75rem", color: "#6b7280" }}>
-                Standardized Metrics
-              </div>
-            </div>
-            <div style={{ textAlign: "center" }}>
-              <div
-                style={{
-                  fontSize: "1.5rem",
-                  fontWeight: 800,
-                  color: "#7c3aed",
-                }}
-              >
-                6
-              </div>
-              <div style={{ fontSize: "0.75rem", color: "#6b7280" }}>
-                Major Categories
-              </div>
-            </div>
-            <div style={{ textAlign: "center" }}>
-              <div
-                style={{
-                  fontSize: "1.5rem",
-                  fontWeight: 800,
-                  color: "#7c3aed",
-                }}
-              >
-                9
-              </div>
-              <div style={{ fontSize: "0.75rem", color: "#6b7280" }}>
-                Power Generation Techs
-              </div>
-            </div>
-            <div style={{ textAlign: "center" }}>
-              <div
-                style={{
-                  fontSize: "1.5rem",
-                  fontWeight: 800,
-                  color: "#7c3aed",
-                }}
-              >
-                5
-              </div>
-              <div style={{ fontSize: "0.75rem", color: "#6b7280" }}>
-                Explanation Levels
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Topics Catalog */}
-        <section style={{ marginBottom: "4rem" }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "1.5rem",
-            }}
-          >
-            <div>
-              <h2 style={{ fontSize: "1.75rem", fontWeight: 800, margin: 0 }}>
-                Curriculum Areas
-              </h2>
-              <p
-                style={{
-                  color: "#6b7280",
-                  margin: "0.25rem 0 0 0",
-                  fontSize: "0.9375rem",
-                }}
-              >
-                {lessons.length} published interactive lessons across{" "}
-                {topics.length} core themes.
-              </p>
-            </div>
-            <Link
-              href="/topics"
-              style={{
-                color: "#7c3aed",
-                fontWeight: 600,
-                fontSize: "0.875rem",
-                textDecoration: "none",
-              }}
-            >
-              View All Topics →
-            </Link>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(16rem, 1fr))",
-              gap: "1.25rem",
-            }}
-          >
-            {topics.map((t) => (
+          <div className={styles.featuresGrid}>
+            {FEATURES.map((feature) => (
               <Link
-                key={t.id}
-                href={`/topics/${t.slug}`}
-                style={{
-                  display: "block",
-                  padding: "1.25rem",
-                  backgroundColor: "#ffffff",
-                  border: "1px solid #e5e7eb",
-                  borderRadius: "0.75rem",
-                  textDecoration: "none",
-                  color: "inherit",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-                }}
+                key={feature.title}
+                href={feature.href}
+                className={styles.featureCard}
               >
-                <div
-                  style={{
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    color: "#6d28d9",
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  Topic {t.order}
+                <div className={styles.cardHeader}>
+                  <span className={styles.cardIcon} aria-hidden="true">
+                    {feature.icon}
+                  </span>
+                  <span className={styles.cardBadge}>{feature.badge}</span>
                 </div>
-                <h3
-                  style={{
-                    fontSize: "1.125rem",
-                    fontWeight: 700,
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  {t.title}
-                </h3>
-                <p
-                  style={{
-                    fontSize: "0.875rem",
-                    color: "#4b5563",
-                    margin: 0,
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {t.description}
-                </p>
+                <h3 className={styles.cardTitle}>{feature.title}</h3>
+                <p className={styles.cardDescription}>{feature.description}</p>
+                <span className={styles.cardLinkText}>
+                  {feature.actionText} <span aria-hidden="true">→</span>
+                </span>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* Search Callout */}
+        {/* Guiding Principles */}
         <section
-          style={{
-            textAlign: "center",
-            padding: "2.5rem 1.5rem",
-            backgroundColor: "#f8fafc",
-            border: "1px solid #e2e8f0",
-            borderRadius: "0.75rem",
-          }}
+          className={styles.principlesBanner}
+          aria-labelledby="principles-heading"
         >
-          <h2
-            style={{
-              fontSize: "1.25rem",
-              fontWeight: 700,
-              marginBottom: "0.5rem",
-            }}
-          >
-            Looking for a specific concept or metric?
+          <h2 id="principles-heading" className={styles.principlesTitle}>
+            Built on Scientific Integrity
           </h2>
-          <p
-            style={{
-              color: "#64748b",
-              fontSize: "0.9375rem",
-              marginBottom: "1.25rem",
-            }}
-          >
-            Search across our entire catalog of published lessons, glossary
-            definitions, and empirical metrics.
+          <p className={styles.principlesSubtitle}>
+            Our editorial and scientific commitments ensure balanced,
+            transparent analysis.
           </p>
-          <Link
-            href="/search"
-            style={{
-              display: "inline-block",
-              padding: "0.625rem 1.25rem",
-              backgroundColor: "#7c3aed",
-              color: "#ffffff",
-              borderRadius: "0.375rem",
-              fontWeight: 600,
-              fontSize: "0.875rem",
-              textDecoration: "none",
-            }}
-          >
-            Open Search Directory
-          </Link>
+          <div className={styles.principlesGrid}>
+            {PRINCIPLES.map((principle) => (
+              <div key={principle.title} className={styles.principleItem}>
+                <strong>{principle.title}</strong>
+                <p>{principle.text}</p>
+              </div>
+            ))}
+          </div>
         </section>
       </div>
     </AppShell>

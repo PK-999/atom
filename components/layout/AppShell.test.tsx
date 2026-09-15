@@ -22,8 +22,8 @@ describe("AppShell", () => {
       "/",
     );
     expect(
-      screen.getByRole("group", { name: "Complexity level" }),
-    ).toBeVisible();
+      screen.getByRole("link", { name: /current reading depth/i }),
+    ).toHaveAttribute("href", "/#reading-depth");
     expect(screen.getByRole("group", { name: "Theme" })).toBeVisible();
     expect(screen.getByRole("main")).toHaveAttribute("id", "main-content");
     expect(screen.getByRole("contentinfo")).toHaveTextContent(/verify atom/i);

@@ -563,4 +563,45 @@ describe("getComparisonResult (headless comparison engine)", () => {
     expect(entry.observationIds).toEqual(["exact-obs-id-999"]);
     expect(result.datasetVersionIds).toContain("exact-dataset-version-777");
   });
+
+  it("resolves explicit representative and emits warning when multi-study observations differ in methodology", async () => {
+    const studyA = createBaseObservation({
+      id: "obs-study-a",
+      methodology: "IPCC AR5 Annex III lifecycle assessment",
+      representativeKind: "central-estimate",
+      value: 12,
+    });
+    const studyB = createBaseObservation({
+      id: "obs-study-b",
+      methodology: "NREL Harmonization review methodology",
+      representativeKind: "source-observation",
+      value: 14,
+    });
+
+    const repo = createRepo({ observations: [studyA, studyB] });
+
+    const state: ComparisonState = {
+      sources: ["tech-nuclear"],
+      metric: "lifecycle-ghg",
+      region: "global",
+      mode: "typical",
+      units: "scientific",
+      level: "curious",
+    };
+
+    const result = await getComparisonResult(state, repo);
+    expect(result.status).toBe("ready");
+    expect(
+      result.warnings.some((w) =>
+        w.includes("materially different methodologies"),
+      ),
+    ).toBe(true);
+
+    const entry = result.entries[0];
+    expect(entry.kind).toBe("available");
+    if (entry.kind === "available") {
+      expect(entry.value).toBe(12);
+      expect(entry.observationIds).toEqual(["obs-study-a"]);
+    }
+  });
 });

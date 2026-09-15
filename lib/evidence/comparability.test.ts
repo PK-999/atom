@@ -89,11 +89,6 @@ describe("comparability assessment", () => {
       "geography-mismatch",
     ],
     [
-      "different methodology",
-      { methodology: "Different synthetic method." },
-      "methodology-mismatch",
-    ],
-    [
       "different system boundary",
       { systemBoundary: "Different synthetic boundary." },
       "system-boundary-mismatch",
@@ -132,6 +127,20 @@ describe("comparability assessment", () => {
     ).toMatchObject({
       comparable: true,
       issues: [{ code: "period-mismatch", severity: "warning" }],
+    });
+  });
+
+  it("warns when methodologies differ", () => {
+    expect(
+      assessComparability([
+        observation("fixture-one"),
+        observation("fixture-two", {
+          methodology: "Different synthetic method.",
+        }),
+      ]),
+    ).toMatchObject({
+      comparable: true,
+      issues: [{ code: "methodology-mismatch", severity: "warning" }],
     });
   });
 

@@ -5,6 +5,7 @@ import {
   calculateHumanEquivalent,
   canConvertUnit,
   convertUnit,
+  getUnitDisplayLabel,
   normalizeObservation,
 } from "./units";
 
@@ -215,5 +216,23 @@ describe("human equivalents", () => {
         scientific: { unit: "days", value: 1 },
       }),
     ).toThrow();
+  });
+});
+
+describe("getUnitDisplayLabel", () => {
+  it("formats standard registered units with readable labels", () => {
+    expect(getUnitDisplayLabel("gCO2e/kWh")).toBe("g CO₂e / kWh");
+    expect(getUnitDisplayLabel("kgCO2e/MWh")).toBe("kg CO₂e / MWh");
+    expect(getUnitDisplayLabel("m2/MWh")).toBe("m² / MWh");
+    expect(getUnitDisplayLabel("ha/TWh")).toBe("ha / TWh");
+    expect(getUnitDisplayLabel("L/MWh")).toBe("L / MWh");
+    expect(getUnitDisplayLabel("m3/MWh")).toBe("m³ / MWh");
+    expect(getUnitDisplayLabel("%")).toBe("%");
+  });
+
+  it("returns unknown units unchanged", () => {
+    expect(getUnitDisplayLabel("custom-unknown-unit")).toBe(
+      "custom-unknown-unit",
+    );
   });
 });

@@ -12,11 +12,11 @@ import type {
 const DISPLAY_MODES = ["typical", "range", "raw"] as const;
 const UNIT_MODES = ["scientific", "human"] as const;
 const COMPLEXITY_LEVELS = [
-  "kid",
-  "simple",
+  "beginner",
+  "explorer",
   "curious",
-  "technical",
-  "expert",
+  "deep-dive",
+  "geeky",
 ] as const;
 
 export const COMPARISON_TECHNOLOGY_IDS = [
@@ -192,6 +192,28 @@ function parseSources(
   return sources.length > 0 ? sources : [...DEFAULT_COMPARISON_STATE.sources];
 }
 
+const LEGACY_COMPLEXITY_MAP: Record<string, ComplexityLevel> = {
+  kid: "beginner",
+  simple: "explorer",
+  technical: "deep-dive",
+  expert: "geeky",
+};
+
+function parseComplexityLevelParam(
+  raw: string | null,
+  fallback: ComplexityLevel,
+): ComplexityLevel {
+  if (raw === null) return fallback;
+  const value = raw.trim();
+  if (COMPLEXITY_LEVELS.includes(value as ComplexityLevel)) {
+    return value as ComplexityLevel;
+  }
+  if (value in LEGACY_COMPLEXITY_MAP) {
+    return LEGACY_COMPLEXITY_MAP[value]!;
+  }
+  return fallback;
+}
+
 export function parseComparisonState(
   searchParams: ComparisonSearchParams,
   preferences?: ComparisonPreferences,
@@ -199,9 +221,8 @@ export function parseComparisonState(
 ): ComparisonState {
   const catalog = options.catalog ?? DEFAULT_CATALOG;
   const onWarning = options.onWarning ?? emitDefaultWarning;
-  const preferredLevel = parseEnum(
+  const preferredLevel = parseComplexityLevelParam(
     preferences?.level ?? null,
-    COMPLEXITY_LEVELS,
     DEFAULT_COMPARISON_STATE.level,
   );
 
@@ -235,14 +256,16 @@ export function parseComparisonState(
       UNIT_MODES,
       DEFAULT_COMPARISON_STATE.units,
     ) as UnitMode,
-    level: parseEnum(
+    level: parseComplexityLevelParam(
       firstValue(searchParams, "level"),
-      COMPLEXITY_LEVELS,
       preferredLevel,
     ),
   });
 }
 
+/**
+ * @deprecated Use `parseComparisonState` instead.
+ */
 export function parseComparisonUrl(
   searchParams: ComparisonSearchParams,
   preferences?: ComparisonPreferences,
@@ -267,6 +290,9 @@ export function serializeComparisonState(
   return params;
 }
 
+/**
+ * @deprecated Use `serializeComparisonState` instead.
+ */
 export function serializeComparisonUrl(
   state: ComparisonUrlState,
 ): URLSearchParams {

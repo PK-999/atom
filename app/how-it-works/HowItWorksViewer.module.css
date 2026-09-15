@@ -1,0 +1,365 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--atom-border-subtle);
+}
+
+.headerText {
+  max-width: 680px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--atom-accent);
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  color: var(--atom-text-primary);
+  margin: 0 0 12px;
+}
+
+.subtitle {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--atom-text-secondary);
+  margin: 0;
+}
+
+/* Step Navigation Tabs */
+.stepTabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--atom-border-subtle);
+  scrollbar-width: none;
+}
+
+.stepTabs::-webkit-scrollbar {
+  display: none;
+}
+
+.stepTab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: var(--atom-radius-md);
+  background: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-subtle);
+  color: var(--atom-text-secondary);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all var(--atom-motion-fast) ease;
+}
+
+.stepTab:hover {
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-primary);
+  border-color: var(--atom-border-default);
+}
+
+.stepTabActive {
+  background: var(--atom-surface-elevated);
+  color: var(--atom-accent);
+  border-color: var(--atom-accent);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.2);
+}
+
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--atom-surface-canvas);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.stepTabActive .stepNumber {
+  background: var(--atom-accent);
+  color: var(--atom-text-inverse);
+}
+
+/* Interactive Card & Visual Stage */
+.stageCard {
+  background: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-default);
+  border-radius: var(--atom-radius-xl);
+  overflow: hidden;
+  margin-bottom: 48px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+}
+
+.stageVisual {
+  background: linear-gradient(
+    180deg,
+    rgba(17, 24, 39, 0.95) 0%,
+    rgba(10, 14, 26, 0.98) 100%
+  );
+  padding: 40px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+  border-bottom: 1px solid var(--atom-border-subtle);
+  position: relative;
+}
+
+.diagramContainer {
+  width: 100%;
+  max-width: 700px;
+  background: rgba(10, 14, 26, 0.7);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-lg);
+  padding: 24px;
+}
+
+.diagramTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--atom-accent);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.stageContent {
+  padding: 36px 40px;
+}
+
+.stageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.stageTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--atom-text-primary);
+  margin: 0;
+}
+
+.stageLevelBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--atom-radius-full);
+  background: var(--atom-accent-soft);
+  color: var(--atom-accent);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.stageExplanation {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--atom-text-secondary);
+  margin: 0 0 28px;
+}
+
+.keyTakeawayBox {
+  background: var(--atom-surface-elevated);
+  border-left: 4px solid var(--atom-accent);
+  border-radius: 0 var(--atom-radius-md) var(--atom-radius-md) 0;
+  padding: 16px 20px;
+  margin-bottom: 28px;
+}
+
+.keyTakeawayBox strong {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--atom-text-primary);
+  margin-bottom: 4px;
+}
+
+.keyTakeawayBox p {
+  font-size: 0.9375rem;
+  color: var(--atom-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Step Controls */
+.stepControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--atom-border-subtle);
+}
+
+.navBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--atom-radius-md);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-primary);
+  border: 1px solid var(--atom-border-subtle);
+  transition: all var(--atom-motion-fast) ease;
+}
+
+.navBtn:hover:not(:disabled) {
+  border-color: var(--atom-accent);
+  color: var(--atom-accent);
+}
+
+.navBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Energy Density Comparison Grid */
+.densityGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  text-align: center;
+}
+
+.densityCard {
+  background: var(--atom-surface-canvas);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-md);
+  padding: 18px 12px;
+}
+
+.densityFuel {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--atom-text-primary);
+  margin-bottom: 6px;
+}
+
+.densityValue {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--atom-accent);
+  margin-bottom: 4px;
+}
+
+.densityDesc {
+  font-size: 0.75rem;
+  color: var(--atom-text-muted);
+}
+
+/* Multi-Barrier Containment Schema */
+.barrierStack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.barrierLayer {
+  padding: 12px 16px;
+  border-radius: var(--atom-radius-md);
+  border: 1px solid var(--atom-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--atom-surface-canvas);
+}
+
+.barrierName {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--atom-text-primary);
+}
+
+.barrierRole {
+  font-size: 0.8125rem;
+  color: var(--atom-text-secondary);
+}
+
+/* Callouts */
+.ctaRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.ctaCard {
+  background: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-lg);
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--atom-motion-fast) ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ctaCard:hover {
+  border-color: var(--atom-accent);
+  transform: translateY(-2px);
+}
+
+.ctaCard h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--atom-text-primary);
+  margin: 0 0 8px;
+}
+
+.ctaCard p {
+  font-size: 0.875rem;
+  color: var(--atom-text-secondary);
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.ctaLink {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--atom-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 640px) {
+  .stageContent {
+    padding: 24px 20px;
+  }
+  .stageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

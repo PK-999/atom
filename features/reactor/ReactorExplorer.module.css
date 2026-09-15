@@ -1,13 +1,13 @@
 .container {
-  max-width: 1040px;
+  max-width: 1140px;
   margin: 0 auto;
   padding: 1.5rem 1rem 3rem 1rem;
-  color: var(--foreground, #0f172a);
+  color: var(--atom-text-primary);
 }
 
 .header {
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--border, #e2e8f0);
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--atom-border-default);
   padding-bottom: 1.5rem;
 }
 
@@ -16,27 +16,29 @@
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 0.75rem;
-  color: var(--foreground, #0f172a);
+  color: var(--atom-text-primary);
+  letter-spacing: -0.02em;
 }
 
 .summary {
   font-size: 1.125rem;
   line-height: 1.6;
-  color: var(--muted-foreground, #475569);
+  color: var(--atom-text-secondary);
   margin-bottom: 1rem;
-  max-width: 52rem;
+  max-width: 54rem;
 }
 
 .conceptBadge {
   display: inline-block;
   font-size: 0.8rem;
   font-weight: 700;
-  padding: 0.25rem 0.6rem;
-  border-radius: 4px;
-  background: #e0f2fe;
-  color: #0369a1;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  background: rgba(2, 132, 199, 0.12);
+  color: #0284c7;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
+  border: 1px solid rgba(2, 132, 199, 0.25);
 }
 
 .layoutGrid {
@@ -45,40 +47,135 @@
   gap: 2rem;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 960px) {
   .layoutGrid {
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 1.65fr 1fr;
   }
 }
 
 .diagramCard {
-  background: #ffffff;
-  border: 1px solid var(--border, #e2e8f0);
-  border-radius: 12px;
+  background: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-default);
+  border-radius: 16px;
   padding: 1.25rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .diagramHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .diagramTitle {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   margin: 0;
-  color: #0f172a;
+  color: var(--atom-text-primary);
+}
+
+/* Simulation Controls & Toolbar */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--atom-surface-elevated);
+  border: 1px solid var(--atom-border-default);
+  border-radius: 10px;
+  margin-bottom: 0.85rem;
+}
+
+.simControls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--atom-text-secondary);
+}
+
+.simBtnGroup {
+  display: flex;
+  background: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-default);
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.simBtn {
+  border: none;
+  background: transparent;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--atom-text-secondary);
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.simBtn:hover {
+  color: var(--atom-text-primary);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.simBtnActive {
+  background: #0284c7;
+  color: #ffffff !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.simBtnScram.simBtnActive {
+  background: #dc2626;
 }
 
 .legend {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.4rem;
   font-size: 0.75rem;
   font-weight: 600;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+.legendBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--atom-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.legendBtn:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--atom-text-primary);
+}
+
+.legendBtnActive {
+  background: var(--atom-surface-panel);
+  border-color: var(--atom-border-default);
+  color: var(--atom-text-primary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .legendItem {
@@ -88,32 +185,38 @@
 }
 
 .legendDotPrimary {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: #ef4444;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
 }
 
 .legendDotSecondary {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: #0284c7;
+  box-shadow: 0 0 6px rgba(2, 132, 199, 0.5);
 }
 
 .legendDotTertiary {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
 }
 
+/* SVG Schematic Canvas */
 .svgWrapper {
   width: 100%;
   overflow: hidden;
-  border-radius: 8px;
-  background: #f8fafc;
-  border: 1px solid #f1f5f9;
+  border-radius: var(--atom-radius-lg);
+  background: var(--atom-surface-elevated);
+  border: 1px solid var(--atom-border-default);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.03);
+  position: relative;
 }
 
 .diagramSvg {
@@ -122,64 +225,323 @@
   display: block;
 }
 
+/* Hover HUD / Live parameter readout */
+.hudBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0.75rem;
+  background: rgba(15, 23, 42, 0.04);
+  border-top: 1px solid var(--atom-border-default);
+  font-size: 0.75rem;
+  color: var(--atom-text-secondary);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.hudActiveTag {
+  font-weight: 700;
+  color: #0284c7;
+}
+
+/* SVG Interactive Component Nodes */
 .svgPartButton {
   cursor: pointer;
-  transition: all 0.15s ease;
   outline: none;
+  transition:
+    transform var(--atom-motion-fast) var(--atom-ease-out),
+    filter var(--atom-motion-fast) var(--atom-ease-out);
+}
+.svgPartButton:hover {
+  transform: scale(1.02);
+}
+
+.svgPartButton:hover {
+  filter: drop-shadow(0 0 8px rgba(2, 132, 199, 0.45));
 }
 
 .svgPartButton:focus-visible rect,
 .svgPartButton:focus-visible circle,
 .svgPartButton:focus-visible path {
-  stroke: #0284c7;
-  stroke-width: 3px;
-  stroke-dasharray: 4 2;
+  stroke: #0284c7 !important;
+  stroke-width: 3.5px !important;
+  stroke-dasharray: 5 3;
 }
 
 .svgPartSelected rect,
-.svgPartSelected circle {
-  stroke: #2563eb !important;
-  stroke-width: 3px !important;
-  filter: drop-shadow(0 0 6px rgba(37, 99, 235, 0.4));
+.svgPartSelected circle,
+.svgPartSelected path {
+  filter: drop-shadow(0 0 10px rgba(2, 132, 199, 0.7));
 }
 
+.selectionRing {
+  stroke: #0284c7;
+  stroke-width: 2.5px;
+  stroke-dasharray: 4 2;
+  animation: selectionPulse 2s linear infinite;
+  fill: none;
+  pointer-events: none;
+}
+
+@keyframes selectionPulse {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 12;
+  }
+}
+
+/* Fluid Flow Piping Animations */
+.pipeBase {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pipeFluid {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity 0.3s ease;
+}
+
+/* Fluid flow dash offset animations */
+.flowSpeed100 {
+  stroke-dasharray: 10 7;
+  animation: flowForward 1s linear infinite;
+}
+
+.flowSpeed50 {
+  stroke-dasharray: 10 7;
+  animation: flowForward 2.2s linear infinite;
+}
+
+.flowSpeed0 {
+  stroke-dasharray: 10 7;
+  animation: none;
+  opacity: 0.45;
+}
+
+@keyframes flowForward {
+  from {
+    stroke-dashoffset: 34;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.dimmedCircuit {
+  opacity: 0.18 !important;
+  filter: grayscale(0.8);
+  transition:
+    opacity 0.3s ease,
+    filter 0.3s ease;
+}
+
+.highlightedCircuit {
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 5px rgba(2, 132, 199, 0.4));
+  transition: opacity 0.3s ease;
+}
+
+/* Mechanical Moving Parts: Turbine Rotation */
+.turbineRotor {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.turbineSpin100 {
+  animation: spinTurbine 1.8s linear infinite;
+}
+
+.turbineSpin50 {
+  animation: spinTurbine 4s linear infinite;
+}
+
+.turbineSpin0 {
+  animation: none;
+}
+
+@keyframes spinTurbine {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mechanical Moving Parts: Pump Impeller Rotation */
+.pumpImpeller {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.pumpSpin100 {
+  animation: spinPump 1.2s linear infinite;
+}
+
+.pumpSpin50 {
+  animation: spinPump 2.8s linear infinite;
+}
+
+.pumpSpin0 {
+  animation: none;
+}
+
+@keyframes spinPump {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Energy & Heat: Nuclear Core Fission Glow */
+.fissionGlow100 {
+  animation: corePulse 2.5s ease-in-out infinite alternate;
+}
+
+.fissionGlow50 {
+  animation: corePulse 4s ease-in-out infinite alternate;
+  opacity: 0.6;
+}
+
+.fissionGlow0 {
+  animation: none;
+  opacity: 0.2;
+}
+
+@keyframes corePulse {
+  0% {
+    opacity: 0.75;
+    filter: drop-shadow(0 0 6px rgba(234, 179, 8, 0.5));
+  }
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.85));
+  }
+}
+
+/* Boiling Steam Phase Change: Rising Bubbles */
+.steamBubble {
+  animation: bubbleDrift 2.2s ease-in-out infinite;
+}
+
+.steamBubbleD2 {
+  animation: bubbleDrift 2.2s ease-in-out infinite 0.7s;
+}
+
+.steamBubbleD3 {
+  animation: bubbleDrift 2.2s ease-in-out infinite 1.4s;
+}
+
+@keyframes bubbleDrift {
+  0% {
+    transform: translateY(0px) scale(0.8);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(-24px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+/* Electricity Generation: Sparks / Grid Power Pulse */
+.generatorSpark {
+  animation: sparkPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes sparkPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    stroke-dashoffset: 20;
+  }
+  50% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.8));
+  }
+}
+
+/* Cooling Tower Vapor Plume */
+.vaporPlume {
+  animation: vaporFloat 3.5s ease-out infinite;
+  transform-origin: center bottom;
+}
+
+.vaporPlumeDelay {
+  animation: vaporFloat 3.5s ease-out infinite 1.75s;
+  transform-origin: center bottom;
+}
+
+@keyframes vaporFloat {
+  0% {
+    transform: translateY(0) scale(0.9);
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(-28px) scale(1.35);
+    opacity: 0;
+  }
+}
+
+/* Control Rod Drive Assembly */
+.controlRodsGroup {
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Component Buttons Below SVG */
 .componentButtonGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.45rem;
   margin-top: 1rem;
 }
 
 .componentTextButton {
   padding: 0.45rem 0.75rem;
-  font-size: 0.85rem;
+  font-size: 0.825rem;
   font-weight: 500;
-  border-radius: 6px;
-  border: 1px solid var(--border, #cbd5e1);
-  background: #ffffff;
-  color: #334155;
+  border-radius: 8px;
+  border: 1px solid var(--atom-border-default);
+  background: var(--atom-surface-panel);
+  color: var(--atom-text-secondary);
   cursor: pointer;
   transition: all 0.15s ease;
-  min-height: 40px;
+  min-height: 38px;
 }
 
 .componentTextButton:hover {
-  background: #f1f5f9;
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-primary);
 }
 
 .componentTextButtonSelected {
-  background: #0284c7;
-  color: #ffffff;
-  border-color: #0284c7;
+  background: #0284c7 !important;
+  color: #ffffff !important;
+  border-color: #0284c7 !important;
   font-weight: 600;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
 }
 
+/* Detail Card (Right Column) */
 .detailCard {
-  background: #ffffff;
-  border: 1px solid var(--border, #e2e8f0);
-  border-radius: 12px;
+  background: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-default);
+  border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -187,20 +549,21 @@
 
 .detailHeader {
   margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--atom-border-default);
 }
 
 .partName {
-  font-size: 1.35rem;
+  font-size: 1.4rem;
   font-weight: 700;
   margin: 0 0 0.35rem 0;
-  color: #0f172a;
+  color: var(--atom-text-primary);
+  letter-spacing: -0.01em;
 }
 
 .partRole {
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
   color: #0284c7;
   margin: 0;
 }
@@ -208,111 +571,139 @@
 .explanationTabs {
   display: flex;
   gap: 0.25rem;
-  background: #f1f5f9;
+  background: var(--atom-surface-elevated);
   padding: 0.25rem;
-  border-radius: 6px;
+  border-radius: 8px;
   margin-bottom: 1rem;
 }
 
 .tabButton {
   flex: 1;
-  padding: 0.4rem 0.6rem;
+  padding: 0.45rem 0.6rem;
   font-size: 0.8rem;
   font-weight: 600;
   border: none;
   background: transparent;
-  color: #64748b;
-  border-radius: 4px;
+  color: var(--atom-text-secondary);
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .tabButtonActive {
-  background: #ffffff;
-  color: #0f172a;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  background: var(--atom-surface-panel);
+  color: var(--atom-text-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 .explanationBody {
   font-size: 0.95rem;
-  line-height: 1.6;
-  color: #334155;
+  line-height: 1.65;
+  color: var(--atom-text-primary);
   margin-bottom: 1.25rem;
 }
 
 .flowsSection {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  background: var(--atom-surface-elevated);
+  border: 1px solid var(--atom-border-default);
+  border-radius: 10px;
   padding: 0.85rem 1rem;
   margin-bottom: 1rem;
 }
 
 .flowsTitle {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #64748b;
+  color: var(--atom-text-secondary);
   margin: 0 0 0.5rem 0;
 }
 
 .flowItem {
   font-size: 0.85rem;
-  color: #334155;
-  margin-bottom: 0.35rem;
+  color: var(--atom-text-primary);
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
 }
 
 .flowBadge {
   display: inline-block;
-  padding: 0.15rem 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
   border-radius: 4px;
-  margin-right: 0.35rem;
+  margin-right: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .flowPrimary {
   background: #fee2e2;
   color: #b91c1c;
+  border: 1px solid #fecaca;
 }
 
 .flowSecondary {
   background: #e0f2fe;
   color: #0369a1;
+  border: 1px solid #bae6fd;
 }
 
 .flowTertiary {
   background: #dcfce7;
   color: #15803d;
+  border: 1px solid #bbf7d0;
 }
 
 .detailFooter {
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--atom-border-default);
   padding-top: 0.75rem;
   margin-top: 1rem;
   font-size: 0.8rem;
-  color: #64748b;
+  color: var(--atom-text-secondary);
 }
 
 .deployedList {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem;
+  gap: 0.4rem;
   margin-top: 0.5rem;
 }
 
 .deployedTag {
-  background: #f1f5f9;
-  color: #475569;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-secondary);
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
   font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid var(--atom-border-default);
 }
 
+/* Reduced Motion Safeguard */
 @media (prefers-reduced-motion: reduce) {
-  .flowLineAnimated {
-    stroke-dasharray: none !important;
+  .flowSpeed100,
+  .flowSpeed50,
+  .flowSpeed0 {
     animation: none !important;
+    stroke-dasharray: none !important;
+  }
+
+  .turbineSpin100,
+  .turbineSpin50,
+  .pumpSpin100,
+  .pumpSpin50,
+  .fissionGlow100,
+  .fissionGlow50,
+  .steamBubble,
+  .generatorSpark,
+  .vaporPlume,
+  .selectionRing {
+    animation: none !important;
+  }
+
+  .controlRodsGroup {
+    transition: none !important;
   }
 }

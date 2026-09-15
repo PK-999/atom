@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { AppShell } from "@/components/layout/AppShell";
 import { GlobeViewer } from "@/features/globe/GlobeViewer";
-import { listFacilities } from "@/lib/globe/facility-model";
+import { listFleetAsFacilities } from "@/lib/reactor/fleet-model";
 
 export const metadata: Metadata = {
   title: "Nuclear Facilities Globe & Directory | ATOM",
@@ -18,22 +18,14 @@ interface GlobePageProps {
 
 async function GlobeContent({ searchParams }: GlobePageProps) {
   const params = await searchParams;
-  const facilities = listFacilities();
+  const facilities = listFleetAsFacilities();
   const initialFacilityId = params?.facility;
 
   return (
-    <div
-      style={{
-        maxWidth: "68rem",
-        margin: "0 auto",
-        padding: "1.5rem 1.5rem 6rem",
-      }}
-    >
-      <GlobeViewer
-        facilities={facilities}
-        initialFacilityId={initialFacilityId}
-      />
-    </div>
+    <GlobeViewer
+      facilities={facilities}
+      initialFacilityId={initialFacilityId}
+    />
   );
 }
 
@@ -42,13 +34,7 @@ export default function GlobePage(props: GlobePageProps) {
     <AppShell>
       <Suspense
         fallback={
-          <div
-            style={{
-              maxWidth: "68rem",
-              margin: "0 auto",
-              padding: "3rem 1.5rem",
-            }}
-          >
+          <div style={{ padding: "3rem 0" }}>
             <p style={{ color: "#64748b" }}>
               Loading nuclear facilities directory...
             </p>

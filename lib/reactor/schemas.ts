@@ -16,6 +16,7 @@ export const ComponentTypeSchema = z.enum([
   "vessel",
   "containment",
   "steam-generator",
+  "heat-exchanger",
   "pressurizer",
   "steam-cycle",
   "pump",
@@ -23,10 +24,12 @@ export const ComponentTypeSchema = z.enum([
   "condenser",
   "cooling-tower",
   "calandria",
+  "graphite-core",
 ]);
 
 export const FlowLoopSchema = z.enum([
   "primary",
+  "intermediate",
   "secondary",
   "tertiary-cooling",
   "moderator",
@@ -93,6 +96,7 @@ export const ReactorSystemTypeSchema = z.enum([
   "Fast",
   "Molten-Salt",
   "SMR",
+  "HTGR",
 ]);
 
 export const ReactorSystemSchema = z

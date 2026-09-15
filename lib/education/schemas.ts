@@ -71,11 +71,11 @@ export const LessonRecordSchema = z
     claimIds: z.array(IdentifierSchema).readonly(),
     contentByLevel: z
       .object({
-        kid: NonEmptyStringSchema,
-        simple: NonEmptyStringSchema,
+        beginner: NonEmptyStringSchema,
+        explorer: NonEmptyStringSchema,
         curious: NonEmptyStringSchema,
-        technical: NonEmptyStringSchema,
-        expert: NonEmptyStringSchema,
+        "deep-dive": NonEmptyStringSchema,
+        geeky: NonEmptyStringSchema,
       })
       .strict(),
     checkpointIds: z.array(IdentifierSchema).readonly(),
@@ -106,11 +106,11 @@ export const LessonSchema = z
     order: z.number().int().min(1),
     explanations: z
       .object({
-        kid: NonEmptyStringSchema,
-        simple: NonEmptyStringSchema,
+        beginner: NonEmptyStringSchema,
+        explorer: NonEmptyStringSchema,
         curious: NonEmptyStringSchema,
-        technical: NonEmptyStringSchema,
-        expert: NonEmptyStringSchema,
+        "deep-dive": NonEmptyStringSchema,
+        geeky: NonEmptyStringSchema,
       })
       .strict(),
     conceptIds: z.array(IdentifierSchema).readonly(),

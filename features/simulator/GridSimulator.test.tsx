@@ -16,6 +16,7 @@ describe("GridSimulator Component (R17)", () => {
     ).toBeDefined();
 
     expect(screen.getByText("Annual Energy Coverage")).toBeDefined();
+    expect(screen.getByText("Grid Carbon Intensity")).toBeDefined();
     expect(screen.getAllByText(/50.00 TWh/i).length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText(/8760 Hours \(Standard Year\)/i)).toBeDefined();
   });

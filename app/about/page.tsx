@@ -3,7 +3,7 @@ import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
 
 export const metadata: Metadata = {
-  title: "About ATOM",
+  title: "About ATOM | Evidence-First Nuclear Literacy",
   description:
     "ATOM is an evidence-first interactive energy-literacy platform centered on nuclear energy and the wider electricity system.",
 };
@@ -13,164 +13,239 @@ export default function AboutPage() {
     <AppShell>
       <div
         style={{
-          maxWidth: "52rem",
+          maxWidth: "56rem",
           margin: "0 auto",
           padding: "2.5rem 1.5rem 6rem",
+          color: "#f8fafc",
         }}
       >
         <header
           style={{
             marginBottom: "2.5rem",
-            borderBottom: "1px solid #e5e7eb",
-            paddingBottom: "1.5rem",
+            borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+            paddingBottom: "1.75rem",
           }}
         >
+          <div
+            style={{
+              display: "inline-block",
+              background: "rgba(56, 189, 248, 0.15)",
+              color: "#38bdf8",
+              fontSize: "0.8rem",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+              padding: "0.3rem 0.75rem",
+              borderRadius: "9999px",
+              border: "1px solid rgba(56, 189, 248, 0.3)",
+              marginBottom: "0.85rem",
+            }}
+          >
+            Mission & Architecture
+          </div>
           <h1
             style={{
-              fontSize: "2.25rem",
+              fontSize: "2.5rem",
               fontWeight: 800,
-              marginBottom: "0.5rem",
+              letterSpacing: "-0.025em",
+              marginBottom: "0.75rem",
+              color: "#f8fafc",
             }}
           >
             About ATOM
           </h1>
           <p
             style={{
-              color: "#4b5563",
-              fontSize: "1.125rem",
-              lineHeight: 1.6,
+              color: "#94a3b8",
+              fontSize: "1.15rem",
+              lineHeight: 1.65,
               margin: 0,
             }}
           >
             An evidence-first interactive platform dedicated to public energy
-            literacy, scientific transparency, and rigorous comparisons.
+            literacy, scientific transparency, and rigorous empirical
+            comparisons.
           </p>
         </header>
 
         <section style={{ marginBottom: "2.5rem" }}>
           <h2
             style={{
-              fontSize: "1.375rem",
+              fontSize: "1.5rem",
               fontWeight: 700,
-              marginBottom: "0.75rem",
+              marginBottom: "1rem",
+              color: "#f8fafc",
             }}
           >
-            Our Mission & Stance
+            Our Mission & Scientific Stance
           </h2>
           <p
-            style={{ color: "#374151", lineHeight: 1.7, marginBottom: "1rem" }}
+            style={{
+              color: "#cbd5e1",
+              lineHeight: 1.75,
+              marginBottom: "1.25rem",
+              fontSize: "1.05rem",
+            }}
           >
             ATOM exists to help people understand energy, risk, radiation,
             electricity systems, and nuclear power well enough to form their own
-            opinion.
+            informed opinions.
           </p>
+
           <div
             style={{
-              padding: "1.25rem",
-              backgroundColor: "#f5f3ff",
-              borderLeft: "4px solid #7c3aed",
-              borderRadius: "0 0.5rem 0.5rem 0",
-              margin: "1.5rem 0",
+              padding: "1.5rem",
+              backgroundColor: "rgba(124, 58, 237, 0.15)",
+              borderLeft: "4px solid #a855f7",
+              borderRadius: "0 12px 12px 0",
+              margin: "1.75rem 0",
+              borderTop: "1px solid rgba(168, 85, 247, 0.25)",
+              borderRight: "1px solid rgba(168, 85, 247, 0.25)",
+              borderBottom: "1px solid rgba(168, 85, 247, 0.25)",
             }}
           >
             <p
               style={{
                 margin: 0,
                 fontWeight: 600,
-                color: "#5b21b6",
+                color: "#e9d5ff",
+                fontSize: "1.1rem",
+                lineHeight: 1.6,
                 fontStyle: "italic",
               }}
             >
-              ATOM should never ask users to trust ATOM. ATOM should give users
-              enough information to verify ATOM.
+              &ldquo;ATOM should never ask users to trust ATOM. ATOM should give
+              users enough information to verify ATOM.&rdquo;
             </p>
           </div>
-          <p style={{ color: "#374151", lineHeight: 1.7 }}>
+
+          <p
+            style={{ color: "#cbd5e1", lineHeight: 1.75, fontSize: "1.05rem" }}
+          >
             ATOM is not a nuclear advocacy site. The platform presents evidence
             that strongly favors nuclear power on dimensions such as lifecycle
-            greenhouse gas emissions and land footprint, as well as evidence
-            that disfavors it on dimensions such as construction duration,
-            capital intensity, and complex waste governance.
+            greenhouse gas emissions, capacity factors, and minimal land
+            footprint, as well as evidence that disfavors it on dimensions such
+            as construction duration, high upfront capital intensity, and
+            complex waste governance.
           </p>
         </section>
 
         <section style={{ marginBottom: "2.5rem" }}>
           <h2
             style={{
-              fontSize: "1.375rem",
+              fontSize: "1.5rem",
               fontWeight: 700,
-              marginBottom: "0.75rem",
+              marginBottom: "1rem",
+              color: "#f8fafc",
             }}
           >
-            Editorial & Verification Standards
+            Editorial & Evidence Standards
           </h2>
           <ul
             style={{
-              color: "#374151",
-              lineHeight: 1.7,
-              paddingLeft: "1.25rem",
+              color: "#cbd5e1",
+              lineHeight: 1.8,
+              paddingLeft: "1.5rem",
+              fontSize: "1rem",
             }}
           >
             <li>
-              <strong>No invented values:</strong> Every quantitative claim must
-              be traceable to peer-reviewed literature or authoritative
-              international agencies (IAEA, IEA, IPCC, UNECE, EIA, NREL).
+              <strong style={{ color: "#f8fafc" }}>No invented values:</strong>{" "}
+              Every quantitative claim must be traceable to peer-reviewed
+              literature or authoritative international scientific agencies
+              (UNSCEAR, IPCC, IAEA, IEA, UNECE, WHO, NREL).
             </li>
             <li>
-              <strong>Honest missing data:</strong> Missing observations or
-              incompatible methodologies are never silently hidden or set to
-              zero.
+              <strong style={{ color: "#f8fafc" }}>Honest missing data:</strong>{" "}
+              Missing observations or incompatible methodologies are never
+              silently hidden or set to zero.
             </li>
             <li>
-              <strong>Separation of concerns:</strong> Scientific logic and
-              calculations remain strictly separated from presentational
-              rendering.
+              <strong style={{ color: "#f8fafc" }}>Adaptive complexity:</strong>{" "}
+              Presentation complexity changes depth from Beginner to Geeky, but
+              never alters the underlying scientific evidence.
+            </li>
+            <li>
+              <strong style={{ color: "#f8fafc" }}>
+                Separation of concerns:
+              </strong>{" "}
+              Scientific logic, units, and physics models remain strictly
+              separated from presentational rendering.
             </li>
           </ul>
         </section>
 
         <section
-          style={{ paddingTop: "1.5rem", borderTop: "1px solid #e5e7eb" }}
+          style={{
+            paddingTop: "2rem",
+            borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+          }}
         >
           <h2
             style={{
-              fontSize: "1.125rem",
+              fontSize: "1.25rem",
               fontWeight: 700,
-              marginBottom: "0.75rem",
+              marginBottom: "1rem",
+              color: "#f8fafc",
             }}
           >
-            Learn More
+            Explore the Platform
           </h2>
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
             <Link
+              href="/sources"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+                padding: "0.6rem 1.25rem",
+                background: "rgba(56, 189, 248, 0.15)",
+                border: "1px solid rgba(56, 189, 248, 0.3)",
+                borderRadius: "8px",
+                color: "#38bdf8",
+                fontWeight: 600,
+                textDecoration: "none",
+                fontSize: "0.95rem",
+              }}
+            >
+              <span>Scientific Sources & Bibliography →</span>
+            </Link>
+            <Link
               href="/methodology"
               style={{
-                color: "#7c3aed",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+                padding: "0.6rem 1.25rem",
+                background: "rgba(168, 85, 247, 0.15)",
+                border: "1px solid rgba(168, 85, 247, 0.3)",
+                borderRadius: "8px",
+                color: "#c084fc",
                 fontWeight: 600,
                 textDecoration: "none",
+                fontSize: "0.95rem",
               }}
             >
-              Evidence Policy & Methodology →
+              <span>Evidence Policy & Methodology →</span>
             </Link>
             <Link
-              href="/corrections"
+              href="/compare"
               style={{
-                color: "#7c3aed",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+                padding: "0.6rem 1.25rem",
+                background: "rgba(16, 185, 129, 0.15)",
+                border: "1px solid rgba(16, 185, 129, 0.3)",
+                borderRadius: "8px",
+                color: "#34d399",
                 fontWeight: 600,
                 textDecoration: "none",
+                fontSize: "0.95rem",
               }}
             >
-              Corrections Log →
-            </Link>
-            <Link
-              href="/accessibility"
-              style={{
-                color: "#7c3aed",
-                fontWeight: 600,
-                textDecoration: "none",
-              }}
-            >
-              Accessibility Statement →
+              <span>Comparison Lab →</span>
             </Link>
           </div>
         </section>

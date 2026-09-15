@@ -8,6 +8,8 @@ import {
   listReactorSystems,
 } from "@/lib/reactor/reactor-model";
 
+import styles from "../ReactorsPage.module.css";
+
 interface ReactorConceptPageProps {
   params: Promise<{
     concept: string;
@@ -52,38 +54,17 @@ export default async function ReactorConceptPage({
 
   return (
     <AppShell>
-      <div
-        style={{
-          maxWidth: "68rem",
-          margin: "0 auto",
-          padding: "1.5rem 1.5rem 6rem",
-        }}
-      >
-        <nav
-          aria-label="Breadcrumbs"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            fontSize: "0.875rem",
-            color: "#64748b",
-            marginBottom: "1.5rem",
-          }}
-        >
-          <Link href="/" style={{ color: "#64748b", textDecoration: "none" }}>
+      <div className={styles.conceptContainer}>
+        <nav aria-label="Breadcrumbs" className={styles.breadcrumbs}>
+          <Link href="/" className={styles.breadcrumbLink}>
             Home
           </Link>
-          <span>/</span>
-          <Link
-            href="/reactors"
-            style={{ color: "#64748b", textDecoration: "none" }}
-          >
+          <span className={styles.breadcrumbSeparator}>/</span>
+          <Link href="/reactors" className={styles.breadcrumbLink}>
             Reactors
           </Link>
-          <span>/</span>
-          <span style={{ color: "#0f172a", fontWeight: 500 }}>
-            {system.type}
-          </span>
+          <span className={styles.breadcrumbSeparator}>/</span>
+          <span className={styles.breadcrumbCurrent}>{system.type}</span>
         </nav>
 
         <ReactorExplorer system={system} />

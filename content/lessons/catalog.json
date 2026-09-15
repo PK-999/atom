@@ -10,11 +10,11 @@
     "conceptIds": ["energy-conservation"],
     "claimIds": ["fuel-energy-density"],
     "contentByLevel": {
-      "kid": "Energy is the ability to do work, like lighting up your room or powering a train. Some fuels pack a tiny drop of magic that makes as much energy as a whole giant pile of coal!",
-      "simple": "Energy is measured in kilowatt-hours (kWh) and power in watts (W). Nuclear fuel holds millions of times more energy per kilogram than chemical fossil fuels.",
+      "beginner": "Energy is the ability to do work, like lighting up your room or powering a train. Some fuels pack a tiny drop of magic that makes as much energy as a whole giant pile of coal!",
+      "explorer": "Energy is measured in kilowatt-hours (kWh) and power in watts (W). Nuclear fuel holds millions of times more energy per kilogram than chemical fossil fuels.",
       "curious": "Chemical fuels store energy in electron bonds (~4 electron-volts per reaction), while nuclear fuels store energy in atomic nuclei held by the strong force (~200 million electron-volts per fission).",
-      "technical": "Specific energy density governs fuel cycle logistics: uranium dioxide fuel pellets yield ~500,000 MJ/kg compared to natural gas at ~55 MJ/kg and coal at ~24 MJ/kg.",
-      "expert": "Mass-energy equivalence (E = mc²) governs nuclear mass defect. In U-235 fission, roughly 0.1% of the total rest mass is converted directly into kinetic energy and gamma radiation."
+      "deep-dive": "Specific energy density governs fuel cycle logistics: uranium dioxide fuel pellets yield ~500,000 MJ/kg compared to natural gas at ~55 MJ/kg and coal at ~24 MJ/kg.",
+      "geeky": "Mass-energy equivalence (E = mc\u00b2) governs nuclear mass defect. In U-235 fission, roughly 0.1% of the total rest mass is converted directly into kinetic energy and gamma radiation."
     },
     "checkpointIds": ["chk-energy-density"],
     "nextLessonId": "atom",
@@ -33,11 +33,11 @@
     "conceptIds": ["atomic-structure"],
     "claimIds": ["power-density"],
     "contentByLevel": {
-      "kid": "Everything in the world is made of tiny atoms. In the very middle of an atom is a heavy ball called the nucleus, with tiny electrons buzzing all around it.",
-      "simple": "Atoms contain positively charged protons and neutral neutrons in the nucleus, surrounded by negatively charged electrons. The number of protons determines what element it is.",
+      "beginner": "Everything in the world is made of tiny atoms. In the very middle of an atom is a heavy ball called the nucleus, with tiny electrons buzzing all around it.",
+      "explorer": "Atoms contain positively charged protons and neutral neutrons in the nucleus, surrounded by negatively charged electrons. The number of protons determines what element it is.",
       "curious": "Isotopes are atoms of the same element with different numbers of neutrons. Most natural uranium is Uranium-238 (99.3%), while only Uranium-235 (0.7%) readily fissions in commercial reactors.",
-      "technical": "Nuclear stability is governed by the ratio of neutrons to protons (N/Z ratio) and the balance between the attractive residual strong nuclear force and repulsive electrostatic Coulomb forces.",
-      "expert": "The semi-empirical mass formula (Bethe-Weizsäcker formula) describes nuclear binding energy per nucleon, peaking near Iron-56, explaining why fission of heavy actinides releases vast net energy."
+      "deep-dive": "Nuclear stability is governed by the ratio of neutrons to protons (N/Z ratio) and the balance between the attractive residual strong nuclear force and repulsive electrostatic Coulomb forces.",
+      "geeky": "The semi-empirical mass formula (Bethe-Weizs\u00e4cker formula) describes nuclear binding energy per nucleon, peaking near Iron-56, explaining why fission of heavy actinides releases vast net energy."
     },
     "checkpointIds": ["chk-atom-structure"],
     "nextLessonId": "fission",
@@ -56,11 +56,11 @@
     "conceptIds": ["fission-mechanics"],
     "claimIds": ["power-density"],
     "contentByLevel": {
-      "kid": "When a neutron hits a big uranium atom just right, it splits into two smaller pieces and shoots out new neutrons, creating heat and starting a chain reaction!",
-      "simple": "Fission happens when a heavy atom splits after capturing a neutron, releasing heat and 2 to 3 new neutrons that can split more atoms in a steady chain reaction.",
+      "beginner": "When a neutron hits a big uranium atom just right, it splits into two smaller pieces and shoots out new neutrons, creating heat and starting a chain reaction!",
+      "explorer": "Fission happens when a heavy atom splits after capturing a neutron, releasing heat and 2 to 3 new neutrons that can split more atoms in a steady chain reaction.",
       "curious": "Neutrons released by fission are 'fast' (~2 MeV). In commercial light-water reactors, ordinary water acts as a moderator, slowing neutrons down to 'thermal' speeds (~0.025 eV) where fission probability is highest.",
-      "technical": "The effective multiplication factor (k_eff) dictates reactor dynamics: k_eff = 1.0 is critical (steady power), k_eff > 1.0 is supercritical, and k_eff < 1.0 is subcritical. Delayed neutrons (0.65% fraction in U-235) provide the mechanical response margin for operator control.",
-      "expert": "Fission cross-sections exhibit Breit-Wigner resonance peaks in the intermediate epithermal spectrum. Doppler broadening of capture resonances in U-238 provides an instantaneous negative prompt fuel temperature reactivity coefficient."
+      "deep-dive": "The effective multiplication factor (k_eff) dictates reactor dynamics: k_eff = 1.0 is critical (steady power), k_eff > 1.0 is supercritical, and k_eff < 1.0 is subcritical. Delayed neutrons (0.65% fraction in U-235) provide the mechanical response margin for operator control.",
+      "geeky": "Fission cross-sections exhibit Breit-Wigner resonance peaks in the intermediate epithermal spectrum. Doppler broadening of capture resonances in U-238 provides an instantaneous negative prompt fuel temperature reactivity coefficient."
     },
     "checkpointIds": ["chk-fission-mechanics"],
     "nextLessonId": "reactor",
@@ -77,13 +77,13 @@
     "order": 4,
     "prerequisiteIds": ["fission"],
     "conceptIds": ["reactor-cores"],
-    "claimIds": ["unit-capacity"],
+    "claimIds": ["typical-capacity"],
     "contentByLevel": {
-      "kid": "A nuclear reactor is like a giant, super-strong kettle. Fuel rods get hot from splitting atoms, and special control rods slide in and out to turn the heat up or down.",
-      "simple": "Inside a reactor, thousands of ceramic fuel pellets are sealed in metal tubes. Coolant carries heat away, while control rods absorb neutrons to regulate or stop the reaction.",
+      "beginner": "A nuclear reactor is like a giant, super-strong kettle. Fuel rods get hot from splitting atoms, and special control rods slide in and out to turn the heat up or down.",
+      "explorer": "Inside a reactor, thousands of ceramic fuel pellets are sealed in metal tubes. Coolant carries heat away, while control rods absorb neutrons to regulate or stop the reaction.",
       "curious": "Pressurized Water Reactors (PWRs) keep primary water under high pressure (~155 bar) so it never boils in the core, using steam generators to create secondary steam for the turbine.",
-      "technical": "Commercial reactor vessels are forged from 20-30 cm thick low-alloy carbon steel with stainless steel cladding. Reactivity is controlled via control rod drive mechanisms (CRDMs) and soluble boron neutron poison in the primary coolant.",
-      "expert": "Thermal-hydraulic design is bounded by the Critical Heat Flux (CHF) and Departure from Nucleate Boiling Ratio (DNBR > 1.3), preventing fuel cladding dryout during transients."
+      "deep-dive": "Commercial reactor vessels are forged from 20-30 cm thick low-alloy carbon steel with stainless steel cladding. Reactivity is controlled via control rod drive mechanisms (CRDMs) and soluble boron neutron poison in the primary coolant.",
+      "geeky": "Thermal-hydraulic design is bounded by the Critical Heat Flux (CHF) and Departure from Nucleate Boiling Ratio (DNBR > 1.3), preventing fuel cladding dryout during transients."
     },
     "checkpointIds": ["chk-reactor-control"],
     "nextLessonId": "electricity-generation",
@@ -102,11 +102,11 @@
     "conceptIds": ["thermal-cycles"],
     "claimIds": ["capacity-factor", "thermal-efficiency"],
     "contentByLevel": {
-      "kid": "Hot steam spins giant metal turbine blades very fast, turning a huge magnet inside wire coils to make electricity for homes and schools!",
-      "simple": "A nuclear power plant works like a thermal power station: core heat boils water into high-pressure steam, spinning a turbine linked to an electrical generator.",
+      "beginner": "Hot steam spins giant metal turbine blades very fast, turning a huge magnet inside wire coils to make electricity for homes and schools!",
+      "explorer": "A nuclear power plant works like a thermal power station: core heat boils water into high-pressure steam, spinning a turbine linked to an electrical generator.",
       "curious": "Nuclear steam cycles operate at ~33-35% thermodynamic efficiency. Water is cooled through condensers using rivers, oceans, or natural draft cooling towers before recycling back to the boiler.",
-      "technical": "The Rankine cycle utilizes moisture separator reheaters (MSR) between high-pressure and low-pressure turbine casings to limit steam wetness (<12%) and prevent blade erosion.",
-      "expert": "Carnot thermodynamic limits constrain thermal efficiency based on primary coolant outlet temperatures (~325°C) and heat sink condenser temperatures (~25°C). Supercritical carbon dioxide (sCO2) cycles in advanced Gen IV reactors target >45% efficiency."
+      "deep-dive": "The Rankine cycle utilizes moisture separator reheaters (MSR) between high-pressure and low-pressure turbine casings to limit steam wetness (<12%) and prevent blade erosion.",
+      "geeky": "Carnot thermodynamic limits constrain thermal efficiency based on primary coolant outlet temperatures (~325\u00b0C) and heat sink condenser temperatures (~25\u00b0C). Supercritical carbon dioxide (sCO2) cycles in advanced Gen IV reactors target >45% efficiency."
     },
     "checkpointIds": ["chk-electricity-generation"],
     "nextLessonId": "safety",
@@ -123,13 +123,13 @@
     "order": 6,
     "prerequisiteIds": ["electricity-generation"],
     "conceptIds": ["defense-in-depth", "passive-safety"],
-    "claimIds": ["mortality-rate"],
+    "claimIds": ["mortality"],
     "contentByLevel": {
-      "kid": "Safety comes in multiple nested layers, like wearing a helmet, pads, and seatbelt all at once. Heavy steel and concrete walls keep everything safely locked inside.",
-      "simple": "Nuclear plants use 'defense-in-depth': four physical barriers between radiation and the public, plus automated backup cooling systems that work even if power fails.",
+      "beginner": "Safety comes in multiple nested layers, like wearing a helmet, pads, and seatbelt all at once. Heavy steel and concrete walls keep everything safely locked inside.",
+      "explorer": "Nuclear plants use 'defense-in-depth': four physical barriers between radiation and the public, plus automated backup cooling systems that work even if power fails.",
       "curious": "The 4 barriers are: ceramic fuel matrix, zircaloy cladding tubes, thick reactor pressure vessel, and prestressed reinforced concrete containment buildings designed to withstand airplane impacts.",
-      "technical": "Modern Gen III+ designs employ passive safety systems driven by natural physical laws (gravity drain, natural convection, evaporation) requiring no AC electrical power for 72+ hours post-shutdown.",
-      "expert": "Probabilistic Risk Assessment (PRA) quantifies Core Damage Frequency (CDF < 10⁻⁵/reactor-year) and Large Early Release Frequency (LERF < 10⁻⁶/reactor-year). Lessons from Three Mile Island, Chernobyl, and Fukushima led to hardened containment venting and portable FLEX mitigation."
+      "deep-dive": "Modern Gen III+ designs employ passive safety systems driven by natural physical laws (gravity drain, natural convection, evaporation) requiring no AC electrical power for 72+ hours post-shutdown.",
+      "geeky": "Probabilistic Risk Assessment (PRA) quantifies Core Damage Frequency (CDF < 10\u207b\u2075/reactor-year) and Large Early Release Frequency (LERF < 10\u207b\u2076/reactor-year). Lessons from Three Mile Island, Chernobyl, and Fukushima led to hardened containment venting and portable FLEX mitigation."
     },
     "checkpointIds": ["chk-safety-defense"],
     "nextLessonId": "waste",
@@ -148,11 +148,11 @@
     "conceptIds": ["waste-management"],
     "claimIds": ["lifecycle-ghg", "land-use"],
     "contentByLevel": {
-      "kid": "Used fuel is kept in deep clear water pools to cool down, and then packed into huge concrete and steel barrels called dry casks that sit safely on a concrete pad.",
-      "simple": "Because nuclear fuel is so dense, all the commercial spent fuel ever produced in the United States could fit on a single football field stacked about 10 meters high.",
+      "beginner": "Used fuel is kept in deep clear water pools to cool down, and then packed into huge concrete and steel barrels called dry casks that sit safely on a concrete pad.",
+      "explorer": "Because nuclear fuel is so dense, all the commercial spent fuel ever produced in the United States could fit on a single football field stacked about 10 meters high.",
       "curious": "Spent fuel contains short-lived fission products (like Cesium-137 and Strontium-90, half-life ~30 years) which emit most heat initially, and long-lived transuranics (like Plutonium-239, half-life 24,000 years).",
-      "technical": "Used fuel cools for 5-10 years in borated water pools before transfer to air-cooled dry storage casks engineered to withstand missile impacts, floods, and 1000°C fires.",
-      "expert": "Permanent disposal uses multi-barrier deep geological repositories (such as Onkalo in crystalline Fennoscandian bedrock). Radioactivity declines to below natural uranium ore levels within roughly 1,000 to 10,000 years, depending on fuel reprocessing and actinide separation."
+      "deep-dive": "Used fuel cools for 5-10 years in borated water pools before transfer to air-cooled dry storage casks engineered to withstand missile impacts, floods, and 1000\u00b0C fires.",
+      "geeky": "Permanent disposal uses multi-barrier deep geological repositories (such as Onkalo in crystalline Fennoscandian bedrock). Radioactivity declines to below natural uranium ore levels within roughly 1,000 to 10,000 years, depending on fuel reprocessing and actinide separation."
     },
     "checkpointIds": ["chk-waste-lifecycle"],
     "nextLessonId": null,

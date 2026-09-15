@@ -70,19 +70,19 @@ describe("ComplexitySelector", () => {
   it("changes and persists the selected level across remounts", async () => {
     const first = render(<SelectorHarness />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Technical" }));
-    expect(screen.getByText("Technical")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Deep-Dive" }));
+    expect(screen.getByText("Deep-Dive")).toBeVisible();
     await waitFor(() =>
       expect(
-        window.localStorage.getItem("atom:preferences:v1:complexity"),
-      ).toBe("technical"),
+        window.localStorage.getItem("atom:preferences:v2:complexity"),
+      ).toBe("deep-dive"),
     );
 
     first.unmount();
     render(<SelectorHarness />);
 
     await waitFor(() =>
-      expect(screen.getByRole("button", { name: "Technical" })).toHaveAttribute(
+      expect(screen.getByRole("button", { name: "Deep-Dive" })).toHaveAttribute(
         "aria-pressed",
         "true",
       ),
@@ -98,10 +98,10 @@ describe("ComplexitySelector", () => {
     });
     render(<SelectorHarness />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Expert" }));
+    fireEvent.click(screen.getByRole("button", { name: "Geeky" }));
 
-    expect(screen.getByText("Expert")).toBeVisible();
-    expect(screen.getByRole("button", { name: "Expert" })).toHaveAttribute(
+    expect(screen.getByText("Geeky")).toBeVisible();
+    expect(screen.getByRole("button", { name: "Geeky" })).toHaveAttribute(
       "aria-pressed",
       "true",
     );
@@ -117,11 +117,11 @@ describe("ComplexitySelector", () => {
     });
     render(<SelectorHarness />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Expert" }));
+    fireEvent.click(screen.getByRole("button", { name: "Geeky" }));
 
     const params = new URLSearchParams(window.location.search);
     expect(params.get("metric")).toBe("land-use");
-    expect(params.get("level")).toBe("expert");
+    expect(params.get("level")).toBe("geeky");
   });
 
   it("keeps multiple consumers synchronized in the same document", () => {
@@ -133,46 +133,46 @@ describe("ComplexitySelector", () => {
       name: "Second complexity control",
     });
 
-    fireEvent.click(within(first).getByRole("button", { name: "Expert" }));
+    fireEvent.click(within(first).getByRole("button", { name: "Geeky" }));
 
-    expect(within(first).getByText("Expert")).toBeVisible();
-    expect(within(second).getByText("Expert")).toBeVisible();
+    expect(within(first).getByText("Geeky")).toBeVisible();
+    expect(within(second).getByText("Geeky")).toBeVisible();
     expect(
-      within(second).getByRole("button", { name: "Expert" }),
+      within(second).getByRole("button", { name: "Geeky" }),
     ).toHaveAttribute("aria-pressed", "true");
   });
 
   it("gives a valid URL level precedence and preserves unrelated parameters", async () => {
-    window.localStorage.setItem("atom:preferences:v1:complexity", "simple");
+    window.localStorage.setItem("atom:preferences:v2:complexity", "explorer");
     window.history.replaceState(
       null,
       "",
-      "/compare?metric=land-use&level=expert",
+      "/compare?metric=land-use&level=geeky",
     );
 
     render(<SelectorHarness />);
 
     await waitFor(() =>
-      expect(screen.getByRole("button", { name: "Expert" })).toHaveAttribute(
+      expect(screen.getByRole("button", { name: "Geeky" })).toHaveAttribute(
         "aria-pressed",
         "true",
       ),
     );
-    fireEvent.click(screen.getByRole("button", { name: "Technical" }));
+    fireEvent.click(screen.getByRole("button", { name: "Deep-Dive" }));
 
     const params = new URLSearchParams(window.location.search);
-    expect(params.get("level")).toBe("technical");
+    expect(params.get("level")).toBe("deep-dive");
     expect(params.get("metric")).toBe("land-use");
   });
 
   it("falls back to the stored preference when the URL level is invalid", async () => {
-    window.localStorage.setItem("atom:preferences:v1:complexity", "simple");
+    window.localStorage.setItem("atom:preferences:v2:complexity", "explorer");
     window.history.replaceState(null, "", "/compare?level=unknown");
 
     render(<SelectorHarness />);
 
     await waitFor(() =>
-      expect(screen.getByRole("button", { name: "Simple" })).toHaveAttribute(
+      expect(screen.getByRole("button", { name: "Explorer" })).toHaveAttribute(
         "aria-pressed",
         "true",
       ),
@@ -183,11 +183,11 @@ describe("ComplexitySelector", () => {
     window.history.replaceState(null, "", "/compare?level=curious");
     render(<SelectorHarness />);
 
-    window.history.pushState(null, "", "/compare?level=kid");
+    window.history.pushState(null, "", "/compare?level=beginner");
     window.dispatchEvent(new PopStateEvent("popstate"));
 
     await waitFor(() =>
-      expect(screen.getByRole("button", { name: "Kid" })).toHaveAttribute(
+      expect(screen.getByRole("button", { name: "Beginner" })).toHaveAttribute(
         "aria-pressed",
         "true",
       ),
@@ -199,13 +199,13 @@ describe("ComplexitySelector", () => {
 
     window.dispatchEvent(
       new StorageEvent("storage", {
-        key: "atom:preferences:v1:complexity",
-        newValue: "expert",
+        key: "atom:preferences:v2:complexity",
+        newValue: "geeky",
       }),
     );
 
     await waitFor(() =>
-      expect(screen.getByRole("button", { name: "Expert" })).toHaveAttribute(
+      expect(screen.getByRole("button", { name: "Geeky" })).toHaveAttribute(
         "aria-pressed",
         "true",
       ),
@@ -213,23 +213,23 @@ describe("ComplexitySelector", () => {
   });
 
   it("keeps an explicit URL level authoritative during cross-tab changes", async () => {
-    window.history.replaceState(null, "", "/compare?level=technical");
+    window.history.replaceState(null, "", "/compare?level=deep-dive");
     render(<SelectorHarness />);
 
     await waitFor(() =>
-      expect(screen.getByRole("button", { name: "Technical" })).toHaveAttribute(
+      expect(screen.getByRole("button", { name: "Deep-Dive" })).toHaveAttribute(
         "aria-pressed",
         "true",
       ),
     );
     window.dispatchEvent(
       new StorageEvent("storage", {
-        key: "atom:preferences:v1:complexity",
-        newValue: "kid",
+        key: "atom:preferences:v2:complexity",
+        newValue: "beginner",
       }),
     );
 
-    expect(screen.getByRole("button", { name: "Technical" })).toHaveAttribute(
+    expect(screen.getByRole("button", { name: "Deep-Dive" })).toHaveAttribute(
       "aria-pressed",
       "true",
     );

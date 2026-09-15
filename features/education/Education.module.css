@@ -1,11 +1,13 @@
-/* Education Module Styles */
+/* =========================================================
+   ATOM Education & Curriculum Module — Dark-first Design System
+   ========================================================= */
 
 .lessonPage {
   min-height: 100vh;
   padding: 2rem 1.5rem 6rem;
-  max-width: 54rem;
+  max-width: 58rem;
   margin: 0 auto;
-  color: var(--color-foreground, #111827);
+  color: var(--atom-text-primary);
   font-family: inherit;
 }
 
@@ -14,7 +16,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.875rem;
-  color: var(--color-muted-foreground, #6b7280);
+  color: var(--atom-text-muted);
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
 }
@@ -22,11 +24,11 @@
 .breadcrumb a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color var(--atom-motion-fast) ease;
 }
 
 .breadcrumb a:hover {
-  color: var(--color-primary, #7c3aed);
+  color: var(--atom-accent);
 }
 
 .breadcrumbSeparator {
@@ -35,36 +37,37 @@
 }
 
 .breadcrumbCurrent {
-  color: var(--color-foreground, #111827);
-  font-weight: 500;
+  color: var(--atom-text-primary);
+  font-weight: 600;
 }
 
 .header {
   margin-bottom: 2rem;
-  border-bottom: 1px solid var(--color-border, #e5e7eb);
+  border-bottom: 1px solid var(--atom-border-subtle);
   padding-bottom: 1.5rem;
 }
 
 .topicBadge {
   display: inline-block;
   padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  background-color: #ede9fe;
-  color: #6d28d9;
+  border-radius: var(--atom-radius-full);
+  background-color: var(--atom-accent-soft);
+  color: var(--atom-accent);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   margin-bottom: 0.75rem;
+  border: 1px solid rgba(0, 212, 255, 0.3);
 }
 
 .title {
   font-size: 2.25rem;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: -0.025em;
   line-height: 1.2;
   margin-bottom: 0.5rem;
-  color: var(--color-foreground, #111827);
+  color: var(--atom-text-primary);
 }
 
 .metaInfo {
@@ -72,15 +75,16 @@
   align-items: center;
   gap: 1rem;
   font-size: 0.875rem;
-  color: var(--color-muted-foreground, #6b7280);
+  color: var(--atom-text-muted);
   margin-bottom: 1.25rem;
 }
 
 .objectiveCard {
-  background-color: #f8fafc;
-  border-left: 4px solid var(--color-primary, #7c3aed);
-  border-radius: 0 0.5rem 0.5rem 0;
-  padding: 1rem 1.25rem;
+  background-color: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-subtle);
+  border-left: 4px solid var(--atom-accent);
+  border-radius: 0 var(--atom-radius-md) var(--atom-radius-md) 0;
+  padding: 1.25rem 1.5rem;
   margin-top: 1rem;
 }
 
@@ -88,15 +92,15 @@
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-primary, #7c3aed);
+  letter-spacing: 0.08em;
+  color: var(--atom-accent);
   margin-bottom: 0.25rem;
 }
 
 .objectiveText {
   font-size: 1rem;
-  color: var(--color-foreground, #334155);
-  line-height: 1.5;
+  color: var(--atom-text-secondary);
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -107,59 +111,59 @@
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 2rem;
-  padding: 0.875rem 1.25rem;
-  background-color: var(--color-card, #ffffff);
-  border: 1px solid var(--color-border, #e5e7eb);
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 1rem 1.25rem;
+  background-color: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-lg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .explanationSection {
-  background-color: var(--color-card, #ffffff);
-  border: 1px solid var(--color-border, #e5e7eb);
-  border-radius: 0.75rem;
-  padding: 1.75rem;
+  background-color: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-xl);
+  padding: 2rem;
   margin-bottom: 2.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .levelIndicator {
   display: inline-block;
   font-size: 0.8125rem;
   font-weight: 700;
-  color: var(--color-primary, #7c3aed);
+  color: var(--atom-accent);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   margin-bottom: 0.75rem;
 }
 
 .explanationText {
-  font-size: 1.125rem;
+  font-size: 1.15rem;
   line-height: 1.8;
-  color: var(--color-foreground, #1f2937);
+  color: var(--atom-text-primary);
   margin: 0;
 }
 
 /* Interactive Widget */
 .interactionCard {
-  background-color: var(--color-card, #ffffff);
-  border: 1px solid var(--color-border, #e5e7eb);
-  border-radius: 0.75rem;
-  padding: 1.75rem;
+  background-color: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-default);
+  border-radius: var(--atom-radius-xl);
+  padding: 2rem;
   margin-bottom: 2.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
 }
 
 .interactionTitle {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 800;
   margin-bottom: 0.5rem;
-  color: var(--color-foreground, #111827);
+  color: var(--atom-text-primary);
 }
 
 .interactionSubtitle {
   font-size: 0.875rem;
-  color: var(--color-muted-foreground, #6b7280);
+  color: var(--atom-text-secondary);
   margin-bottom: 1.5rem;
 }
 
@@ -172,14 +176,16 @@
   font-weight: 600;
   margin-bottom: 0.5rem;
   font-size: 0.9375rem;
+  color: var(--atom-text-primary);
 }
 
 .slider {
   width: 100%;
   height: 0.5rem;
-  border-radius: 0.25rem;
-  accent-color: var(--color-primary, #7c3aed);
+  border-radius: var(--atom-radius-full);
+  accent-color: var(--atom-accent);
   cursor: pointer;
+  background-color: var(--atom-surface-elevated);
 }
 
 .equivalenceGrid {
@@ -190,23 +196,23 @@
 }
 
 .equivalenceItem {
-  padding: 1rem;
-  background-color: #f9fafb;
-  border: 1px solid var(--color-border, #e5e7eb);
-  border-radius: 0.5rem;
+  padding: 1.25rem;
+  background-color: var(--atom-surface-elevated);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-md);
   text-align: center;
 }
 
 .equivalenceValue {
-  font-size: 1.375rem;
-  font-weight: 800;
-  color: var(--color-primary, #7c3aed);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--atom-accent);
   margin-bottom: 0.25rem;
 }
 
 .equivalenceLabel {
   font-size: 0.8125rem;
-  color: var(--color-muted-foreground, #6b7280);
+  color: var(--atom-text-muted);
   font-weight: 500;
 }
 
@@ -220,29 +226,32 @@
 
 .selectButton {
   padding: 0.5rem 1rem;
-  border: 1px solid var(--color-border, #e5e7eb);
-  background-color: #ffffff;
-  border-radius: 0.5rem;
+  border: 1px solid var(--atom-border-subtle);
+  background-color: var(--atom-surface-elevated);
+  color: var(--atom-text-secondary);
+  border-radius: var(--atom-radius-md);
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--atom-motion-fast) ease;
 }
 
 .selectButton:hover {
-  background-color: #f3f4f6;
+  background-color: var(--atom-surface-panel);
+  color: var(--atom-text-primary);
+  border-color: var(--atom-border-default);
 }
 
 .selectButtonActive {
-  background-color: #7c3aed;
-  color: #ffffff;
-  border-color: #7c3aed;
+  background-color: var(--atom-accent);
+  color: var(--atom-text-inverse);
+  border-color: var(--atom-accent);
 }
 
 .infoCard {
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
+  background-color: var(--atom-surface-elevated);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-md);
   padding: 1.25rem;
 }
 
@@ -255,32 +264,32 @@
 
 .infoValue {
   font-size: 1.25rem;
-  font-weight: 700;
-  color: #1e293b;
+  font-weight: 800;
+  color: var(--atom-text-primary);
 }
 
 .infoLabel {
   font-size: 0.75rem;
-  color: #64748b;
+  color: var(--atom-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .infoDescription {
   font-size: 0.875rem;
-  color: #475569;
+  color: var(--atom-text-secondary);
   line-height: 1.5;
   margin: 0;
 }
 
 /* Checkpoint Styles */
 .checkpointSection {
-  background-color: var(--color-card, #ffffff);
-  border: 1px solid var(--color-border, #e5e7eb);
-  border-radius: 0.75rem;
-  padding: 1.75rem;
+  background-color: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-default);
+  border-radius: var(--atom-radius-xl);
+  padding: 2rem;
   margin-bottom: 2.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .checkpointHeader {
@@ -295,26 +304,27 @@
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #047857;
-  background-color: #d1fae5;
+  letter-spacing: 0.08em;
+  color: #34d399;
+  background-color: rgba(52, 211, 153, 0.15);
+  border: 1px solid rgba(52, 211, 153, 0.3);
   padding: 0.25rem 0.625rem;
-  border-radius: 9999px;
+  border-radius: var(--atom-radius-full);
 }
 
 .completedBadge {
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #047857;
+  color: #34d399;
 }
 
 .checkpointPrompt {
-  font-size: 1.125rem;
+  font-size: 1.15rem;
   font-weight: 700;
   margin-bottom: 1.25rem;
   line-height: 1.5;
-  color: var(--color-foreground, #111827);
+  color: var(--atom-text-primary);
 }
 
 .checkpointForm {
@@ -338,64 +348,64 @@
   align-items: flex-start;
   gap: 0.75rem;
   padding: 1rem;
-  border: 1px solid var(--color-border, #e5e7eb);
-  border-radius: 0.5rem;
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-md);
   cursor: pointer;
-  transition:
-    border-color 0.15s ease,
-    background-color 0.15s ease;
-  background-color: #ffffff;
+  transition: all var(--atom-motion-fast) ease;
+  background-color: var(--atom-surface-elevated);
 }
 
 .optionItem:hover {
-  background-color: #f9fafb;
+  background-color: var(--atom-surface-panel);
+  border-color: var(--atom-border-default);
 }
 
 .optionItemSelected {
-  border-color: #7c3aed;
-  background-color: #faf5ff;
+  border-color: var(--atom-accent);
+  background-color: var(--atom-accent-soft);
 }
 
 .optionItemCorrect {
-  border-color: #10b981;
-  background-color: #f0fdf4;
+  border-color: #22c55e;
+  background-color: rgba(34, 197, 94, 0.12);
 }
 
 .optionItemIncorrect {
-  border-color: #f43f5e;
-  background-color: #fff1f2;
+  border-color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.12);
 }
 
 .optionRadio {
   margin-top: 0.25rem;
-  accent-color: #7c3aed;
+  accent-color: var(--atom-accent);
   cursor: pointer;
 }
 
 .optionText {
   font-size: 0.9375rem;
   line-height: 1.5;
-  color: var(--color-foreground, #1f2937);
+  color: var(--atom-text-primary);
 }
 
 .submitButton {
-  padding: 0.625rem 1.5rem;
-  background-color: #7c3aed;
-  color: #ffffff;
+  padding: 0.75rem 1.75rem;
+  background-color: var(--atom-accent);
+  color: var(--atom-text-inverse);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--atom-radius-md);
   font-size: 0.9375rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: all var(--atom-motion-fast) ease;
 }
 
 .submitButton:hover:not(:disabled) {
-  background-color: #6d28d9;
+  background-color: var(--atom-accent-hover);
+  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.4);
 }
 
 .submitButton:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -404,18 +414,18 @@
 }
 
 .feedbackCorrect {
-  background-color: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  color: #065f46;
-  border-radius: 0.5rem;
+  background-color: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #4ade80;
+  border-radius: var(--atom-radius-md);
   padding: 1.25rem;
 }
 
 .feedbackIncorrect {
-  background-color: #fff1f2;
-  border: 1px solid #fecdd3;
-  color: #9f1239;
-  border-radius: 0.5rem;
+  background-color: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  border-radius: var(--atom-radius-md);
   padding: 1.25rem;
 }
 
@@ -429,29 +439,30 @@
   font-size: 0.9375rem;
   line-height: 1.5;
   margin: 0 0 0.75rem 0;
+  color: var(--atom-text-primary);
 }
 
 .retryButton {
   padding: 0.5rem 1rem;
-  background-color: #ffffff;
-  border: 1px solid #fecdd3;
-  color: #9f1239;
-  border-radius: 0.375rem;
+  background-color: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-default);
+  color: var(--atom-text-primary);
+  border-radius: var(--atom-radius-sm);
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: all var(--atom-motion-fast) ease;
 }
 
 .retryButton:hover {
-  background-color: #ffe4e6;
+  border-color: var(--atom-accent);
 }
 
 /* Sources Section */
 .sourcesSection {
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
+  background-color: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-lg);
   padding: 1.25rem 1.5rem;
   margin-bottom: 2.5rem;
 }
@@ -460,7 +471,7 @@
   font-size: 1rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
-  color: #334155;
+  color: var(--atom-text-primary);
 }
 
 .sourcesList {
@@ -468,12 +479,12 @@
   padding-left: 1.25rem;
   margin: 0;
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--atom-text-secondary);
   line-height: 1.6;
 }
 
 .sourcesList a {
-  color: #7c3aed;
+  color: var(--atom-accent);
   text-decoration: underline;
 }
 
@@ -484,7 +495,7 @@
   align-items: center;
   gap: 1rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--color-border, #e5e7eb);
+  border-top: 1px solid var(--atom-border-subtle);
 }
 
 .navLink {
@@ -492,31 +503,30 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  border: 1px solid var(--color-border, #e5e7eb);
-  border-radius: 0.5rem;
-  background-color: #ffffff;
-  color: var(--color-foreground, #111827);
+  border: 1px solid var(--atom-border-default);
+  border-radius: var(--atom-radius-md);
+  background-color: var(--atom-surface-panel);
+  color: var(--atom-text-primary);
   font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.15s ease;
+  transition: all var(--atom-motion-fast) ease;
 }
 
 .navLink:hover {
-  background-color: #f9fafb;
-  border-color: #7c3aed;
-  color: #7c3aed;
+  border-color: var(--atom-accent);
+  color: var(--atom-accent);
 }
 
 .navLinkPrimary {
-  background-color: #7c3aed;
-  color: #ffffff;
-  border-color: #7c3aed;
+  background-color: var(--atom-accent);
+  color: var(--atom-text-inverse);
+  border-color: var(--atom-accent);
 }
 
 .navLinkPrimary:hover {
-  background-color: #6d28d9;
-  color: #ffffff;
+  background-color: var(--atom-accent-hover);
+  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.4);
 }
 
 /* Catalog View */
@@ -534,15 +544,16 @@
 
 .catalogTitle {
   font-size: 2.5rem;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: -0.025em;
   margin-bottom: 0.75rem;
+  color: var(--atom-text-primary);
 }
 
 .catalogSubtitle {
   font-size: 1.125rem;
-  color: var(--color-muted-foreground, #6b7280);
-  max-width: 36rem;
+  color: var(--atom-text-secondary);
+  max-width: 38rem;
   margin: 0 auto;
   line-height: 1.6;
 }
@@ -553,13 +564,14 @@
 
 .topicSectionTitle {
   font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+  color: var(--atom-text-primary);
 }
 
 .topicSectionDescription {
   font-size: 0.9375rem;
-  color: var(--color-muted-foreground, #6b7280);
+  color: var(--atom-text-secondary);
   margin-bottom: 1.25rem;
 }
 
@@ -573,22 +585,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: var(--color-card, #ffffff);
-  border: 1px solid var(--color-border, #e5e7eb);
-  border-radius: 0.75rem;
-  padding: 1.25rem;
+  background-color: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-lg);
+  padding: 1.5rem;
   text-decoration: none;
   color: inherit;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all var(--atom-motion-fast) ease;
 }
 
 .lessonCard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border-color: #c4b5fd;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    var(--atom-accent-glow);
+  border-color: var(--atom-accent);
 }
 
 .lessonCardHeader {
@@ -601,29 +613,33 @@
 .lessonOrder {
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--color-primary, #7c3aed);
+  color: var(--atom-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .lessonStatus {
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.125rem 0.5rem;
-  border-radius: 9999px;
-  background-color: #d1fae5;
-  color: #065f46;
+  border-radius: var(--atom-radius-full);
+  background-color: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
 }
 
 .lessonCardTitle {
-  font-size: 1.125rem;
+  font-size: 1.15rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   line-height: 1.3;
+  color: var(--atom-text-primary);
 }
 
 .lessonCardObjective {
   font-size: 0.875rem;
-  color: var(--color-muted-foreground, #4b5563);
-  line-height: 1.4;
+  color: var(--atom-text-secondary);
+  line-height: 1.5;
   margin-bottom: 1rem;
   flex-grow: 1;
 }
@@ -633,7 +649,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: 0.75rem;
-  color: var(--color-muted-foreground, #6b7280);
-  border-top: 1px solid #f3f4f6;
+  color: var(--atom-text-muted);
+  border-top: 1px solid var(--atom-border-subtle);
   padding-top: 0.75rem;
 }

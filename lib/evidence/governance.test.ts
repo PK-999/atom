@@ -327,6 +327,40 @@ describe("publication policy", () => {
     ).toBe(true);
   });
 
+  it("differentiates between geography relationship, scope, and support mismatches", () => {
+    // 1. Geography ID mismatch
+    const idMismatch = canPublishObservation(observation, {
+      ...publicationContext,
+      geography: { ...geography, id: "different-geography-id" },
+    });
+    expect(idMismatch.eligible).toBe(false);
+    expect(idMismatch.reasons).toContain("geography-relationship-mismatch");
+    expect(idMismatch.reasons).not.toContain("geography-scope-mismatch");
+    expect(idMismatch.reasons).not.toContain("metric-geography-unsupported");
+
+    // 2. Geography scope mismatch between observation and context geography
+    const scopeMismatch = canPublishObservation(
+      { ...observation, geographyScope: "country" },
+      publicationContext,
+    );
+    expect(scopeMismatch.eligible).toBe(false);
+    expect(scopeMismatch.reasons).toContain("geography-scope-mismatch");
+    expect(scopeMismatch.reasons).not.toContain(
+      "geography-relationship-mismatch",
+    );
+
+    // 3. Context geography scope unsupported by metric
+    const unsupportedScope = canPublishObservation(observation, {
+      ...publicationContext,
+      metric: { ...publicationContext.metric, geographySupport: ["country"] },
+    });
+    expect(unsupportedScope.eligible).toBe(false);
+    expect(unsupportedScope.reasons).toContain("metric-geography-unsupported");
+    expect(unsupportedScope.reasons).not.toContain(
+      "geography-relationship-mismatch",
+    );
+  });
+
   it("publishes raw observations only when access and redistribution permit", () => {
     expect(canPublishRawObservation(observation, publicationContext)).toEqual({
       eligible: true,

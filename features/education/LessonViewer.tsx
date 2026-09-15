@@ -2,10 +2,7 @@
 
 import Link from "next/link";
 import type { LessonRecord, Topic, Checkpoint } from "@/lib/education/schemas";
-import {
-  useComplexityPreference,
-  ComplexitySelector,
-} from "@/components/settings/ComplexitySelector";
+import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
 import { LessonInteraction } from "./LessonInteraction";
 import { LessonCheckpoint } from "./LessonCheckpoint";
 import styles from "./Education.module.css";
@@ -25,7 +22,7 @@ export function LessonViewer({
   prevLesson,
   nextLesson,
 }: LessonViewerProps) {
-  const [level, setLevel] = useComplexityPreference("curious");
+  const [level] = useComplexityPreference("curious");
 
   const activeContent =
     lesson.contentByLevel[level] || lesson.contentByLevel.curious;
@@ -74,14 +71,6 @@ export function LessonViewer({
           <p className={styles.objectiveText}>{lesson.objective}</p>
         </div>
       </header>
-
-      {/* Controls Bar for Complexity Preference */}
-      <div className={styles.controlsBar}>
-        <span style={{ fontSize: "0.875rem", fontWeight: 600 }}>
-          Explanation Depth
-        </span>
-        <ComplexitySelector value={level} onChange={setLevel} />
-      </div>
 
       {/* Educational Explanation Section */}
       <section

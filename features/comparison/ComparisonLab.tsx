@@ -1,16 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useMemo, useState, useTransition } from "react";
 
-import {
-  ComplexitySelector,
-  useComplexityPreference,
-} from "@/components/settings/ComplexitySelector";
+import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
 
 import { ComparisonControls } from "./ComparisonControls";
+import { getTechnology } from "./comparison-technology-catalog";
 import { ComparisonEvidenceActions } from "./ComparisonEvidence";
 import { ComparisonInterpretation } from "./ComparisonInterpretation";
 import { ComparisonResults } from "./ComparisonResults";
@@ -20,7 +17,6 @@ import {
 } from "./comparison-url";
 import type {
   ComparisonState,
-  ComplexityLevel,
   DisplayMode,
   PreviewComparison,
   UnitMode,
@@ -58,19 +54,12 @@ export function ComparisonLab({
   }
 
   const updateState = (updater: (prev: ComparisonState) => ComparisonState) => {
-    setActiveState((current) => {
-      const next = updater(current);
-      const query = serializeComparisonState(next);
-      startTransition(() => {
-        router.push(`${pathname}?${query.toString()}`, { scroll: false });
-      });
-      return next;
+    const next = updater(activeState);
+    setActiveState(next);
+    const query = serializeComparisonState(next);
+    startTransition(() => {
+      router.push(`${pathname}?${query.toString()}`, { scroll: false });
     });
-  };
-
-  const handleComplexityChange = (newLevel: ComplexityLevel) => {
-    setActiveLevel(newLevel);
-    updateState((s) => ({ ...s, level: newLevel }));
   };
 
   const handleAddSource = (technologyId: string) => {
@@ -125,13 +114,17 @@ export function ComparisonLab({
       if (obs) {
         resolved.push(obs);
       } else {
-        // Source added but not yet in comparison props
+        // Source listed in URL but no observation returned from the evidence
+        // catalog yet — show an honest "pending" placeholder row rather than
+        // a fabricated zero value.
+        const techInfo = getTechnology(id);
         resolved.push({
           technologyId: id,
-          technologyName: id.charAt(0).toUpperCase() + id.slice(1),
-          color: "#737373",
-          marker: "circle",
-          typicalValue: 0,
+          technologyName:
+            techInfo?.name ?? id.charAt(0).toUpperCase() + id.slice(1),
+          color: techInfo?.color ?? "#737373",
+          marker: techInfo?.marker ?? "circle",
+          typicalValue: 0, // not displayed: evidenceStatus=unreviewed suppresses the bar value
           range: null,
           evidenceStatus: "unreviewed",
           source: null,
@@ -154,7 +147,7 @@ export function ComparisonLab({
   }, [activeState, pathname]);
 
   return (
-    <main className={styles.page}>
+    <div className={styles.page}>
       <Image
         alt=""
         aria-hidden
@@ -164,25 +157,23 @@ export function ComparisonLab({
         sizes="100vw"
         src="/assets/comparison/museum-light-background.png"
       />
-      <a className={styles.skipLink} href="#comparison-exhibit">
-        Skip to comparison
-      </a>
       <div className={styles.shell}>
-        <header className={styles.header}>
-          <Link className={styles.wordmark} href="/" aria-label="ATOM home">
-            ATOM
-          </Link>
-          <nav aria-label="Primary navigation" className={styles.navigation}>
-            <Link aria-current="page" href="/compare">
-              Compare
-            </Link>
-            <Link href="/methodology">Learn</Link>
-          </nav>
-          <ComplexitySelector
-            onChange={handleComplexityChange}
-            value={activeLevel}
-          />
-        </header>
+        <div className={styles.labSubheader}>
+          <div className={styles.labMeta}>
+            <span className={styles.labBadge}>
+              <span className={styles.badgePulse} aria-hidden="true">
+                ⚛
+              </span>
+              Interactive Comparison Lab
+            </span>
+            <span className={styles.labMetaDivider} aria-hidden="true">
+              •
+            </span>
+            <span className={styles.labSubtitle}>
+              Peer-reviewed lifecycle and grid metrics across 9 technologies
+            </span>
+          </div>
+        </div>
 
         <section className={styles.intro} aria-labelledby="comparison-title">
           <p className={styles.eyebrow}>Energy Comparison Lab</p>
@@ -214,6 +205,7 @@ export function ComparisonLab({
           <ComparisonResults
             comparison={comparison}
             displayMode={activeState.mode}
+            unitMode={activeState.units}
             onRestoreDefaultSources={handleRestoreSources}
             onViewChange={setView}
             selectedObservations={selectedObservations}
@@ -233,6 +225,6 @@ export function ComparisonLab({
           observation={evidenceObservation}
         />
       </div>
-    </main>
+    </div>
   );
 }

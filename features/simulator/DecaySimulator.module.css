@@ -1,0 +1,522 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: var(--text-primary);
+}
+
+.header {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.titleIcon {
+  color: #fb923c;
+  filter: drop-shadow(0 0 8px rgba(251, 146, 60, 0.5));
+}
+
+.description {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Level Insight Banner */
+.levelBanner {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.85) 0%,
+    rgba(234, 88, 12, 0.12) 100%
+  );
+  border: 1px solid rgba(251, 146, 60, 0.25);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.levelBannerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.levelBannerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(251, 146, 60, 0.15);
+  color: #fb923c;
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.levelBannerTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0 0 0.35rem 0;
+}
+
+.levelBannerText {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.levelBannerFormula {
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(251, 146, 60, 0.2);
+  border-radius: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  color: #fb923c;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  overflow-x: auto;
+}
+
+.isotopeBar {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+}
+
+.isotopePill {
+  background: #091322;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 9999px;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #94a3b8;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.isotopePill:hover {
+  background: rgba(56, 189, 248, 0.1);
+  color: #f8fafc;
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.isotopePillActive {
+  background: rgba(251, 146, 60, 0.2);
+  color: #fb923c;
+  border-color: #fb923c;
+  box-shadow: 0 0 14px rgba(251, 146, 60, 0.35);
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 1.35fr 1fr;
+  }
+}
+
+.stageCard {
+  background: #091322;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.stageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.stageTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stageMeta {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.latticeWrapper {
+  background: #040914;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 10px;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 8px;
+  max-width: 440px;
+  margin: 0 auto;
+  width: 100%;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+
+.atomNode {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+/* 3D Shaded Parent Atom */
+.atomParent {
+  box-shadow:
+    inset -2px -2px 4px rgba(0, 0, 0, 0.6),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.6),
+    0 0 8px rgba(251, 146, 60, 0.5);
+  animation: atomPulse 3s infinite ease-in-out;
+}
+
+@keyframes atomPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+/* 3D Shaded Decayed Daughter Atom */
+.atomDaughter {
+  background: radial-gradient(
+    circle at 35% 35%,
+    #64748b 0%,
+    #334155 50%,
+    #0f172a 100%
+  ) !important;
+  border: 1px solid #1e293b !important;
+  box-shadow:
+    inset -1px -1px 3px rgba(0, 0, 0, 0.8),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.2) !important;
+  opacity: 0.5;
+  transform: scale(0.9);
+}
+
+.decayControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.stepButton {
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+  color: #ffffff;
+  border: 1px solid rgba(251, 146, 60, 0.4);
+  border-radius: 6px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
+}
+
+.stepButton:hover {
+  background: linear-gradient(135deg, #c2410c 0%, #9a3412 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(234, 88, 12, 0.4);
+}
+
+.secondaryButton {
+  background: rgba(15, 23, 42, 0.85);
+  color: var(--text-primary);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 6px;
+  padding: 0.55rem 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.secondaryButton:hover {
+  background: rgba(56, 189, 248, 0.1);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+/* Geiger-Müller Survey Meter Visual Widget */
+.geigerMeterCard {
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  border: 2px solid #ca8a04;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.geigerDialContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.geigerSvg {
+  width: 140px;
+  height: 75px;
+}
+
+.geigerDigitalReadout {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.geigerBrand {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #ca8a04;
+  letter-spacing: 0.1em;
+}
+
+.geigerValue {
+  font-family: var(--font-mono, monospace);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fef08a;
+  text-shadow: 0 0 10px rgba(254, 240, 138, 0.4);
+}
+
+.geigerUnit {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.geigerIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: #cbd5e1;
+}
+
+.geigerLed {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  transition: background 0.1s ease;
+}
+
+.geigerLedActive {
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+}
+
+.geigerAudioSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-end;
+}
+
+.audioToggleButton {
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid #ca8a04;
+  color: #fef08a;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.audioToggleButton:hover {
+  background: rgba(202, 138, 4, 0.2);
+}
+
+.audioToggleActive {
+  background: #ca8a04;
+  color: #0f172a;
+  border-color: #fef08a;
+  box-shadow: 0 0 10px rgba(202, 138, 4, 0.5);
+}
+
+.volumeSlider {
+  width: 70px;
+  accent-color: #ca8a04;
+  cursor: pointer;
+}
+
+.curveCard {
+  background: #091322;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.chartSvgWrapper {
+  background: #040914;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 8px;
+  width: 100%;
+  height: 220px;
+  padding: 0.5rem;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.7);
+}
+
+.chartSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.metricTile {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metricLabel {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.metricValue {
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  color: #f8fafc;
+}
+
+.infoCard {
+  background: rgba(251, 146, 60, 0.08);
+  border-left: 3px solid #ea580c;
+  border-radius: 0 8px 8px 0;
+  padding: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.infoTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.accessibleTableWrapper {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1rem;
+}
+
+.tableSummaryTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.accessibleTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  text-align: left;
+}
+
+.accessibleTable th,
+.accessibleTable td {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+}
+
+.accessibleTable th {
+  color: #94a3b8;
+  font-weight: 600;
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.accessibleTable td {
+  color: #e2e8f0;
+}

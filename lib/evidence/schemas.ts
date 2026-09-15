@@ -12,11 +12,11 @@ const CalendarDateSchema = z.iso.date();
 const YearSchema = z.number().int().min(1800).max(3000);
 
 export const ComplexityLevelSchema = z.enum([
-  "kid",
-  "simple",
+  "beginner",
+  "explorer",
   "curious",
-  "technical",
-  "expert",
+  "deep-dive",
+  "geeky",
 ]);
 
 export const GeographyScopeSchema = z.enum([
@@ -132,7 +132,9 @@ const NumericMetricSchema = z
     definition: NonEmptyStringSchema,
     geographySupport: z.array(GeographyScopeSchema).min(1).readonly(),
     id: IdentifierSchema,
+    name: NonEmptyStringSchema.optional(),
     rangeSemantics: z.enum(["point", "range", "point-or-range"]),
+    shortName: NonEmptyStringSchema.optional(),
     supportedUnits: z.array(NonEmptyStringSchema).min(1).readonly(),
     valueKind: z.literal("numeric"),
   })
@@ -166,7 +168,9 @@ const CategoricalMetricSchema = z
     definition: NonEmptyStringSchema,
     geographySupport: z.array(GeographyScopeSchema).min(1).readonly(),
     id: IdentifierSchema,
+    name: NonEmptyStringSchema.optional(),
     rangeSemantics: z.literal("categorical"),
+    shortName: NonEmptyStringSchema.optional(),
     supportedUnits: z.undefined().optional(),
     valueKind: z.literal("categorical"),
   })

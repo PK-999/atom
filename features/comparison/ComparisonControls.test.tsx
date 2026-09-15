@@ -93,4 +93,21 @@ describe("ComparisonControls", () => {
     addRecentMetric("land-use");
     expect(getRecentMetrics()).toEqual(["land-use"]);
   });
+
+  it("allows selecting geography from the dropdown", () => {
+    const onGeographyChange = vi.fn();
+    render(
+      <ComparisonControls
+        {...defaultProps}
+        onGeographyChange={onGeographyChange}
+      />,
+    );
+
+    const select = screen.getByLabelText("Geography: Global");
+    expect(select).toBeVisible();
+    expect(select).toHaveValue("global");
+
+    fireEvent.change(select, { target: { value: "india" } });
+    expect(onGeographyChange).toHaveBeenCalledWith("india");
+  });
 });

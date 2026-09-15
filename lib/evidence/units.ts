@@ -5,6 +5,7 @@ export {
   UnitConversionError,
   canConvertUnit,
   convertUnit,
+  getUnitDisplayLabel,
 } from "./unit-registry";
 
 export function normalizeObservation(
@@ -13,7 +14,7 @@ export function normalizeObservation(
 ): NumericObservation {
   const cloned = structuredClone(observation);
   if (observation.unit === targetUnit) {
-    convertUnit(0, observation.unit, targetUnit);
+    // No conversion needed — validate schema and return the clone directly.
     return NumericObservationSchema.parse(cloned);
   }
   const transformation = [

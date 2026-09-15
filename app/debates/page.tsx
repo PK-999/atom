@@ -3,11 +3,12 @@ import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
 import { listDebateTopics } from "@/lib/debate/debate-model";
 import { getArgumentRelationship } from "@/lib/debate/schemas";
+import { AskAtom } from "@/features/ask/AskAtom";
 
 export const metadata: Metadata = {
-  title: "Evidence Debates | ATOM",
+  title: "Evidence Debates & AI Hypothesis Testing | ATOM",
   description:
-    "Rigorous, multi-perspective examinations of contentious nuclear energy questions: waste, costs, and safety grounded in peer-reviewed evidence.",
+    "Rigorous examinations of contentious nuclear energy questions. Test your hypothesis against peer-reviewed literature and inspect structured arguments on waste, costs, and safety.",
 };
 
 export default function DebatesPage() {
@@ -17,43 +18,52 @@ export default function DebatesPage() {
     <AppShell>
       <div
         style={{
-          maxWidth: "64rem",
+          maxWidth: "72rem",
           margin: "0 auto",
-          padding: "2.5rem 1.5rem 6rem",
+          padding: "2rem 1rem 6rem",
+          color: "#f8fafc",
         }}
       >
         <header style={{ marginBottom: "2.5rem" }}>
           <div
             style={{
               display: "inline-block",
-              background: "#e0f2fe",
-              color: "#0369a1",
-              fontSize: "0.875rem",
-              fontWeight: 600,
-              padding: "0.25rem 0.75rem",
+              background: "rgba(168, 85, 247, 0.15)",
+              color: "#c084fc",
+              fontSize: "0.8rem",
+              fontWeight: 700,
+              padding: "0.3rem 0.75rem",
               borderRadius: "9999px",
-              marginBottom: "0.75rem",
+              border: "1px solid rgba(168, 85, 247, 0.3)",
+              marginBottom: "0.85rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
             }}
           >
             Evidence & Discourse
           </div>
           <h1
             style={{
-              fontSize: "2.25rem",
+              fontSize: "2.5rem",
               fontWeight: 800,
               letterSpacing: "-0.025em",
               marginBottom: "0.75rem",
-              color: "#0f172a",
+              color: "#f8fafc",
+              background:
+                "linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #c084fc 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
             }}
           >
-            Core Nuclear Debates
+            Core Nuclear Debates & Hypothesis Testing
           </h1>
           <p
             style={{
-              color: "#475569",
-              fontSize: "1.125rem",
-              lineHeight: 1.6,
-              maxWidth: "44rem",
+              color: "#94a3b8",
+              fontSize: "1.1rem",
+              lineHeight: 1.65,
+              maxWidth: "50rem",
+              margin: 0,
             }}
           >
             Nuclear power involves genuine trade-offs across capital intensity,
@@ -64,132 +74,171 @@ export default function DebatesPage() {
           </p>
         </header>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(20rem, 1fr))",
-            gap: "1.5rem",
-          }}
+        {/* Interactive Debate Engine & Hypothesis Testing Assistant */}
+        <section
+          style={{ marginBottom: "4rem" }}
+          aria-label="Interactive Debate and Hypothesis Testing Engine"
         >
-          {topics.map((topic) => {
-            const supporting = topic.arguments.filter(
-              (a) => getArgumentRelationship(a) === "supporting",
-            ).length;
-            const disputing = topic.arguments.filter(
-              (a) => getArgumentRelationship(a) === "disputing",
-            ).length;
-            const contextual = topic.arguments.filter(
-              (a) => getArgumentRelationship(a) === "contextualizing",
-            ).length;
+          <AskAtom initialQuery="Can deep geological repositories safely store nuclear waste?" />
+        </section>
 
-            return (
-              <article
-                key={topic.id}
-                style={{
-                  background: "#ffffff",
-                  border: "1px solid #e2e8f0",
-                  borderRadius: "0.75rem",
-                  padding: "1.5rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-                }}
-              >
-                <div>
-                  <h2
-                    style={{
-                      fontSize: "1.25rem",
-                      fontWeight: 700,
-                      lineHeight: 1.35,
-                      marginBottom: "0.75rem",
-                      color: "#0f172a",
-                    }}
-                  >
+        {/* Structured Topic Dossiers */}
+        <section aria-label="Structured Debate Topic Dossiers">
+          <div
+            style={{
+              marginBottom: "1.75rem",
+              borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+              paddingBottom: "1rem",
+            }}
+          >
+            <h2
+              style={{
+                fontSize: "1.5rem",
+                fontWeight: 800,
+                color: "#f8fafc",
+                margin: "0 0 0.5rem 0",
+              }}
+            >
+              Structured Topic Dossiers
+            </h2>
+            <p style={{ color: "#94a3b8", fontSize: "0.95rem", margin: 0 }}>
+              Deep-dive examinations with verified claims, counterarguments, and
+              attributable consensus statements.
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(20rem, 1fr))",
+              gap: "1.5rem",
+            }}
+          >
+            {topics.map((topic) => {
+              const supporting = topic.arguments.filter(
+                (a) => getArgumentRelationship(a) === "supporting",
+              ).length;
+              const disputing = topic.arguments.filter(
+                (a) => getArgumentRelationship(a) === "disputing",
+              ).length;
+              const contextual = topic.arguments.filter(
+                (a) => getArgumentRelationship(a) === "contextualizing",
+              ).length;
+
+              return (
+                <article
+                  key={topic.id}
+                  style={{
+                    background: "rgba(15, 23, 42, 0.75)",
+                    backdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    borderRadius: "14px",
+                    padding: "1.75rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.25)",
+                    transition: "transform 0.15s ease",
+                  }}
+                >
+                  <div>
+                    <h3
+                      style={{
+                        fontSize: "1.25rem",
+                        fontWeight: 700,
+                        lineHeight: 1.35,
+                        marginBottom: "0.75rem",
+                        color: "#f8fafc",
+                      }}
+                    >
+                      <Link
+                        href={`/debates/${topic.id}`}
+                        style={{
+                          color: "#f8fafc",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {topic.question}
+                      </Link>
+                    </h3>
+                    <p
+                      style={{
+                        color: "#94a3b8",
+                        fontSize: "0.95rem",
+                        lineHeight: 1.55,
+                        marginBottom: "1.25rem",
+                      }}
+                    >
+                      {topic.summary}
+                    </p>
+                  </div>
+
+                  <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "0.5rem",
+                        flexWrap: "wrap",
+                        marginBottom: "1.25rem",
+                        fontSize: "0.8rem",
+                        fontWeight: 600,
+                      }}
+                    >
+                      <span
+                        style={{
+                          background: "rgba(16, 185, 129, 0.15)",
+                          color: "#34d399",
+                          border: "1px solid rgba(16, 185, 129, 0.3)",
+                          padding: "0.2rem 0.55rem",
+                          borderRadius: "6px",
+                        }}
+                      >
+                        {supporting} Supporting
+                      </span>
+                      <span
+                        style={{
+                          background: "rgba(239, 68, 68, 0.15)",
+                          color: "#f87171",
+                          border: "1px solid rgba(239, 68, 68, 0.3)",
+                          padding: "0.2rem 0.55rem",
+                          borderRadius: "6px",
+                        }}
+                      >
+                        {disputing} Disputing
+                      </span>
+                      <span
+                        style={{
+                          background: "rgba(56, 189, 248, 0.15)",
+                          color: "#38bdf8",
+                          border: "1px solid rgba(56, 189, 248, 0.3)",
+                          padding: "0.2rem 0.55rem",
+                          borderRadius: "6px",
+                        }}
+                      >
+                        {contextual} Contextual
+                      </span>
+                    </div>
+
                     <Link
                       href={`/debates/${topic.id}`}
                       style={{
-                        color: "#0f172a",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "0.35rem",
+                        fontSize: "0.9rem",
+                        fontWeight: 600,
+                        color: "#38bdf8",
                         textDecoration: "none",
                       }}
                     >
-                      {topic.question}
+                      Explore Debate & Sources →
                     </Link>
-                  </h2>
-                  <p
-                    style={{
-                      color: "#475569",
-                      fontSize: "0.95rem",
-                      lineHeight: 1.55,
-                      marginBottom: "1.25rem",
-                    }}
-                  >
-                    {topic.summary}
-                  </p>
-                </div>
-
-                <div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "0.5rem",
-                      flexWrap: "wrap",
-                      marginBottom: "1.25rem",
-                      fontSize: "0.8rem",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <span
-                      style={{
-                        background: "#dcfce7",
-                        color: "#15803d",
-                        padding: "0.2rem 0.5rem",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      {supporting} Supporting
-                    </span>
-                    <span
-                      style={{
-                        background: "#fef3c7",
-                        color: "#b45309",
-                        padding: "0.2rem 0.5rem",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      {disputing} Disputing
-                    </span>
-                    <span
-                      style={{
-                        background: "#e0e7ff",
-                        color: "#4338ca",
-                        padding: "0.2rem 0.5rem",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      {contextual} Contextual
-                    </span>
                   </div>
-
-                  <Link
-                    href={`/debates/${topic.id}`}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "0.35rem",
-                      fontSize: "0.9rem",
-                      fontWeight: 600,
-                      color: "#0284c7",
-                      textDecoration: "none",
-                    }}
-                  >
-                    Explore Debate & Sources →
-                  </Link>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
       </div>
     </AppShell>
   );

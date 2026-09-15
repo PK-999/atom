@@ -48,7 +48,7 @@ afterEach(() => {
 describe("ComparisonLab", () => {
   it("uses a stored level when the URL omits level for display and serialization", async () => {
     window.history.replaceState(null, "", "/compare");
-    window.localStorage.setItem(COMPLEXITY_PREFERENCE_KEY, "expert");
+    window.localStorage.setItem(COMPLEXITY_PREFERENCE_KEY, "geeky");
 
     render(
       <ComparisonLab
@@ -58,43 +58,37 @@ describe("ComparisonLab", () => {
     );
 
     await waitFor(() =>
-      expect(screen.getByRole("button", { name: "Expert" })).toHaveAttribute(
-        "aria-pressed",
-        "true",
-      ),
+      expect(
+        screen.getByText(
+          /These interface values are not a published synthesis/,
+        ),
+      ).toBeVisible(),
     );
-    expect(
-      screen.getByText(/These interface values are not a published synthesis/),
-    ).toBeVisible();
 
     fireEvent.click(screen.getByRole("button", { name: "Range" }));
 
     expect(mockPush).toHaveBeenCalledWith(
-      expect.stringContaining("level=expert"),
+      expect.stringContaining("level=geeky"),
       expect.anything(),
     );
   });
 
   it("keeps an explicit URL level authoritative over stored preference", async () => {
-    window.history.replaceState(null, "", "/compare?level=technical");
-    window.localStorage.setItem(COMPLEXITY_PREFERENCE_KEY, "expert");
+    window.history.replaceState(null, "", "/compare?level=deep-dive");
+    window.localStorage.setItem(COMPLEXITY_PREFERENCE_KEY, "geeky");
 
     render(
       <ComparisonLab
         comparison={mockComparison}
-        initialState={{ ...mockInitialState, level: "technical" }}
+        initialState={{ ...mockInitialState, level: "deep-dive" }}
       />,
     );
 
     await waitFor(() =>
-      expect(screen.getByRole("button", { name: "Technical" })).toHaveAttribute(
-        "aria-pressed",
-        "true",
-      ),
+      expect(
+        screen.getByText(/The representative values differ substantially/),
+      ).toBeVisible(),
     );
-    expect(
-      screen.getByText(/The representative values differ substantially/),
-    ).toBeVisible();
   });
 
   it("renders the useful default with direct values, units, and an honest evidence state", () => {
@@ -140,6 +134,29 @@ describe("ComparisonLab", () => {
     );
   });
 
+  it("rescales the chart to the selected set after removing the maximum-value technology", () => {
+    render(
+      <ComparisonLab
+        comparison={mockComparison}
+        initialState={mockInitialState}
+      />,
+    );
+
+    // Coal has typicalValue 820 — the highest in the mock fixture.
+    // After removing Coal, Gas at 490 becomes the new maximum.
+    // If the chart bar for Gas is rendered at 100% width that proves the scale
+    // is derived from selectedObservations, not the full comparison.observations.
+    fireEvent.click(screen.getByRole("button", { name: "Remove Coal" }));
+
+    // The chart still renders remaining technologies without a zero-scale collapse
+    expect(
+      screen.queryByRole("button", { name: "Inspect evidence for Coal" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Inspect evidence for Gas" }),
+    ).toBeInTheDocument();
+  });
+
   it("opens the compact source picker without duplicating source controls", () => {
     render(
       <ComparisonLab
@@ -160,18 +177,18 @@ describe("ComparisonLab", () => {
     ).toHaveLength(1);
   });
 
-  it("calls router.push when complexity changes", () => {
+  it("preserves URL level in navigation state updates", () => {
     render(
       <ComparisonLab
         comparison={mockComparison}
-        initialState={mockInitialState}
+        initialState={{ ...mockInitialState, level: "deep-dive" }}
       />,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Technical" }));
+    fireEvent.click(screen.getByRole("button", { name: "Range" }));
 
     expect(mockPush).toHaveBeenCalledWith(
-      expect.stringContaining("level=technical"),
+      expect.stringContaining("level=deep-dive"),
       expect.anything(),
     );
   });

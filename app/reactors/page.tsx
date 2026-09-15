@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
 import { listReactorSystems } from "@/lib/reactor/reactor-model";
+import { getFleetStats } from "@/lib/reactor/fleet-model";
+import styles from "./ReactorsPage.module.css";
 
 export const metadata: Metadata = {
   title: "Nuclear Reactor Explorer | ATOM",
@@ -11,50 +13,47 @@ export const metadata: Metadata = {
 
 export default function ReactorsPage() {
   const systems = listReactorSystems();
+  const fleetStats = getFleetStats();
 
   return (
     <AppShell>
-      <div
-        style={{
-          maxWidth: "64rem",
-          margin: "0 auto",
-          padding: "2.5rem 1.5rem 6rem",
-        }}
-      >
-        <header style={{ marginBottom: "2.5rem" }}>
-          <div
-            style={{
-              display: "inline-block",
-              background: "#e0f2fe",
-              color: "#0369a1",
-              fontSize: "0.875rem",
-              fontWeight: 600,
-              padding: "0.25rem 0.75rem",
-              borderRadius: "9999px",
-              marginBottom: "0.75rem",
-            }}
-          >
+      <div className={styles.container}>
+        {/* Global Fleet Map Hero Card */}
+        <section className={styles.heroCard}>
+          <div className={styles.heroText}>
+            <div className={styles.heroBadge}>
+              <span>🌍</span> Worldwide Nuclear Fleet
+            </div>
+            <h2 className={styles.heroTitle}>
+              Interactive Global Reactor Map & Directory
+            </h2>
+            <p className={styles.heroDescription}>
+              Explore {fleetStats.totalFacilities} major nuclear stations
+              worldwide across {fleetStats.countriesCount} countries (
+              {Math.round(fleetStats.totalCapacityMWe / 1000)} GWe total net
+              capacity). Inspect operating status, reactor models, coordinates,
+              age, and individual unit-by-unit lifecycles grounded in IAEA PRIS
+              data.
+            </p>
+          </div>
+
+          <div>
+            <Link href="/globe" className={styles.heroCta}>
+              <span>Open Global Fleet Map</span>
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </section>
+
+        {/* Commercial Reactor Architectures Section */}
+        <header className={styles.header}>
+          <div className={styles.headerBadge}>
             Engineering Schematics & Systems
           </div>
-          <h1
-            style={{
-              fontSize: "2.25rem",
-              fontWeight: 800,
-              letterSpacing: "-0.025em",
-              marginBottom: "0.75rem",
-              color: "#0f172a",
-            }}
-          >
+          <h1 className={styles.headerTitle}>
             Commercial Reactor Architectures
           </h1>
-          <p
-            style={{
-              color: "#475569",
-              fontSize: "1.125rem",
-              lineHeight: 1.6,
-              maxWidth: "46rem",
-            }}
-          >
+          <p className={styles.headerDescription}>
             Different reactor designs make distinct engineering trade-offs
             regarding coolant pressurization, neutron moderation, fuel
             enrichment, and thermodynamic cycles. Explore interactive schematics
@@ -62,87 +61,37 @@ export default function ReactorsPage() {
           </p>
         </header>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(20rem, 1fr))",
-            gap: "1.5rem",
-          }}
-        >
+        <div className={styles.architectureGrid}>
           {systems.map((system) => (
-            <article
-              key={system.id}
-              style={{
-                background: "#ffffff",
-                border: "1px solid #e2e8f0",
-                borderRadius: "0.75rem",
-                padding: "1.5rem",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-              }}
-            >
+            <article key={system.id} className={styles.architectureCard}>
               <div>
-                <div
-                  style={{
-                    display: "inline-block",
-                    background: "#f1f5f9",
-                    color: "#475569",
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    padding: "0.2rem 0.5rem",
-                    borderRadius: "4px",
-                    marginBottom: "0.75rem",
-                  }}
-                >
+                <div className={styles.cardBadge}>
                   {system.type} Architecture
                 </div>
 
-                <h2
-                  style={{
-                    fontSize: "1.25rem",
-                    fontWeight: 700,
-                    lineHeight: 1.35,
-                    marginBottom: "0.75rem",
-                    color: "#0f172a",
-                  }}
-                >
+                <h2 className={styles.cardTitle}>
                   <Link
                     href={`/reactors/${system.id}`}
-                    style={{
-                      color: "#0f172a",
-                      textDecoration: "none",
-                    }}
+                    className={styles.cardLink}
                   >
                     {system.name}
                   </Link>
                 </h2>
 
-                <p
-                  style={{
-                    color: "#475569",
-                    fontSize: "0.95rem",
-                    lineHeight: 1.55,
-                    marginBottom: "1.25rem",
-                  }}
-                >
-                  {system.summary}
-                </p>
+                <p className={styles.cardSummary}>{system.summary}</p>
 
-                <div
-                  style={{
-                    fontSize: "0.85rem",
-                    color: "#64748b",
-                    marginBottom: "1.25rem",
-                  }}
-                >
+                <div className={styles.cardStats}>
                   <div>
-                    <strong>Components:</strong> {system.components.length}{" "}
-                    parts modeled
+                    <strong className={styles.cardStatsHighlight}>
+                      Components:
+                    </strong>{" "}
+                    {system.components.length} parts modeled
                   </div>
                   <div>
-                    <strong>Flow Loops:</strong> {system.flows.length} circuits
+                    <strong className={styles.cardStatsHighlight}>
+                      Flow Loops:
+                    </strong>{" "}
+                    {system.flows.length} circuits
                   </div>
                 </div>
               </div>
@@ -150,15 +99,7 @@ export default function ReactorsPage() {
               <div>
                 <Link
                   href={`/reactors/${system.id}`}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.35rem",
-                    fontSize: "0.9rem",
-                    fontWeight: 600,
-                    color: "#0284c7",
-                    textDecoration: "none",
-                  }}
+                  className={styles.cardAction}
                 >
                   Explore Interactive Schematic →
                 </Link>

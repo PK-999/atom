@@ -1,15 +1,46 @@
 import { describe, it, expect } from "vitest";
 import { METRIC_CATALOG_EXPLANATIONS } from "@/content/metrics";
+import { METRICS, getMetric } from "@/lib/evidence/metrics";
 import { getInterpretation } from "@/features/comparison/ComparisonInterpretation";
 import type { ComplexityLevel } from "@/features/comparison/comparison-types";
 
 describe("Metric Catalog & Multi-Category Synthesis (R08)", () => {
+  it("has no duplicate metric IDs in METRICS catalog", () => {
+    const ids = METRICS.map((m) => m.id);
+    const unique = new Set(ids);
+    expect(
+      [...unique].filter((id) => ids.filter((x) => x === id).length > 1),
+    ).toEqual([]);
+    expect(unique.size).toBe(ids.length);
+  });
+
+  it("assigns valid name and shortName to all metrics in METRICS", () => {
+    for (const metric of METRICS) {
+      expect(metric.name).toBeDefined();
+      expect(typeof metric.name).toBe("string");
+      expect(metric.name?.length).toBeGreaterThan(0);
+
+      expect(metric.shortName).toBeDefined();
+      expect(typeof metric.shortName).toBe("string");
+      expect(metric.shortName?.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("retrieves metrics by ID via getMetric helper", () => {
+    const ghg = getMetric("lifecycle-ghg");
+    expect(ghg).toBeDefined();
+    expect(ghg?.name).toBe("Lifecycle greenhouse-gas emissions");
+    expect(ghg?.shortName).toBe("Lifecycle emissions");
+
+    expect(getMetric("nonexistent-metric")).toBeUndefined();
+  });
+
   const allLevels: ComplexityLevel[] = [
-    "kid",
-    "simple",
+    "beginner",
+    "explorer",
     "curious",
-    "technical",
-    "expert",
+    "deep-dive",
+    "geeky",
   ];
   const canonicalCategories = [
     "environment",
@@ -57,13 +88,13 @@ describe("Metric Catalog & Multi-Category Synthesis (R08)", () => {
 
   it("enforces scientific rigor: progressive depth across complexity levels", () => {
     for (const [id, metric] of Object.entries(METRIC_CATALOG_EXPLANATIONS)) {
-      // Kid explanations should be accessible and avoid dense jargon
-      const kidText = metric.explanations.kid;
+      // Beginner explanations should be accessible and avoid dense jargon
+      const kidText = metric.explanations.beginner;
       expect(kidText).toBeTruthy();
 
-      // Technical and expert should offer deeper nuance
-      const techText = metric.explanations.technical;
-      const expertText = metric.explanations.expert;
+      // Deep-dive and geeky should offer deeper nuance
+      const techText = metric.explanations["deep-dive"];
+      const expertText = metric.explanations.geeky;
       expect(techText).not.toEqual(kidText);
       expect(expertText).not.toEqual(techText);
     }

@@ -18,7 +18,7 @@ describe("parseComparisonUrl", () => {
 
     expect(state.sources).toEqual(["nuclear", "wind"]);
     expect(state.mode).toBe("typical");
-    expect(state.level).toBe("expert");
+    expect(state.level).toBe("geeky");
   });
 
   it("returns the complete useful default when every field is absent", () => {
@@ -50,7 +50,7 @@ describe("parseComparisonUrl", () => {
         query.includes("units=human") ? "human" : "scientific",
       );
       expect(state.level).toBe(
-        query.includes("level=expert") ? "expert" : "curious",
+        query.includes("level=expert") ? "geeky" : "curious",
       );
     },
   );
@@ -177,14 +177,14 @@ describe("parseComparisonUrl", () => {
     params.append("region", "global");
     params.append("units", "human");
     params.append("units", "scientific");
-    params.append("level", "expert");
-    params.append("level", "kid");
+    params.append("level", "geeky");
+    params.append("level", "beginner");
 
     expect(parseComparisonState(params)).toMatchObject({
       metric: "capacity-factor",
       region: "india",
       units: "human",
-      level: "expert",
+      level: "geeky",
     });
   });
 
@@ -244,28 +244,28 @@ describe("parseComparisonUrl", () => {
       region: "india",
       mode: "range",
       units: "human",
-      level: "technical",
+      level: "deep-dive",
     });
   });
 
   it("applies URL level over a local preference, then preference over default", () => {
     expect(
       parseComparisonState(new URLSearchParams("level=expert"), {
-        level: "simple",
+        level: "explorer",
       }).level,
-    ).toBe("expert");
+    ).toBe("geeky");
     expect(
-      parseComparisonState(new URLSearchParams(), { level: "simple" }).level,
-    ).toBe("simple");
+      parseComparisonState(new URLSearchParams(), { level: "explorer" }).level,
+    ).toBe("explorer");
     expect(parseComparisonState(new URLSearchParams()).level).toBe("curious");
   });
 
   it("does not let an invalid explicit URL level consume the preference fallback", () => {
     expect(
       parseComparisonState(new URLSearchParams("level=unknown"), {
-        level: "simple",
+        level: "explorer",
       }).level,
-    ).toBe("simple");
+    ).toBe("explorer");
   });
 });
 
@@ -305,7 +305,7 @@ describe("serializeComparisonState", () => {
       region: "india",
       mode: "raw" as const,
       units: "human" as const,
-      level: "expert" as const,
+      level: "geeky" as const,
     };
 
     expect(parseComparisonState(serializeComparisonState(state))).toEqual(

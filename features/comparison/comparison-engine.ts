@@ -182,6 +182,15 @@ export async function getComparisonResult(
           });
           continue;
         }
+
+        for (const issue of assessment.issues) {
+          if (
+            issue.severity === "warning" &&
+            issue.code !== "convertible-units"
+          ) {
+            warnings.push(`${techName}: ${issue.message}`);
+          }
+        }
       }
 
       // Deterministic sort by observation ID so shuffled retrieval order yields identical results
@@ -290,7 +299,21 @@ export async function getComparisonResult(
           entries.push(availableEntry);
         } else {
           // Multiple observations: select representative
-          const repResult = selectRepresentative(numericList, "mean");
+          const explicitKind = numericList.find(
+            (o) =>
+              o.representativeKind === "central-estimate" ||
+              o.representativeKind === "regulator-value" ||
+              o.representativeKind === "model-default",
+          )?.representativeKind as
+            | "central-estimate"
+            | "regulator-value"
+            | "model-default"
+            | undefined;
+
+          const repResult = explicitKind
+            ? selectRepresentative(numericList, explicitKind)
+            : selectRepresentative(numericList, "mean");
+
           if (!repResult.ok) {
             entries.push({
               kind: "incompatible",

@@ -24,6 +24,10 @@ test.describe("Reactor Explorer Engine (R15)", () => {
     await expect(
       page.getByText(/Pressurized Heavy Water Reactor/i),
     ).toBeVisible();
+    await expect(page.getByText(/Small Modular Reactor/i)).toBeVisible();
+    await expect(
+      page.getByText(/High-Temperature Gas-Cooled Reactor/i),
+    ).toBeVisible();
 
     expect(consoleErrors).toEqual([]);
   });
@@ -118,6 +122,31 @@ test.describe("Reactor Explorer Engine (R15)", () => {
     await expect(
       page.getByRole("button", {
         name: "Horizontal Calandria Vessel",
+        exact: true,
+      }),
+    ).toBeVisible();
+
+    await page.goto("/reactors/smr", { waitUntil: "domcontentloaded" });
+    await expect(
+      page.getByRole("heading", { level: 1, name: /Small Modular Reactor/i }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", {
+        name: "Helical-Coil Steam Generator",
+        exact: true,
+      }),
+    ).toBeVisible();
+
+    await page.goto("/reactors/htgr", { waitUntil: "domcontentloaded" });
+    await expect(
+      page.getByRole("heading", {
+        level: 1,
+        name: /High-Temperature Gas-Cooled Reactor/i,
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", {
+        name: "TRISO Particle Fuel Elements",
         exact: true,
       }),
     ).toBeVisible();

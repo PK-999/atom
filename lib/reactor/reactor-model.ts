@@ -507,10 +507,611 @@ export const PHWR_SYSTEM_DATA: ReactorSystem = {
   ],
 };
 
+export const RBMK_SYSTEM_DATA: ReactorSystem = {
+  id: "rbmk",
+  slug: "rbmk",
+  type: "RBMK",
+  name: "Reaktor Bolshoy Moshchnosti Kanalny (RBMK)",
+  summary:
+    "A Soviet-era graphite-moderated, light-water-cooled reactor with individual vertical pressure tubes, capable of online refueling.",
+  conceptDescription:
+    "Water boils directly in hundreds of vertical pressure tubes surrounded by a massive graphite moderator block. The steam is separated in large overhead drums and sent to the turbine.",
+  deployedExamples: ["Chernobyl", "Smolensk", "Kursk"],
+  operatingContext:
+    "Operates at ~7 MPa and 284°C. Infamous for the positive void coefficient instability that led to the Chernobyl disaster. Retrofitted post-1986 to increase safety margins.",
+  citations: [],
+  components: [
+    {
+      id: "rbmk-graphite-core",
+      name: "Graphite Moderator Matrix",
+      type: "graphite-core",
+      role: "Slows down neutrons to sustain fission",
+      description:
+        "A massive cylindrical structure built from thousands of graphite blocks, honeycombed with vertical channels for fuel and control rods.",
+      simplerExplanation:
+        "A giant stack of carbon blocks that bounces neutrons around to keep the chain reaction going.",
+      deeperExplanation:
+        "Graphite absorbs very few neutrons, allowing the use of low-enriched uranium. However, it can burn if exposed to oxygen at high temperatures.",
+      connectedFlowIds: ["rbmk-coolant-flow"],
+      diagramCoords: { x: 100, y: 150, width: 90, height: 160 },
+      citationIds: [],
+    },
+    {
+      id: "rbmk-steam-drums",
+      name: "Steam Separator Drums",
+      type: "vessel",
+      role: "Separates steam from water",
+      description:
+        "Large horizontal cylinders located above the core that separate the steam-water mixture emerging from the pressure tubes.",
+      simplerExplanation:
+        "Huge tanks that catch the boiling water and separate the dry steam to spin the turbine.",
+      deeperExplanation:
+        "The separated water is pumped back down to the core inlet, while the dry steam goes directly to the turbine (a direct cycle).",
+      connectedFlowIds: ["rbmk-steam-flow"],
+      diagramCoords: { x: 100, y: 50, width: 90, height: 40 },
+      citationIds: [],
+    },
+    {
+      id: "rbmk-control-rods",
+      name: "Control Rods",
+      type: "control-rod",
+      role: "Regulates reactor power",
+      description:
+        "Boron carbide rods that move vertically through the graphite matrix. Originally featured graphite 'displacer' tips which caused a brief power spike when inserted.",
+      simplerExplanation: "Rods that absorb neutrons to control the reaction.",
+      deeperExplanation:
+        "The flawed design of the displacer tips was a direct contributor to the Chernobyl accident. This flaw was corrected across the fleet.",
+      connectedFlowIds: [],
+      diagramCoords: { x: 120, y: 100, width: 50, height: 35 },
+      citationIds: [],
+    },
+    {
+      id: "rbmk-turbine",
+      name: "Steam Turbine",
+      type: "turbine",
+      role: "Converts steam pressure to rotational energy",
+      description:
+        "Direct-cycle turbine driven by radioactive steam from the core.",
+      simplerExplanation: "A giant fan spun by steam to make electricity.",
+      deeperExplanation:
+        "Because it is a direct cycle, the turbine hall must be shielded, as the steam contains short-lived radioactive isotopes.",
+      connectedFlowIds: ["rbmk-steam-flow"],
+      diagramCoords: { x: 300, y: 150, width: 80, height: 60 },
+      citationIds: [],
+    },
+  ],
+  flows: [
+    {
+      id: "rbmk-coolant-flow",
+      name: "Coolant Flow",
+      fromComponentId: "rbmk-graphite-core",
+      toComponentId: "rbmk-steam-drums",
+      loop: "primary",
+      fluid: "Water/Steam Mixture",
+      operatingTemp: "284°C",
+      operatingPressure: "7 MPa",
+    },
+    {
+      id: "rbmk-steam-flow",
+      name: "Steam Flow",
+      fromComponentId: "rbmk-steam-drums",
+      toComponentId: "rbmk-turbine",
+      loop: "primary",
+      fluid: "Saturated Steam",
+      operatingTemp: "284°C",
+      operatingPressure: "6.5 MPa",
+    },
+  ],
+};
+
+export const FBR_SYSTEM_DATA: ReactorSystem = {
+  id: "fbr",
+  slug: "fbr",
+  type: "Fast",
+  name: "Sodium-Cooled Fast Reactor (SFR)",
+  summary:
+    "A reactor that uses unmoderated 'fast' neutrons and liquid sodium coolant, capable of breeding more fuel than it consumes.",
+  conceptDescription:
+    "Liquid sodium cools a dense core of highly enriched fuel without slowing down the neutrons. Heat is transferred to a secondary non-radioactive sodium loop, which then boils water.",
+  deployedExamples: ["BN-800", "Superphénix", "Phénix"],
+  operatingContext:
+    "Operates at near atmospheric pressure due to sodium's high boiling point (~883°C). Core runs at ~550°C. Requires extremely pure sodium to prevent corrosion and violent reactions with water.",
+  citations: [],
+  components: [
+    {
+      id: "fbr-pool",
+      name: "Primary Sodium Pool",
+      type: "vessel",
+      role: "Houses the core and primary coolant",
+      description:
+        "A large unpressurized vessel filled with liquid sodium. The core, primary pumps, and intermediate heat exchangers are entirely submerged within it.",
+      simplerExplanation:
+        "A giant swimming pool of molten metal that keeps the reactor cool without needing high pressure.",
+      deeperExplanation:
+        "The pool-type design provides massive thermal inertia, meaning the reactor can safely absorb decay heat for days without active cooling.",
+      connectedFlowIds: ["fbr-primary-flow"],
+      diagramCoords: { x: 100, y: 150, width: 120, height: 160 },
+      citationIds: [],
+    },
+    {
+      id: "fbr-ihx",
+      name: "Intermediate Heat Exchanger (IHX)",
+      type: "heat-exchanger",
+      role: "Transfers heat to the secondary sodium loop",
+      description:
+        "Submerged inside the primary pool, it transfers heat from the radioactive primary sodium to the non-radioactive secondary sodium loop.",
+      simplerExplanation:
+        "A heat bridge that keeps the radioactive metal separate from the clean metal.",
+      deeperExplanation:
+        "Ensures that if the steam generator leaks water into the sodium, the resulting chemical explosion does not affect the radioactive primary core.",
+      connectedFlowIds: ["fbr-primary-flow", "fbr-intermediate-flow"],
+      diagramCoords: { x: 180, y: 150, width: 40, height: 100 },
+      citationIds: [],
+    },
+    {
+      id: "fbr-sg",
+      name: "Sodium-Water Steam Generator",
+      type: "steam-generator",
+      role: "Boils water using intermediate sodium",
+      description:
+        "Transfers heat from the secondary sodium loop to a tertiary water loop, creating high-pressure steam for the turbine.",
+      simplerExplanation: "A boiler where hot metal boils water into steam.",
+      deeperExplanation:
+        "Must be incredibly robust, as any leak between the sodium and water sides causes a violent exothermic reaction.",
+      connectedFlowIds: ["fbr-intermediate-flow"],
+      diagramCoords: { x: 260, y: 150, width: 60, height: 120 },
+      citationIds: [],
+    },
+  ],
+  flows: [
+    {
+      id: "fbr-primary-flow",
+      name: "Primary Sodium Loop",
+      fromComponentId: "fbr-pool",
+      toComponentId: "fbr-ihx",
+      loop: "primary",
+      fluid: "Liquid Sodium (Radioactive)",
+      operatingTemp: "550°C",
+      operatingPressure: "0.1 MPa (Atmospheric)",
+    },
+    {
+      id: "fbr-intermediate-flow",
+      name: "Intermediate Sodium Loop",
+      fromComponentId: "fbr-ihx",
+      toComponentId: "fbr-sg",
+      loop: "intermediate",
+      fluid: "Liquid Sodium (Clean)",
+      operatingTemp: "500°C",
+      operatingPressure: "0.5 MPa",
+    },
+  ],
+};
+
+export const MSR_SYSTEM_DATA: ReactorSystem = {
+  id: "msr",
+  slug: "msr",
+  type: "Molten-Salt",
+  name: "Molten Salt Reactor (MSR)",
+  summary:
+    "An advanced reactor concept where the nuclear fuel is dissolved directly into a molten fluoride or chloride salt coolant.",
+  conceptDescription:
+    "There are no solid fuel rods. The fuel-salt fluid becomes critical only when it flows into a graphite moderator matrix. It then flows out to a heat exchanger.",
+  deployedExamples: ["MSRE (Experimental)"],
+  operatingContext:
+    "Operates at very high temperatures (700°C+) at low pressure. Allows for online chemical processing to remove fission products and add fresh fuel.",
+  citations: [],
+  components: [
+    {
+      id: "msr-core",
+      name: "Graphite Core (Critical Region)",
+      type: "graphite-core",
+      role: "Moderates neutrons to achieve criticality",
+      description:
+        "A vessel filled with graphite channels. The fuel-salt mixture only achieves criticality (sustains a chain reaction) while passing through this moderated region.",
+      simplerExplanation:
+        "The area where the flowing liquid fuel gets 'turned on' by the carbon blocks around it.",
+      deeperExplanation:
+        "Because the fuel is liquid and expands when heated, MSRs have an incredibly strong negative temperature coefficient, making them walk-away safe.",
+      connectedFlowIds: ["msr-fuel-flow"],
+      diagramCoords: { x: 100, y: 150, width: 90, height: 120 },
+      citationIds: [],
+    },
+    {
+      id: "msr-hx",
+      name: "Primary Heat Exchanger",
+      type: "heat-exchanger",
+      role: "Transfers heat from fuel salt to clean salt",
+      description:
+        "Extracts heat from the highly radioactive primary fuel salt and transfers it to a secondary coolant salt loop.",
+      simplerExplanation:
+        "Takes the heat from the radioactive liquid and gives it to a clean liquid.",
+      deeperExplanation:
+        "Constructed of specialized alloys like Hastelloy-N to resist corrosion from the hot fluoride salts and fission products.",
+      connectedFlowIds: ["msr-fuel-flow"],
+      diagramCoords: { x: 200, y: 150, width: 50, height: 100 },
+      citationIds: [],
+    },
+    {
+      id: "msr-chem",
+      name: "Chemical Processing Plant",
+      type: "pump",
+      role: "Filters and processes the fuel salt",
+      description:
+        "An adjacent loop that continuously bubbles noble gases out of the salt and filters out neutron-absorbing fission products (reactor poisons).",
+      simplerExplanation:
+        "A built-in filter that cleans the liquid fuel while the reactor is running.",
+      deeperExplanation:
+        "This eliminates the need to shut down the reactor for refueling. Fresh fissile or fertile material can be added dynamically.",
+      connectedFlowIds: ["msr-fuel-flow"],
+      diagramCoords: { x: 100, y: 280, width: 80, height: 60 },
+      citationIds: [],
+    },
+  ],
+  flows: [
+    {
+      id: "msr-fuel-flow",
+      name: "Fuel Salt Loop",
+      fromComponentId: "msr-core",
+      toComponentId: "msr-hx",
+      loop: "primary",
+      fluid: "FLiBe Molten Salt + Uranium",
+      operatingTemp: "700°C",
+      operatingPressure: "0.1 MPa (Atmospheric)",
+    },
+  ],
+};
+
+export const SMR_SYSTEM_DATA: ReactorSystem = {
+  id: "smr",
+  slug: "smr",
+  type: "SMR",
+  name: "Small Modular Reactor (Integral PWR)",
+  summary:
+    "A compact Generation III+ modular reactor integrating the core, steam generators, and pressurizer into a single factory-built pressure vessel, using natural circulation and passive pool submersion.",
+  conceptDescription:
+    "Eliminates external primary piping to physically prevent large-break loss-of-coolant accidents (LOCAs). Modules are fabricated in factories and transported by rail/barge for scalable, underground installation.",
+  deployedExamples: [
+    "NuScale VOYGR (USA certified)",
+    "Rolls-Royce SMR (UK)",
+    "CNNC Linglong One / ACP100 (China)",
+    "GE Hitachi BWRX-300",
+  ],
+  operatingContext:
+    "Primary circuit operates at ~12.8 MPa and ~300°C via natural convection. The entire reactor module is submerged in an underground cooling pool capable of indefinite passive decay heat dissipation without AC power.",
+  citations: [
+    {
+      id: "cit-iaea-smr-status",
+      title: "Advances in Small Modular Reactor Technology Developments",
+      publisher: "International Atomic Energy Agency",
+      year: 2022,
+      url: "https://www.iaea.org/publications/15177/advances-in-small-modular-reactor-technology-developments",
+      locator: "IAEA Advanced SMR Booklet, 2022 Edition",
+    },
+    {
+      id: "cit-nrc-nuscale",
+      title: "NuScale Small Modular Reactor Design Certification",
+      publisher: "US Nuclear Regulatory Commission",
+      year: 2023,
+      url: "https://www.nrc.gov/reactors/new-reactors/smr/licensing-activities/nuscale.html",
+      locator: "Docket No. 52-048",
+    },
+  ],
+  components: [
+    {
+      id: "smr-vessel",
+      name: "Integral Reactor Pressure Vessel",
+      type: "vessel",
+      role: "Houses the nuclear core, helical-coil steam generators, and pressurizer in a single compact vessel",
+      description:
+        "High-strength forged steel pressure vessel (~20 m height, 2.7 m diameter) enclosing the entire primary coolant system, eliminating reactor coolant loop piping.",
+      simplerExplanation:
+        "An all-in-one steel pressure cylinder that contains the atomic fuel, steam boiler, and pressure regulator inside a single sealed unit.",
+      deeperExplanation:
+        "By packaging all primary systems inside one pressure envelope, large-break LOCAs are geometrically precluded. Natural circulation drives coolant flow without reactor coolant pumps.",
+      connectedFlowIds: ["smr-primary-flow"],
+      diagramCoords: { x: 120, y: 130, width: 90, height: 220 },
+      citationIds: ["cit-iaea-smr-status", "cit-nrc-nuscale"],
+    },
+    {
+      id: "smr-fuel",
+      name: "SMR Low-Enriched Core",
+      type: "fuel",
+      role: "Generates fission heat at low power density for prolonged refueling intervals",
+      description:
+        "Standard uranium dioxide (UO2) fuel enriched up to 4.95% U-235 in a compact 17x17 lattice, configured for 24-month or longer operational cycles.",
+      simplerExplanation:
+        "A compact uranium fuel core operating at modest power output to maximize safety margins and run for years without refueling.",
+      deeperExplanation:
+        "Lower volumetric power density reduces peak cladding temperatures during transients and provides high thermal margins under natural convection flow.",
+      connectedFlowIds: ["smr-primary-flow"],
+      diagramCoords: { x: 135, y: 260, width: 60, height: 70 },
+      citationIds: ["cit-iaea-smr-status"],
+    },
+    {
+      id: "smr-control-rods",
+      name: "Control Rod Drive Mechanisms (CRDM)",
+      type: "control-rod",
+      role: "Regulates core reactivity and provides failsafe gravity shutdown",
+      description:
+        "Top-mounted magnetic latch drive mechanisms holding neutron-absorbing control rod assemblies that drop by gravity into the core upon power cut.",
+      simplerExplanation:
+        "Safety rods suspended above the core that instantly fall into the fuel to halt the reaction if electricity is ever interrupted.",
+      deeperExplanation:
+        "Gravity insertion is assisted by hydraulic pressure differentials. Magnetic clutches release instantaneously on trip signals or blackout conditions.",
+      connectedFlowIds: [],
+      diagramCoords: { x: 140, y: 90, width: 50, height: 35 },
+      citationIds: ["cit-nrc-nuscale"],
+    },
+    {
+      id: "smr-sg",
+      name: "Helical-Coil Steam Generator",
+      type: "steam-generator",
+      role: "Transfers primary heat to secondary feedwater to produce superheated steam",
+      description:
+        "Two independent helical-coil tube bundles wrapped around the upper riser section inside the vessel, through which secondary water flows and vaporizes.",
+      simplerExplanation:
+        "Spiral metal piping coiled inside the upper vessel where clean water turns into steam from the reactor's heat.",
+      deeperExplanation:
+        "Operates under once-through counter-flow thermodynamics producing dry superheated steam without requiring separate steam separators or dryers.",
+      connectedFlowIds: ["smr-primary-flow", "smr-secondary-flow"],
+      diagramCoords: { x: 130, y: 160, width: 70, height: 80 },
+      citationIds: ["cit-iaea-smr-status", "cit-nrc-nuscale"],
+    },
+    {
+      id: "smr-containment",
+      name: "Submerged Steel Containment Vessel",
+      type: "containment",
+      role: "Provides high-pressure fission product barrier and passes heat to the cooling pool",
+      description:
+        "An evacuated, cylindrical high-pressure steel vessel surrounding the RPV, submerged in an underground water pool acting as an infinite heat sink.",
+      simplerExplanation:
+        "A heavy steel capsule sitting under water that captures any leaked steam and radiates heat directly into the giant pool.",
+      deeperExplanation:
+        "Under vacuum during normal operations to eliminate convective heat loss. Upon safety actuation, steam condenses against the containment wall directly into the pool.",
+      connectedFlowIds: ["smr-passive-cooling"],
+      diagramCoords: { x: 100, y: 80, width: 130, height: 290 },
+      citationIds: ["cit-nrc-nuscale"],
+    },
+    {
+      id: "smr-cooling-pool",
+      name: "Passive Reactor Building Pool",
+      type: "heat-exchanger",
+      role: "Serves as the ultimate heat sink for indefinite passive cooling",
+      description:
+        "A large below-ground, seismically isolated water pool enclosing multiple module bays, absorbing decay heat via conduction through containment walls.",
+      simplerExplanation:
+        "A massive underground pool of water that keeps the reactor cool forever without any pumps, electricity, or operator action.",
+      deeperExplanation:
+        "Contains sufficient water volume to passively dissipate post-trip decay heat for over 30 days of unmitigated station blackout without boiling dry.",
+      connectedFlowIds: ["smr-passive-cooling"],
+      diagramCoords: { x: 80, y: 70, width: 170, height: 310 },
+      citationIds: ["cit-iaea-smr-status"],
+    },
+    {
+      id: "smr-turbine",
+      name: "Modular Steam Turbine & Generator",
+      type: "turbine",
+      role: "Converts superheated steam enthalpy into electrical power",
+      description:
+        "A dedicated, skid-mounted compact steam turbine connected to a high-efficiency synchronous electrical generator.",
+      simplerExplanation:
+        "A spinning turbine that uses high-pressure steam from the reactor module to produce 50-77 megawatts of electricity.",
+      deeperExplanation:
+        "Operates on a standard Rankine steam cycle with air-cooled or water-cooled condenser return, optimized for fast ramp-rates to complement renewables.",
+      connectedFlowIds: ["smr-secondary-flow"],
+      diagramCoords: { x: 320, y: 160, width: 90, height: 60 },
+      citationIds: ["cit-iaea-smr-status"],
+    },
+  ],
+  flows: [
+    {
+      id: "smr-primary-flow",
+      name: "Integral Primary Natural Circulation",
+      fromComponentId: "smr-fuel",
+      toComponentId: "smr-sg",
+      loop: "primary",
+      fluid: "Borated Light Water (Natural Circulation)",
+      operatingTemp: "300°C (Core Outlet)",
+      operatingPressure: "12.8 MPa",
+    },
+    {
+      id: "smr-secondary-flow",
+      name: "Superheated Secondary Steam Loop",
+      fromComponentId: "smr-sg",
+      toComponentId: "smr-turbine",
+      loop: "secondary",
+      fluid: "Dry Superheated Steam",
+      operatingTemp: "285°C",
+      operatingPressure: "3.4 MPa",
+    },
+    {
+      id: "smr-passive-cooling",
+      name: "Passive Containment Heat Dissipation",
+      fromComponentId: "smr-containment",
+      toComponentId: "smr-cooling-pool",
+      loop: "tertiary-cooling",
+      fluid: "Bulk Pool Water Conduction",
+      operatingTemp: "40°C - 95°C",
+      operatingPressure: "0.1 MPa (Atmospheric)",
+    },
+  ],
+};
+
+export const HTGR_SYSTEM_DATA: ReactorSystem = {
+  id: "htgr",
+  slug: "htgr",
+  type: "HTGR",
+  name: "High-Temperature Gas-Cooled Reactor (HTGR)",
+  summary:
+    "A Generation IV advanced reactor utilizing ceramic TRISO-coated particle fuel, chemically inert helium gas coolant, and a solid graphite moderator to deliver heat at 750°C-950°C with walk-away passive safety.",
+  conceptDescription:
+    "Operates at extreme temperatures capable of high-efficiency electricity generation and zero-carbon industrial process heat (hydrogen production, chemical synthesis). TRISO particles cannot melt below 1600°C, providing intrinsic meltdown immunity.",
+  deployedExamples: [
+    "HTR-PM (Shidao Bay, China - Commercial Operation)",
+    "Fort St. Vrain (USA - Historic)",
+    "AVR & THTR-300 (Germany - Historic)",
+    "X-energy Xe-100 (Advanced SMR)",
+  ],
+  operatingContext:
+    "Helium coolant operates at ~7.0 MPa and up to 750°C-950°C outlet temperature. Solid graphite moderator provides high thermal inertia, while an inherently negative temperature coefficient of reactivity throttles fission before damage can occur.",
+  citations: [
+    {
+      id: "cit-iaea-htgr-status",
+      title: "Advances in High Temperature Gas Cooled Reactor Technology",
+      publisher: "International Atomic Energy Agency",
+      year: 2020,
+      url: "https://www.iaea.org/publications/13592/advances-in-high-temperature-gas-cooled-reactor-technology",
+      locator: "IAEA-TECDOC-1936",
+    },
+    {
+      id: "cit-doe-triso",
+      title: "TRISO Particles: The Most Robust Nuclear Fuel on Earth",
+      publisher: "US Department of Energy (Office of Nuclear Energy)",
+      year: 2021,
+      url: "https://www.energy.gov/ne/articles/triso-particles-most-robust-nuclear-fuel-earth",
+      locator: "DOE Fact Sheet: Advanced Reactor Technologies",
+    },
+  ],
+  components: [
+    {
+      id: "htgr-vessel",
+      name: "Reactor Pressure Vessel",
+      type: "vessel",
+      role: "Contains the high-pressure helium gas coolant and graphite core structure",
+      description:
+        "Heavy forged alloy-steel vessel with external thermal insulation and internal metallic core-barrel, designed for 7 MPa helium service.",
+      simplerExplanation:
+        "A thick steel container engineered to hold high-pressure helium gas while keeping heat focused in the core.",
+      deeperExplanation:
+        "Maintained at lower temperatures (~300°C) via returning cold-leg helium flow sweeping the inner vessel walls, preventing high-temperature creep.",
+      connectedFlowIds: ["htgr-helium-primary"],
+      diagramCoords: { x: 100, y: 130, width: 110, height: 230 },
+      citationIds: ["cit-iaea-htgr-status"],
+    },
+    {
+      id: "htgr-core",
+      name: "Solid Graphite Core Moderator",
+      type: "graphite-core",
+      role: "Moderates fast neutrons to thermal energies and provides massive thermal heat capacity",
+      description:
+        "High-purity nuclear-grade graphite blocks forming the core cavity and surrounding reflector, capable of absorbing decay heat for days without active cooling.",
+      simplerExplanation:
+        "A giant core made of carbon blocks that slows down atomic particles and absorbs enormous amounts of heat safely.",
+      deeperExplanation:
+        "Graphite maintains structural integrity above 2000°C, meaning the core cannot melt or lose geometry even during complete loss of helium coolant.",
+      connectedFlowIds: ["htgr-helium-primary"],
+      diagramCoords: { x: 115, y: 160, width: 80, height: 180 },
+      citationIds: ["cit-iaea-htgr-status"],
+    },
+    {
+      id: "htgr-fuel",
+      name: "TRISO Particle Fuel Elements",
+      type: "fuel",
+      role: "Generates fission heat with ceramic micro-containment resistant to temperatures up to 1600°C",
+      description:
+        "Billiard-ball sized graphite pebbles (or prismatic hexagonal blocks) embedded with thousands of sub-millimeter TRISO particles coated in pyrolytic carbon and silicon carbide.",
+      simplerExplanation:
+        "Super-durable ceramic fuel spheres that seal radioactive waste inside microscopic containment shields that cannot melt.",
+      deeperExplanation:
+        "Each TRISO particle features a silicon carbide shell that retains 100% of radioactive fission products up to 1600°C—far above any possible accident temperature.",
+      connectedFlowIds: ["htgr-helium-primary"],
+      diagramCoords: { x: 125, y: 200, width: 60, height: 120 },
+      citationIds: ["cit-iaea-htgr-status", "cit-doe-triso"],
+    },
+    {
+      id: "htgr-control-rods",
+      name: "Reflector Control & Shutdown Rods",
+      type: "control-rod",
+      role: "Regulates core neutron population and provides backup reactivity shutdown",
+      description:
+        "Boron carbide absorber rods located in channels within the side graphite reflector, operating outside the hottest fuel region.",
+      simplerExplanation:
+        "Neutron-absorbing control rods inserted into the outer graphite walls to start, adjust, or shut down the reactor.",
+      deeperExplanation:
+        "Due to the strongly negative Doppler temperature coefficient, HTGRs naturally shut themselves down when temperature rises, making control rods a secondary defense.",
+      connectedFlowIds: [],
+      diagramCoords: { x: 130, y: 90, width: 50, height: 35 },
+      citationIds: ["cit-iaea-htgr-status"],
+    },
+    {
+      id: "htgr-circulator",
+      name: "Helium Gas Circulator",
+      type: "pump",
+      role: "Forces circulation of pressurized helium coolant through the core and steam generator",
+      description:
+        "High-reliability variable-speed electric blower with active magnetic bearings, mounted vertically above or below the steam generator.",
+      simplerExplanation:
+        "A high-tech gas fan that blows inert helium gas through the hot atomic core to carry heat away.",
+      deeperExplanation:
+        "Uses magnetic bearings to eliminate lubricating oil contamination inside the high-purity helium coolant loop.",
+      connectedFlowIds: ["htgr-helium-primary"],
+      diagramCoords: { x: 250, y: 290, width: 50, height: 45 },
+      citationIds: ["cit-iaea-htgr-status"],
+    },
+    {
+      id: "htgr-steam-gen",
+      name: "Helical-Coil Steam Generator",
+      type: "steam-generator",
+      role: "Transfers 750°C helium heat to secondary water to produce high-temperature supercritical steam",
+      description:
+        "Counter-flow heat exchanger housed in a separate pressure vessel connected to the reactor vessel via a cross-duct, generating steam at 560°C.",
+      simplerExplanation:
+        "A heat transfer tower where hot helium gas boils clean water into high-pressure superheated steam.",
+      deeperExplanation:
+        "High steam temperatures (560°C at 13.5 MPa) match modern supercritical coal plants, achieving over 44% thermal-to-electric efficiency.",
+      connectedFlowIds: ["htgr-helium-primary", "htgr-steam-secondary"],
+      diagramCoords: { x: 240, y: 150, width: 70, height: 130 },
+      citationIds: ["cit-iaea-htgr-status"],
+    },
+    {
+      id: "htgr-turbine",
+      name: "High-Efficiency Steam Turbine",
+      type: "turbine",
+      role: "Drives electrical generator using superheated steam with optional cogeneration take-off",
+      description:
+        "Multi-stage high-temperature turbine producing electricity with potential extraction of 500°C steam for industrial chemical processing.",
+      simplerExplanation:
+        "An advanced steam turbine generating electricity at record thermal efficiency or providing clean industrial heat.",
+      deeperExplanation:
+        "Dual-purpose cogeneration configuration: high-grade steam can be diverted to high-temperature steam electrolysis for zero-carbon hydrogen production.",
+      connectedFlowIds: ["htgr-steam-secondary"],
+      diagramCoords: { x: 360, y: 160, width: 90, height: 60 },
+      citationIds: ["cit-iaea-htgr-status"],
+    },
+  ],
+  flows: [
+    {
+      id: "htgr-helium-primary",
+      name: "Primary Helium Gas Circuit",
+      fromComponentId: "htgr-fuel",
+      toComponentId: "htgr-steam-gen",
+      loop: "primary",
+      fluid: "Inert Helium Gas (7.0 MPa)",
+      operatingTemp: "750°C Core Outlet / 250°C Inlet",
+      operatingPressure: "7.0 MPa",
+    },
+    {
+      id: "htgr-steam-secondary",
+      name: "Superheated Secondary Steam Loop",
+      fromComponentId: "htgr-steam-gen",
+      toComponentId: "htgr-turbine",
+      loop: "secondary",
+      fluid: "Superheated Steam",
+      operatingTemp: "560°C",
+      operatingPressure: "13.5 MPa",
+    },
+  ],
+};
+
 const ALL_SYSTEMS: readonly ReactorSystem[] = [
   PWR_SYSTEM_DATA,
   BWR_SYSTEM_DATA,
   PHWR_SYSTEM_DATA,
+  SMR_SYSTEM_DATA,
+  HTGR_SYSTEM_DATA,
+  RBMK_SYSTEM_DATA,
+  FBR_SYSTEM_DATA,
+  MSR_SYSTEM_DATA,
 ];
 
 // Validate all static reactor systems at startup

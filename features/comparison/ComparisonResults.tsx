@@ -5,11 +5,13 @@ import type { CSSProperties } from "react";
 
 import { EvidenceDialog } from "./ComparisonEvidence";
 import { SourceMarker } from "./ComparisonControls";
+import { ComparisonWarnings } from "./ComparisonWarnings";
 import { getComparisonScale, projectObservation } from "./comparison-model";
 import type {
   DisplayMode,
   PreviewComparison,
   PreviewObservation,
+  UnitMode,
 } from "./comparison-types";
 import styles from "./ComparisonLab.module.css";
 
@@ -20,6 +22,7 @@ interface ComparisonResultsProps {
   view: "chart" | "table";
   onViewChange: (view: "chart" | "table") => void;
   onRestoreDefaultSources: () => void;
+  unitMode?: UnitMode;
 }
 
 type ChartStyle = CSSProperties & {
@@ -34,11 +37,12 @@ export function ComparisonResults({
   view,
   onViewChange,
   onRestoreDefaultSources,
+  unitMode = "scientific",
 }: ComparisonResultsProps) {
   // Automatic table view when 9 or more technologies are selected
   const effectiveView = selectedObservations.length >= 9 ? "table" : view;
 
-  const scaleMaximum = getComparisonScale(comparison.observations);
+  const scaleMaximum = getComparisonScale(selectedObservations);
 
   return (
     <div className={styles.chartPanel}>
@@ -60,38 +64,19 @@ export function ComparisonResults({
         </button>
       </div>
 
+      <ComparisonWarnings warnings={comparison.warnings} />
+
       {selectedObservations.length === 0 ? (
-        <div
-          style={{
-            padding: "48px 24px",
-            textAlign: "center",
-            background: "#fffdf8",
-            borderRadius: "14px",
-            border: "1px dashed #d1cec5",
-            marginBlock: "24px",
-          }}
-        >
-          <h3
-            style={{ margin: "0 0 8px", fontSize: "1.2rem", color: "#101823" }}
-          >
-            No technologies selected
-          </h3>
-          <p style={{ margin: "0 0 20px", color: "#556170" }}>
+        <div className={styles.emptyState}>
+          <h3>No technologies selected</h3>
+          <p>
             Add at least one energy technology from the controls above to
             compare.
           </p>
           <button
             onClick={onRestoreDefaultSources}
             type="button"
-            style={{
-              padding: "10px 20px",
-              borderRadius: "10px",
-              border: 0,
-              background: "#4338ca",
-              color: "#ffffff",
-              fontWeight: 600,
-              cursor: "pointer",
-            }}
+            className={styles.emptyStateButton}
           >
             Restore default technologies
           </button>
@@ -100,7 +85,12 @@ export function ComparisonResults({
         <div className={styles.chart}>
           <span className={styles.zero}>0</span>
           {selectedObservations.map((observation) => {
-            const projection = projectObservation(observation, displayMode);
+            const projection = projectObservation(
+              observation,
+              displayMode,
+              unitMode,
+              comparison.metricId,
+            );
             const chartStyle: ChartStyle = {
               "--bar-color": observation.color,
               "--bar-size": `${(observation.typicalValue / scaleMaximum) * 100}%`,
@@ -150,7 +140,12 @@ export function ComparisonResults({
             </thead>
             <tbody>
               {selectedObservations.map((observation) => {
-                const projection = projectObservation(observation, displayMode);
+                const projection = projectObservation(
+                  observation,
+                  displayMode,
+                  unitMode,
+                  comparison.metricId,
+                );
                 return (
                   <tr key={observation.technologyId}>
                     <th scope="row">{observation.technologyName}</th>
@@ -179,7 +174,12 @@ export function ComparisonResults({
 
       <ul aria-label="Accessible comparison summary" className={styles.srOnly}>
         {selectedObservations.map((observation) => {
-          const projection = projectObservation(observation, displayMode);
+          const projection = projectObservation(
+            observation,
+            displayMode,
+            unitMode,
+            comparison.metricId,
+          );
           return (
             <li key={observation.technologyId}>
               {observation.technologyName}: {projection.label}

@@ -9,7 +9,7 @@ import type { AskQuery } from "./schemas";
 describe("Ask ATOM Retrieval Engine & Evaluation Suite (R18)", () => {
   function makeQuery(
     prompt: string,
-    level: "simple" | "standard" | "technical" = "standard",
+    level: "explorer" | "standard" | "deep-dive" = "standard",
     id = "eval-q",
   ): AskQuery {
     return {
@@ -166,23 +166,23 @@ describe("Ask ATOM Retrieval Engine & Evaluation Suite (R18)", () => {
   describe("Multi-Tier Explanation Support", () => {
     it("returns simplified language for level: simple", () => {
       const res = askAtom(
-        makeQuery("What is the carbon footprint of nuclear power?", "simple"),
+        makeQuery("What is the carbon footprint of nuclear power?", "explorer"),
       );
       expect(res.state).toBe("answered");
       expect(res.answerText).toContain("does not burn anything");
-      expect(res.explanationLevel).toBe("simple");
+      expect(res.explanationLevel).toBe("explorer");
     });
 
     it("returns technical engineering language for level: technical", () => {
       const res = askAtom(
         makeQuery(
           "What is the carbon footprint of nuclear power?",
-          "technical",
+          "deep-dive",
         ),
       );
       expect(res.state).toBe("answered");
       expect(res.answerText).toContain("Harmonized LCA methods");
-      expect(res.explanationLevel).toBe("technical");
+      expect(res.explanationLevel).toBe("deep-dive");
     });
 
     it("returns balanced standard explanation for level: standard", () => {

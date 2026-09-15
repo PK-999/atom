@@ -171,4 +171,22 @@ describe("Annual Grid Model Arithmetic (R17)", () => {
       "NOT represent real-time hourly reliability",
     );
   });
+
+  it("calculates weighted lifecycle carbon intensity and annual emissions", () => {
+    const scenario = getDefaultScenario();
+    const result = simulateAnnualGrid(scenario);
+
+    // Balanced clean scenario consists of low-carbon sources (nuclear, solar, wind, hydro)
+    // Weighted carbon intensity should be well below 50 gCO2e/kWh
+    expect(result.weightedCarbonIntensityGPerKwh).toBeGreaterThan(10);
+    expect(result.weightedCarbonIntensityGPerKwh).toBeLessThan(50);
+    expect(result.totalAnnualCarbonEmissionsTonnes).toBeGreaterThan(0);
+
+    // Verify individual source carbon attributes
+    const nuclearSource = result.sourcesBreakdown.find(
+      (s) => s.id === "nuclear",
+    );
+    expect(nuclearSource?.carbonIntensityGPerKwh).toBe(12);
+    expect(nuclearSource?.annualCarbonEmissionsTonnes).toBeGreaterThan(0);
+  });
 });

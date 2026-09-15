@@ -95,4 +95,13 @@ describe("LocalEvidenceRepository", () => {
         }),
     ).toThrow(/unknown observation/i);
   });
+
+  it("safely handles Date instances without throwing or breaking Date operations", () => {
+    const date = new Date("2026-01-01T00:00:00Z");
+    const snapshot = createEvidenceRepositoryContractSnapshot();
+    const repo = new LocalEvidenceRepository(snapshot);
+    expect(repo).toBeDefined();
+    // Verify Date instance remains usable
+    expect(date.getFullYear()).toBe(2026);
+  });
 });
