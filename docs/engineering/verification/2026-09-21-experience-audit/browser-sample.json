@@ -1,0 +1,174 @@
+{
+  "results": [
+    {
+      "route": "/",
+      "width": 1440,
+      "theme": "light",
+      "actualTheme": "light",
+      "documentWidth": 1440,
+      "h1": ["Understand nuclear energy through scientific evidence."],
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "count": 21,
+          "examples": [
+            [".OnboardingHero_previewAudience__lBRJv"],
+            [".HomePage_sectionEyebrow__wb7OB"]
+          ]
+        }
+      ],
+      "screenshot": "home-1440-light.png"
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "theme": "dark",
+      "actualTheme": "dark",
+      "documentWidth": 390,
+      "h1": ["Understand nuclear energy through scientific evidence."],
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "count": 5,
+          "examples": [
+            [".OnboardingHero_sliderLabel__DBq0n"],
+            [".OnboardingHero_levelTick__l9PeM:nth-child(1)"]
+          ]
+        }
+      ],
+      "screenshot": "home-390-dark.png"
+    },
+    {
+      "route": "/learn/fission",
+      "width": 390,
+      "theme": "light",
+      "actualTheme": "light",
+      "documentWidth": 390,
+      "h1": ["Nuclear Fission"],
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "count": 18,
+          "examples": [
+            [".Education_breadcrumb__0vOGl > a[href=\"/\"]"],
+            [".Education_breadcrumb__0vOGl > a[href$=\"learn\"]"]
+          ]
+        },
+        {
+          "id": "heading-order",
+          "impact": "moderate",
+          "count": 1,
+          "examples": [[".Education_interactionTitle__qnqel"]]
+        }
+      ],
+      "screenshot": "learn-fission-390-light.png"
+    },
+    {
+      "route": "/compare",
+      "width": 1440,
+      "theme": "light",
+      "actualTheme": "light",
+      "documentWidth": 1440,
+      "h1": ["See the energy trade-offs"],
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "count": 17,
+          "examples": [
+            [".ComparisonLab_labBadge__SLLNa"],
+            [".ComparisonLab_labSubtitle__oT2vi"]
+          ]
+        }
+      ],
+      "screenshot": "compare-1440-light.png"
+    },
+    {
+      "route": "/topics",
+      "width": 390,
+      "theme": "dark",
+      "actualTheme": "dark",
+      "documentWidth": 420,
+      "h1": ["Curriculum Topics"],
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "count": 5,
+          "examples": [["header > p"], ["h2 > a[href$=\"fundamentals\"]"]]
+        }
+      ],
+      "screenshot": "topics-390-dark.png"
+    },
+    {
+      "route": "/simulations",
+      "width": 390,
+      "theme": "dark",
+      "actualTheme": "dark",
+      "documentWidth": 502,
+      "h1": [
+        "Nuclear & Energy Simulations",
+        "Annual Electricity Grid Simulator"
+      ],
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "count": 3,
+          "examples": [
+            [".GridSimulator_gridStatusBadge__6KzTd > span:nth-child(2)"],
+            [".GridSimulator_demandCard__K8EX3 > div:nth-child(2) > span"]
+          ]
+        },
+        {
+          "id": "heading-order",
+          "impact": "moderate",
+          "count": 1,
+          "examples": [[".GridSimulator_visualTitle__yS_mH"]]
+        },
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "count": 1,
+          "examples": [[".AppShell_content__d6fGl > main"]]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "count": 1,
+          "examples": [[".AppShell_content__d6fGl"]]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "count": 1,
+          "examples": [[".AppShell_content__d6fGl"]]
+        }
+      ],
+      "screenshot": "simulations-390-dark.png"
+    },
+    {
+      "route": "/health",
+      "status": 404
+    },
+    {
+      "route": "/india",
+      "status": 404
+    },
+    {
+      "route": "/evidence/sources/source-unece-2021",
+      "status": 404
+    }
+  ],
+  "baseline": "78e0a08 plus pre-existing onboarding edits",
+  "date": "2026-09-21",
+  "browser": "Installed Playwright Chromium, headless",
+  "viewportHeight": 900,
+  "scope": "Initial-page sample, not full E2E acceptance",
+  "themeSetup": "Fresh context per case; local preference set before navigation; actual theme confirmed",
+  "pageErrors": [],
+  "consoleInspection": "Page errors captured; console messages were not comprehensively captured."
+}
