@@ -1,4 +1,5 @@
 export type ThemeMode = "light" | "dark" | "system";
+export type ResolvedTheme = Exclude<ThemeMode, "system">;
 
 export const THEME_PREFERENCE_KEY = "atom:preferences:v1:theme" as const;
 const THEME_PREFERENCE_EVENT = "atom:theme-preference-change";
@@ -10,7 +11,7 @@ function parseThemeMode(value: string | null): ThemeMode | null {
     : null;
 }
 
-function resolveTheme(mode: ThemeMode): Exclude<ThemeMode, "system"> {
+function resolveTheme(mode: ThemeMode): ResolvedTheme {
   if (mode !== "system") return mode;
   return typeof window.matchMedia === "function" &&
     window.matchMedia(DARK_MEDIA_QUERY).matches
@@ -20,6 +21,7 @@ function resolveTheme(mode: ThemeMode): Exclude<ThemeMode, "system"> {
 
 export function createThemePreferenceStore() {
   let current: ThemeMode = "system";
+  let resolved: ResolvedTheme = "light";
   let hydrated = false;
   const listeners = new Set<() => void>();
 
@@ -28,7 +30,9 @@ export function createThemePreferenceStore() {
   }
 
   function apply(mode: ThemeMode) {
-    document.documentElement.dataset.theme = resolveTheme(mode);
+    resolved = resolveTheme(mode);
+    document.documentElement.dataset.theme = resolved;
+    document.documentElement.style.colorScheme = resolved;
   }
 
   function readStored(): ThemeMode {
@@ -44,7 +48,9 @@ export function createThemePreferenceStore() {
 
   return {
     getServerSnapshot: (): ThemeMode => "system",
+    getResolvedServerSnapshot: (): ResolvedTheme => "light",
     getSnapshot: () => current,
+    getResolvedSnapshot: () => resolved,
     set(mode: ThemeMode) {
       current = mode;
       apply(mode);
@@ -66,7 +72,10 @@ export function createThemePreferenceStore() {
           ? window.matchMedia(DARK_MEDIA_QUERY)
           : null;
       const handleSystemChange = () => {
-        if (current === "system") apply(current);
+        if (current === "system") {
+          apply(current);
+          notify();
+        }
       };
       const handleStorage = (event: StorageEvent) => {
         if (event.key !== THEME_PREFERENCE_KEY) return;

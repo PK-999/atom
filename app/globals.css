@@ -84,7 +84,7 @@
   --atom-radius-xl: 28px;
   --atom-radius-full: 9999px;
 
-  color-scheme: dark;
+  color-scheme: light;
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   line-height: 1.5;
 }
@@ -110,6 +110,10 @@
   --atom-interactive-hover: #06b6d4;
   --atom-focus-ring: #0891b2;
   color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 /* =========================================================

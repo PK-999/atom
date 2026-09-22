@@ -6,6 +6,7 @@
   border-radius: 999px;
   background: var(--atom-surface-panel);
   padding: 3px;
+  flex-shrink: 0;
 }
 
 .control button {
@@ -18,6 +19,14 @@
   background: transparent;
   color: var(--atom-text-muted);
   cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .control button {
+    width: 34px;
+    height: 34px;
+  }
+
 }
 
 .control button[aria-pressed="true"] {

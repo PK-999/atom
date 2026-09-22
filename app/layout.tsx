@@ -7,7 +7,7 @@ import { WebVitals } from "@/components/observability/WebVitals";
 
 import "./globals.css";
 
-const themeBootstrapScript = `(function(){var mode="system";try{var stored=localStorage.getItem("atom:preferences:v1:theme");if(stored==="light"||stored==="dark"||stored==="system")mode=stored}catch(error){}var prefersDark=typeof matchMedia==="function"&&matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=mode==="dark"||(mode==="system"&&prefersDark)?"dark":"light"})()`;
+const themeBootstrapScript = `(function(){var mode="system";try{var stored=localStorage.getItem("atom:preferences:v1:theme");if(stored==="light"||stored==="dark"||stored==="system")mode=stored}catch(error){}var prefersDark=typeof matchMedia==="function"&&matchMedia("(prefers-color-scheme: dark)").matches;var resolved=mode==="dark"||(mode==="system"&&prefersDark)?"dark":"light";document.documentElement.dataset.theme=resolved;document.documentElement.style.colorScheme=resolved})()`;
 
 export const metadata: Metadata = {
   title: {

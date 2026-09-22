@@ -21,17 +21,27 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className={styles.brandName}>ATOM</span>
           </Link>
           <nav aria-label="Primary navigation" className={styles.navigation}>
-            <Link href="/explore">Explore</Link>
-            <Link href="/how-it-works">How It Works</Link>
-            <Link href="/compare">Compare</Link>
-            <Link href="/reactors">Reactors</Link>
-            <Link href="/simulations">Simulations</Link>
-            <Link href="/radiation">Radiation</Link>
-            <Link href="/incidents">Incidents</Link>
-            <Link href="/myths">Myths</Link>
-            <Link href="/debates">Debate</Link>
             <Link href="/learn">Learn</Link>
+            <Link href="/explore">Explore</Link>
+            <Link href="/compare">Compare</Link>
+            <Link href="/evidence">Evidence</Link>
           </nav>
+          <details className={styles.mobileMenu}>
+            <summary>Menu</summary>
+            <nav aria-label="Mobile navigation">
+              <Link href="/learn">Learn</Link>
+              <Link href="/explore">Explore</Link>
+              <Link href="/compare">Compare</Link>
+              <Link href="/evidence">Evidence</Link>
+              <Link href="/how-it-works">How It Works</Link>
+              <Link href="/reactors">Reactors</Link>
+              <Link href="/simulations">Simulations</Link>
+              <Link href="/radiation">Radiation</Link>
+              <Link href="/incidents">Incidents</Link>
+              <Link href="/myths">Myths</Link>
+              <Link href="/debates">Debate</Link>
+            </nav>
+          </details>
           <div className={styles.preferences}>
             <GlobalComplexityControl />
             <ThemeControl />

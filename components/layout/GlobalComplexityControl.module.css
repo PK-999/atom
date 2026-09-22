@@ -52,6 +52,19 @@
   opacity: 0.85;
 }
 
+@media (max-width: 640px) {
+  .depthControl {
+    gap: 0;
+    padding: 3px;
+  }
+
+  .depthLabel,
+  .depthName,
+  .depthChange {
+    display: none;
+  }
+}
+
 .depthControl:hover .depthChange {
   opacity: 1;
 }
