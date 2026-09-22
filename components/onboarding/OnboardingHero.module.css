@@ -1,6 +1,86 @@
 .hero {
   padding: 48px 0 64px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.atomStage {
+  width: min(320px, 70vw);
+  margin: -36px auto -54px;
+  color: var(--atom-accent);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.atomGraphic {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 18px 45px rgba(0, 212, 255, 0.15));
+}
+
+.field {
+  fill: url("#nucleus-glow");
+  opacity: 0.08;
+}
+
+.orbit {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 8;
+  opacity: 0.5;
+}
+
+.orbitOne,
+.orbitTwo,
+.orbitThree {
+  transform-origin: 160px 160px;
+}
+
+.orbitOne {
+  animation: orbit 16s linear infinite;
+}
+
+.orbitTwo {
+  animation: orbit 20s linear infinite reverse;
+  rotate: 60deg;
+}
+
+.orbitThree {
+  animation: orbit 24s linear infinite;
+  rotate: 120deg;
+}
+
+.electron,
+.electronAlt {
+  fill: var(--atom-accent);
+  stroke: var(--atom-surface-canvas);
+  stroke-width: 3;
+}
+
+.electronAlt {
+  fill: var(--atom-energy-nuclear);
+}
+
+.nucleusGlow {
+  fill: url("#nucleus-glow");
+  opacity: 0.28;
+}
+
+.proton {
+  fill: var(--atom-energy-nuclear);
+}
+
+.neutron {
+  fill: var(--atom-accent);
+}
+
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .badge {
@@ -241,6 +321,10 @@
 }
 
 @media (max-width: 640px) {
+  .atomStage {
+    margin-bottom: -42px;
+  }
+
   .sliderCard {
     padding: 24px 20px;
   }
@@ -251,5 +335,13 @@
   .primaryBtn,
   .secondaryBtn {
     text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbitOne,
+  .orbitTwo,
+  .orbitThree {
+    animation: none;
   }
 }

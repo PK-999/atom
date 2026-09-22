@@ -65,6 +65,56 @@ export function OnboardingHero() {
 
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
+      <div
+        className={styles.atomStage}
+        aria-hidden="true"
+        data-testid="atom-stage"
+      >
+        <svg className={styles.atomGraphic} viewBox="0 0 320 320">
+          <defs>
+            <radialGradient id="nucleus-glow">
+              <stop offset="0" stopColor="currentColor" stopOpacity="1" />
+              <stop offset="1" stopColor="currentColor" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          <circle className={styles.field} cx="160" cy="160" r="118" />
+          <g className={styles.orbitOne}>
+            <ellipse
+              className={styles.orbit}
+              cx="160"
+              cy="160"
+              rx="116"
+              ry="43"
+            />
+            <circle className={styles.electron} cx="276" cy="160" r="7" />
+          </g>
+          <g className={styles.orbitTwo}>
+            <ellipse
+              className={styles.orbit}
+              cx="160"
+              cy="160"
+              rx="116"
+              ry="43"
+            />
+            <circle className={styles.electronAlt} cx="44" cy="160" r="7" />
+          </g>
+          <g className={styles.orbitThree}>
+            <ellipse
+              className={styles.orbit}
+              cx="160"
+              cy="160"
+              rx="116"
+              ry="43"
+            />
+            <circle className={styles.electron} cx="276" cy="160" r="7" />
+          </g>
+          <circle className={styles.nucleusGlow} cx="160" cy="160" r="48" />
+          <circle className={styles.proton} cx="148" cy="151" r="13" />
+          <circle className={styles.neutron} cx="169" cy="145" r="13" />
+          <circle className={styles.neutron} cx="151" cy="173" r="13" />
+          <circle className={styles.proton} cx="174" cy="169" r="13" />
+        </svg>
+      </div>
       <div className={styles.badge}>
         <span aria-hidden="true">⚛</span>
         <span>Evidence-First Interactive Energy Platform</span>

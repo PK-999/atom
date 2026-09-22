@@ -24,6 +24,8 @@ describe("OnboardingHero", () => {
   it("renders the hero headline, interactive slider, and default curious level preview", () => {
     render(<OnboardingHero />);
 
+    expect(screen.getByTestId("atom-stage")).toBeInTheDocument();
+
     expect(
       screen.getByRole("heading", {
         level: 1,
