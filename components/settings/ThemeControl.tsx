@@ -3,10 +3,10 @@
 import { Moon } from "@phosphor-icons/react/Moon";
 import { Monitor } from "@phosphor-icons/react/Monitor";
 import { Sun } from "@phosphor-icons/react/Sun";
-import { useMemo, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 
 import {
-  createThemePreferenceStore,
+  themePreferenceStore,
   type ThemeMode,
 } from "@/lib/preferences/theme-preference";
 
@@ -23,7 +23,7 @@ const options: ReadonlyArray<{
 ];
 
 export function ThemeControl() {
-  const store = useMemo(() => createThemePreferenceStore(), []);
+  const store = themePreferenceStore;
   const mode = useSyncExternalStore(
     store.subscribe,
     store.getSnapshot,

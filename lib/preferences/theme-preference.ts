@@ -78,7 +78,7 @@ export function createThemePreferenceStore() {
         }
       };
       const handleStorage = (event: StorageEvent) => {
-        if (event.key !== THEME_PREFERENCE_KEY) return;
+        if (event.key !== null && event.key !== THEME_PREFERENCE_KEY) return;
         current = parseThemeMode(event.newValue) ?? "system";
         apply(current);
         notify();
@@ -97,12 +97,13 @@ export function createThemePreferenceStore() {
       window.addEventListener("storage", handleStorage);
       window.addEventListener(THEME_PREFERENCE_EVENT, handlePreferenceChange);
 
-      if (!hydrated) {
+      if (!hydrated || listeners.size === 1) {
         const previous = current;
         hydrated = true;
         current = readStored();
         apply(current);
-        if (current !== previous) queueMicrotask(notify);
+        if (current !== previous || current === "system")
+          queueMicrotask(notify);
       }
 
       return () => {
@@ -117,3 +118,6 @@ export function createThemePreferenceStore() {
     },
   };
 }
+
+// One client store keeps controls and scene subscribers in agreement.
+export const themePreferenceStore = createThemePreferenceStore();
