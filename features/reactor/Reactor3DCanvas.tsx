@@ -365,6 +365,25 @@ export function Reactor3DCanvas({
     blueFill.position.set(-60, 40, -50);
     scene.add(blueFill);
 
+    const applySceneTheme = () => {
+      const isLight = document.documentElement.dataset.theme === "light";
+      scene.background = new THREE.Color(isLight ? 0xf1f5f9 : 0x050a14);
+      if (scene.fog) {
+        scene.fog.color.set(isLight ? 0xe2e8f0 : 0x050a14);
+      }
+      ambientLight.intensity = isLight ? 1.55 : 1.2;
+      mainSun.intensity = isLight ? 2.35 : 2.0;
+      blueFill.intensity = isLight ? 0.95 : 1.5;
+      bloomPass.strength = isLight ? 0.25 : 0.6;
+    };
+
+    applySceneTheme();
+    const themeObserver = new MutationObserver(applySceneTheme);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
     // 5. Build 3D Plant Model
     const plantGroup = new THREE.Group();
     scene.add(plantGroup);
@@ -1628,6 +1647,7 @@ export function Reactor3DCanvas({
     return () => {
       window.removeEventListener("resize", handleResize);
       resizeObserver.disconnect();
+      themeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
       animationFrameRef.current = null;
       startAnimationRef.current = null;
