@@ -88,7 +88,7 @@ All rows are planned, not accepted. Sub-slices have independent commits/reviews.
 
 ## Verification log — 2026-09-23 implementation slices
 
-- Branch: `codex/atom-experience-foundation`; one worktree; pushed commits `5ac45c2`, `3a02d05`, and `9cb01e6` after the `95966c2` foundation.
+- Branch: `codex/atom-experience-foundation`; one worktree; pushed commits `5ac45c2`, `3a02d05`, `9cb01e6`, `249dbcf`, and `b74f277` after the `95966c2` foundation.
 - `5ac45c2` includes: motion/visibility lifecycle hooks for simulators and Three.js scenes; idempotent fission stage counting; scene power updates without renderer rebuild; globe hydration and reduced-motion fixes; accessible simulator tabs; removal of nested main landmarks; compact mobile layouts; shared light/dark contrast repairs across sampled routes; topic pages migrated from fixed light colors.
 - `npm run typecheck`: exit 0.
 - `npm run lint`: exit 0 with 12 pre-existing warnings; no errors.
@@ -96,6 +96,9 @@ All rows are planned, not accepted. Sub-slices have independent commits/reviews.
 - `npm run build`: exit 0, 56 routes generated.
 - Chromium browser verification at 390×844, light and dark: `/`, `/topics`, `/simulations`, `/globe`, `/compare`, and `/learn/fission` have no horizontal overflow, no page errors, and no axe color-contrast/landmark/heading violations in the sampled state.
 - Chromium reactor exhibit check at 1280×900 with reduced motion: `/reactors/pwr` created a canvas without page errors; changing to `50% Reduced` preserved the same canvas element marker and displayed `Power: 50%`; the scene now observes `data-theme` changes without rebuilding on power changes.
+- Production deployment: Vercel deployment `dpl_HTaDv7KyQVXyfjwjRrcUL7xvU59f` for `249dbcf` and follow-up deployment `atom-7nssb9pcf-pks-projects-35b7ae41.vercel.app` for `b74f277` both reached Ready/Production; the stable alias is `https://atom-opal-omega.vercel.app`.
+- Production Chromium smoke check at 390×844, light and dark: `/health` returned 200; `/`, `/topics`, `/simulations`, `/globe`, `/compare`, and `/learn/fission` returned 200 with one main landmark, one h1, no page errors, and no core horizontal overflow. The simulator heading regression was corrected before the follow-up deployment.
+- GitHub Actions quality job for `b74f277` passed format check, typecheck, lint, unit tests, and build. The full browser job was still running when this record was written; its completion remains an open gate rather than being inferred from the production smoke check.
 - Remaining unverified gates: Firefox/WebKit, 320px/tablet/desktop visual comparison, 200% zoom, full keyboard journeys, hidden-tab/offscreen resource assertions, WebGL context loss, sound adapter, measured performance, scientific/editorial/licensing review, and production deployment.
 
 No E00–E18 implementation task or whole R-stage is marked complete by this planning delivery.
