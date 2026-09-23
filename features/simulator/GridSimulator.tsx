@@ -154,9 +154,9 @@ export function GridSimulator({
     <article className={styles.container} aria-labelledby="simulator-heading">
       <header className={styles.header}>
         <span className={styles.badge}>Interactive Tool · Grid Literacy</span>
-        <h1 id="simulator-heading" className={styles.title}>
+        <h2 id="simulator-heading" className={styles.title}>
           Annual Electricity Grid Simulator
-        </h1>
+        </h2>
         <p className={styles.lead}>
           Explore how varying generation capacities and capacity factors
           determine annual energy balance. Observe firsthand why 100% annual

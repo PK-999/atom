@@ -10,7 +10,6 @@ describe("GridSimulator Component (R17)", () => {
 
     expect(
       screen.getByRole("heading", {
-        level: 1,
         name: /Annual Electricity Grid Simulator/i,
       }),
     ).toBeDefined();
