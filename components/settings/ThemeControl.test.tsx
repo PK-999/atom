@@ -39,10 +39,9 @@ describe("ThemeControl", () => {
     await waitFor(() =>
       expect(document.documentElement).toHaveAttribute("data-theme", "dark"),
     );
-    expect(screen.getByRole("button", { name: "System theme" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    );
+    expect(
+      screen.getByRole("button", { name: "System theme" }),
+    ).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("button", { name: "Dark theme" })).toHaveAttribute(
       "aria-pressed",
       "false",

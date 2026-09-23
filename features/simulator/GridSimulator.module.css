@@ -581,7 +581,8 @@
   background: var(--atom-surface-panel);
   color: var(--atom-text-primary);
   border-color: var(--atom-border-default);
-  box-shadow: 0 6px 24px color-mix(in srgb, var(--atom-text-primary) 8%, transparent);
+  box-shadow: 0 6px 24px
+    color-mix(in srgb, var(--atom-text-primary) 8%, transparent);
 }
 
 :global([data-theme="light"]) .demandCard,

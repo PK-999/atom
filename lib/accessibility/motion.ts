@@ -5,7 +5,8 @@ import { useSyncExternalStore } from "react";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 function getMotionMediaQuery() {
-  return typeof window !== "undefined" && typeof window.matchMedia === "function"
+  return typeof window !== "undefined" &&
+    typeof window.matchMedia === "function"
     ? window.matchMedia(REDUCED_MOTION_QUERY)
     : null;
 }
@@ -32,7 +33,9 @@ export function subscribeDocumentVisibility(listener: () => void) {
 }
 
 export function getDocumentVisibilitySnapshot() {
-  return typeof document === "undefined" || document.visibilityState === "visible";
+  return (
+    typeof document === "undefined" || document.visibilityState === "visible"
+  );
 }
 
 export function useMotionPreferences() {

@@ -148,7 +148,8 @@ export default async function TopicPage({ params }: TopicPageProps) {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(min(14rem, 100%), 1fr))",
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(min(14rem, 100%), 1fr))",
               gap: "1rem",
             }}
           >
@@ -203,7 +204,8 @@ export default async function TopicPage({ params }: TopicPageProps) {
                     borderRadius: "0.75rem",
                     textDecoration: "none",
                     color: "inherit",
-                    boxShadow: "0 1px 3px color-mix(in srgb, var(--atom-text-primary) 8%, transparent)",
+                    boxShadow:
+                      "0 1px 3px color-mix(in srgb, var(--atom-text-primary) 8%, transparent)",
                   }}
                 >
                   <div
@@ -257,7 +259,12 @@ export default async function TopicPage({ params }: TopicPageProps) {
               ))}
             </div>
           ) : (
-            <p style={{ color: "var(--atom-text-secondary)", fontStyle: "italic" }}>
+            <p
+              style={{
+                color: "var(--atom-text-secondary)",
+                fontStyle: "italic",
+              }}
+            >
               Lessons for this topic are currently undergoing editorial and
               scientific review.
             </p>

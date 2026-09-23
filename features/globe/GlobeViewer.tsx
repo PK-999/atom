@@ -624,83 +624,85 @@ export function GlobeViewer({
                 />
 
                 {/* Facility Pins */}
-                {isHydrated && deconflictedPins.map((fac) => {
-                  const isSelected = activeSelectedId === fac.id;
+                {isHydrated &&
+                  deconflictedPins.map((fac) => {
+                    const isSelected = activeSelectedId === fac.id;
 
-                  let pinColor = "#10b981";
-                  if (fac.status === "under-construction") pinColor = "#0284c7";
-                  if (
-                    fac.status === "shutdown" ||
-                    fac.status === "decommissioned"
-                  )
-                    pinColor = "#ef4444";
-                  if (fac.status === "mixed") pinColor = "#f59e0b";
+                    let pinColor = "#10b981";
+                    if (fac.status === "under-construction")
+                      pinColor = "#0284c7";
+                    if (
+                      fac.status === "shutdown" ||
+                      fac.status === "decommissioned"
+                    )
+                      pinColor = "#ef4444";
+                    if (fac.status === "mixed") pinColor = "#f59e0b";
 
-                  // Scale-invariant radii in SVG coordinate units
-                  const baseR = 4.2 / Math.sqrt(zoomLevel);
-                  const coreR = isSelected ? baseR * 1.35 : baseR;
-                  const auraR = isSelected ? baseR * 2.2 : baseR * 1.5;
-                  const pulseR = baseR * 2.6;
+                    // Scale-invariant radii in SVG coordinate units
+                    const baseR = 4.2 / Math.sqrt(zoomLevel);
+                    const coreR = isSelected ? baseR * 1.35 : baseR;
+                    const auraR = isSelected ? baseR * 2.2 : baseR * 1.5;
+                    const pulseR = baseR * 2.6;
 
-                  return (
-                    <g
-                      key={fac.id}
-                      className={`${styles.mapPin} ${isSelected ? styles.mapPinSelected : ""}`}
-                      onClick={() => handleSelectFacility2D(fac.id)}
-                      tabIndex={0}
-                      role="button"
-                      aria-label={`Select facility ${fac.name}`}
-                      aria-pressed={isSelected}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          handleSelectFacility2D(fac.id);
-                        }
-                      }}
-                    >
-                      <title>
-                        {fac.name} ({fac.countryName}) —{" "}
-                        {fac.totalCapacityMw !== null
-                          ? `${fac.totalCapacityMw} MW`
-                          : "Unknown"}{" "}
-                        ({fac.status})
-                      </title>
-                      {/* Subtle soft glowing aura */}
-                      <circle
-                        cx={fac.x}
-                        cy={fac.y}
-                        r={auraR}
-                        fill={pinColor}
-                        opacity={isSelected ? "0.35" : "0.15"}
-                      />
-                      {/* Core pin circle with non-scaling crisp border */}
-                      <circle
-                        cx={fac.x}
-                        cy={fac.y}
-                        r={coreR}
-                        fill={pinColor}
-                        stroke="#ffffff"
-                        strokeWidth={isSelected ? "2" : "1.2"}
-                        vectorEffect="non-scaling-stroke"
-                        opacity="0.95"
-                      />
-                      {/* Active radar ring for selected facility */}
-                      {isSelected && (
+                    return (
+                      <g
+                        key={fac.id}
+                        className={`${styles.mapPin} ${isSelected ? styles.mapPinSelected : ""}`}
+                        onClick={() => handleSelectFacility2D(fac.id)}
+                        tabIndex={0}
+                        role="button"
+                        aria-label={`Select facility ${fac.name}`}
+                        aria-pressed={isSelected}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            handleSelectFacility2D(fac.id);
+                          }
+                        }}
+                      >
+                        <title>
+                          {fac.name} ({fac.countryName}) —{" "}
+                          {fac.totalCapacityMw !== null
+                            ? `${fac.totalCapacityMw} MW`
+                            : "Unknown"}{" "}
+                          ({fac.status})
+                        </title>
+                        {/* Subtle soft glowing aura */}
                         <circle
                           cx={fac.x}
                           cy={fac.y}
-                          r={pulseR}
-                          fill="none"
-                          stroke={pinColor}
-                          strokeWidth="1.5"
-                          vectorEffect="non-scaling-stroke"
-                          opacity="0.7"
-                          className={styles.radarPulse}
+                          r={auraR}
+                          fill={pinColor}
+                          opacity={isSelected ? "0.35" : "0.15"}
                         />
-                      )}
-                    </g>
-                  );
-                })}
+                        {/* Core pin circle with non-scaling crisp border */}
+                        <circle
+                          cx={fac.x}
+                          cy={fac.y}
+                          r={coreR}
+                          fill={pinColor}
+                          stroke="#ffffff"
+                          strokeWidth={isSelected ? "2" : "1.2"}
+                          vectorEffect="non-scaling-stroke"
+                          opacity="0.95"
+                        />
+                        {/* Active radar ring for selected facility */}
+                        {isSelected && (
+                          <circle
+                            cx={fac.x}
+                            cy={fac.y}
+                            r={pulseR}
+                            fill="none"
+                            stroke={pinColor}
+                            strokeWidth="1.5"
+                            vectorEffect="non-scaling-stroke"
+                            opacity="0.7"
+                            className={styles.radarPulse}
+                          />
+                        )}
+                      </g>
+                    );
+                  })}
               </svg>
             </div>
 
