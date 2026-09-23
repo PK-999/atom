@@ -1,6 +1,6 @@
 # ATOM delivery tracker
 
-Last updated: 2026-09-21. This is the current status and verification authority. The user requested a codebase review and step-by-step plan; product implementation has not begun in this planning delivery.
+Last updated: 2026-09-23. This is the current status and verification authority. The site-wide experience plan is being delivered as small, verified slices on `codex/atom-experience-foundation`.
 
 ## Current entry point
 
@@ -12,7 +12,7 @@ Read in order:
 4. [Ordered E00–E18 implementation plan](../superpowers/plans/2026-09-21-atom-learning-experience.md).
 5. Applicable product policies, ADRs and the historical R-package specification mapped by the task.
 
-**Next implementation task: E00 — reconcile the actual execution and browser-verification baseline.** Finish its bounded deliverable and record results before advancing. Visual/draft content preparation is permitted while real evidence review is pending; new public lesson release still follows the Comparison Lab gate in ADR 0001.
+**Current implementation slice: E00/E06/E18 foundation repairs.** The health route, theme store, mobile shell, motion lifecycle, simulator accessibility, contrast tokens, and sampled responsive defects have been implemented and verified locally. The next bounded slice is the shared 3D theme/material lifecycle and flagship exhibit regression checks. Visual/draft content preparation is permitted while real evidence review is pending; new public lesson release still follows the Comparison Lab gate in ADR 0001.
 
 ## Reconciliation record
 
@@ -27,12 +27,12 @@ These historical claims are not current acceptance evidence. The restored 2026-0
 | Deliverable                                                       | Status                            | Evidence                                                                            |
 | ----------------------------------------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------- |
 | Repository/route/domain/content/configuration review              | Complete for planning scope       | Audit capability map and A01–A23 findings                                           |
-| Current typecheck/unit/lint/build baseline                        | Recorded                          | Typecheck pass; 523 tests pass; lint 12 warnings; build pass                        |
-| Browser/accessibility sample                                      | Recorded with failures            | Six Chromium combinations, overflow/contrast/landmark findings; not full acceptance |
+| Current typecheck/unit/lint/build baseline                        | Verified for accepted slices     | Typecheck pass; 523 tests pass; lint 12 warnings; production build pass             |
+| Browser/accessibility sample                                      | Improved; broader gates open     | Chromium at 390px in light/dark: sampled routes fit, axe clean, no page errors       |
 | Visual, learning-path, simulator, sound and architecture proposal | Written; proposed design          | Design specification                                                                |
 | Ordered task plan and verification criteria                       | Written; proposed plan            | E00–E18 plan                                                                        |
 | Historical audit and R-plan recovery                              | Restored as historical references | Read from `522550a`, no current completion inferred                                 |
-| Product implementation and new evidence publication               | Not performed                     | This is a documentation delivery                                                    |
+| Product implementation and new evidence publication               | Software slices in progress       | `95966c2` and `5ac45c2` pushed; no new scientific evidence published                  |
 
 ## Implementation queue
 
@@ -40,13 +40,13 @@ All rows are planned, not accepted. Sub-slices have independent commits/reviews.
 
 | ID     | Deliverable                                                 | Depends on                   | Status                                      |
 | ------ | ----------------------------------------------------------- | ---------------------------- | ------------------------------------------- |
-| E00    | Reconciled status, liveness and browser/CI baseline         | Planning                     | Next                                        |
+| E00    | Reconciled status, liveness and browser/CI baseline         | Planning                     | In progress; health route and flagship Chromium sample accepted |
 | E01    | Auditable evidence publication and release serving          | E00                          | Planned                                     |
 | E02    | Reviewed comparison sources/category releases               | E01                          | Planned; real review required               |
 | E03    | Lossless Comparison Lab and shared evidence/charts          | E00; release E02             | Planned                                     |
 | E04    | Evidence metadata routes, public filters and Lab acceptance | E01–E03                      | Planned; public lesson gate                 |
 | E05    | Selected home/lesson/comparison/India visual targets        | Audit                        | Planned                                     |
-| E06    | Compact shell, consistent themes and mobile navigation      | E05                          | Planned                                     |
+| E06    | Compact shell, consistent themes and mobile navigation      | E05                          | In progress; theme/mobile/contrast foundation pushed |
 | E07    | Content/path graph, real claims and review contracts        | E01; release E04             | Planned                                     |
 | E08    | One replayable fission model                                | E00                          | Planned                                     |
 | E09    | Complete five-level fission lesson and shared frames        | E04/E06–E08                  | Planned                                     |
@@ -61,7 +61,7 @@ All rows are planned, not accepted. Sub-slices have independent commits/reviews.
 | E16a   | Reviewed India baseline and programme story                 | E13/E15a–b                   | Planned                                     |
 | E16b   | India portfolio scenarios                                   | E16a/E15a–b                  | Planned                                     |
 | E17a–b | Focused reactor and fleet experiences                       | E06/E09                      | Planned per exhibit                         |
-| E18a   | Operations, pilot and full release verification             | Released slices              | Planned; checks also apply per slice        |
+| E18a   | Operations, pilot and full release verification             | Released slices              | In progress; local checks recorded per slice |
 | E18b   | Evaluated generated Ask answers                             | Mature reviewed retrieval    | Optional; not a learning-release dependency |
 
 ## Verification and publication rules
@@ -85,5 +85,16 @@ All rows are planned, not accepted. Sub-slices have independent commits/reviews.
 - HTTP probes: `/health`, `/india`, `/evidence/sources/source-unece-2021` each return 404.
 - Full configured E2E, Firefox/WebKit, complete keyboard/zoom/reduced-motion, sound, measured performance and scientific/licensing review: not run; not claimed.
 - New planning documents and archived browser artifacts: see audit and plan links above. All local Markdown links in the four new planning documents resolve; E00–E18 headings are present in order; placeholder scan passes. Markdown was formatted with `--ignore-path /dev/null` because the repository normally ignores `*.md` in Prettier. Commit/push outcome is recorded in the final planning handoff.
+
+## Verification log — 2026-09-23 implementation slices
+
+- Branch: `codex/atom-experience-foundation`; one worktree; base `95966c2` plus pushed `5ac45c2`.
+- `5ac45c2` includes: motion/visibility lifecycle hooks for simulators and Three.js scenes; idempotent fission stage counting; scene power updates without renderer rebuild; globe hydration and reduced-motion fixes; accessible simulator tabs; removal of nested main landmarks; compact mobile layouts; shared light/dark contrast repairs across sampled routes; topic pages migrated from fixed light colors.
+- `npm run typecheck`: exit 0.
+- `npm run lint`: exit 0 with 12 pre-existing warnings; no errors.
+- `npx vitest run`: exit 0, 73 test files, 523 tests passed.
+- `npm run build`: exit 0, 56 routes generated.
+- Chromium browser verification at 390×844, light and dark: `/`, `/topics`, `/simulations`, `/globe`, `/compare`, and `/learn/fission` have no horizontal overflow, no page errors, and no axe color-contrast/landmark/heading violations in the sampled state.
+- Remaining unverified gates: Firefox/WebKit, 320px/tablet/desktop visual comparison, 200% zoom, full keyboard journeys, hidden-tab/offscreen resource assertions, WebGL context loss, sound adapter, measured performance, scientific/editorial/licensing review, and production deployment.
 
 No E00–E18 implementation task or whole R-stage is marked complete by this planning delivery.
