@@ -57,6 +57,8 @@ export default async function TopicPage({ params }: TopicPageProps) {
       <div
         style={{
           maxWidth: "54rem",
+          width: "100%",
+          minWidth: 0,
           margin: "0 auto",
           padding: "2.5rem 1.5rem 6rem",
         }}
@@ -69,7 +71,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
             alignItems: "center",
             gap: "0.5rem",
             fontSize: "0.875rem",
-            color: "#6b7280",
+            color: "var(--atom-text-secondary)",
             marginBottom: "1.5rem",
           }}
         >
@@ -84,7 +86,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
             Topics
           </Link>
           <span>/</span>
-          <span style={{ color: "#111827", fontWeight: 500 }}>
+          <span style={{ color: "var(--atom-text-primary)", fontWeight: 500 }}>
             {topic.title}
           </span>
         </nav>
@@ -92,7 +94,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
         <header
           style={{
             marginBottom: "2.5rem",
-            borderBottom: "1px solid #e5e7eb",
+            borderBottom: "1px solid var(--atom-border-subtle)",
             paddingBottom: "1.5rem",
           }}
         >
@@ -102,8 +104,8 @@ export default async function TopicPage({ params }: TopicPageProps) {
               fontSize: "0.75rem",
               fontWeight: 700,
               textTransform: "uppercase",
-              color: "#6d28d9",
-              backgroundColor: "#ede9fe",
+              color: "var(--atom-accent)",
+              backgroundColor: "var(--atom-accent-soft)",
               padding: "0.25rem 0.625rem",
               borderRadius: "9999px",
               marginBottom: "0.75rem",
@@ -122,7 +124,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
           </h1>
           <p
             style={{
-              color: "#4b5563",
+              color: "var(--atom-text-secondary)",
               fontSize: "1.125rem",
               lineHeight: 1.6,
               margin: 0,
@@ -146,7 +148,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(14rem, 100%), 1fr))",
               gap: "1rem",
             }}
           >
@@ -155,15 +157,15 @@ export default async function TopicPage({ params }: TopicPageProps) {
                 key={sub.id}
                 style={{
                   padding: "1rem",
-                  backgroundColor: "#f9fafb",
-                  border: "1px solid #e5e7eb",
+                  backgroundColor: "var(--atom-surface-elevated)",
+                  border: "1px solid var(--atom-border-default)",
                   borderRadius: "0.5rem",
                 }}
               >
                 <div
                   style={{
                     fontWeight: 600,
-                    color: "#111827",
+                    color: "var(--atom-text-primary)",
                     fontSize: "0.9375rem",
                   }}
                 >
@@ -196,12 +198,12 @@ export default async function TopicPage({ params }: TopicPageProps) {
                   style={{
                     display: "block",
                     padding: "1.25rem",
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #e5e7eb",
+                    backgroundColor: "var(--atom-surface-panel)",
+                    border: "1px solid var(--atom-border-default)",
                     borderRadius: "0.75rem",
                     textDecoration: "none",
                     color: "inherit",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+                    boxShadow: "0 1px 3px color-mix(in srgb, var(--atom-text-primary) 8%, transparent)",
                   }}
                 >
                   <div
@@ -216,7 +218,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
                       style={{
                         fontSize: "0.75rem",
                         fontWeight: 700,
-                        color: "#7c3aed",
+                        color: "var(--atom-accent)",
                       }}
                     >
                       Lesson {lesson.order}
@@ -224,8 +226,8 @@ export default async function TopicPage({ params }: TopicPageProps) {
                     <span
                       style={{
                         fontSize: "0.75rem",
-                        color: "#065f46",
-                        backgroundColor: "#d1fae5",
+                        color: "var(--atom-accent-secondary)",
+                        backgroundColor: "var(--atom-accent-secondary-soft)",
                         padding: "0.125rem 0.5rem",
                         borderRadius: "9999px",
                       }}
@@ -245,7 +247,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
                   <p
                     style={{
                       margin: 0,
-                      color: "#4b5563",
+                      color: "var(--atom-text-secondary)",
                       fontSize: "0.875rem",
                     }}
                   >
@@ -255,19 +257,24 @@ export default async function TopicPage({ params }: TopicPageProps) {
               ))}
             </div>
           ) : (
-            <p style={{ color: "#6b7280", fontStyle: "italic" }}>
+            <p style={{ color: "var(--atom-text-secondary)", fontStyle: "italic" }}>
               Lessons for this topic are currently undergoing editorial and
               scientific review.
             </p>
           )}
         </section>
 
-        <div style={{ paddingTop: "1.5rem", borderTop: "1px solid #e5e7eb" }}>
+        <div
+          style={{
+            paddingTop: "1.5rem",
+            borderTop: "1px solid var(--atom-border-subtle)",
+          }}
+        >
           <Link
             href="/topics"
             style={{
               display: "inline-block",
-              color: "#7c3aed",
+              color: "var(--atom-accent)",
               fontWeight: 600,
               textDecoration: "none",
             }}

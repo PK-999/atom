@@ -16,7 +16,7 @@
   /* --- Text --- */
   --atom-text-primary: #f0f2f5;
   --atom-text-secondary: #9ca3af;
-  --atom-text-muted: #6b7280;
+  --atom-text-muted: #9ca3af;
   --atom-text-reading: #101823;
   --atom-text-inverse: #0a0e1a;
 
@@ -97,18 +97,18 @@
   --atom-surface-glass: rgba(255, 255, 255, 0.7);
   --atom-text-primary: #0f172a;
   --atom-text-secondary: #475569;
-  --atom-text-muted: #94a3b8;
+  --atom-text-muted: #64748b;
   --atom-text-inverse: #f8fafc;
   --atom-border-subtle: rgba(15, 23, 42, 0.06);
   --atom-border-default: rgba(15, 23, 42, 0.12);
   --atom-border-strong: rgba(15, 23, 42, 0.2);
-  --atom-accent: #0891b2;
+  --atom-accent: #0e7490;
   --atom-accent-soft: rgba(8, 145, 178, 0.1);
-  --atom-accent-hover: #06b6d4;
+  --atom-accent-hover: #0e7490;
   --atom-accent-glow: none;
-  --atom-interactive-primary: #0891b2;
-  --atom-interactive-hover: #06b6d4;
-  --atom-focus-ring: #0891b2;
+  --atom-interactive-primary: #0e7490;
+  --atom-interactive-hover: #0e7490;
+  --atom-focus-ring: #0e7490;
   color-scheme: light;
 }
 

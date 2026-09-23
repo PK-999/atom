@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import * as THREE from "three";
 import type { Facility } from "@/lib/globe/schemas";
+import { useMotionPreferences } from "@/lib/accessibility/motion";
 import worldLandData from "@/data/reactors/world-land-110m.json";
 
 interface Globe3DCanvasProps {
@@ -31,6 +32,9 @@ export function Globe3DCanvas({
   const globeGroupRef = useRef<THREE.Group | null>(null);
   const markerGroupRef = useRef<THREE.Group | null>(null);
   const selectedPulseRef = useRef<THREE.Mesh | null>(null);
+  const shouldAnimateRef = useRef(true);
+  const animationFrameRef = useRef<number | null>(null);
+  const startAnimationRef = useRef<(() => void) | null>(null);
 
   // Interaction State
   const isDraggingRef = useRef(false);
@@ -46,6 +50,17 @@ export function Globe3DCanvas({
     x: number;
     y: number;
   } | null>(null);
+  const { shouldAnimate } = useMotionPreferences();
+
+  useEffect(() => {
+    shouldAnimateRef.current = shouldAnimate;
+    if (shouldAnimate) {
+      startAnimationRef.current?.();
+    } else if (animationFrameRef.current !== null) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+  }, [shouldAnimate]);
 
   useEffect(() => {
     isAutoRotateRef.current = isAutoRotate;
@@ -305,7 +320,13 @@ export function Globe3DCanvas({
     const clock = new THREE.Clock();
 
     const animate = () => {
+      if (!shouldAnimateRef.current) {
+        renderer.render(scene, camera);
+        animationFrameRef.current = null;
+        return;
+      }
       animationFrameId = requestAnimationFrame(animate);
+      animationFrameRef.current = animationFrameId;
       const delta = clock.getDelta();
       const elapsedTime = clock.getElapsedTime();
 
@@ -338,11 +359,14 @@ export function Globe3DCanvas({
       renderer.render(scene, camera);
     };
 
+    startAnimationRef.current = animate;
     animate();
 
     return () => {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
+      animationFrameRef.current = null;
+      startAnimationRef.current = null;
       renderer.dispose();
       sphereGeometry.dispose();
       sphereMaterial.dispose();

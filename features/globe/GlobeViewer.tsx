@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, useMemo, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useMemo,
+  useRef,
+  useEffect,
+  useSyncExternalStore,
+} from "react";
 import type { Facility, FacilityStatus } from "../../lib/globe/schemas";
 import { filterFacilities } from "../../lib/globe/facility-model";
 import worldLand from "@/data/reactors/world-land-110m.json";
@@ -32,11 +38,16 @@ export function GlobeViewer({
   );
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [yearFilter, setYearFilter] = useState<string>("all");
+  const isHydrated = useSyncExternalStore(
+    () => () => undefined,
+    () => true,
+    () => false,
+  );
 
   // Geospatial View State
   const [viewMode, setViewMode] = useState<"3d" | "2d">("3d");
   const [zoomLevel, setZoomLevel] = useState<number>(1.0);
-  const [isAutoRotate, setIsAutoRotate] = useState<boolean>(true);
+  const [isAutoRotate, setIsAutoRotate] = useState<boolean>(false);
   const [panOffset, setPanOffset] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
@@ -556,7 +567,7 @@ export function GlobeViewer({
                 ref={svg2DRef}
                 viewBox={dynamicViewBox}
                 className={styles.mapSvg}
-                role="img"
+                role="group"
                 aria-label="World map showing nuclear facility locations"
                 onPointerDown={handlePointerDown2D}
                 onPointerMove={handlePointerMove2D}
@@ -613,7 +624,7 @@ export function GlobeViewer({
                 />
 
                 {/* Facility Pins */}
-                {deconflictedPins.map((fac) => {
+                {isHydrated && deconflictedPins.map((fac) => {
                   const isSelected = activeSelectedId === fac.id;
 
                   let pinColor = "#10b981";
@@ -1034,7 +1045,7 @@ export function GlobeViewer({
                   >
                     Reactor Units Breakdown ({selectedFacility.units.length})
                   </h4>
-                  <div className={styles.unitsTableWrapper}>
+                  <div className={styles.unitsTableWrapper} tabIndex={0}>
                     <table
                       className={styles.unitsTable}
                       aria-label="Individual Reactor Units"

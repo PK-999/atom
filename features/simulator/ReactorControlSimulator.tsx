@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
+import { useMotionPreferences } from "@/lib/accessibility/motion";
 import {
   calculateReactorCoreState,
   REACTOR_SPEC,
@@ -11,6 +12,7 @@ import styles from "./ReactorControlSimulator.module.css";
 
 export function ReactorControlSimulator() {
   const [complexity] = useComplexityPreference("curious");
+  const { shouldAnimate } = useMotionPreferences();
 
   const [input, setInput] = useState<ReactorControlInput>({
     rodInsertionPercent: 52.0,
@@ -25,7 +27,7 @@ export function ReactorControlSimulator() {
 
   // Timer for SCRAM decay heat progression
   useEffect(() => {
-    if (!input.isScrammed) return;
+    if (!input.isScrammed || !shouldAnimate) return;
 
     const timer = setInterval(() => {
       setInput((prev) => {
@@ -38,7 +40,7 @@ export function ReactorControlSimulator() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [input.isScrammed]);
+  }, [input.isScrammed, shouldAnimate]);
 
   const state = useMemo(() => {
     return calculateReactorCoreState(input);

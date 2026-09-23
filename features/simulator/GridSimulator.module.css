@@ -536,3 +536,179 @@
   color: #e2e8f0;
   margin: 0;
 }
+
+.metricCard,
+.sourceCard,
+.tableCard,
+.educationCard {
+  background: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.metricSub,
+.demandTitle,
+.demandTwh,
+.controlLabel,
+.sourceOutputStat,
+.educationCard {
+  color: var(--atom-text-secondary);
+}
+
+.leapTag {
+  color: var(--atom-text-secondary);
+  background: var(--atom-surface-elevated);
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: 6px;
+  padding: 0.25rem 0.6rem;
+}
+
+.demandCurveLabel {
+  color: #b91c1c;
+}
+
+:global([data-theme="light"]) .presetBar,
+:global([data-theme="light"]) .coverageCard,
+:global([data-theme="light"]) .card,
+:global([data-theme="light"]) .demandCard,
+:global([data-theme="light"]) .visualDispatchCard,
+:global([data-theme="light"]) .powerFlowWrapper,
+:global([data-theme="light"]) .dispatchSvgWrapper,
+:global([data-theme="light"]) .educationCard,
+:global([data-theme="light"]) .sourceCard,
+:global([data-theme="light"]) .tableCard {
+  background: var(--atom-surface-panel);
+  color: var(--atom-text-primary);
+  border-color: var(--atom-border-default);
+  box-shadow: 0 6px 24px color-mix(in srgb, var(--atom-text-primary) 8%, transparent);
+}
+
+:global([data-theme="light"]) .demandCard,
+:global([data-theme="light"]) .levelInsightCard {
+  background: var(--atom-surface-elevated);
+}
+
+:global([data-theme="light"]) .gridStatusStable {
+  color: #166534;
+  background: #dcfce7;
+  border-color: #86efac;
+}
+
+:global([data-theme="light"]) .gridStatusDeficit {
+  color: #991b1b;
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+:global([data-theme="light"]) .gridStatusSurplus {
+  color: #075985;
+  background: #e0f2fe;
+  border-color: #7dd3fc;
+}
+
+:global([data-theme="light"]) .levelInsightBody {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .btnReset {
+  color: #334155;
+  background: var(--atom-surface-panel);
+  border-color: var(--atom-border-default);
+}
+
+:global([data-theme="light"]) .visualTitle {
+  color: var(--atom-text-primary);
+}
+
+:global([data-theme="light"]) .visualSubtitle,
+:global([data-theme="light"]) .demandTwh {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .demandCurveLabel {
+  color: #991b1b;
+}
+
+:global([data-theme="light"]) .demandControlRow > span {
+  color: #475569 !important;
+}
+
+:global([data-theme="dark"]) .gridStatusDeficit {
+  color: #fb7185;
+}
+
+:global([data-theme="dark"]) .demandCurveLabel {
+  color: #f87171;
+}
+
+:global([data-theme="dark"]) .demandControlRow > span {
+  color: #cbd5e1 !important;
+}
+
+:global([data-theme="light"]) .badge,
+:global([data-theme="light"]) .presetLabel,
+:global([data-theme="light"]) .hoursBadge,
+:global([data-theme="light"]) .metricValue,
+:global([data-theme="light"]) .levelInsightHeader {
+  color: #075985;
+}
+
+:global([data-theme="light"]) .lead,
+:global([data-theme="light"]) .metricLabel,
+:global([data-theme="light"]) .coverageLabel,
+:global([data-theme="light"]) .sourceFooter,
+:global([data-theme="light"]) .th {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .levelInsightBody {
+  color: #334155;
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 0;
+  }
+
+  .presetBar,
+  .card,
+  .coverageCard,
+  .visualDispatchCard,
+  .disclaimerBox {
+    min-width: 0;
+    padding-inline: 1rem;
+  }
+
+  .presetBar,
+  .calendarRow,
+  .yearInputGroup {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .presetSelect,
+  .yearInput {
+    max-width: 100%;
+  }
+
+  .presetSelect {
+    width: 100%;
+  }
+
+  .calendarRow {
+    margin-left: 0;
+  }
+
+  .breakdownTable {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .disclaimerGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

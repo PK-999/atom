@@ -8,6 +8,7 @@ import React, {
   useCallback,
 } from "react";
 import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
+import { useMotionPreferences } from "@/lib/accessibility/motion";
 import {
   calculateEffectiveMultiplication,
   FISSION_PHYSICS_CONSTANTS,
@@ -37,6 +38,7 @@ type AtomicStage = "approach" | "capture" | "necking" | "scission";
 
 export function FissionSimulator() {
   const [complexity] = useComplexityPreference("curious");
+  const { shouldAnimate } = useMotionPreferences();
   const [viewMode, setViewMode] = useState<ViewMode>("core-lattice");
   const [atomicStage, setAtomicStage] = useState<AtomicStage>("approach");
 
@@ -87,17 +89,20 @@ export function FissionSimulator() {
 
   // Step atomic split animation
   const handleAtomicStep = (stage: AtomicStage) => {
-    setAtomicStage(stage);
-    if (stage === "scission") {
-      setFissionCount((c) => c + 1);
-      setEnergyJoules(
-        (j) => j + FISSION_PHYSICS_CONSTANTS.ENERGY_PER_FISSION_JOULES,
-      );
-    }
+    setAtomicStage((previous) => {
+      if (stage === "scission" && previous !== "scission") {
+        setFissionCount((c) => c + 1);
+        setEnergyJoules(
+          (j) => j + FISSION_PHYSICS_CONSTANTS.ENERGY_PER_FISSION_JOULES,
+        );
+      }
+      return stage;
+    });
   };
 
   // Particle animation and interaction loop
   useEffect(() => {
+    if (!shouldAnimate) return;
     const timer = setInterval(() => {
       setNeutrons((prev) => {
         if (prev.length === 0 && !isAutoRunning) return prev;
@@ -202,7 +207,7 @@ export function FissionSimulator() {
     }, 45);
 
     return () => clearInterval(timer);
-  }, [config, isAutoRunning]);
+  }, [config, isAutoRunning, shouldAnimate]);
 
   return (
     <div className={styles.container}>

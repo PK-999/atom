@@ -127,6 +127,14 @@
   margin-bottom: 64px;
 }
 
+:global([data-theme="light"]) .principlesBanner {
+  background: linear-gradient(
+    135deg,
+    var(--atom-surface-panel) 0%,
+    var(--atom-surface-elevated) 100%
+  );
+}
+
 .principlesTitle {
   font-size: 1.5rem;
   font-weight: 800;

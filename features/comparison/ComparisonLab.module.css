@@ -653,11 +653,13 @@
 
 .evidenceStatus {
   display: flex;
+  min-width: 0;
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
   color: var(--text-muted);
   font-size: 0.88rem;
+  overflow-wrap: anywhere;
 }
 
 .dialogOverlay {
@@ -1065,6 +1067,11 @@
   outline: none;
 }
 
+:global([data-theme="light"]) .chartHeader p,
+:global([data-theme="light"]) .previewNotice {
+  color: #475569;
+}
+
 @media (hover: hover) {
   .sourceChip:hover,
   .secondaryAction:hover,
@@ -1158,5 +1165,19 @@
 
   .chartPanel {
     padding: 20px;
+  }
+
+  .actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .primaryAction,
+  .secondaryAction,
+  .evidenceStatus {
+    width: 100%;
+  }
+
+  .evidenceStatus {
+    justify-content: flex-start;
   }
 }

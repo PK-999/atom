@@ -90,7 +90,7 @@
   padding: 6px 16px;
   border-radius: var(--atom-radius-full);
   background: var(--atom-accent-soft);
-  border: 1px solid rgba(0, 212, 255, 0.3);
+  border: 1px solid color-mix(in srgb, var(--atom-accent) 35%, transparent);
   color: var(--atom-accent);
   font-size: 0.8125rem;
   font-weight: 700;
@@ -109,7 +109,18 @@
 }
 
 .gradientText {
-  background: linear-gradient(135deg, #ffffff 30%, #00d4ff 75%, #34d399 100%);
+  background: linear-gradient(
+    135deg,
+    var(--atom-text-primary) 30%,
+    var(--atom-accent) 75%,
+    var(--atom-accent-secondary) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="light"]) .gradientText {
+  background: linear-gradient(135deg, #0f172a 30%, #087f9c 75%, #087443 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

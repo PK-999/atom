@@ -44,9 +44,9 @@ function EnergyDensityInteraction() {
 
   return (
     <div className={styles.interactionCard} data-testid="energy-interaction">
-      <h3 className={styles.interactionTitle}>
+      <h2 className={styles.interactionTitle}>
         Interactive: Fuel Equivalence Calculator
-      </h3>
+      </h2>
       <p className={styles.interactionSubtitle}>
         Move the slider to compare the energy in small uranium dioxide fuel
         pellets to conventional fossil fuels.
@@ -125,9 +125,9 @@ function AtomIsotopeInteraction() {
 
   return (
     <div className={styles.interactionCard} data-testid="atom-interaction">
-      <h3 className={styles.interactionTitle}>
+      <h2 className={styles.interactionTitle}>
         Interactive: Isotope Inspector
-      </h3>
+      </h2>
       <p className={styles.interactionSubtitle}>
         Select an atomic nucleus to inspect its internal composition and nuclear
         properties.
@@ -190,9 +190,9 @@ function FissionChainInteraction() {
 
   return (
     <div className={styles.interactionCard} data-testid="fission-interaction">
-      <h3 className={styles.interactionTitle}>
+      <h2 className={styles.interactionTitle}>
         Interactive: Fission Neutron Multiplication
-      </h3>
+      </h2>
       <p className={styles.interactionSubtitle}>
         Trigger neutron generations to visualize steady critical multiplication
         (k = 1.0) in a controlled reactor core.
@@ -241,9 +241,9 @@ function ReactorControlInteraction() {
 
   return (
     <div className={styles.interactionCard} data-testid="reactor-interaction">
-      <h3 className={styles.interactionTitle}>
+      <h2 className={styles.interactionTitle}>
         Interactive: Control Rod Reactivity Simulator
-      </h3>
+      </h2>
       <p className={styles.interactionSubtitle}>
         Adjust control rod insertion depth to observe neutron absorption and
         core power modulation.
@@ -316,9 +316,9 @@ function SteamCycleInteraction() {
       className={styles.interactionCard}
       data-testid="generation-interaction"
     >
-      <h3 className={styles.interactionTitle}>
+      <h2 className={styles.interactionTitle}>
         Interactive: Rankine Steam Cycle Stages
-      </h3>
+      </h2>
       <p className={styles.interactionSubtitle}>
         Step through the thermodynamic cycle transforming nuclear heat into grid
         electricity.
@@ -397,9 +397,9 @@ function DefenseInDepthInteraction() {
 
   return (
     <div className={styles.interactionCard} data-testid="safety-interaction">
-      <h3 className={styles.interactionTitle}>
+      <h2 className={styles.interactionTitle}>
         Interactive: The 4 Physical Safety Barriers
-      </h3>
+      </h2>
       <p className={styles.interactionSubtitle}>
         Click each concentric barrier to inspect how modern reactors implement
         defense-in-depth.
@@ -468,9 +468,9 @@ function WasteDecayInteraction() {
 
   return (
     <div className={styles.interactionCard} data-testid="waste-interaction">
-      <h3 className={styles.interactionTitle}>
+      <h2 className={styles.interactionTitle}>
         Interactive: Radioactive Decay Timeline
-      </h3>
+      </h2>
       <p className={styles.interactionSubtitle}>
         Slide across logarithmic time to observe spent fuel decay and required
         isolation mechanisms.

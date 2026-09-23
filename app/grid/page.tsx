@@ -11,9 +11,7 @@ export const metadata: Metadata = {
 export default function GridPage() {
   return (
     <AppShell>
-      <main id="main-content">
-        <GridSimulator />
-      </main>
+      <GridSimulator />
     </AppShell>
   );
 }

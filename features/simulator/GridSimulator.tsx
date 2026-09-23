@@ -607,11 +607,11 @@ export function GridSimulator({
                   Hydro (Dispatchable)
                 </span>
                 <span
+                  className={styles.demandCurveLabel}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "0.35rem",
-                    color: "#f43f5e",
                     fontWeight: 700,
                   }}
                 >
@@ -630,7 +630,6 @@ export function GridSimulator({
               {hoveredHour !== null && (
                 <div
                   style={{
-                    color: "#38bdf8",
                     fontWeight: 600,
                     fontFamily: "monospace",
                   }}

@@ -7,6 +7,7 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import type { ReactorSystem, ReactorComponent } from "@/lib/reactor/schemas";
+import { useMotionPreferences } from "@/lib/accessibility/motion";
 import styles from "./Reactor3DCanvas.module.css";
 
 export interface Reactor3DCanvasProps {
@@ -52,6 +53,10 @@ export function Reactor3DCanvas({
     }[]
   >([]);
   const interactiveMeshesRef = useRef<THREE.Object3D[]>([]);
+  const powerLevelRef = useRef(powerLevel);
+  const shouldAnimateRef = useRef(true);
+  const animationFrameRef = useRef<number | null>(null);
+  const startAnimationRef = useRef<(() => void) | null>(null);
 
   // Camera Orbit & Zoom State
   const targetCamPosRef = useRef(new THREE.Vector3(20, 30, 140));
@@ -66,11 +71,26 @@ export function Reactor3DCanvas({
     null,
   );
   const [zoomPercent, setZoomPercent] = useState(100);
+  const { shouldAnimate } = useMotionPreferences();
 
   const activeLoopFilterRef = useRef(activeLoopFilter);
   useEffect(() => {
     activeLoopFilterRef.current = activeLoopFilter;
   }, [activeLoopFilter]);
+
+  useEffect(() => {
+    powerLevelRef.current = powerLevel;
+  }, [powerLevel]);
+
+  useEffect(() => {
+    shouldAnimateRef.current = shouldAnimate;
+    if (shouldAnimate) {
+      startAnimationRef.current?.();
+    } else if (animationFrameRef.current !== null) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+  }, [shouldAnimate]);
 
   // Raycaster for mouse interaction
   const raycasterRef = useRef(new THREE.Raycaster());
@@ -1478,7 +1498,13 @@ export function Reactor3DCanvas({
     let animationFrameId: number;
 
     const animate = () => {
+      if (!shouldAnimateRef.current) {
+        renderer.render(scene, camera);
+        animationFrameRef.current = null;
+        return;
+      }
       animationFrameId = requestAnimationFrame(animate);
+      animationFrameRef.current = animationFrameId;
 
       // 1. Controls & Camera Transitions
       if (controlsRef.current) {
@@ -1505,15 +1531,17 @@ export function Reactor3DCanvas({
       }
 
       // 2. Animate Turbines
+      const currentPowerLevel = powerLevelRef.current;
       const turbineSpeed =
-        powerLevel === 100 ? 0.25 : powerLevel === 50 ? 0.12 : 0;
+        currentPowerLevel === 100 ? 0.25 : currentPowerLevel === 50 ? 0.12 : 0;
       turbineRotorsRef.current.forEach((rotor) => {
         rotor.rotation.x += turbineSpeed;
       });
 
       // 3. Animate Control Rod Height based on Power Level
       if (controlRodsRef.current) {
-        const targetY = powerLevel === 100 ? 12 : powerLevel === 50 ? 6 : 0;
+        const targetY =
+          currentPowerLevel === 100 ? 12 : currentPowerLevel === 50 ? 6 : 0;
         controlRodsRef.current.position.y +=
           (targetY - controlRodsRef.current.position.y) * 0.05;
       }
@@ -1521,14 +1549,14 @@ export function Reactor3DCanvas({
       // 4. Core Fission Light Intensity
       if (coreLightRef.current) {
         const targetIntensity =
-          powerLevel === 100 ? 3.0 : powerLevel === 50 ? 1.4 : 0;
+          currentPowerLevel === 100 ? 3.0 : currentPowerLevel === 50 ? 1.4 : 0;
         coreLightRef.current.intensity +=
           (targetIntensity - coreLightRef.current.intensity) * 0.05;
       }
 
       // 5. Animate Cooling Tower Vapor Plume
       const vaporSpeedMult =
-        powerLevel === 100 ? 1.0 : powerLevel === 50 ? 0.5 : 0.05;
+        currentPowerLevel === 100 ? 1.0 : currentPowerLevel === 50 ? 0.5 : 0.05;
       vaporParticlesRef.current.forEach((p) => {
         p.mesh.position.y += p.speed * vaporSpeedMult;
         const scale = 1 + (p.mesh.position.y - 24) * 0.08;
@@ -1545,7 +1573,7 @@ export function Reactor3DCanvas({
 
       // 6. Animate Flow Particles
       const flowSpeedMult =
-        powerLevel === 100 ? 1.0 : powerLevel === 50 ? 0.5 : 0.0;
+        currentPowerLevel === 100 ? 1.0 : currentPowerLevel === 50 ? 0.5 : 0.0;
       const activeLoopFilter = activeLoopFilterRef.current;
       flowParticlesRef.current.forEach((p) => {
         if (activeLoopFilter !== "all" && activeLoopFilter !== p.loop) {
@@ -1569,6 +1597,7 @@ export function Reactor3DCanvas({
       }
     };
 
+    startAnimationRef.current = animate;
     animate();
 
     // Resize Handler with ResizeObserver
@@ -1600,6 +1629,8 @@ export function Reactor3DCanvas({
       window.removeEventListener("resize", handleResize);
       resizeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
+      animationFrameRef.current = null;
+      startAnimationRef.current = null;
       if (controlsRef.current) {
         controlsRef.current.dispose();
       }
@@ -1608,7 +1639,7 @@ export function Reactor3DCanvas({
       }
       renderer.dispose();
     };
-  }, [system.id, powerLevel]);
+  }, [system.id]);
 
   const handlePointerMove = (e: React.PointerEvent) => {
     const mount = canvasMountRef.current;

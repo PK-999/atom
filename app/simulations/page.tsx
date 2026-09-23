@@ -11,9 +11,7 @@ export const metadata: Metadata = {
 export default function SimulationsPage() {
   return (
     <AppShell>
-      <main id="main-content">
-        <SimulationsHubClient />
-      </main>
+      <SimulationsHubClient />
     </AppShell>
   );
 }

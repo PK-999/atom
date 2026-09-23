@@ -16,7 +16,9 @@ describe("GlobeViewer Component (R16-G)", () => {
     ).toBeDefined();
 
     expect(
-      screen.getByRole("img", { name: /World map showing nuclear facility/i }),
+      screen.getByRole("group", {
+        name: /World map showing nuclear facility/i,
+      }),
     ).toBeDefined();
     expect(
       screen.getByRole("table", { name: /Nuclear Facilities Table/i }),
@@ -161,7 +163,7 @@ describe("GlobeViewer Component (R16-G)", () => {
     const mode2DBtn = screen.getByRole("button", { name: /2D Map/i });
     fireEvent.click(mode2DBtn);
 
-    const svg = screen.getByRole("img", {
+    const svg = screen.getByRole("group", {
       name: /World map showing nuclear facility/i,
     });
     const wheelEvent = new WheelEvent("wheel", {

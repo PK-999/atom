@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
+import { useMotionPreferences } from "@/lib/accessibility/motion";
 import {
   RADIOISOTOPES,
   generateDecayCurve,
@@ -15,6 +16,7 @@ const TOTAL_ATOMS = 100;
 
 export function DecaySimulator() {
   const [complexity] = useComplexityPreference("curious");
+  const { shouldAnimate } = useMotionPreferences();
   const [selectedIsotopeId, setSelectedIsotopeId] = useState("Cs-137");
   const [halfLivesElapsed, setHalfLivesElapsed] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -133,7 +135,7 @@ export function DecaySimulator() {
 
   // Automatic playback timer
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying || !shouldAnimate) return;
 
     const intervalMs = playbackSpeed === 1 ? 1200 : 600;
     const timer = setInterval(() => {
@@ -148,7 +150,7 @@ export function DecaySimulator() {
     }, intervalMs);
 
     return () => clearInterval(timer);
-  }, [isPlaying, playbackSpeed, advanceHalfLife]);
+  }, [isPlaying, playbackSpeed, advanceHalfLife, shouldAnimate]);
 
   // SVG Chart path calculation
   const chartPath = useMemo(() => {

@@ -16,11 +16,13 @@ export default function TopicsPage() {
   return (
     <AppShell>
       <div
-        style={{
-          maxWidth: "56rem",
-          margin: "0 auto",
-          padding: "2.5rem 1.5rem 6rem",
-        }}
+          style={{
+            maxWidth: "56rem",
+            width: "100%",
+            minWidth: 0,
+            margin: "0 auto",
+            padding: "2.5rem 1.5rem 6rem",
+          }}
       >
         <header style={{ marginBottom: "2.5rem" }}>
           <h1
@@ -34,7 +36,7 @@ export default function TopicsPage() {
           </h1>
           <p
             style={{
-              color: "#6b7280",
+              color: "var(--atom-text-secondary)",
               fontSize: "1.125rem",
               maxWidth: "36rem",
             }}
@@ -48,7 +50,9 @@ export default function TopicsPage() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(24rem, 1fr))",
+            width: "100%",
+            minWidth: 0,
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(24rem, 100%), 1fr))",
             gap: "1.5rem",
           }}
         >
@@ -58,11 +62,11 @@ export default function TopicsPage() {
               <div
                 key={topic.id}
                 style={{
-                  backgroundColor: "#ffffff",
-                  border: "1px solid #e5e7eb",
+                  backgroundColor: "var(--atom-surface-panel)",
+                  border: "1px solid var(--atom-border-default)",
                   borderRadius: "0.75rem",
                   padding: "1.5rem",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+                  boxShadow: "0 1px 3px color-mix(in srgb, var(--atom-text-primary) 8%, transparent)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
@@ -90,7 +94,7 @@ export default function TopicsPage() {
                     >
                       Topic {topic.order}
                     </span>
-                    <span style={{ fontSize: "0.8125rem", color: "#6b7280" }}>
+                    <span style={{ fontSize: "0.8125rem", color: "var(--atom-text-secondary)" }}>
                       {topicLessons.length}{" "}
                       {topicLessons.length === 1 ? "Lesson" : "Lessons"}
                     </span>
@@ -112,7 +116,7 @@ export default function TopicsPage() {
                   </h2>
                   <p
                     style={{
-                      color: "#4b5563",
+                      color: "var(--atom-text-secondary)",
                       fontSize: "0.9375rem",
                       lineHeight: 1.5,
                       marginBottom: "1.25rem",
@@ -127,7 +131,7 @@ export default function TopicsPage() {
                         fontSize: "0.75rem",
                         fontWeight: 700,
                         textTransform: "uppercase",
-                        color: "#6b7280",
+                        color: "var(--atom-text-secondary)",
                         marginBottom: "0.5rem",
                       }}
                     >
@@ -138,7 +142,7 @@ export default function TopicsPage() {
                         margin: 0,
                         paddingLeft: "1.25rem",
                         fontSize: "0.875rem",
-                        color: "#4b5563",
+                        color: "var(--atom-text-secondary)",
                         lineHeight: 1.6,
                       }}
                     >
@@ -150,7 +154,10 @@ export default function TopicsPage() {
                 </div>
 
                 <div
-                  style={{ paddingTop: "1rem", borderTop: "1px solid #f3f4f6" }}
+                  style={{
+                    paddingTop: "1rem",
+                    borderTop: "1px solid var(--atom-border-subtle)",
+                  }}
                 >
                   <Link
                     href={`/topics/${topic.slug}`}
@@ -158,7 +165,7 @@ export default function TopicsPage() {
                       display: "inline-flex",
                       alignItems: "center",
                       gap: "0.25rem",
-                      color: "#7c3aed",
+                      color: "var(--atom-accent)",
                       fontWeight: 600,
                       fontSize: "0.875rem",
                       textDecoration: "none",

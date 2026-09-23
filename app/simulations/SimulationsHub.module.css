@@ -88,6 +88,7 @@
 }
 
 .tabPanel {
+  min-width: 0;
   animation: fadeIn 0.2s ease-in-out;
 }
 
@@ -156,4 +157,42 @@
   color: var(--text-secondary);
   line-height: 1.4;
   margin: 0;
+}
+
+:global([data-theme="light"]) .badge,
+:global([data-theme="light"]) .tabButtonActive {
+  color: #075985;
+}
+
+:global([data-theme="light"]) .badge {
+  background: #e0f2fe;
+  border-color: #7dd3fc;
+}
+
+:global([data-theme="light"]) .tabButtonActive {
+  background: #e0f2fe;
+  border-color: #0e7490;
+}
+
+@media (max-width: 640px) {
+  .pageContainer {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 0;
+  }
+
+  .tabsBar,
+  .tabPanel,
+  .relatedSection {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .tabPanel {
+    overflow: hidden;
+  }
+
+  .relatedGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

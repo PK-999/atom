@@ -29,7 +29,7 @@
   top: 0;
   z-index: 50;
   border-bottom: 1px solid var(--atom-border-subtle);
-  background: rgba(10, 14, 26, 0.82);
+  background: color-mix(in srgb, var(--atom-surface-canvas) 88%, transparent);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
@@ -180,13 +180,13 @@
 /* --- Footer --- */
 .footer {
   border-top: 1px solid var(--atom-border-subtle);
-  background: rgba(13, 19, 33, 0.9);
+  background: color-mix(in srgb, var(--atom-surface-panel) 92%, transparent);
   padding: 48px 0 24px;
   color: var(--atom-text-muted);
 }
 
 :global([data-theme="light"]) .footer {
-  background: #f8fafc;
+  background: var(--atom-surface-canvas);
   border-top: 1px solid var(--atom-border-default);
   color: var(--atom-text-secondary);
 }

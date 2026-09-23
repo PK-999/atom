@@ -11,9 +11,7 @@ export const metadata: Metadata = {
 export default function AskPage() {
   return (
     <AppShell>
-      <main id="main-content">
-        <AskAtom />
-      </main>
+      <AskAtom />
     </AppShell>
   );
 }

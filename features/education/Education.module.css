@@ -312,6 +312,17 @@
   border-radius: var(--atom-radius-full);
 }
 
+:global([data-theme="light"]) .equivalenceLabel {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .checkpointBadge,
+:global([data-theme="light"]) .completedBadge {
+  color: #166534;
+  background-color: #dcfce7;
+  border-color: #86efac;
+}
+
 .completedBadge {
   display: inline-block;
   font-size: 0.75rem;

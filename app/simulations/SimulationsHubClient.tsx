@@ -33,9 +33,11 @@ export function SimulationsHubClient() {
         aria-label="Select Simulation Tool"
       >
         <button
+          id="simulation-tab-grid"
           type="button"
           role="tab"
           aria-selected={activeTab === "grid"}
+          aria-controls="simulation-panel-grid"
           className={`${styles.tabButton} ${activeTab === "grid" ? styles.tabButtonActive : ""}`}
           onClick={() => setActiveTab("grid")}
         >
@@ -46,9 +48,11 @@ export function SimulationsHubClient() {
         </button>
 
         <button
+          id="simulation-tab-fission"
           type="button"
           role="tab"
           aria-selected={activeTab === "fission"}
+          aria-controls="simulation-panel-fission"
           className={`${styles.tabButton} ${activeTab === "fission" ? styles.tabButtonActive : ""}`}
           onClick={() => setActiveTab("fission")}
         >
@@ -59,9 +63,11 @@ export function SimulationsHubClient() {
         </button>
 
         <button
+          id="simulation-tab-decay"
           type="button"
           role="tab"
           aria-selected={activeTab === "decay"}
+          aria-controls="simulation-panel-decay"
           className={`${styles.tabButton} ${activeTab === "decay" ? styles.tabButtonActive : ""}`}
           onClick={() => setActiveTab("decay")}
         >
@@ -72,9 +78,11 @@ export function SimulationsHubClient() {
         </button>
 
         <button
+          id="simulation-tab-reactor"
           type="button"
           role="tab"
           aria-selected={activeTab === "reactor"}
+          aria-controls="simulation-panel-reactor"
           className={`${styles.tabButton} ${activeTab === "reactor" ? styles.tabButtonActive : ""}`}
           onClick={() => setActiveTab("reactor")}
         >
@@ -86,7 +94,13 @@ export function SimulationsHubClient() {
       </div>
 
       {/* Active Simulator Container */}
-      <div className={styles.tabPanel} role="tabpanel">
+      <div
+        className={styles.tabPanel}
+        id={`simulation-panel-${activeTab}`}
+        role="tabpanel"
+        aria-labelledby={`simulation-tab-${activeTab}`}
+        tabIndex={0}
+      >
         {activeTab === "grid" && <GridSimulator />}
         {activeTab === "fission" && <FissionSimulator />}
         {activeTab === "decay" && <DecaySimulator />}

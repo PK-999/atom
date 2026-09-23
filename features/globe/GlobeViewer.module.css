@@ -1042,7 +1042,7 @@
 }
 
 :global([data-theme="light"]) .viewModeBtn {
-  color: #64748b;
+  color: #334155;
 }
 
 :global([data-theme="light"]) .viewModeBtn:hover {
@@ -1051,7 +1051,7 @@
 }
 
 :global([data-theme="light"]) .viewModeBtnActive {
-  background: #0284c7 !important;
+  background: #0e7490 !important;
   color: #ffffff !important;
 }
 
@@ -1075,7 +1075,7 @@
 
 :global([data-theme="light"]) .mapCount {
   background: rgba(2, 132, 199, 0.1);
-  color: #0284c7;
+  color: #075985;
   border-color: rgba(2, 132, 199, 0.25);
 }
 
@@ -1098,11 +1098,45 @@
 }
 
 :global([data-theme="light"]) .sourceLink {
-  color: #0284c7;
+  color: #075985;
 }
 
 :global([data-theme="light"]) .sourceLink:hover {
-  color: #0369a1;
+  color: #0c4a6e;
+}
+
+:global([data-theme="light"]) .inspectorBadge,
+:global([data-theme="light"]) .facilityLocation,
+:global([data-theme="light"]) .filterLabel {
+  color: #075985;
+}
+
+:global([data-theme="light"]) .metricBlockValue {
+  color: #047857;
+}
+
+:global([data-theme="light"]) .statusOperating {
+  color: #166534;
+  background: #dcfce7;
+}
+
+:global([data-theme="light"]) .statusConstruction {
+  color: #075985;
+  background: #e0f2fe;
+}
+
+:global([data-theme="light"]) .statusMixed {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+:global([data-theme="light"]) .statusShutdown {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+:global([data-theme="light"]) .tableRow div[style*="color:#38bdf8"] {
+  color: #075985 !important;
 }
 
 :global([data-theme="light"]) .focalLens {
@@ -1136,7 +1170,7 @@
 }
 
 :global([data-theme="light"]) .metricBlockValue {
-  color: #059669;
+  color: #047857;
 }
 
 :global([data-theme="light"]) .metricBlockCoords,
@@ -1176,6 +1210,21 @@
   color: #0f172a;
 }
 
+:global([data-theme="light"]) .tableRowSelected div[style*="color:#64748b"] {
+  color: #475569 !important;
+}
+
+:global([data-theme="dark"]) .viewModeBtnActive {
+  background: #0369a1 !important;
+}
+
+:global([data-theme="dark"]) .inspectorStatusHint,
+:global([data-theme="dark"]) .sourceFooter,
+:global([data-theme="dark"]) .focalInfo span,
+:global([data-theme="dark"]) .tableRow div[style*="color:#64748b"] {
+  color: #cbd5e1 !important;
+}
+
 :global([data-theme="light"]) .tableWrapper,
 :global([data-theme="light"]) .unitsTableWrapper {
   border-color: rgba(15, 23, 42, 0.1);
@@ -1187,4 +1236,52 @@
 
 :global([data-theme="light"]) .legendItem {
   color: #475569;
+}
+
+@media (max-width: 640px) {
+  .heroSection > *,
+  .mapCard,
+  .inspectorCard,
+  .directoryCard {
+    min-width: 0;
+  }
+
+  .mapHeader,
+  .mapTitleGroup,
+  .mapToolbar {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .mapTitleGroup {
+    align-items: flex-start;
+  }
+
+  .viewModeToggle {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .viewModeBtn {
+    min-width: 0;
+    flex: 1 1 0;
+  }
+
+  .mapToolbar {
+    flex-wrap: wrap;
+  }
+
+  .paneHeader {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .mapVisualArea {
+    min-height: 380px;
+  }
+
+  .canvasContainer,
+  .mapSvg {
+    height: 380px;
+  }
 }
