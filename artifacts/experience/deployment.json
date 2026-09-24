@@ -1,0 +1,13 @@
+{
+  "id": "dpl_Brfv7essoj3t9Dees1QUnDvAmdPC",
+  "readyState": "READY",
+  "target": "production",
+  "commit": "71fb672687a61a5b4c533310768ad8070be169b8",
+  "ref": "main",
+  "url": "atom-aha3fbado-pks-projects-35b7ae41.vercel.app",
+  "aliases": [
+    "atom-opal-omega.vercel.app",
+    "atom-pks-projects-35b7ae41.vercel.app",
+    "atom-git-main-pks-projects-35b7ae41.vercel.app"
+  ]
+}

@@ -12,7 +12,7 @@ Read in order:
 4. [Ordered E00–E18 implementation plan](../superpowers/plans/2026-09-21-atom-learning-experience.md).
 5. Applicable product policies, ADRs and the historical R-package specification mapped by the task.
 
-**Current implementation slice: site-wide experience integration and release verification.** Theme correction `3472875` and annual-grid correction `1af5cf4` are committed and pushed. The museum shell/homepage, atom/fuel/fission exhibits, deterministic decay, learning paths, source-honesty repairs, and reactor/globe lifecycle changes are implemented in the working tree and undergoing final acceptance. They are **not yet deployed**. Resume from the live progress table below; do not restart the old E00-only queue.
+**Current delivery: deployed software integration.** Theme `3472875`, annual grid `1af5cf4`, and museum/exhibit integration `71fb672` are committed and pushed to `main`. Vercel production deployment `dpl_Brfv7essoj3t9Dees1QUnDvAmdPC` is Ready at [ATOM](https://atom-opal-omega.vercel.app). The live browser checks passed. See the acceptance/deployment records below for exact scope and remaining gates. **Next unblocked implementation task: E01 evidence publication/serving reconciliation**, with the remaining E18 verification and lesson/exhibit refinements tracked separately.
 
 Scientific/editorial/licensing review remains a separate gate. Existing content was not newly approved; no new lesson URL or India profile was released.
 
@@ -29,42 +29,42 @@ These historical claims are not current acceptance evidence. The restored 2026-0
 | Deliverable                                                       | Status                            | Evidence                                                                       |
 | ----------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------ |
 | Repository/route/domain/content/configuration review              | Complete for planning scope       | Audit capability map and A01–A23 findings                                      |
-| Current typecheck/unit/lint/build baseline                        | Verified for accepted slices      | Typecheck pass; 523 tests pass; lint 12 warnings; production build pass        |
+| Current typecheck/unit/lint/build baseline                        | Verified for accepted slices      | Typecheck pass; 526 tests pass; lint 10 warnings; production build pass        |
 | Browser/accessibility sample                                      | Improved; broader gates open      | Chromium at 390px in light/dark: sampled routes fit, axe clean, no page errors |
 | Visual, learning-path, simulator, sound and architecture proposal | Written; proposed design          | Design specification                                                           |
 | Ordered task plan and verification criteria                       | Written; proposed plan            | E00–E18 plan                                                                   |
 | Historical audit and R-plan recovery                              | Restored as historical references | Read from `522550a`, no current completion inferred                            |
-| Product implementation and new evidence publication               | Software slices in progress       | `95966c2` and `5ac45c2` pushed; no new scientific evidence published           |
+| Product implementation and new evidence publication               | Software slices in progress       | `71fb672` deployed; no new scientific evidence published                       |
 
 ## Implementation queue
 
 Rows describe the broader roadmap, not a claim that implemented software has editorial approval. Sub-slices have independent commits/reviews; the current experience status below supersedes stale “Planned” labels for that software. Exact steps and files are in the plan.
 
-| ID     | Deliverable                                                 | Depends on                   | Status                                                          |
-| ------ | ----------------------------------------------------------- | ---------------------------- | --------------------------------------------------------------- |
-| E00    | Reconciled status, liveness and browser/CI baseline         | Planning                     | In progress; health route and flagship Chromium sample accepted |
-| E01    | Auditable evidence publication and release serving          | E00                          | Planned                                                         |
-| E02    | Reviewed comparison sources/category releases               | E01                          | Planned; real review required                                   |
-| E03    | Lossless Comparison Lab and shared evidence/charts          | E00; release E02             | Planned                                                         |
-| E04    | Evidence metadata routes, public filters and Lab acceptance | E01–E03                      | Planned; public lesson gate                                     |
-| E05    | Selected home/lesson/comparison/India visual targets        | Audit                        | Planned                                                         |
-| E06    | Compact shell, consistent themes and mobile navigation      | E05                          | In progress; theme/mobile/contrast foundation pushed            |
-| E07    | Content/path graph, real claims and review contracts        | E01; release E04             | Planned                                                         |
-| E08    | One replayable fission model                                | E00                          | Planned                                                         |
-| E09    | Complete five-level fission lesson and shared frames        | E04/E06–E08                  | Planned                                                         |
-| E10    | Opt-in sound in the completed lesson                        | E09                          | Planned                                                         |
-| E11    | Signature homepage and discovery                            | E04/E06/E09                  | Planned                                                         |
-| E12a–f | Remaining six fundamentals lessons; fission is E09          | E09                          | Planned per lesson                                              |
-| E13    | Thematic paths, resume and versioned local progress         | E07/E12                      | Planned                                                         |
-| E14a–c | Claim investigations, radiation, incidents                  | E04/E09; relevant E12 blocks | Planned per surface                                             |
-| E15a   | Honest annual grid and impact inputs                        | E01/E02/E09                  | Planned                                                         |
-| E15b   | Contextual cost sensitivity model and workbench             | E01/E02/E09                  | Planned                                                         |
-| E15c   | Hourly grid model                                           | Separate model/data review   | Optional later scope                                            |
-| E16a   | Reviewed India baseline and programme story                 | E13/E15a–b                   | Planned                                                         |
-| E16b   | India portfolio scenarios                                   | E16a/E15a–b                  | Planned                                                         |
-| E17a–b | Focused reactor and fleet experiences                       | E06/E09                      | Planned per exhibit                                             |
-| E18a   | Operations, pilot and full release verification             | Released slices              | In progress; local checks recorded per slice                    |
-| E18b   | Evaluated generated Ask answers                             | Mature reviewed retrieval    | Optional; not a learning-release dependency                     |
+| ID     | Deliverable                                                 | Depends on                   | Status                                                                        |
+| ------ | ----------------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------- |
+| E00    | Reconciled status, liveness and browser/CI baseline         | Planning                     | Software baseline passes; publication/operations gates remain                 |
+| E01    | Auditable evidence publication and release serving          | E00                          | Planned                                                                       |
+| E02    | Reviewed comparison sources/category releases               | E01                          | Planned; real review required                                                 |
+| E03    | Lossless Comparison Lab and shared evidence/charts          | E00; release E02             | Core URL/missing-data/evidence UI repaired; E01/E02 release gates open        |
+| E04    | Evidence metadata routes, public filters and Lab acceptance | E01–E03                      | Planned; public lesson gate                                                   |
+| E05    | Selected home/lesson/comparison/India visual targets        | Audit                        | Selected warm museum reference implemented; remaining surfaces partial        |
+| E06    | Compact shell, consistent themes and mobile navigation      | E05                          | Software deployed and browser-verified; manual zoom/AT review open            |
+| E07    | Content/path graph, real claims and review contracts        | E01; release E04             | Planned                                                                       |
+| E08    | One replayable fission model                                | E00                          | Replayable single-event storyboard implemented/tested; scientific review open |
+| E09    | Complete five-level fission lesson and shared frames        | E04/E06–E08                  | Lesson flow/exhibit implemented; claim review and full depth content open     |
+| E10    | Opt-in sound in the completed lesson                        | E09                          | Opt-in audio implemented; three-browser gesture/mute checks pass              |
+| E11    | Signature homepage and discovery                            | E04/E06/E09                  | Museum home and interactive conversion journey deployed                       |
+| E12a–f | Remaining six fundamentals lessons; fission is E09          | E09                          | Shared experiments integrated; lesson-by-lesson source/depth review open      |
+| E13    | Thematic paths, resume and versioned local progress         | E07/E12                      | Paths/progress/resume deployed; path-context refinement and review open       |
+| E14a–c | Claim investigations, radiation, incidents                  | E04/E09; relevant E12 blocks | Planned per surface                                                           |
+| E15a   | Honest annual grid and impact inputs                        | E01/E02/E09                  | Annual-only software slice deployed; reviewed input release open              |
+| E15b   | Contextual cost sensitivity model and workbench             | E01/E02/E09                  | Planned                                                                       |
+| E15c   | Hourly grid model                                           | Separate model/data review   | Optional later scope                                                          |
+| E16a   | Reviewed India baseline and programme story                 | E13/E15a–b                   | Planned                                                                       |
+| E16b   | India portfolio scenarios                                   | E16a/E15a–b                  | Planned                                                                       |
+| E17a–b | Focused reactor and fleet experiences                       | E06/E09                      | Lifecycle/fallback/schematic repairs deployed; camera/model polish remains    |
+| E18a   | Operations, pilot and full release verification             | Released slices              | In progress; local checks recorded per slice                                  |
+| E18b   | Evaluated generated Ask answers                             | Mature reviewed retrieval    | Optional; not a learning-release dependency                                   |
 
 ## Verification and publication rules
 
@@ -182,7 +182,7 @@ This table is the current status authority for the user’s ten-step experience 
 
 ### Remaining work, in execution order
 
-1. Finish the final full browser run, commit/push this integration and deploy the existing Vercel project. Record actual commit, deployment ID and production checks below. A push alone is not a deployment.
+1. **Next code task — E01:** implement the evidence publication/serving reconciliation described in the ordered plan. The present software integration is already committed, pushed and production-verified; do not redo it or mark the wider roadmap complete.
 2. **E18 software verification:** actual 200% browser zoom and assistive-technology journeys; repeated-mount GPU resource profiling and real background-tab behavior; production field LCP/CLS/INP monitoring. Close gaps with evidence rather than broad “site complete” assertions.
 3. **E01–E04 evidence infrastructure:** reconcile source-level provenance, public metadata routes, release-serving rules and review records. Preserve unavailable states and release filtering. Real scientific/editorial/licensing review remains an external gate; this does not prevent implementing the missing software contracts next.
 4. **E07/E09/E12/E13 lesson completion:** map substantive claims to exact sources, expand genuine five-level explanations, remove duplicated prediction prompts in embedded exhibits, review geometry/scale assumptions and checkpoint validity, persist path context consistently, then run a learning pilot. Existing released lesson URLs stay canonical.
@@ -191,3 +191,13 @@ This table is the current status authority for the user’s ten-step experience 
 7. **Optional E15c/E18b:** reviewed hourly grid and evaluated generated Ask answers. Before enabling generated answers, remove hard-coded confidence and no-hallucination guarantees in legacy AI providers; require supported citations and evaluated abstentions. Curated search remains the default.
 
 Ruling: retain one Next.js application and one Vercel deployment. Reuse shared controls/models and lazy scene boundaries; no microfrontends, general scene engine, new backend or animation library.
+
+### Production release record — 2026-09-25
+
+- **Code commit:** `71fb672687a61a5b4c533310768ad8070be169b8`, pushed to `codex/atom-experience-foundation` and fast-forwarded to remote `main`. No force push, unrelated reset or migration.
+- **Preview:** `dpl_E8AumJTq7cHKSzetbWLeUQw6E1A6`, Ready, same code commit. Vercel-authenticated preview health returned `{"status":"ok"}` and the new museum homepage/interactive journey markup was present. Deployment protection stayed enabled.
+- **Production:** `dpl_Brfv7essoj3t9Dees1QUnDvAmdPC`, Ready/Production, `atom-aha3fbado-pks-projects-35b7ae41.vercel.app`, aliased to [atom-opal-omega.vercel.app](https://atom-opal-omega.vercel.app). Vercel API verified the exact `main` SHA. [Sanitized deployment record](../../artifacts/experience/deployment.json).
+- **Live verification:** `node scripts/qa-production.mjs` → exit 0, **14 route/theme states plus two interactive journeys**. `/health` returned 200 and expected JSON. Home, Learn, Fission, Compare, Simulations, PWR and Globe returned 200 in light/dark at 390×844, one main/h1, no core overflow or axe violations. Homepage stepping, explicit theme/reload, idempotent fission, 3D loading and context-loss fallback passed with no captured page errors. [Production browser results](../../artifacts/experience/production-smoke.json).
+- **Runtime check:** `vercel logs <deployment> --level error --since 10m --no-follow` returned no matching logs during the initial post-release window. This is a short smoke check, not ongoing monitoring or evidence that every route is error-free.
+- **Rollback reference:** previous production application revision `da727f9`; preserve the Vercel deployment history. Review/source/publication and the remaining software/manual QA tasks above remain open.
+- **Documentation follow-up:** the subsequent documentation/QA-artifact commit records this release; it does not change application code. Production Git integration may rebuild that record-only revision.
