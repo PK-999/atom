@@ -4,7 +4,7 @@
   max-width: 72rem;
   margin: 0 auto;
   padding: 1.5rem 1rem 4rem 1rem;
-  color: var(--color-foreground, #f8fafc);
+  color: var(--atom-text-primary);
 }
 
 .header {
@@ -22,7 +22,7 @@
   padding: 0.3rem 0.75rem;
   border-radius: 9999px;
   background: rgba(14, 165, 233, 0.15);
-  color: #38bdf8;
+  color: var(--atom-accent);
   border: 1px solid rgba(14, 165, 233, 0.3);
   margin-bottom: 0.85rem;
   text-transform: uppercase;
@@ -35,7 +35,7 @@
   line-height: 1.2;
   letter-spacing: -0.025em;
   margin-bottom: 0.75rem;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #38bdf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -44,7 +44,7 @@
 .lead {
   font-size: 1.1rem;
   line-height: 1.65;
-  color: var(--color-muted-foreground, #94a3b8);
+  color: var(--atom-text-secondary);
   max-width: 52rem;
   margin-bottom: 1.25rem;
 }
@@ -55,7 +55,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 1.25rem;
-  background: rgba(15, 23, 42, 0.75);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
   border-radius: 12px;
@@ -69,31 +69,31 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #38bdf8;
+  color: var(--atom-accent);
 }
 
 .presetSelect {
   padding: 0.5rem 0.85rem;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(30, 41, 59, 0.7);
-  color: #f8fafc;
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-primary);
   font-size: 0.9rem;
 }
 
 .presetSelect option {
-  background: #0f172a;
-  color: #f8fafc;
+  background: var(--atom-surface-panel);
+  color: var(--atom-text-primary);
 }
 
 .btnReset {
   padding: 0.5rem 1rem;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(30, 41, 59, 0.6);
+  background: var(--atom-surface-elevated);
   font-size: 0.85rem;
   font-weight: 600;
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -101,7 +101,7 @@
 .btnReset:hover {
   background: rgba(56, 189, 248, 0.15);
   border-color: #38bdf8;
-  color: #ffffff;
+  color: var(--atom-text-primary);
 }
 
 .calendarRow {
@@ -124,15 +124,15 @@
   padding: 0.4rem 0.6rem;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(30, 41, 59, 0.7);
-  color: #f8fafc;
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-primary);
   font-size: 0.9rem;
   font-family: monospace;
 }
 
 .hoursBadge {
   font-size: 0.8rem;
-  color: #38bdf8;
+  color: var(--atom-accent);
   font-weight: 700;
   background: rgba(56, 189, 248, 0.15);
   padding: 0.25rem 0.6rem;
@@ -143,7 +143,7 @@
 
 /* Coverage Big Stat Card */
 .coverageCard {
-  background: rgba(15, 23, 42, 0.8);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
   border-radius: 14px;
@@ -166,13 +166,13 @@
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-weight: 700;
 }
 
 .coverageSub {
   font-size: 0.95rem;
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
 }
 
 .deficitCallout {
@@ -191,7 +191,7 @@
   border-radius: 8px;
   padding: 0.85rem 1.25rem;
   font-size: 0.9rem;
-  color: #a7f3d0;
+  color: var(--atom-positive);
   margin-top: 0.5rem;
 }
 
@@ -210,7 +210,7 @@
 }
 
 .card {
-  background: rgba(15, 23, 42, 0.75);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
   border-radius: 14px;
@@ -227,7 +227,7 @@
 .cardTitle {
   font-size: 1.25rem;
   font-weight: 800;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   margin: 0;
 }
 
@@ -245,13 +245,13 @@
 .sliderLabel {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #f1f5f9;
+  color: var(--atom-text-primary);
 }
 
 .sliderValue {
   font-size: 0.9rem;
   font-weight: 700;
-  color: #38bdf8;
+  color: var(--atom-accent);
   font-family: monospace;
 }
 
@@ -259,13 +259,13 @@
   width: 100%;
   accent-color: #38bdf8;
   height: 6px;
-  background: rgba(30, 41, 59, 0.8);
+  background: var(--atom-surface-elevated);
   border-radius: 4px;
   cursor: pointer;
 }
 
 .demandCard {
-  background: rgba(30, 41, 59, 0.5);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 1.25rem;
@@ -281,7 +281,7 @@
 }
 
 .metricItem {
-  background: rgba(30, 41, 59, 0.6);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 1rem;
@@ -290,7 +290,7 @@
 .metricValue {
   font-size: 1.4rem;
   font-weight: 800;
-  color: #38bdf8;
+  color: var(--atom-accent);
   margin-bottom: 0.25rem;
   font-family: monospace;
 }
@@ -299,20 +299,20 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-weight: 700;
 }
 
 .cleanCarbonValue {
-  color: #10b981;
+  color: var(--atom-positive);
 }
 
 .moderateCarbonValue {
-  color: #f59e0b;
+  color: var(--atom-warning);
 }
 
 .highCarbonValue {
-  color: #ef4444;
+  color: var(--atom-negative);
 }
 
 /* Breakdown Table */
@@ -327,11 +327,11 @@
 }
 
 .th {
-  background: rgba(30, 41, 59, 0.8);
+  background: var(--atom-surface-elevated);
   padding: 0.65rem 0.75rem;
   text-align: left;
   font-weight: 700;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   font-size: 0.75rem;
@@ -341,12 +341,12 @@
 .td {
   padding: 0.65rem 0.75rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
 }
 
 .sourceFooter {
   font-size: 0.8rem;
-  color: #64748b;
+  color: var(--atom-text-muted);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 1rem;
   margin-top: 1.5rem;
@@ -354,7 +354,7 @@
 
 /* Educational Reliability Disclaimer */
 .disclaimerBox {
-  background: rgba(15, 23, 42, 0.8);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(245, 158, 11, 0.3);
   border-radius: 14px;
   padding: 1.75rem 2rem;
@@ -364,7 +364,7 @@
 .disclaimerTitle {
   font-size: 1.2rem;
   font-weight: 800;
-  color: #fbbf24;
+  color: var(--atom-warning);
   margin: 0 0 1rem 0;
   display: flex;
   align-items: center;
@@ -373,12 +373,12 @@
 
 .disclaimerGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
   gap: 1.5rem;
 }
 
 .disclaimerItem {
-  background: rgba(30, 41, 59, 0.5);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 10px;
   padding: 1.25rem;
@@ -387,14 +387,14 @@
 .disclaimerItemTitle {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   margin: 0 0 0.5rem 0;
 }
 
 .disclaimerItemBody {
   font-size: 0.875rem;
   line-height: 1.6;
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
   margin: 0;
 }
 
@@ -408,7 +408,7 @@
 }
 
 .visualDispatchCard {
-  background: rgba(15, 23, 42, 0.85);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(56, 189, 248, 0.25);
   border-radius: 16px;
   padding: 1.5rem;
@@ -431,7 +431,7 @@
 .visualTitle {
   font-size: 1.3rem;
   font-weight: 800;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -440,7 +440,7 @@
 
 .visualSubtitle {
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   margin: 0.25rem 0 0 0;
 }
 
@@ -457,7 +457,7 @@
 
 .gridStatusStable {
   background: rgba(52, 211, 153, 0.15);
-  color: #34d399;
+  color: var(--atom-positive);
   border: 1px solid rgba(52, 211, 153, 0.4);
   box-shadow: 0 0 15px rgba(52, 211, 153, 0.2);
 }
@@ -471,7 +471,7 @@
 
 .gridStatusSurplus {
   background: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
+  color: var(--atom-accent);
   border: 1px solid rgba(56, 189, 248, 0.4);
   box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
 }
@@ -527,13 +527,13 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: 700;
-  color: #38bdf8;
+  color: var(--atom-accent);
 }
 
 .levelInsightBody {
   font-size: 0.92rem;
   line-height: 1.55;
-  color: #e2e8f0;
+  color: var(--atom-text-primary);
   margin: 0;
 }
 
@@ -609,11 +609,11 @@
 }
 
 :global([data-theme="light"]) .levelInsightBody {
-  color: #334155;
+  color: var(--atom-text-secondary);
 }
 
 :global([data-theme="light"]) .btnReset {
-  color: #334155;
+  color: var(--atom-text-secondary);
   background: var(--atom-surface-panel);
   border-color: var(--atom-border-default);
 }
@@ -624,7 +624,7 @@
 
 :global([data-theme="light"]) .visualSubtitle,
 :global([data-theme="light"]) .demandTwh {
-  color: #475569;
+  color: var(--atom-text-secondary);
 }
 
 :global([data-theme="light"]) .demandCurveLabel {
@@ -636,11 +636,11 @@
 }
 
 :global([data-theme="dark"]) .gridStatusDeficit {
-  color: #fb7185;
+  color: var(--atom-negative);
 }
 
 :global([data-theme="dark"]) .demandCurveLabel {
-  color: #f87171;
+  color: var(--atom-negative);
 }
 
 :global([data-theme="dark"]) .demandControlRow > span {
@@ -660,11 +660,11 @@
 :global([data-theme="light"]) .coverageLabel,
 :global([data-theme="light"]) .sourceFooter,
 :global([data-theme="light"]) .th {
-  color: #475569;
+  color: var(--atom-text-secondary);
 }
 
 :global([data-theme="light"]) .levelInsightBody {
-  color: #334155;
+  color: var(--atom-text-secondary);
 }
 
 @media (max-width: 640px) {
@@ -712,4 +712,24 @@
   .disclaimerGrid {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+.tableCard {
+  min-width: 0;
+  max-width: 100%;
+}
+.table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+.table th,
+.table td {
+  overflow-wrap: anywhere;
+  padding: 10px 6px;
+  border-bottom: 1px solid var(--atom-border-default);
+  text-align: left;
+}
+.metricSub a {
+  text-decoration: underline;
 }

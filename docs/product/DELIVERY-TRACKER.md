@@ -102,3 +102,32 @@ All rows are planned, not accepted. Sub-slices have independent commits/reviews.
 - Remaining unverified gates: Firefox/WebKit, 320px/tablet/desktop visual comparison, 200% zoom, full keyboard journeys, hidden-tab/offscreen resource assertions, WebGL context loss, sound adapter, measured performance, scientific/editorial/licensing review, and production deployment.
 
 No E00–E18 implementation task or whole R-stage is marked complete by this planning delivery.
+
+## Reopened gap audit — 2026-09-23
+
+The user requested completion of the approved ten-part experience plan. Earlier foundation checks do **not** establish full delivery. In particular the previous “idempotent fission” claim only covered repeated adjacent clicks: leaving and revisiting split still adds an event. Scene theme observers do not repaint paused scenes, the mobile menu is not a focus-managed drawer, simulator tabs destroy state, and no atom/fuel exhibit, sound adapter or interactive homepage exists.
+
+| Approved step / queue | Outstanding implementation and acceptance |
+| --- | --- |
+| 01 / E00,E18 | Stale E2E contracts/routes; full cross-browser route matrix and screenshots |
+| 02 / E06 | Singleton theme subscription; cross-tab storage clear; paused scene invalidation |
+| 03 / E05,E06 | Museum palette, mobile drawer, utility search; all-route contrast and 320px checks |
+| 04 / E09,E10 | Offscreen/demand rendering, elapsed-time playback, shared controls and opt-in audio |
+| 05 / E08,E09,E17 | Shared simulation state and readable schematic conventions; extraction of oversized components |
+| 06 / E17 | Reactor/globe disposal, context-loss fallback, demand updates and complete materials |
+| 07 / E08,E12 | Replayable fission and atom/fuel 2D/3D exhibits |
+| 08 / E09,E11,E13 | Controllable conversion homepage, lesson structure, durable learning progress |
+| 09 / E03,E14,E15 | Annual-only grid, explicit missing factors, remaining route UX and evidence gaps |
+| 10 / E18 | Full accessibility, browser, performance and release acceptance |
+
+Ruling: the user's approved ten-part experience plan is the current implementation scope. The broader E01–E18 editorial/research roadmap remains mapped here; real scientific review, India release and optional hourly/AI models cannot be fabricated as software completion. Continue on the existing clean feature branch, preserving the sole observed worktree. Existing deployment authorization remains valid.
+
+Current regression slice: cross-tab cleared storage and grid annual accounting. Failing tests observed: storage-clear stayed Light; unknown technology invented a 50 gCO₂e/kWh factor; standalone grid lacked an h1. Fixed with a shared store, null impact results, correct embedded heading and removal of unsupported hourly dispatch/blackout output. No new evidence was published.
+
+## Accepted annual-grid slice — 2026-09-24
+
+- Scope: approved step 09 / E15a software only. Removed unsupported hourly dispatch curves, blackout-duration and reliability implications. The experiment now reports annual MWh balance and makes its illustrative emissions assumptions explicit.
+- Model: existing annual capacity × capacity factor × hours calculation; missing emissions factors are nullable and make the aggregate unavailable. Missing generation does not become an intensity of zero. No new source observations or scientific approvals.
+- Verification: `npx vitest run lib/simulator/grid-model.test.ts features/simulator/GridSimulator.test.tsx --maxWorkers=2` → 16/16 pass. Production-build Chromium `tests/e2e/grid.spec.ts` → 5/5 pass. The 390px light/dark route audit shows no overflow, page errors or axe violations for /grid and the default simulator panel. `git diff --check` → pass.
+- State: commit/push recorded in git; production deployment still pending. The broader reopened experience work remains in progress.
+- Prior accepted theme correction: `3472875` pushed; cross-tab storage clear and initial control synchronization fixed.

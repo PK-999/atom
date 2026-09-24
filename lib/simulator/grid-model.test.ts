@@ -190,3 +190,21 @@ describe("Annual Grid Model Arithmetic (R17)", () => {
     expect(nuclearSource?.annualCarbonEmissionsTonnes).toBeGreaterThan(0);
   });
 });
+
+it("does not invent an emissions factor for an unknown technology", () => {
+  const result = simulateAnnualGrid({
+    ...getDefaultScenario(),
+    sources: [
+      {
+        id: "unknown",
+        name: "Unknown",
+        capacityMw: 1000,
+        capacityFactor: 0.9,
+        isDispatchable: false,
+      },
+    ],
+  });
+  expect(result.totalGenerationMwh).toBe(7884000);
+  expect(result.weightedCarbonIntensityGPerKwh).toBeNull();
+  expect(result.sourcesBreakdown[0].carbonIntensityGPerKwh).toBeNull();
+});

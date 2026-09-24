@@ -77,3 +77,13 @@ describe("GridSimulator Component (R17)", () => {
     expect(screen.getByText(/Seasonal Storage Requirements/i)).toBeDefined();
   });
 });
+
+it("shows annual outputs without fabricating hourly reliability", () => {
+  render(<GridSimulator />);
+  expect(
+    screen.getByRole("heading", { level: 1, name: /Annual Electricity/ }),
+  ).toBeInTheDocument();
+  expect(
+    screen.queryByText(/100% Hourly Demand Met Reliably|Blackout Risk/),
+  ).not.toBeInTheDocument();
+});

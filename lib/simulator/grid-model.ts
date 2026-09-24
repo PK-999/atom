@@ -9,8 +9,8 @@ export interface SourceSimulationBreakdown {
   generationSharePercent: number;
   isDispatchable: boolean;
   color?: string;
-  carbonIntensityGPerKwh: number;
-  annualCarbonEmissionsTonnes: number;
+  carbonIntensityGPerKwh: number | null;
+  annualCarbonEmissionsTonnes: number | null;
 }
 
 export interface GridSimulationResult {
@@ -23,8 +23,8 @@ export interface GridSimulationResult {
   variableGenerationMwh: number;
   sourcesBreakdown: SourceSimulationBreakdown[];
   hourlyAdequacyDisclaimer: string;
-  weightedCarbonIntensityGPerKwh: number;
-  totalAnnualCarbonEmissionsTonnes: number;
+  weightedCarbonIntensityGPerKwh: number | null;
+  totalAnnualCarbonEmissionsTonnes: number | null;
 }
 
 export const HOURLY_ADEQUACY_DISCLAIMER =
@@ -56,6 +56,8 @@ export function simulateAnnualGrid(
   let variableGenerationMwh = 0;
   let totalAnnualCarbonEmissionsTonnes = 0;
 
+  let missingFactor = false;
+
   // Step 1: Compute annual generation per source
   const preliminaryBreakdown = validatedScenario.sources.map((source) => {
     const annualGen = source.capacityMw * source.capacityFactor * hours;
@@ -67,10 +69,12 @@ export function simulateAnnualGrid(
     }
 
     const intensity =
-      LIFECYCLE_CARBON_INTENSITY_FACTORS[source.id.toLowerCase()] ?? 50;
+      LIFECYCLE_CARBON_INTENSITY_FACTORS[source.id.toLowerCase()] ?? null;
     // 1 MWh * (intensity gCO2e / kWh) * (1 kg / 1000 g) = kgCO2e. / 1000 = tonnes CO2e.
-    const sourceCarbonTonnes = Math.round((annualGen * intensity) / 1000);
-    totalAnnualCarbonEmissionsTonnes += sourceCarbonTonnes;
+    const sourceCarbonTonnes =
+      intensity === null ? null : (annualGen * intensity) / 1000;
+    if (sourceCarbonTonnes === null && annualGen > 0) missingFactor = true;
+    totalAnnualCarbonEmissionsTonnes += sourceCarbonTonnes ?? 0;
 
     return {
       id: source.id,
@@ -120,8 +124,13 @@ export function simulateAnnualGrid(
     variableGenerationMwh,
     sourcesBreakdown,
     hourlyAdequacyDisclaimer: HOURLY_ADEQUACY_DISCLAIMER,
-    weightedCarbonIntensityGPerKwh,
-    totalAnnualCarbonEmissionsTonnes,
+    weightedCarbonIntensityGPerKwh:
+      missingFactor || totalGenerationMwh === 0
+        ? null
+        : weightedCarbonIntensityGPerKwh,
+    totalAnnualCarbonEmissionsTonnes: missingFactor
+      ? null
+      : totalAnnualCarbonEmissionsTonnes,
   };
 }
 
