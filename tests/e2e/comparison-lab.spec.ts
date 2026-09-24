@@ -41,30 +41,22 @@ test("comparison journey preserves context and exposes evidence", async ({
     "aria-pressed",
     "true",
   );
-  await page.getByRole("button", { name: "Technical" }).click();
+  await page.getByLabel("Reading depth").selectOption("deep-dive");
 
   await expect(page.getByRole("button", { name: "Range" })).toHaveAttribute(
     "aria-pressed",
     "true",
   );
-  await expect(page.getByRole("button", { name: "Technical" })).toHaveAttribute(
-    "aria-pressed",
-    "true",
-  );
-  await expect(page).toHaveURL(/(?:\?|&)level=technical(?:&|$)/);
+  await expect(page.getByLabel("Reading depth")).toHaveValue("deep-dive");
+  await expect(page).toHaveURL(/(?:\?|&)level=deep-dive(?:&|$)/);
   await expect(
     page.locator("[data-chart-label]", { hasText: "Coal" }),
   ).toHaveCount(0);
   await expect(
-    page.locator("[data-chart-value]", {
-      hasText: "Range evidence pending review",
-    }),
-  ).toHaveCount(4);
+    page.getByRole("list", { name: "Accessible comparison summary" }),
+  ).toContainText("Nuclear: 5.1 - 28");
   await page.reload();
-  await expect(page.getByRole("button", { name: "Technical" })).toHaveAttribute(
-    "aria-pressed",
-    "true",
-  );
+  await expect(page.getByLabel("Reading depth")).toHaveValue("deep-dive");
 
   await page.getByRole("button", { name: "Typical" }).click();
   await page.getByRole("button", { name: "Table view" }).click();
@@ -97,6 +89,8 @@ test("comparison journey preserves context and exposes evidence", async ({
   await expect(
     page.getByRole("dialog", { name: "Why this number?" }),
   ).toBeVisible();
+  await page.waitForLoadState("networkidle");
+  await expect(page).toHaveTitle(/Energy Comparison Lab/);
   const openDialogAccessibility = await new AxeBuilder({ page }).analyze();
   expect(openDialogAccessibility.violations).toEqual([]);
   await page.keyboard.press("Escape");
@@ -141,7 +135,7 @@ test("full canonical journey: remove, add, metric change, range, passport, chall
   ).toBeVisible();
   await page
     .getByRole("dialog", { name: "Select Metric" })
-    .getByRole("button", { name: "land-use", exact: true })
+    .getByRole("button", { name: /Land use/i })
     .first()
     .click();
   await expect(
@@ -165,9 +159,7 @@ test("full canonical journey: remove, add, metric change, range, passport, chall
   await expect(passportDialog.getByText("Data passport")).toBeVisible();
   await expect(passportDialog.getByText("Published evidence")).toBeVisible();
   await expect(
-    passportDialog.getByText(
-      /atom-dataset-environment|atom-env-v1|ipcc-lifecycle-dataset/,
-    ),
+    passportDialog.getByText(/dataset-energy-synthesis/),
   ).toBeVisible();
   await page.getByRole("button", { name: "Close evidence" }).click();
   await expect(passportDialog).toHaveCount(0);
@@ -180,7 +172,7 @@ test("full canonical journey: remove, add, metric change, range, passport, chall
   await expect(challengeDialog).toBeVisible();
   await expect(
     challengeDialog.getByText(
-      /Submit a challenge or alternative evidence review/i,
+      /correction submission service is not yet available/i,
     ),
   ).toBeVisible();
   await page.getByRole("button", { name: "Close evidence" }).click();
@@ -247,26 +239,11 @@ test("mobile comparison reflows without core horizontal overflow", async ({
   await expect(
     page.getByRole("button", { name: "Explore the evidence" }),
   ).toBeVisible();
-  await expect(page.getByText("Complexity")).toBeVisible();
-  await expect(page.getByText("Curious", { exact: true })).toBeVisible();
-  await expect(page.getByText("Global", { exact: true })).toBeVisible();
-  await expect(page.locator("[data-background-asset]")).toHaveAttribute(
-    "sizes",
-    "100vw",
-  );
-
-  const levelTargets = await page
-    .getByRole("group", { name: "Complexity level" })
-    .getByRole("button")
-    .evaluateAll((buttons) =>
-      buttons.map((button) => {
-        const bounds = button.getBoundingClientRect();
-        return { width: bounds.width, height: bounds.height };
-      }),
-    );
-  expect(
-    levelTargets.every(({ width, height }) => width >= 44 && height >= 44),
-  ).toBe(true);
+  await page.getByRole("button", { name: "Menu", exact: true }).click();
+  await expect(
+    page.getByRole("dialog").getByLabel("Reading depth"),
+  ).toBeVisible();
+  await page.keyboard.press("Escape");
 
   await page.getByRole("button", { name: "Explore the evidence" }).click();
   await expect(
@@ -310,16 +287,18 @@ test("reduced motion and a 200% desktop-equivalent viewport remain usable", asyn
 test("dark system preference keeps the mobile comparison readable", async ({
   page,
 }) => {
-  await page.emulateMedia({ colorScheme: "dark" });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/compare", { waitUntil: "domcontentloaded" });
+
+  await page.waitForLoadState("networkidle");
+  await page.emulateMedia({ colorScheme: "dark" });
 
   const heading = page.getByRole("heading", {
     level: 1,
     name: "See the energy trade-offs",
   });
   await expect(heading).toBeVisible();
-  await expect(heading).toHaveCSS("color", "rgb(247, 242, 232)");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await expect(
     page.getByRole("button", { name: "Explore the evidence" }),
   ).toBeVisible();

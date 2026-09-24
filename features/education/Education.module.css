@@ -305,7 +305,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #34d399;
+  color: var(--atom-positive);
   background-color: rgba(52, 211, 153, 0.15);
   border: 1px solid rgba(52, 211, 153, 0.3);
   padding: 0.25rem 0.625rem;
@@ -313,7 +313,7 @@
 }
 
 :global([data-theme="light"]) .equivalenceLabel {
-  color: #475569;
+  color: var(--atom-text-secondary);
 }
 
 :global([data-theme="light"]) .checkpointBadge,
@@ -327,7 +327,7 @@
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #34d399;
+  color: var(--atom-positive);
 }
 
 .checkpointPrompt {
@@ -435,7 +435,7 @@
 .feedbackIncorrect {
   background-color: rgba(239, 68, 68, 0.12);
   border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #f87171;
+  color: var(--atom-negative);
   border-radius: var(--atom-radius-md);
   padding: 1.25rem;
 }
@@ -635,7 +635,7 @@
   padding: 0.125rem 0.5rem;
   border-radius: var(--atom-radius-full);
   background-color: rgba(52, 211, 153, 0.15);
-  color: #34d399;
+  color: var(--atom-positive);
   border: 1px solid rgba(52, 211, 153, 0.3);
 }
 
@@ -663,4 +663,17 @@
   color: var(--atom-text-muted);
   border-top: 1px solid var(--atom-border-subtle);
   padding-top: 0.75rem;
+}
+
+.lessonPage textarea {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid var(--atom-border-strong);
+  border-radius: 10px;
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-primary);
+  font: inherit;
+  resize: vertical;
 }

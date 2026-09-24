@@ -35,7 +35,7 @@
   padding: 0.25rem 0.65rem;
   border-radius: 6px;
   background: rgba(2, 132, 199, 0.12);
-  color: #0284c7;
+  color: var(--atom-accent);
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
   border: 1px solid rgba(2, 132, 199, 0.25);
@@ -43,7 +43,7 @@
 
 .layoutGrid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 2rem;
 }
 
@@ -95,6 +95,7 @@
 }
 
 .simControls {
+  flex-wrap: wrap;
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -104,6 +105,7 @@
 }
 
 .simBtnGroup {
+  flex-wrap: wrap;
   display: flex;
   background: var(--atom-surface-panel);
   border: 1px solid var(--atom-border-default);
@@ -129,12 +131,12 @@
 
 .simBtn:hover {
   color: var(--atom-text-primary);
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--atom-surface-elevated);
 }
 
 .simBtnActive {
-  background: #0284c7;
-  color: #ffffff !important;
+  background: var(--atom-accent);
+  color: var(--atom-text-inverse) !important;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -167,7 +169,7 @@
 }
 
 .legendBtn:hover {
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--atom-surface-elevated);
   color: var(--atom-text-primary);
 }
 
@@ -196,7 +198,7 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: #0284c7;
+  background: var(--atom-accent);
   box-shadow: 0 0 6px rgba(2, 132, 199, 0.5);
 }
 
@@ -231,7 +233,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.4rem 0.75rem;
-  background: rgba(15, 23, 42, 0.04);
+  background: var(--atom-surface-elevated);
   border-top: 1px solid var(--atom-border-default);
   font-size: 0.75rem;
   color: var(--atom-text-secondary);
@@ -241,7 +243,7 @@
 
 .hudActiveTag {
   font-weight: 700;
-  color: #0284c7;
+  color: var(--atom-accent);
 }
 
 /* SVG Interactive Component Nodes */
@@ -528,8 +530,8 @@
 }
 
 .componentTextButtonSelected {
-  background: #0284c7 !important;
-  color: #ffffff !important;
+  background: var(--atom-accent) !important;
+  color: var(--atom-text-inverse) !important;
   border-color: #0284c7 !important;
   font-weight: 600;
   box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
@@ -564,7 +566,7 @@
 .partRole {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #0284c7;
+  color: var(--atom-accent);
   margin: 0;
 }
 
@@ -705,5 +707,20 @@
 
   .controlRodsGroup {
     transition: none !important;
+  }
+}
+
+.simBtnScram.simBtnActive {
+  color: #fff !important;
+}
+
+.motionPaused * {
+  animation-play-state: paused !important;
+}
+
+@media (max-width: 480px) {
+  .diagramCard {
+    min-width: 0;
+    padding: 12px;
   }
 }

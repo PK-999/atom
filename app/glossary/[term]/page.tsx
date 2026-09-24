@@ -61,7 +61,7 @@ export default async function GlossaryTermPage({
             alignItems: "center",
             gap: "0.5rem",
             fontSize: "0.875rem",
-            color: "#6b7280",
+            color: "var(--atom-text-muted)",
             marginBottom: "1.5rem",
           }}
         >
@@ -76,7 +76,9 @@ export default async function GlossaryTermPage({
             Glossary
           </Link>
           <span>/</span>
-          <span style={{ color: "#111827", fontWeight: 500 }}>{item.term}</span>
+          <span style={{ color: "var(--atom-text-primary)", fontWeight: 500 }}>
+            {item.term}
+          </span>
         </nav>
 
         <article>
@@ -115,7 +117,7 @@ export default async function GlossaryTermPage({
 
           <section
             style={{
-              backgroundColor: "#ffffff",
+              backgroundColor: "var(--atom-surface-panel)",
               border: "1px solid #e5e7eb",
               borderRadius: "0.75rem",
               padding: "1.75rem",
@@ -128,7 +130,7 @@ export default async function GlossaryTermPage({
                 fontSize: "1.125rem",
                 fontWeight: 700,
                 marginBottom: "0.75rem",
-                color: "#111827",
+                color: "var(--atom-text-primary)",
               }}
             >
               Definition
@@ -137,7 +139,7 @@ export default async function GlossaryTermPage({
               style={{
                 fontSize: "1.125rem",
                 lineHeight: 1.75,
-                color: "#374151",
+                color: "var(--atom-text-secondary)",
                 margin: 0,
               }}
             >
@@ -147,7 +149,7 @@ export default async function GlossaryTermPage({
 
           <section
             style={{
-              backgroundColor: "#f8fafc",
+              backgroundColor: "var(--atom-surface-canvas)",
               border: "1px solid #e2e8f0",
               borderRadius: "0.75rem",
               padding: "1.5rem",
@@ -159,7 +161,7 @@ export default async function GlossaryTermPage({
                 fontSize: "1rem",
                 fontWeight: 700,
                 marginBottom: "0.5rem",
-                color: "#334155",
+                color: "var(--atom-text-secondary)",
               }}
             >
               Authoritative Reference
@@ -167,7 +169,7 @@ export default async function GlossaryTermPage({
             <p
               style={{
                 fontSize: "0.875rem",
-                color: "#64748b",
+                color: "var(--atom-text-muted)",
                 lineHeight: 1.6,
                 margin: 0,
               }}
@@ -182,7 +184,7 @@ export default async function GlossaryTermPage({
             <Link
               href="/glossary"
               style={{
-                color: "#7c3aed",
+                color: "var(--atom-energy-nuclear)",
                 fontWeight: 600,
                 fontSize: "0.875rem",
                 textDecoration: "none",

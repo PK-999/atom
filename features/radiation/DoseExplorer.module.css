@@ -5,7 +5,7 @@
   margin: 0 auto;
   padding: 2rem 1.5rem 6rem;
   font-family: inherit;
-  color: var(--color-foreground, #f8fafc);
+  color: var(--atom-text-primary);
 }
 
 .header {
@@ -19,7 +19,7 @@
   font-weight: 800;
   letter-spacing: -0.025em;
   margin-bottom: 0.75rem;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #c084fc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -27,7 +27,7 @@
 
 .subtitle {
   font-size: 1.1rem;
-  color: var(--color-muted-foreground, #94a3b8);
+  color: var(--atom-text-secondary);
   max-width: 48rem;
   line-height: 1.65;
   margin: 0;
@@ -46,13 +46,13 @@
 
 .disclaimerText {
   font-size: 0.875rem;
-  color: #fef08a;
+  color: var(--atom-warning);
   line-height: 1.6;
   margin: 0;
 }
 
 .disclaimerText strong {
-  color: #ffffff;
+  color: var(--atom-text-primary);
 }
 
 .filterBar {
@@ -66,31 +66,31 @@
 .filterButton {
   padding: 0.55rem 1.15rem;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(15, 23, 42, 0.65);
+  background: var(--atom-surface-elevated);
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
 }
 
 .filterButton:hover {
-  background: rgba(30, 41, 59, 0.85);
-  color: #f8fafc;
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-primary);
   border-color: rgba(255, 255, 255, 0.25);
 }
 
 .filterButtonActive {
   background: rgba(168, 85, 247, 0.25);
-  color: #f3e8ff;
+  color: var(--atom-text-primary);
   border-color: #a855f7;
   box-shadow: 0 0 14px rgba(168, 85, 247, 0.35);
 }
 
 /* Visual Logarithmic Continuum */
 .continuumCard {
-  background: rgba(15, 23, 42, 0.75);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
@@ -113,7 +113,7 @@
   font-size: 1.2rem;
   font-weight: 700;
   margin: 0;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
 }
 
 .scaleAxis {
@@ -139,7 +139,7 @@
   justify-content: space-between;
   margin-top: 0.6rem;
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-weight: 700;
   letter-spacing: 0.03em;
 }
@@ -158,14 +158,14 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   cursor: pointer;
-  background: rgba(30, 41, 59, 0.5);
+  background: var(--atom-surface-elevated);
   transition: all 0.2s ease;
   text-align: left;
   width: 100%;
 }
 
 .scenarioRow:hover {
-  background: rgba(30, 41, 59, 0.85);
+  background: var(--atom-surface-elevated);
   border-color: rgba(168, 85, 247, 0.4);
   transform: translateX(3px);
 }
@@ -179,7 +179,7 @@
 .scenarioRowTitle {
   font-weight: 600;
   font-size: 0.95rem;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   flex-grow: 1;
 }
 
@@ -191,14 +191,14 @@
   padding: 0.2rem 0.6rem;
   border-radius: 9999px;
   background: rgba(168, 85, 247, 0.2);
-  color: #d8b4fe;
+  color: var(--atom-energy-nuclear);
   border: 1px solid rgba(168, 85, 247, 0.3);
 }
 
 .scenarioDoseVal {
   font-weight: 800;
   font-size: 1.05rem;
-  color: #c084fc;
+  color: var(--atom-energy-nuclear);
   min-width: 6.5rem;
   text-align: right;
   font-family: monospace;
@@ -206,7 +206,7 @@
 
 /* Inspector Detail Card */
 .inspectorCard {
-  background: rgba(15, 23, 42, 0.8);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -218,13 +218,13 @@
 
 .inspectorGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
   gap: 1.25rem;
   margin-bottom: 1.5rem;
 }
 
 .inspectorStat {
-  background: rgba(30, 41, 59, 0.6);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 1rem 1.25rem;
@@ -233,7 +233,7 @@
 .inspectorStatVal {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #c084fc;
+  color: var(--atom-energy-nuclear);
   margin-bottom: 0.3rem;
   font-family: monospace;
 }
@@ -242,34 +242,34 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-weight: 700;
 }
 
 .inspectorContext {
   font-size: 0.95rem;
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
   line-height: 1.65;
   margin: 0 0 1.25rem 0;
 }
 
 .inspectorSource {
   font-size: 0.825rem;
-  color: #64748b;
+  color: var(--atom-text-muted);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 0.85rem;
   margin: 0;
 }
 
 .inspectorSource strong {
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
 }
 
 /* Accessible Table */
 .tableContainer {
   overflow-x: auto;
   margin-top: 2.5rem;
-  background: rgba(15, 23, 42, 0.75);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
@@ -291,14 +291,39 @@
 }
 
 .table th {
-  background: rgba(30, 41, 59, 0.8);
+  background: var(--atom-surface-elevated);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
 }
 
 .table tbody tr:hover {
   background: rgba(168, 85, 247, 0.08);
+}
+
+@media (max-width: 480px) {
+  .scenarioRow {
+    flex-wrap: wrap;
+  }
+  .scenarioRowTitle {
+    min-width: 0;
+    flex: 1 1 65%;
+  }
+  .scenarioDoseVal {
+    min-width: 0;
+    margin-left: auto;
+  }
+}
+
+.scenarioBadge {
+  color: var(--atom-text-primary);
+}
+
+@media (max-width: 600px) {
+  /* Exact doses remain in each scenario and the accessible table. */
+  .scaleAxis {
+    display: none;
+  }
 }

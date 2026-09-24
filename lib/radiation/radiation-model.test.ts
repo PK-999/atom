@@ -98,3 +98,9 @@ describe("Radiation Domain Model (R13)", () => {
     expect(chestXray?.doseMicroSv).toBe(100);
   });
 });
+
+it("does not present invalid dose as genuine zero", () => {
+  expect(formatDose(Number.NaN).bestFormatted).toBe("Unavailable");
+  expect(formatDose(-1).bestFormatted).toBe("Unavailable");
+  expect(formatDose(0).bestFormatted).toBe("0 µSv");
+});

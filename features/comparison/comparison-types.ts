@@ -22,7 +22,7 @@ export interface PreviewObservation {
   technologyName: string;
   color: string;
   marker: EnergyMarker;
-  typicalValue: number;
+  typicalValue: number | null;
   range: {
     min: number;
     max: number;

@@ -21,7 +21,7 @@ export default function DebatesPage() {
           maxWidth: "72rem",
           margin: "0 auto",
           padding: "2rem 1rem 6rem",
-          color: "#f8fafc",
+          color: "var(--atom-text-primary)",
         }}
       >
         <header style={{ marginBottom: "2.5rem" }}>
@@ -29,7 +29,7 @@ export default function DebatesPage() {
             style={{
               display: "inline-block",
               background: "rgba(168, 85, 247, 0.15)",
-              color: "#c084fc",
+              color: "var(--atom-energy-nuclear)",
               fontSize: "0.8rem",
               fontWeight: 700,
               padding: "0.3rem 0.75rem",
@@ -48,7 +48,7 @@ export default function DebatesPage() {
               fontWeight: 800,
               letterSpacing: "-0.025em",
               marginBottom: "0.75rem",
-              color: "#f8fafc",
+              color: "var(--atom-text-primary)",
               background:
                 "linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #c084fc 100%)",
               WebkitBackgroundClip: "text",
@@ -59,7 +59,7 @@ export default function DebatesPage() {
           </h1>
           <p
             style={{
-              color: "#94a3b8",
+              color: "var(--atom-text-secondary)",
               fontSize: "1.1rem",
               lineHeight: 1.65,
               maxWidth: "50rem",
@@ -95,13 +95,19 @@ export default function DebatesPage() {
               style={{
                 fontSize: "1.5rem",
                 fontWeight: 800,
-                color: "#f8fafc",
+                color: "var(--atom-text-primary)",
                 margin: "0 0 0.5rem 0",
               }}
             >
               Structured Topic Dossiers
             </h2>
-            <p style={{ color: "#94a3b8", fontSize: "0.95rem", margin: 0 }}>
+            <p
+              style={{
+                color: "var(--atom-text-secondary)",
+                fontSize: "0.95rem",
+                margin: 0,
+              }}
+            >
               Deep-dive examinations with verified claims, counterarguments, and
               attributable consensus statements.
             </p>
@@ -110,7 +116,8 @@ export default function DebatesPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(20rem, 1fr))",
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(min(100%, 20rem), 1fr))",
               gap: "1.5rem",
             }}
           >
@@ -129,7 +136,7 @@ export default function DebatesPage() {
                 <article
                   key={topic.id}
                   style={{
-                    background: "rgba(15, 23, 42, 0.75)",
+                    background: "var(--atom-surface-elevated)",
                     backdropFilter: "blur(12px)",
                     border: "1px solid rgba(255, 255, 255, 0.1)",
                     borderRadius: "14px",
@@ -148,13 +155,13 @@ export default function DebatesPage() {
                         fontWeight: 700,
                         lineHeight: 1.35,
                         marginBottom: "0.75rem",
-                        color: "#f8fafc",
+                        color: "var(--atom-text-primary)",
                       }}
                     >
                       <Link
                         href={`/debates/${topic.id}`}
                         style={{
-                          color: "#f8fafc",
+                          color: "var(--atom-text-primary)",
                           textDecoration: "none",
                         }}
                       >
@@ -163,7 +170,7 @@ export default function DebatesPage() {
                     </h3>
                     <p
                       style={{
-                        color: "#94a3b8",
+                        color: "var(--atom-text-secondary)",
                         fontSize: "0.95rem",
                         lineHeight: 1.55,
                         marginBottom: "1.25rem",
@@ -187,7 +194,7 @@ export default function DebatesPage() {
                       <span
                         style={{
                           background: "rgba(16, 185, 129, 0.15)",
-                          color: "#34d399",
+                          color: "var(--atom-positive)",
                           border: "1px solid rgba(16, 185, 129, 0.3)",
                           padding: "0.2rem 0.55rem",
                           borderRadius: "6px",
@@ -198,7 +205,7 @@ export default function DebatesPage() {
                       <span
                         style={{
                           background: "rgba(239, 68, 68, 0.15)",
-                          color: "#f87171",
+                          color: "var(--atom-negative)",
                           border: "1px solid rgba(239, 68, 68, 0.3)",
                           padding: "0.2rem 0.55rem",
                           borderRadius: "6px",
@@ -209,7 +216,7 @@ export default function DebatesPage() {
                       <span
                         style={{
                           background: "rgba(56, 189, 248, 0.15)",
-                          color: "#38bdf8",
+                          color: "var(--atom-accent)",
                           border: "1px solid rgba(56, 189, 248, 0.3)",
                           padding: "0.2rem 0.55rem",
                           borderRadius: "6px",
@@ -227,7 +234,7 @@ export default function DebatesPage() {
                         gap: "0.35rem",
                         fontSize: "0.9rem",
                         fontWeight: 600,
-                        color: "#38bdf8",
+                        color: "var(--atom-accent)",
                         textDecoration: "none",
                       }}
                     >

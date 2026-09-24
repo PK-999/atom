@@ -28,8 +28,8 @@ describe("parseComparisonUrl", () => {
   });
 
   it.each([
-    ["metric=unknown&region=india&mode=raw", "metric", "lifecycle-ghg"],
-    ["region=unknown&mode=raw&level=expert", "region", "global"],
+    ["metric=unknown&region=india&mode=raw", "metric", "unknown"],
+    ["region=unknown&mode=raw&level=expert", "region", "unknown"],
     ["mode=unknown&units=human&level=expert", "mode", "typical"],
     ["units=unknown&mode=range&level=expert", "units", "scientific"],
     ["level=unknown&mode=raw&units=human", "level", "curious"],
@@ -62,7 +62,7 @@ describe("parseComparisonUrl", () => {
       ),
     );
 
-    expect(state.sources).toEqual(["wind", "nuclear", "solar"]);
+    expect(state.sources).toEqual(["wind", "nuclear", "unknown", "solar"]);
   });
 
   it("distinguishes omitted, explicitly empty, and all-invalid sources", () => {
@@ -75,7 +75,7 @@ describe("parseComparisonUrl", () => {
     expect(
       parseComparisonState(new URLSearchParams("sources=unknown,also-unknown"))
         .sources,
-    ).toEqual(DEFAULT_COMPARISON_STATE.sources);
+    ).toEqual(["unknown", "also-unknown"]);
   });
 
   it("accepts one source and the full nine-technology catalog", () => {
@@ -174,7 +174,7 @@ describe("parseComparisonUrl", () => {
     params.append("metric", "capacity-factor");
     params.append("metric", "land-use");
     params.append("region", "india");
-    params.append("region", "global");
+    params.append("region", "unknown");
     params.append("units", "human");
     params.append("units", "scientific");
     params.append("level", "geeky");
@@ -194,7 +194,7 @@ describe("parseComparisonUrl", () => {
     );
   });
 
-  it("rejects Unicode and oversized identifier junk without throwing", () => {
+  it("preserves unknown Unicode identifiers and bounds oversized input", () => {
     const warn = vi.fn();
     const oversized = "x".repeat(65);
 
@@ -207,8 +207,8 @@ describe("parseComparisonUrl", () => {
     );
 
     expect(state).toMatchObject({
-      sources: ["nuclear"],
-      metric: "lifecycle-ghg",
+      sources: ["nuclear", "💥"],
+      metric: "☢",
       region: "global",
     });
     expect(warn).toHaveBeenCalledWith(

@@ -16,7 +16,7 @@ export default function MethodologyPage() {
           maxWidth: "56rem",
           margin: "0 auto",
           padding: "2.5rem 1.5rem 6rem",
-          color: "#f8fafc",
+          color: "var(--atom-text-primary)",
         }}
       >
         <header
@@ -30,7 +30,7 @@ export default function MethodologyPage() {
             style={{
               display: "inline-block",
               background: "rgba(168, 85, 247, 0.15)",
-              color: "#c084fc",
+              color: "var(--atom-energy-nuclear)",
               fontSize: "0.8rem",
               fontWeight: 700,
               textTransform: "uppercase",
@@ -49,14 +49,14 @@ export default function MethodologyPage() {
               fontWeight: 800,
               letterSpacing: "-0.025em",
               marginBottom: "0.75rem",
-              color: "#f8fafc",
+              color: "var(--atom-text-primary)",
             }}
           >
             How ATOM Handles Evidence
           </h1>
           <p
             style={{
-              color: "#94a3b8",
+              color: "var(--atom-text-secondary)",
               fontSize: "1.15rem",
               lineHeight: 1.65,
               margin: 0,
@@ -73,7 +73,7 @@ export default function MethodologyPage() {
               fontSize: "1.5rem",
               fontWeight: 700,
               marginBottom: "1rem",
-              color: "#f8fafc",
+              color: "var(--atom-text-primary)",
             }}
           >
             Core Evidence Pipeline
@@ -83,15 +83,15 @@ export default function MethodologyPage() {
               display: "flex",
               alignItems: "center",
               gap: "0.5rem",
-              background: "rgba(15, 23, 42, 0.8)",
+              background: "var(--atom-surface-elevated)",
               border: "1px solid rgba(255, 255, 255, 0.1)",
               borderRadius: "10px",
               padding: "1rem 1.25rem",
               marginBottom: "1.5rem",
               fontFamily: "monospace",
               fontSize: "0.9rem",
-              color: "#38bdf8",
-              overflowX: "auto",
+              color: "var(--atom-accent)",
+              flexWrap: "wrap",
             }}
           >
             <span>Primary Sources</span>
@@ -106,12 +106,20 @@ export default function MethodologyPage() {
           </div>
 
           <p
-            style={{ color: "#cbd5e1", lineHeight: 1.75, fontSize: "1.05rem" }}
+            style={{
+              color: "var(--atom-text-secondary)",
+              lineHeight: 1.75,
+              fontSize: "1.05rem",
+            }}
           >
             Every major quantitative claim in ATOM records:
           </p>
           <ul
-            style={{ color: "#cbd5e1", lineHeight: 1.8, paddingLeft: "1.5rem" }}
+            style={{
+              color: "var(--atom-text-secondary)",
+              lineHeight: 1.8,
+              paddingLeft: "1.5rem",
+            }}
           >
             <li>
               <strong>Metric and Unit:</strong> e.g., gCO₂eq/kWh, µSv, MW net,
@@ -142,13 +150,17 @@ export default function MethodologyPage() {
               fontSize: "1.5rem",
               fontWeight: 700,
               marginBottom: "1rem",
-              color: "#f8fafc",
+              color: "var(--atom-text-primary)",
             }}
           >
             Zero-Hallucination Policy
           </h2>
           <p
-            style={{ color: "#cbd5e1", lineHeight: 1.75, fontSize: "1.05rem" }}
+            style={{
+              color: "var(--atom-text-secondary)",
+              lineHeight: 1.75,
+              fontSize: "1.05rem",
+            }}
           >
             Where empirical data is unavailable or methodologies are not
             directly comparable, ATOM refuses to invent numbers or substitute
@@ -172,7 +184,7 @@ export default function MethodologyPage() {
               padding: "0.75rem 1.5rem",
               background: "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)",
               borderRadius: "10px",
-              color: "#ffffff",
+              color: "var(--atom-text-primary)",
               fontWeight: 700,
               textDecoration: "none",
               fontSize: "1rem",

@@ -51,7 +51,6 @@ function parseComplexityLevel(value: string | null): ComplexityLevel | null {
 
 export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
   let current = fallback;
-  let hydrated = false;
   const listeners = new Set<() => void>();
 
   function notify() {
@@ -145,9 +144,8 @@ export function createComplexityPreferenceStore(fallback: ComplexityLevel) {
         handlePreferenceChange,
       );
 
-      if (!hydrated) {
+      if (listeners.size === 1) {
         const previous = current;
-        hydrated = true;
         current = readActivePreference();
         if (current !== previous) queueMicrotask(notify);
       }

@@ -14,11 +14,12 @@ function getMotionMediaQuery() {
 export function subscribeReducedMotion(listener: () => void) {
   const media = getMotionMediaQuery();
   if (!media) return () => undefined;
-  media.addEventListener?.("change", listener);
-  media.addListener?.(listener);
+  if (media.addEventListener) media.addEventListener("change", listener);
+  else media.addListener?.(listener);
   return () => {
-    media.removeEventListener?.("change", listener);
-    media.removeListener?.(listener);
+    if (media.removeEventListener)
+      media.removeEventListener("change", listener);
+    else media.removeListener?.(listener);
   };
 }
 

@@ -71,15 +71,7 @@
 }
 
 .brandName {
-  background: linear-gradient(135deg, #ffffff 40%, #00d4ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-:global([data-theme="light"]) .brandName {
-  background: linear-gradient(135deg, #0f172a 40%, #0891b2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--atom-text-primary);
 }
 
 .navigation {
@@ -304,5 +296,47 @@
   .preferences {
     margin-left: auto;
     gap: 8px;
+  }
+}
+
+.drawerNavigation {
+  display: grid;
+  gap: 4px;
+}
+.drawerNavigation a {
+  display: block;
+  padding: 12px;
+  min-height: 44px;
+  border-bottom: 1px solid var(--atom-border-default);
+}
+.searchUtility {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--atom-text-secondary);
+}
+@media (max-width: 760px) {
+  .searchUtility {
+    display: none;
+  }
+  .navigation {
+    display: none;
+  }
+  .mobileMenu {
+    display: block;
+  }
+}
+
+@media (max-width: 760px) {
+  .preferences > label {
+    display: none;
+  }
+  .headerInner {
+    gap: 8px;
+  }
+  .wordmark {
+    font-size: 1rem;
+    gap: 4px;
   }
 }

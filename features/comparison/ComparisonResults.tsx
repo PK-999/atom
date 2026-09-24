@@ -93,7 +93,7 @@ export function ComparisonResults({
             );
             const chartStyle: ChartStyle = {
               "--bar-color": observation.color,
-              "--bar-size": `${(observation.typicalValue / scaleMaximum) * 100}%`,
+              "--bar-size": `${((observation.typicalValue ?? 0) / scaleMaximum) * 100}%`,
             };
 
             return (

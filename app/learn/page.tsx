@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
 import { listTopics, listPublishedLessons } from "@/lib/education/catalog";
+import { LearningPaths } from "@/features/education/LearningPaths";
 import styles from "@/features/education/Education.module.css";
 
 export const metadata: Metadata = {
@@ -25,6 +26,13 @@ export default function LearnCatalogPage() {
           </p>
         </header>
 
+        <LearningPaths
+          lessons={publishedLessons.map(({ id, slug, title }) => ({
+            id,
+            slug,
+            title,
+          }))}
+        />
         {topics.map((topic) => {
           const topicLessons = publishedLessons.filter(
             (lesson) => lesson.topicId === topic.id,
@@ -57,7 +65,7 @@ export default function LearnCatalogPage() {
                         <span className={styles.lessonOrder}>
                           Lesson {lesson.order}
                         </span>
-                        <span className={styles.lessonStatus}>Verified</span>
+                        <span className={styles.lessonStatus}>Interactive</span>
                       </div>
                       <h3 className={styles.lessonCardTitle}>{lesson.title}</h3>
                       <p className={styles.lessonCardObjective}>

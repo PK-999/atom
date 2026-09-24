@@ -1,13 +1,16 @@
 "use client";
+import { SCENE_PALETTES } from "@/lib/graphics/scene-palette";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import * as THREE from "three";
 import type { Facility } from "@/lib/globe/schemas";
 import { useMotionPreferences } from "@/lib/accessibility/motion";
+import { disposeScene } from "@/lib/graphics/dispose-scene";
 import worldLandData from "@/data/reactors/world-land-110m.json";
 
 interface Globe3DCanvasProps {
   facilities: readonly Facility[];
+  onUnavailable?: () => void;
   selectedId: string | null;
   onSelectFacility: (id: string) => void;
   isAutoRotate: boolean;
@@ -24,6 +27,7 @@ export function Globe3DCanvas({
   isAutoRotate,
   zoomLevel,
   onZoomChange,
+  onUnavailable,
 }: Globe3DCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
@@ -51,23 +55,25 @@ export function Globe3DCanvas({
     y: number;
   } | null>(null);
   const { shouldAnimate } = useMotionPreferences();
+  const visibleRef = useRef(true);
+  const failureRef = useRef(onUnavailable);
+  useEffect(() => {
+    failureRef.current = onUnavailable;
+  }, [onUnavailable]);
 
   useEffect(() => {
     shouldAnimateRef.current = shouldAnimate;
-    if (shouldAnimate) {
-      startAnimationRef.current?.();
-    } else if (animationFrameRef.current !== null) {
-      cancelAnimationFrame(animationFrameRef.current);
-      animationFrameRef.current = null;
-    }
+    startAnimationRef.current?.();
   }, [shouldAnimate]);
 
   useEffect(() => {
     isAutoRotateRef.current = isAutoRotate;
+    startAnimationRef.current?.();
   }, [isAutoRotate]);
 
   useEffect(() => {
     zoomRef.current = zoomLevel;
+    startAnimationRef.current?.();
   }, [zoomLevel]);
 
   // Non-passive wheel event listener to handle trackpad/wheel zoom and prevent browser page scroll
@@ -76,7 +82,8 @@ export function Globe3DCanvas({
     if (!container) return;
 
     const handleWheel = (e: WheelEvent) => {
-      // Prevent the page from scrolling while user is zooming over the 3D globe
+      // Preserve normal page scrolling; deliberate pinch/ctrl-wheel zooms the exhibit.
+      if (!e.ctrlKey) return;
       e.preventDefault();
       e.stopPropagation();
 
@@ -123,6 +130,7 @@ export function Globe3DCanvas({
       x: Math.max(-1.4, Math.min(1.4, targetPitch)),
       y: currentY + diff,
     };
+    startAnimationRef.current?.();
   }, [selectedId, facilities]);
 
   // Coordinate Conversion Helper: Lat/Lon -> 3D Vector
@@ -162,11 +170,11 @@ export function Globe3DCanvas({
     try {
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     } catch {
-      // In non-WebGL environments (e.g. jsdom / SSR / test runners), gracefully degrade
+      failureRef.current?.();
       return;
     }
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     container.innerHTML = "";
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
@@ -315,50 +323,70 @@ export function Globe3DCanvas({
 
     window.addEventListener("resize", handleResize);
 
-    // Animation Loop
-    let animationFrameId: number;
-    const clock = new THREE.Clock();
-
+    // Static unless the learner explicitly enables rotation. All input changes invalidate.
+    let animationFrameId = 0;
+    let previousTime = 0;
     const animate = () => {
-      if (!shouldAnimateRef.current) {
-        renderer.render(scene, camera);
-        animationFrameRef.current = null;
+      cancelAnimationFrame(animationFrameId);
+      animationFrameRef.current = null;
+      if (!visibleRef.current || document.hidden) {
+        previousTime = 0;
         return;
       }
-      animationFrameId = requestAnimationFrame(animate);
-      animationFrameRef.current = animationFrameId;
-      const delta = clock.getDelta();
-      const elapsedTime = clock.getElapsedTime();
-
-      // Auto rotation when idle
-      if (isAutoRotateRef.current && !isDraggingRef.current) {
-        targetRotationRef.current.y += 0.04 * delta;
-      }
-
-      // Smooth damping interpolation
-      currentRotationRef.current.x +=
-        (targetRotationRef.current.x - currentRotationRef.current.x) * 0.1;
-      currentRotationRef.current.y +=
-        (targetRotationRef.current.y - currentRotationRef.current.y) * 0.1;
-
-      if (globeGroup) {
-        globeGroup.rotation.x = currentRotationRef.current.x;
-        globeGroup.rotation.y = currentRotationRef.current.y;
-      }
-
-      // Smooth camera zoom: maintains safe distance above GLOBE_RADIUS at all zoom levels
-      const targetCameraZ = GLOBE_RADIUS + 160 / zoomRef.current;
-      camera.position.z += (targetCameraZ - camera.position.z) * 0.12;
-
-      // Animate selected facility pulse ring
-      if (pulseMesh && pulseMesh.visible) {
-        const pulseScale = 1 + 0.4 * Math.sin(elapsedTime * 4.5);
-        pulseMesh.scale.set(pulseScale, pulseScale, pulseScale);
-      }
-
+      const running =
+        shouldAnimateRef.current &&
+        isAutoRotateRef.current &&
+        !isDraggingRef.current;
+      const now = performance.now();
+      const delta = previousTime
+        ? Math.min((now - previousTime) / 1000, 0.05)
+        : 0;
+      previousTime = running ? now : 0;
+      if (running) targetRotationRef.current.y += 0.04 * delta;
+      currentRotationRef.current = { ...targetRotationRef.current };
+      globeGroup.rotation.set(
+        currentRotationRef.current.x,
+        currentRotationRef.current.y,
+        0,
+      );
+      camera.position.z = GLOBE_RADIUS + 160 / zoomRef.current;
       renderer.render(scene, camera);
+      if (running) {
+        animationFrameId = requestAnimationFrame(animate);
+        animationFrameRef.current = animationFrameId;
+      }
     };
-
+    const observer = new IntersectionObserver(([entry]) => {
+      visibleRef.current = entry.isIntersecting;
+      animate();
+    });
+    observer.observe(container);
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+      animate();
+    });
+    resizeObserver.observe(container);
+    const contextLost = (event: Event) => {
+      event.preventDefault();
+      cancelAnimationFrame(animationFrameId);
+      failureRef.current?.();
+    };
+    renderer.domElement.addEventListener("webglcontextlost", contextLost);
+    document.addEventListener("visibilitychange", animate);
+    const applyTheme = () => {
+      sphereMaterial.color.set(
+        SCENE_PALETTES[
+          document.documentElement.dataset.theme === "light" ? "light" : "dark"
+        ].ocean,
+      );
+      animate();
+    };
+    const themeObserver = new MutationObserver(applyTheme);
+    applyTheme();
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
     startAnimationRef.current = animate;
     animate();
 
@@ -368,9 +396,13 @@ export function Globe3DCanvas({
       animationFrameRef.current = null;
       startAnimationRef.current = null;
       renderer.dispose();
-      sphereGeometry.dispose();
-      sphereMaterial.dispose();
-      landTexture.dispose();
+      observer.disconnect();
+      resizeObserver.disconnect();
+      themeObserver.disconnect();
+      document.removeEventListener("visibilitychange", animate);
+      renderer.domElement.removeEventListener("webglcontextlost", contextLost);
+      disposeScene(scene);
+      renderer.forceContextLoss();
       container.innerHTML = "";
     };
   }, []);
@@ -383,7 +415,7 @@ export function Globe3DCanvas({
     // Clear previous markers
     while (markerGroup.children.length > 0) {
       const child = markerGroup.children[0] as THREE.Mesh;
-      if (child.geometry) child.geometry.dispose();
+      disposeScene(child);
       markerGroup.remove(child);
     }
 
@@ -449,6 +481,7 @@ export function Globe3DCanvas({
         selectedPulseRef.current.visible = true;
       }
     });
+    startAnimationRef.current?.();
   }, [facilities, selectedId, latLonToVector3]);
 
   // Pointer & Drag Interaction Handlers
@@ -476,6 +509,7 @@ export function Globe3DCanvas({
       );
 
       previousMousePosRef.current = { x: e.clientX, y: e.clientY };
+      startAnimationRef.current?.();
       return;
     }
 
@@ -501,8 +535,8 @@ export function Globe3DCanvas({
   };
 
   const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    const wasDragging = isDraggingRef.current;
     isDraggingRef.current = false;
+    startAnimationRef.current?.();
 
     // If it was a quick click rather than a substantial drag
     const container = containerRef.current;
@@ -542,6 +576,7 @@ export function Globe3DCanvas({
       onPointerUp={handlePointerUp}
       onPointerLeave={() => {
         isDraggingRef.current = false;
+        startAnimationRef.current?.();
         setHoveredFacility(null);
       }}
       style={{
@@ -569,17 +604,17 @@ export function Globe3DCanvas({
             border: "1px solid rgba(56, 189, 248, 0.4)",
             borderRadius: "6px",
             padding: "6px 10px",
-            color: "#ffffff",
+            color: "var(--atom-text-primary)",
             fontSize: "0.8rem",
             boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
             zIndex: 10,
             whiteSpace: "nowrap",
           }}
         >
-          <strong style={{ display: "block", color: "#38bdf8" }}>
+          <strong style={{ display: "block", color: "var(--atom-accent)" }}>
             {hoveredFacility.name}
           </strong>
-          <span style={{ color: "#94a3b8" }}>
+          <span style={{ color: "var(--atom-text-secondary)" }}>
             {hoveredFacility.countryName} ·{" "}
             {hoveredFacility.totalCapacityMw !== null
               ? `${hoveredFacility.totalCapacityMw.toLocaleString()} MWe`

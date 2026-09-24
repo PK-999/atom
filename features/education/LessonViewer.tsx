@@ -1,14 +1,18 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { recordLessonVisit } from "@/lib/education/progress";
 import Link from "next/link";
 import type { LessonRecord, Topic, Checkpoint } from "@/lib/education/schemas";
 import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
 import { LessonInteraction } from "./LessonInteraction";
 import { LessonCheckpoint } from "./LessonCheckpoint";
 import styles from "./Education.module.css";
+import { LESSON_GUIDES } from "@/lib/education/lesson-guides";
 
 interface LessonViewerProps {
   lesson: LessonRecord;
+  pathId?: string;
   topic?: Topic | null;
   checkpoint?: Checkpoint | null;
   prevLesson?: LessonRecord | null;
@@ -17,12 +21,16 @@ interface LessonViewerProps {
 
 export function LessonViewer({
   lesson,
+  pathId = "fundamentals",
   topic,
   checkpoint,
   prevLesson,
   nextLesson,
 }: LessonViewerProps) {
   const [level] = useComplexityPreference("curious");
+  const [prediction, setPrediction] = useState("");
+  const guide = LESSON_GUIDES[lesson.id];
+  useEffect(() => recordLessonVisit(lesson.id), [lesson.id]);
 
   const activeContent =
     lesson.contentByLevel[level] || lesson.contentByLevel.curious;
@@ -63,7 +71,7 @@ export function LessonViewer({
           <span aria-hidden="true">•</span>
           <span>~5 min read</span>
           <span aria-hidden="true">•</span>
-          <span>Verified: {lesson.lastVerifiedAt}</span>
+          <span>Content dated: {lesson.lastVerifiedAt}</span>
         </div>
 
         <div className={styles.objectiveCard}>
@@ -72,21 +80,41 @@ export function LessonViewer({
         </div>
       </header>
 
-      {/* Educational Explanation Section */}
+      {guide && (
+        <section
+          className={styles.objectiveCard}
+          aria-labelledby="lesson-question"
+        >
+          <h2 id="lesson-question">{guide.question}</h2>
+          <label htmlFor="lesson-prediction">{guide.prediction}</label>
+          <textarea
+            id="lesson-prediction"
+            value={prediction}
+            onChange={(event) => setPrediction(event.target.value)}
+            rows={2}
+            placeholder="Make a prediction, then try the experiment."
+          />
+          <p>
+            Your prediction stays here while you change the explanation depth.
+            No answer is sent to a server.
+          </p>
+        </section>
+      )}
+
+      <LessonInteraction lessonId={lesson.id} />
+
       <section
         className={styles.explanationSection}
         aria-labelledby="explanation-heading"
       >
-        <div id="explanation-heading" className={styles.levelIndicator}>
+        <h2 id="explanation-heading">What explains the result?</h2>
+        <div className={styles.levelIndicator}>
           Level: {level.toUpperCase()}
         </div>
         <p className={styles.explanationText} data-testid="lesson-explanation">
           {activeContent}
         </p>
       </section>
-
-      {/* Interactive Simulation / Widget */}
-      <LessonInteraction lessonId={lesson.id} />
 
       {/* Formative Assessment Checkpoint */}
       {checkpoint && (
@@ -105,36 +133,26 @@ export function LessonViewer({
         <h2 id="sources-heading" className={styles.sourcesTitle}>
           Scientific References & Evidence Standards
         </h2>
+        <p>
+          Background reading for this lesson. Claim-level review records are not
+          yet available here.
+        </p>
         <ul className={styles.sourcesList}>
+          {guide && (
+            <li>
+              <a
+                href={guide.source.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {guide.source.title}
+              </a>
+            </li>
+          )}
           <li>
-            International Atomic Energy Agency (IAEA) —{" "}
-            <a
-              href="https://www.iaea.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              IAEA Nuclear Energy Series & Technical Reports
-            </a>
-          </li>
-          <li>
-            U.S. Energy Information Administration (EIA) —{" "}
-            <a
-              href="https://www.eia.gov"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Annual Energy Review & Electric Power Monthly
-            </a>
-          </li>
-          <li>
-            Intergovernmental Panel on Climate Change (IPCC) —{" "}
-            <a
-              href="https://www.ipcc.ch"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Working Group III: Mitigation of Climate Change (Annex III)
-            </a>
+            <Link href="/methodology">
+              How ATOM handles evidence and uncertainty
+            </Link>
           </li>
         </ul>
       </section>
@@ -143,7 +161,7 @@ export function LessonViewer({
       <nav className={styles.navigationBar} aria-label="Lesson progression">
         {prevLesson ? (
           <Link
-            href={`/learn/${prevLesson.slug}`}
+            href={`/learn/${prevLesson.slug}?path=${pathId}`}
             className={styles.navLink}
             data-testid="prev-lesson"
           >
@@ -157,7 +175,7 @@ export function LessonViewer({
 
         {nextLesson ? (
           <Link
-            href={`/learn/${nextLesson.slug}`}
+            href={`/learn/${nextLesson.slug}?path=${pathId}`}
             className={`${styles.navLink} ${styles.navLinkPrimary}`}
             data-testid="next-lesson"
           >
@@ -169,7 +187,7 @@ export function LessonViewer({
             className={`${styles.navLink} ${styles.navLinkPrimary}`}
             data-testid="complete-track"
           >
-            Complete Curriculum ✓
+            Return to learning paths →
           </Link>
         )}
       </nav>

@@ -1,155 +1,136 @@
 "use client";
-
-import React, { useState } from "react";
+import { Activity, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { GridSimulator } from "@/features/simulator/GridSimulator";
-import { FissionSimulator } from "@/features/simulator/FissionSimulator";
-import { DecaySimulator } from "@/features/simulator/DecaySimulator";
-import { ReactorControlSimulator } from "@/features/simulator/ReactorControlSimulator";
 import styles from "./SimulationsHub.module.css";
-
-type SimulationTab = "grid" | "fission" | "decay" | "reactor";
-
+const Grid = dynamic(() =>
+  import("@/features/simulator/GridSimulator").then((m) => m.GridSimulator),
+);
+const Fission = dynamic(() =>
+  import("@/features/exhibits/FissionExhibit").then((m) => m.FissionExhibit),
+);
+const Decay = dynamic(() =>
+  import("@/features/simulator/DecaySimulator").then((m) => m.DecaySimulator),
+);
+const Reactor = dynamic(() =>
+  import("@/features/simulator/ReactorControlSimulator").then(
+    (m) => m.ReactorControlSimulator,
+  ),
+);
+const Atom = dynamic(() =>
+  import("@/features/exhibits/AtomFuelExhibits").then((m) => m.AtomExhibit),
+);
+const Fuel = dynamic(() =>
+  import("@/features/exhibits/AtomFuelExhibits").then((m) => m.FuelExhibit),
+);
+const tabs = [
+  { id: "grid", label: "Annual Grid Balance" },
+  { id: "fission", label: "Fission" },
+  { id: "atom", label: "Inside the Atom" },
+  { id: "fuel", label: "Fuel Assembly" },
+  { id: "decay", label: "Radioactive Decay" },
+  { id: "reactor", label: "Reactor Controls" },
+] as const;
+type Tab = (typeof tabs)[number]["id"];
 export function SimulationsHubClient() {
-  const [activeTab, setActiveTab] = useState<SimulationTab>("grid");
-
+  const [active, setActive] = useState<Tab>("grid");
+  const [visited, setVisited] = useState<Tab[]>(["grid"]);
+  const select = (id: Tab) => {
+    setActive(id);
+    setVisited((v) => (v.includes(id) ? v : [...v, id]));
+  };
   return (
     <div className={styles.pageContainer}>
-      <div className={styles.heroHeader}>
-        <span className={styles.badge}>Interactive Lab</span>
+      <header className={styles.heroHeader}>
+        <span className={styles.badge}>The hands-on collection</span>
         <h1 className={styles.pageTitle}>Nuclear & Energy Simulations</h1>
         <p className={styles.pageSubtitle}>
-          Step into four evidence-grounded physics and engineering simulators.
-          Explore the atomic chain reaction, radioisotope half-life decay,
-          reactor core control rod dynamics, and annual electricity grid
-          reliability.
+          Look inside an atom, follow a fission, or build an annual energy mix.
+          Try a prediction, change one thing, and explore what happens.
         </p>
-      </div>
-
-      {/* Simulator Navigation Tabs */}
+      </header>
       <div
         className={styles.tabsBar}
         role="tablist"
         aria-label="Select Simulation Tool"
       >
-        <button
-          id="simulation-tab-grid"
-          type="button"
-          role="tab"
-          aria-selected={activeTab === "grid"}
-          aria-controls="simulation-panel-grid"
-          className={`${styles.tabButton} ${activeTab === "grid" ? styles.tabButtonActive : ""}`}
-          onClick={() => setActiveTab("grid")}
-        >
-          <span className={styles.tabIcon} aria-hidden="true">
-            ⚡
-          </span>
-          <span>Annual Grid Dispatch</span>
-        </button>
-
-        <button
-          id="simulation-tab-fission"
-          type="button"
-          role="tab"
-          aria-selected={activeTab === "fission"}
-          aria-controls="simulation-panel-fission"
-          className={`${styles.tabButton} ${activeTab === "fission" ? styles.tabButtonActive : ""}`}
-          onClick={() => setActiveTab("fission")}
-        >
-          <span className={styles.tabIcon} aria-hidden="true">
-            ⚛
-          </span>
-          <span>Fission Chain Reaction</span>
-        </button>
-
-        <button
-          id="simulation-tab-decay"
-          type="button"
-          role="tab"
-          aria-selected={activeTab === "decay"}
-          aria-controls="simulation-panel-decay"
-          className={`${styles.tabButton} ${activeTab === "decay" ? styles.tabButtonActive : ""}`}
-          onClick={() => setActiveTab("decay")}
-        >
-          <span className={styles.tabIcon} aria-hidden="true">
-            ⏱
-          </span>
-          <span>Radioactive Decay & Half-Life</span>
-        </button>
-
-        <button
-          id="simulation-tab-reactor"
-          type="button"
-          role="tab"
-          aria-selected={activeTab === "reactor"}
-          aria-controls="simulation-panel-reactor"
-          className={`${styles.tabButton} ${activeTab === "reactor" ? styles.tabButtonActive : ""}`}
-          onClick={() => setActiveTab("reactor")}
-        >
-          <span className={styles.tabIcon} aria-hidden="true">
-            🎛️
-          </span>
-          <span>Reactor Core & SCRAM</span>
-        </button>
+        {tabs.map((tab, index) => (
+          <button
+            key={tab.id}
+            id={`simulation-tab-${tab.id}`}
+            role="tab"
+            type="button"
+            aria-selected={active === tab.id}
+            aria-controls={`simulation-panel-${tab.id}`}
+            tabIndex={active === tab.id ? 0 : -1}
+            className={`${styles.tabButton} ${active === tab.id ? styles.tabButtonActive : ""}`}
+            onClick={() => select(tab.id)}
+            onKeyDown={(event) => {
+              const next =
+                event.key === "ArrowRight"
+                  ? (index + 1) % tabs.length
+                  : event.key === "ArrowLeft"
+                    ? (index + tabs.length - 1) % tabs.length
+                    : event.key === "Home"
+                      ? 0
+                      : event.key === "End"
+                        ? tabs.length - 1
+                        : null;
+              if (next === null) return;
+              event.preventDefault();
+              select(tabs[next].id);
+              document
+                .getElementById(`simulation-tab-${tabs[next].id}`)
+                ?.focus();
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
-
-      {/* Active Simulator Container */}
-      <div
-        className={styles.tabPanel}
-        id={`simulation-panel-${activeTab}`}
-        role="tabpanel"
-        aria-labelledby={`simulation-tab-${activeTab}`}
-        tabIndex={0}
-      >
-        {activeTab === "grid" && <GridSimulator />}
-        {activeTab === "fission" && <FissionSimulator />}
-        {activeTab === "decay" && <DecaySimulator />}
-        {activeTab === "reactor" && <ReactorControlSimulator />}
-      </div>
-
-      {/* Related Explorations */}
+      {tabs.map((tab) => (
+        <Activity key={tab.id} mode={active === tab.id ? "visible" : "hidden"}>
+          <section
+            id={`simulation-panel-${tab.id}`}
+            role="tabpanel"
+            aria-labelledby={`simulation-tab-${tab.id}`}
+            tabIndex={0}
+            className={styles.tabPanel}
+          >
+            {visited.includes(tab.id) &&
+              (tab.id === "grid" ? (
+                <Grid embedded />
+              ) : tab.id === "fission" ? (
+                <Fission />
+              ) : tab.id === "atom" ? (
+                <Atom />
+              ) : tab.id === "fuel" ? (
+                <Fuel />
+              ) : tab.id === "decay" ? (
+                <Decay />
+              ) : (
+                <Reactor />
+              ))}
+          </section>
+        </Activity>
+      ))}
       <div className={styles.relatedSection}>
-        <h3 className={styles.relatedTitle}>Connect Science to Context</h3>
+        <h2 className={styles.relatedTitle}>Keep exploring</h2>
         <div className={styles.relatedGrid}>
-          <Link href="/how-it-works" className={styles.relatedCard}>
-            <div className={styles.relatedCardTitle}>
-              <span>🔬</span> How Nuclear Energy Works
-            </div>
-            <p className={styles.relatedCardDesc}>
-              Follow the step-by-step physical journey from uranium fuel pellets
-              to spinning turbine generators.
-            </p>
-          </Link>
-
-          <Link href="/reactors" className={styles.relatedCard}>
-            <div className={styles.relatedCardTitle}>
-              <span>🏗️</span> Reactor Architecture & Fleet
-            </div>
-            <p className={styles.relatedCardDesc}>
-              Examine pressurized water, boiling water, and heavy water designs
-              operating across the world.
-            </p>
-          </Link>
-
-          <Link href="/radiation" className={styles.relatedCard}>
-            <div className={styles.relatedCardTitle}>
-              <span>☢️</span> Radiation Around Us
-            </div>
-            <p className={styles.relatedCardDesc}>
-              Contextualize ionizing radiation doses on a logarithmic scale from
-              bananas to medical CT scans.
-            </p>
-          </Link>
-
-          <Link href="/compare" className={styles.relatedCard}>
-            <div className={styles.relatedCardTitle}>
-              <span>📊</span> Comparison Lab
-            </div>
-            <p className={styles.relatedCardDesc}>
-              Compare lifecycle carbon intensity, land use, and historical
-              mortality across all energy technologies.
-            </p>
-          </Link>
+          {[
+            { href: "/learn", label: "Find a learning path" },
+            { href: "/reactors", label: "Explore reactor designs" },
+            { href: "/radiation", label: "Understand radiation" },
+            { href: "/compare", label: "Compare energy sources" },
+          ].map((item) => (
+            <Link
+              className={styles.relatedCard}
+              key={item.href}
+              href={item.href}
+            >
+              {item.label} →
+            </Link>
+          ))}
         </div>
       </div>
     </div>

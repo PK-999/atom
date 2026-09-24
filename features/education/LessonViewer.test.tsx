@@ -99,7 +99,7 @@ describe("LessonViewer", () => {
     expect(screen.getAllByText("Energy Fundamentals")[0]).toBeInTheDocument();
     expect(screen.getByTestId("next-lesson")).toHaveAttribute(
       "href",
-      "/learn/atom",
+      "/learn/atom?path=fundamentals",
     );
   });
 

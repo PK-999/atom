@@ -42,8 +42,11 @@ describe("ComparisonEvidence", () => {
     expect(dialog).toBeVisible();
     expect(within(dialog).getByText("Data passport")).toBeVisible();
     expect(within(dialog).getByText("Published evidence")).toBeVisible();
-    expect(within(dialog).getByText("IPCC AR5 WGIII Annex III")).toBeVisible();
-    expect(within(dialog).getByText("ipcc-ar5-v1")).toBeVisible();
+    expect(within(dialog).getByText("Source record unavailable")).toBeVisible();
+    expect(within(dialog).getByText("Version unavailable")).toBeVisible();
+    expect(dialog).not.toHaveTextContent(
+      "completed editorial, scientific, and licensing review",
+    );
   });
 
   it("renders DataPassport for an unreviewed observation with preview draft state", () => {
@@ -94,9 +97,7 @@ describe("ComparisonEvidence", () => {
       screen.getByRole("button", { name: "Challenge this number" }),
     );
     expect(
-      screen.getByText(
-        /Submit a challenge or alternative evidence review for Nuclear/i,
-      ),
+      screen.getByText(/A correction submission service is not yet available/i),
     ).toBeVisible();
 
     fireEvent.click(screen.getByRole("button", { name: "Close evidence" }));

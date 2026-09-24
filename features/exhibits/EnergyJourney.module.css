@@ -1,0 +1,88 @@
+.journey {
+  min-width: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-default);
+  box-shadow: 0 24px 64px #31221510;
+}
+.poster {
+  position: relative;
+}
+.poster img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.artLabel {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  font-size: 0.7rem;
+  background: #fff9ed;
+  color: #544334;
+  border-radius: 16px;
+  padding: 4px 10px;
+}
+.experiment {
+  padding: 16px;
+}
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+}
+.steps button {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+}
+.journey button {
+  border: 1px solid var(--atom-border-default);
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-primary);
+  min-height: 44px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 150ms;
+}
+.journey button[aria-current="step"] {
+  background: var(--atom-accent-soft);
+  border-color: var(--atom-accent);
+  color: var(--atom-accent);
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 12px;
+}
+.controls > span {
+  font-size: 0.65rem;
+  color: var(--atom-text-muted);
+}
+.controls button:first-child {
+  background: var(--atom-accent);
+  color: var(--atom-text-inverse);
+}
+.journey button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.explanation {
+  min-height: 5em;
+  color: var(--atom-text-secondary);
+  font-size: 0.9rem;
+}
+.note {
+  font-size: 0.75rem;
+  color: var(--atom-text-muted);
+}

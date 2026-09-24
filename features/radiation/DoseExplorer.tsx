@@ -107,6 +107,8 @@ export function DoseExplorer({
             style={{
               display: "flex",
               justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: "8px",
               alignItems: "center",
               marginBottom: "0.75rem",
             }}
@@ -114,7 +116,9 @@ export function DoseExplorer({
             <span className={styles.scenarioBadge}>
               {selectedScenario.category}
             </span>
-            <span style={{ fontSize: "0.75rem", color: "#64748b" }}>
+            <span
+              style={{ fontSize: "0.75rem", color: "var(--atom-text-muted)" }}
+            >
               Quantity: {selectedScenario.quantity}
             </span>
           </div>
@@ -177,7 +181,9 @@ export function DoseExplorer({
           <h2 id="log-continuum-heading" className={styles.continuumTitle}>
             Logarithmic Exposure Continuum (0.1 µSv to 10,000,000 µSv)
           </h2>
-          <span style={{ fontSize: "0.8125rem", color: "#6b7280" }}>
+          <span
+            style={{ fontSize: "0.8125rem", color: "var(--atom-text-muted)" }}
+          >
             Select a scenario to inspect
           </span>
         </div>
@@ -219,7 +225,7 @@ export function DoseExplorer({
                   style={{
                     width: "2.5rem",
                     fontSize: "0.75rem",
-                    color: "#6b7280",
+                    color: "var(--atom-text-muted)",
                     fontWeight: 700,
                   }}
                 >
@@ -239,6 +245,7 @@ export function DoseExplorer({
       {/* Accessible Table Fallback */}
       <section
         className={styles.tableContainer}
+        tabIndex={0}
         aria-labelledby="table-heading"
       >
         <div
@@ -282,8 +289,15 @@ export function DoseExplorer({
                     maximumFractionDigits: 3,
                   })}
                 </td>
-                <td style={{ color: "#4b5563" }}>{s.context}</td>
-                <td style={{ color: "#64748b", fontSize: "0.8125rem" }}>
+                <td style={{ color: "var(--atom-text-secondary)" }}>
+                  {s.context}
+                </td>
+                <td
+                  style={{
+                    color: "var(--atom-text-muted)",
+                    fontSize: "0.8125rem",
+                  }}
+                >
                   {s.source.name} ({s.source.publicationYear})
                 </td>
               </tr>

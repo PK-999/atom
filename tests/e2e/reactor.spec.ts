@@ -48,7 +48,7 @@ test.describe("Reactor Explorer Engine (R15)", () => {
       }),
     ).toBeVisible();
     await expect(
-      page.getByRole("img", { name: /Interactive schematic diagram/i }),
+      page.getByRole("group", { name: /Interactive schematic diagram/i }),
     ).toBeVisible();
 
     // Verify initial component is hydrated before clicking

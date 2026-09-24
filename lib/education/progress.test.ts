@@ -63,4 +63,22 @@ describe("Education Progress Tracking (R11)", () => {
     clearProgress();
     expect(getCompletedLessonsCount()).toBe(0);
   });
+  it("rejects malformed entries and stale or unknown completions", () => {
+    window.localStorage.setItem(
+      PROGRESS_STORAGE_KEY,
+      JSON.stringify({
+        completedLessons: [42, "atom", "missing"],
+        lessons: {
+          atom: { version: "old", completed: true },
+          energy: { version: "1.0.0", completed: "yes" },
+        },
+        checkpointAnswers: ["bad"],
+        lastAccessedLesson: "missing",
+      }),
+    );
+    expect(loadProgress().completedLessons).toEqual([]);
+    expect(isLessonCompleted("atom")).toBe(false);
+    expect(loadProgress().lastAccessedLesson).toBeNull();
+    expect(loadProgress().checkpointAnswers).toEqual({});
+  });
 });

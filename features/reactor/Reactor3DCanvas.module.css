@@ -44,10 +44,10 @@
 }
 
 .componentLabel {
-  background: rgba(15, 23, 42, 0.85);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(4px);
   border: 1px solid rgba(56, 189, 248, 0.4);
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   padding: 4px 8px;
   border-radius: 6px;
   font-size: 0.75rem;
@@ -63,7 +63,7 @@
 .componentLabel:hover {
   background: rgba(2, 132, 199, 0.85);
   border-color: #38bdf8;
-  color: #ffffff;
+  color: var(--atom-text-primary);
   transform: translate(-50%, -105%);
 }
 
@@ -86,7 +86,7 @@
 
 .hudGroup {
   display: flex;
-  background: rgba(15, 23, 42, 0.75);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(56, 189, 248, 0.25);
   border-radius: 8px;
@@ -98,7 +98,7 @@
 .hudButton {
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.4rem 0.65rem;
@@ -112,12 +112,12 @@
 
 .hudButton:hover {
   background: rgba(56, 189, 248, 0.15);
-  color: #f8fafc;
+  color: var(--atom-text-primary);
 }
 
 .hudButtonActive {
   background: rgba(2, 132, 199, 0.35);
-  color: #38bdf8;
+  color: var(--atom-accent);
   border: 1px solid rgba(56, 189, 248, 0.4);
 }
 
@@ -129,13 +129,13 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: rgba(15, 23, 42, 0.8);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.35rem 0.75rem;
   border-radius: 20px;
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   z-index: 10;
   pointer-events: none;
 }
@@ -166,12 +166,12 @@
   position: absolute;
   transform: translate(-50%, -100%);
   margin-top: -12px;
-  background: rgba(15, 23, 42, 0.9);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(56, 189, 248, 0.5);
   border-radius: 8px;
   padding: 0.4rem 0.8rem;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   pointer-events: none;
   z-index: 20;
   box-shadow:
@@ -198,17 +198,17 @@
 .tooltipTitle {
   font-size: 0.8rem;
   font-weight: 700;
-  color: #38bdf8;
+  color: var(--atom-accent);
 }
 
 .tooltipSubtitle {
   font-size: 0.7rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
 }
 
 .tooltipHint {
   font-size: 0.65rem;
-  color: #38bdf8;
+  color: var(--atom-accent);
   font-weight: 600;
   margin-top: 2px;
 }
@@ -218,14 +218,14 @@
   position: absolute;
   top: 1rem;
   left: 1rem;
-  background: rgba(15, 23, 42, 0.75);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(56, 189, 248, 0.25);
   padding: 0.3rem 0.65rem;
   border-radius: 6px;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #38bdf8;
+  color: var(--atom-accent);
   z-index: 10;
   display: flex;
   align-items: center;
@@ -234,8 +234,11 @@
 
 /* View Mode Switcher */
 .viewModeToggle {
+  flex-wrap: wrap;
+  min-width: 0;
+  max-width: 100%;
   display: inline-flex;
-  background: rgba(15, 23, 42, 0.85);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(56, 189, 248, 0.3);
   border-radius: 10px;
   padding: 3px;
@@ -245,7 +248,7 @@
 .viewModeBtn {
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-size: 0.8rem;
   font-weight: 600;
   padding: 0.4rem 0.85rem;
@@ -258,7 +261,7 @@
 }
 
 .viewModeBtn:hover {
-  color: #f1f5f9;
+  color: var(--atom-text-primary);
 }
 
 .viewModeBtnActive {
@@ -267,7 +270,7 @@
     rgba(2, 132, 199, 0.45) 0%,
     rgba(14, 165, 233, 0.3) 100%
   );
-  color: #38bdf8;
+  color: var(--atom-accent);
   border: 1px solid rgba(56, 189, 248, 0.5);
   box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
 }
@@ -276,7 +279,7 @@
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
@@ -315,13 +318,13 @@
   align-items: center;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--atom-surface-elevated);
 }
 
 .modalTitle {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -330,7 +333,7 @@
 .modalCloseBtn {
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-size: 1.25rem;
   cursor: pointer;
   padding: 0.25rem 0.5rem;
@@ -340,7 +343,7 @@
 
 .modalCloseBtn:hover {
   background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  color: var(--atom-text-primary);
 }
 
 .modalBody {
@@ -380,31 +383,31 @@
 }
 
 .modalThumbBtn {
-  background: rgba(15, 23, 42, 0.8);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 8px;
   padding: 0.5rem 1rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .modalThumbBtn:hover {
-  color: #fff;
+  color: var(--atom-text-primary);
   border-color: rgba(56, 189, 248, 0.4);
 }
 
 .modalThumbBtnActive {
   background: rgba(2, 132, 199, 0.35);
   border-color: #38bdf8;
-  color: #38bdf8;
+  color: var(--atom-accent);
   font-weight: 600;
 }
 
 .modalCaption {
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   text-align: center;
   max-width: 640px;
   line-height: 1.5;

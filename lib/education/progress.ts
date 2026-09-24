@@ -1,3 +1,4 @@
+import { getPublishedLesson } from "./catalog";
 export const PROGRESS_STORAGE_KEY = "atom:learning-progress:v1";
 
 export interface LessonProgressEntry {
@@ -42,32 +43,44 @@ export function loadProgress(): LearningProgressState {
       return { ...DEFAULT_PROGRESS };
     }
 
-    const completedLessons = Array.isArray(parsed.completedLessons)
-      ? parsed.completedLessons
-      : [];
-    const checkpointAnswers =
-      typeof parsed.checkpointAnswers === "object" &&
-      parsed.checkpointAnswers !== null
-        ? parsed.checkpointAnswers
-        : {};
-    const lessons =
-      typeof parsed.lessons === "object" && parsed.lessons !== null
-        ? parsed.lessons
-        : {};
-
-    // Ensure all completedLessons are reflected in lessons map
-    for (const id of completedLessons) {
-      if (!lessons[id]) {
-        lessons[id] = { version: "1.0.0", completed: true };
+    const isRecord = (value: unknown): value is Record<string, unknown> =>
+      typeof value === "object" && value !== null && !Array.isArray(value);
+    const checkpointAnswers: Record<string, string> = {};
+    if (isRecord(parsed.checkpointAnswers))
+      for (const [key, value] of Object.entries(parsed.checkpointAnswers))
+        if (typeof value === "string") checkpointAnswers[key] = value;
+    const lessons: Record<string, LessonProgressEntry> = {};
+    if (isRecord(parsed.lessons))
+      for (const [id, value] of Object.entries(parsed.lessons)) {
+        if (
+          !getPublishedLesson(id) ||
+          !isRecord(value) ||
+          typeof value.version !== "string" ||
+          typeof value.completed !== "boolean"
+        )
+          continue;
+        lessons[id] = {
+          version: value.version,
+          completed: value.completed,
+          ...(typeof value.completedAt === "string"
+            ? { completedAt: value.completedAt }
+            : {}),
+        };
       }
-    }
+    const completedLessons = Object.entries(lessons)
+      .filter(
+        ([id, entry]) =>
+          entry.completed && entry.version === getPublishedLesson(id)?.version,
+      )
+      .map(([id]) => id);
 
     return {
       completedLessons,
       checkpointAnswers,
       lessons,
       lastAccessedLesson:
-        typeof parsed.lastAccessedLesson === "string"
+        typeof parsed.lastAccessedLesson === "string" &&
+        getPublishedLesson(parsed.lastAccessedLesson)
           ? parsed.lastAccessedLesson
           : null,
     };
@@ -81,6 +94,7 @@ export function saveProgress(state: LearningProgressState): void {
   if (!storage) return;
   try {
     storage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(state));
+    window.dispatchEvent(new Event("atom:progress"));
   } catch {
     // Ignore storage quota errors
   }
@@ -95,10 +109,7 @@ export function getLessonProgress(
 
 export function isLessonCompleted(lessonId: string): boolean {
   const progress = loadProgress();
-  return (
-    progress.completedLessons.includes(lessonId) ||
-    Boolean(progress.lessons[lessonId]?.completed)
-  );
+  return progress.completedLessons.includes(lessonId);
 }
 
 export function recordLessonProgress(
@@ -106,6 +117,7 @@ export function recordLessonProgress(
   version: string,
   completed: boolean,
 ): void {
+  if (!getPublishedLesson(lessonId)) return;
   const progress = loadProgress();
   const completedSet = new Set(progress.completedLessons);
   if (completed) {
@@ -183,9 +195,15 @@ export function clearProgress(): void {
   if (!storage) return;
   try {
     storage.removeItem(PROGRESS_STORAGE_KEY);
+    window.dispatchEvent(new Event("atom:progress"));
   } catch {
     // Ignore
   }
 }
 
 export const resetProgress = clearProgress;
+
+export function recordLessonVisit(lessonId: string): void {
+  if (!getPublishedLesson(lessonId)) return;
+  saveProgress({ ...loadProgress(), lastAccessedLesson: lessonId });
+}

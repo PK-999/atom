@@ -1,4 +1,5 @@
 "use client";
+import { GraphicsBoundary } from "@/features/exhibits/GraphicsBoundary";
 
 import React, {
   useState,
@@ -10,7 +11,11 @@ import React, {
 import type { Facility, FacilityStatus } from "../../lib/globe/schemas";
 import { filterFacilities } from "../../lib/globe/facility-model";
 import worldLand from "@/data/reactors/world-land-110m.json";
-import { Globe3DCanvas } from "./Globe3DCanvas";
+import dynamic from "next/dynamic";
+const Globe3DCanvas = dynamic(
+  () => import("./Globe3DCanvas").then((m) => m.Globe3DCanvas),
+  { ssr: false, loading: () => <p role="status">Loading 3D view…</p> },
+);
 import styles from "./GlobeViewer.module.css";
 
 const FOCUS_ZOOM_LEVEL = 3.2;
@@ -45,7 +50,12 @@ export function GlobeViewer({
   );
 
   // Geospatial View State
-  const [viewMode, setViewMode] = useState<"3d" | "2d">("3d");
+  const [graphicsFailed, setGraphicsFailed] = useState(false);
+  const graphicsFallback = () => {
+    setGraphicsFailed(true);
+    setViewMode("2d");
+  };
+  const [viewMode, setViewMode] = useState<"3d" | "2d">("2d");
   const [zoomLevel, setZoomLevel] = useState<number>(1.0);
   const [isAutoRotate, setIsAutoRotate] = useState<boolean>(false);
   const [panOffset, setPanOffset] = useState<{ x: number; y: number }>({
@@ -413,6 +423,12 @@ export function GlobeViewer({
 
   return (
     <article className={styles.container} aria-labelledby="globe-viewer-title">
+      {graphicsFailed && (
+        <p role="status">
+          3D graphics are unavailable. Your selection is preserved in the 2D
+          view and component list.
+        </p>
+      )}
       <header className={styles.header}>
         <h1 id="globe-viewer-title" className={styles.title}>
           Global Nuclear Facilities Directory
@@ -443,7 +459,10 @@ export function GlobeViewer({
                 <button
                   type="button"
                   className={`${styles.viewModeBtn} ${viewMode === "3d" ? styles.viewModeBtnActive : ""}`}
-                  onClick={() => setViewMode("3d")}
+                  onClick={() => {
+                    setGraphicsFailed(false);
+                    setViewMode("3d");
+                  }}
                   aria-pressed={viewMode === "3d"}
                 >
                   🌐 3D Globe
@@ -532,14 +551,17 @@ export function GlobeViewer({
                   </span>
                 </div>
                 <div className={styles.canvasContainer}>
-                  <Globe3DCanvas
-                    facilities={filteredFacilities}
-                    selectedId={activeSelectedId}
-                    onSelectFacility={handleSelectFacility3D}
-                    isAutoRotate={isAutoRotate}
-                    zoomLevel={zoomLevel}
-                    onZoomChange={setZoomLevel}
-                  />
+                  <GraphicsBoundary onFailure={graphicsFallback}>
+                    <Globe3DCanvas
+                      onUnavailable={graphicsFallback}
+                      facilities={filteredFacilities}
+                      selectedId={activeSelectedId}
+                      onSelectFacility={handleSelectFacility3D}
+                      isAutoRotate={isAutoRotate}
+                      zoomLevel={zoomLevel}
+                      onZoomChange={setZoomLevel}
+                    />
+                  </GraphicsBoundary>
                 </div>
               </div>
             )}
@@ -842,28 +864,28 @@ export function GlobeViewer({
             <span className={styles.legendItem}>
               <span
                 className={styles.legendDot}
-                style={{ background: "#10b981", color: "#10b981" }}
+                style={{ background: "#10b981", color: "var(--atom-positive)" }}
               />
               Operating
             </span>
             <span className={styles.legendItem}>
               <span
                 className={styles.legendDot}
-                style={{ background: "#0284c7", color: "#0284c7" }}
+                style={{ background: "#0284c7", color: "var(--atom-accent)" }}
               />
               Under Construction
             </span>
             <span className={styles.legendItem}>
               <span
                 className={styles.legendDot}
-                style={{ background: "#f59e0b", color: "#f59e0b" }}
+                style={{ background: "#f59e0b", color: "var(--atom-warning)" }}
               />
               Mixed Status
             </span>
             <span className={styles.legendItem}>
               <span
                 className={styles.legendDot}
-                style={{ background: "#ef4444", color: "#ef4444" }}
+                style={{ background: "#ef4444", color: "var(--atom-negative)" }}
               />
               Shutdown / Decommissioned
             </span>
@@ -953,7 +975,12 @@ export function GlobeViewer({
                         >
                           {statusLabel}
                         </span>
-                        <span style={{ fontSize: "0.75rem", color: "#64748b" }}>
+                        <span
+                          style={{
+                            fontSize: "0.75rem",
+                            color: "var(--atom-text-muted)",
+                          }}
+                        >
                           Verified Fleet Registry
                         </span>
                       </div>
@@ -1109,7 +1136,7 @@ export function GlobeViewer({
               );
             })()
           ) : (
-            <p style={{ color: "#64748b" }}>
+            <p style={{ color: "var(--atom-text-muted)" }}>
               Select a facility to inspect unit breakdown and technical history.
             </p>
           )}
@@ -1126,7 +1153,7 @@ export function GlobeViewer({
         </h2>
 
         {filteredFacilities.length === 0 ? (
-          <p style={{ color: "#64748b", padding: "1rem 0" }}>
+          <p style={{ color: "var(--atom-text-muted)", padding: "1rem 0" }}>
             No facilities match the selected filters. Try broadening your
             criteria.
           </p>
@@ -1166,7 +1193,10 @@ export function GlobeViewer({
                         <strong>{fac.name}</strong>
                         {(fac.city || fac.stateProvince) && (
                           <div
-                            style={{ fontSize: "0.75rem", color: "#38bdf8" }}
+                            style={{
+                              fontSize: "0.75rem",
+                              color: "var(--atom-accent)",
+                            }}
                           >
                             📍{" "}
                             {[fac.city, fac.stateProvince]
@@ -1174,7 +1204,12 @@ export function GlobeViewer({
                               .join(", ")}
                           </div>
                         )}
-                        <div style={{ fontSize: "0.75rem", color: "#64748b" }}>
+                        <div
+                          style={{
+                            fontSize: "0.75rem",
+                            color: "var(--atom-text-muted)",
+                          }}
+                        >
                           {fac.reactorCount} units
                         </div>
                       </td>

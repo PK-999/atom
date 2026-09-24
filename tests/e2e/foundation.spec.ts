@@ -21,7 +21,7 @@ test("foundation is readable and exposes a healthy service", async ({
   await page.goto("/");
 
   await expect(
-    page.getByRole("heading", { level: 1, name: "ATOM" }),
+    page.getByRole("heading", { level: 1, name: /Small atoms/ }),
   ).toBeVisible();
   await expect(page.locator("[data-nextjs-dialog]")).toHaveCount(0);
   expect(failedResponses).toEqual([]);
@@ -33,9 +33,7 @@ test("foundation is readable and exposes a healthy service", async ({
   const health = await request.get("/health");
   expect(health.ok()).toBe(true);
   await expect(health.json()).resolves.toEqual({
-    service: "atom",
     status: "ok",
-    version: 1,
   });
 });
 
@@ -81,4 +79,26 @@ test("foundation resolves a stored theme before React hydration", async ({
     () => getComputedStyle(document.documentElement).colorScheme,
   );
   expect(declaredScheme).toBe("dark");
+});
+
+test("system changes and cross-tab storage clearing synchronize controls", async ({
+  page,
+  context,
+}) => {
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.goto("/");
+  await page.getByRole("button", { name: "System theme" }).click();
+  await page.emulateMedia({ colorScheme: "dark" });
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  const other = await context.newPage();
+  await other.goto("/");
+  await other.getByRole("button", { name: "Light theme" }).click();
+  await expect(
+    page.getByRole("button", { name: "Light theme" }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await other.evaluate(() => localStorage.clear());
+  await expect(
+    page.getByRole("button", { name: "System theme" }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 });

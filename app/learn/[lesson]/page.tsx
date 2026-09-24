@@ -1,3 +1,4 @@
+import { getLearningPath } from "@/lib/education/paths";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
@@ -11,6 +12,7 @@ import { LessonViewer } from "@/features/education/LessonViewer";
 
 interface LessonPageProps {
   params: Promise<{ lesson: string }>;
+  searchParams: Promise<{ path?: string }>;
 }
 
 export const dynamicParams = false;
@@ -39,7 +41,10 @@ export async function generateMetadata({
   };
 }
 
-export default async function LessonPage({ params }: LessonPageProps) {
+export default async function LessonPage({
+  params,
+  searchParams,
+}: LessonPageProps) {
   const { lesson: slug } = await params;
   const lesson = getPublishedLesson(slug);
 
@@ -51,7 +56,11 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const checkpoints = getCheckpointsForLesson(lesson.id);
   const checkpoint = checkpoints[0] ?? null;
 
-  const published = listPublishedLessons();
+  const path = getLearningPath((await searchParams).path);
+  const published = path.lessons.flatMap((id) => {
+    const item = getPublishedLesson(id);
+    return item ? [item] : [];
+  });
   const currentIndex = published.findIndex((l) => l.id === lesson.id);
   const prevLesson = currentIndex > 0 ? published[currentIndex - 1] : null;
   const nextLesson =
@@ -60,6 +69,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   return (
     <AppShell>
       <LessonViewer
+        pathId={path.id}
         lesson={lesson}
         topic={topic}
         checkpoint={checkpoint}

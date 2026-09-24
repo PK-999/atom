@@ -215,7 +215,7 @@ export function HowItWorksViewer() {
               idx === activeStepIndex ? styles.stepTabActive : ""
             }`}
             onClick={() => setActiveStepIndex(idx)}
-            aria-selected={idx === activeStepIndex}
+            aria-pressed={idx === activeStepIndex}
           >
             <span className={styles.stepNumber}>{step.stepNumber}</span>
             <span>{step.tabLabel}</span>
@@ -535,7 +535,7 @@ export function HowItWorksViewer() {
       >
         <Link href="/simulations" className={styles.ctaCard}>
           <div>
-            <h4>Interactive Fission & Decay Simulator</h4>
+            <h3>Interactive Fission & Decay Simulator</h3>
             <p>
               Fire individual neutrons into a U-235 lattice, adjust control rod
               insertion depth, and observe prompt versus delayed neutron
@@ -549,7 +549,7 @@ export function HowItWorksViewer() {
 
         <Link href="/reactors" className={styles.ctaCard}>
           <div>
-            <h4>Commercial Reactor Architectures</h4>
+            <h3>Commercial Reactor Architectures</h3>
             <p>
               Explore interactive schematics of Pressurized Water Reactors
               (PWR), Boiling Water Reactors (BWR), and Heavy Water (CANDU)
@@ -563,7 +563,7 @@ export function HowItWorksViewer() {
 
         <Link href="/compare" className={styles.ctaCard}>
           <div>
-            <h4>Energy Comparison Lab</h4>
+            <h3>Energy Comparison Lab</h3>
             <p>
               Put nuclear into perspective: compare lifecycle greenhouse gases,
               land intensity, capacity factor, and safety statistics against

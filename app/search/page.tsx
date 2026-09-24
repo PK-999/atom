@@ -54,7 +54,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           >
             Search ATOM
           </h1>
-          <p style={{ color: "#6b7280", fontSize: "1rem" }}>
+          <p style={{ color: "var(--atom-text-muted)", fontSize: "1rem" }}>
             Find published lessons, topic overviews, glossary terms, and
             comparison metrics.
           </p>
@@ -79,6 +79,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             aria-label="Search inquiry"
             style={{
               flexGrow: 1,
+              minWidth: 0,
               padding: "0.75rem 1rem",
               borderRadius: "0.5rem",
               border: "1px solid #d1d5db",
@@ -89,8 +90,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             type="submit"
             style={{
               padding: "0.75rem 1.5rem",
-              backgroundColor: "#7c3aed",
-              color: "#ffffff",
+              backgroundColor: "var(--atom-accent)",
+              color: "var(--atom-text-inverse)",
               border: "none",
               borderRadius: "0.5rem",
               fontWeight: 600,
@@ -108,12 +109,15 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               style={{
                 marginBottom: "1.5rem",
                 fontSize: "0.875rem",
-                color: "#6b7280",
+                color: "var(--atom-text-muted)",
               }}
             >
               Found {results.length}{" "}
               {results.length === 1 ? "result" : "results"} for &ldquo;
-              <strong style={{ color: "#111827" }}>{rawQuery}</strong>&rdquo;
+              <strong style={{ color: "var(--atom-text-primary)" }}>
+                {rawQuery}
+              </strong>
+              &rdquo;
             </div>
 
             {results.length > 0 ? (
@@ -133,7 +137,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                       style={{
                         display: "block",
                         padding: "1.25rem",
-                        backgroundColor: "#ffffff",
+                        backgroundColor: "var(--atom-surface-elevated)",
                         border: "1px solid #e5e7eb",
                         borderRadius: "0.75rem",
                         textDecoration: "none",
@@ -176,7 +180,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                       <p
                         style={{
                           margin: 0,
-                          color: "#4b5563",
+                          color: "var(--atom-text-secondary)",
                           fontSize: "0.875rem",
                           lineHeight: 1.5,
                         }}
@@ -192,7 +196,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 style={{
                   padding: "2.5rem 1.5rem",
                   textAlign: "center",
-                  backgroundColor: "#f9fafb",
+                  backgroundColor: "var(--atom-surface-elevated)",
                   border: "1px solid #e5e7eb",
                   borderRadius: "0.75rem",
                 }}
@@ -200,7 +204,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 <p
                   style={{
                     fontWeight: 600,
-                    color: "#111827",
+                    color: "var(--atom-text-primary)",
                     marginBottom: "0.5rem",
                   }}
                 >
@@ -208,7 +212,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 </p>
                 <p
                   style={{
-                    color: "#6b7280",
+                    color: "var(--atom-text-muted)",
                     fontSize: "0.875rem",
                     margin: "0 auto 1.5rem",
                     maxWidth: "24rem",
@@ -222,8 +226,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   style={{
                     display: "inline-block",
                     padding: "0.5rem 1rem",
-                    backgroundColor: "#7c3aed",
-                    color: "#ffffff",
+                    backgroundColor: "var(--atom-accent)",
+                    color: "var(--atom-text-inverse)",
                     borderRadius: "0.375rem",
                     textDecoration: "none",
                     fontWeight: 600,
@@ -239,7 +243,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           <div
             style={{
               padding: "2rem",
-              backgroundColor: "#f9fafb",
+              backgroundColor: "var(--atom-surface-elevated)",
               border: "1px solid #e5e7eb",
               borderRadius: "0.75rem",
             }}
@@ -269,10 +273,10 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   href={`/search?q=${encodeURIComponent(term)}`}
                   style={{
                     padding: "0.375rem 0.75rem",
-                    backgroundColor: "#ffffff",
+                    backgroundColor: "var(--atom-surface-elevated)",
                     border: "1px solid #d1d5db",
                     borderRadius: "9999px",
-                    color: "#4b5563",
+                    color: "var(--atom-text-secondary)",
                     fontSize: "0.875rem",
                     textDecoration: "none",
                   }}

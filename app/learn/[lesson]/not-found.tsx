@@ -14,7 +14,7 @@ export default function LessonNotFound() {
         </h1>
         <p
           style={{
-            color: "#4b5563",
+            color: "var(--atom-text-secondary)",
             marginBottom: "2rem",
             maxWidth: "28rem",
             margin: "0 auto 2rem",

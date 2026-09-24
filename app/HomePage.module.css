@@ -1,184 +1,88 @@
-.pageWrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px 80px;
-}
-
-/* --- Features Section --- */
-.sectionHeader {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-.sectionEyebrow {
-  display: inline-block;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--atom-accent);
-  margin-bottom: 12px;
-}
-
-.sectionTitle {
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  color: var(--atom-text-primary);
-  margin: 0 0 16px;
-}
-
-.sectionDescription {
-  font-size: 1.125rem;
-  color: var(--atom-text-secondary);
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-.featuresGrid {
+.questions {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 28px 0;
+  border-block: 1px solid var(--atom-border-default);
   gap: 24px;
-  margin-bottom: 80px;
 }
-
-.featureCard {
-  background: var(--atom-surface-panel);
-  border: 1px solid var(--atom-border-subtle);
-  border-radius: var(--atom-radius-lg);
-  padding: 28px;
+.questions a {
   display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: inherit;
-  transition: all var(--atom-motion-ui) ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.featureCard:hover {
-  border-color: var(--atom-accent);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    var(--atom-accent-glow);
-  transform: translateY(-2px);
-}
-
-.cardIcon {
-  font-size: 2rem;
-  margin-bottom: 16px;
-  display: inline-block;
-}
-
-.cardHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.cardBadge {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 3px 8px;
-  border-radius: var(--atom-radius-full);
-  background: var(--atom-surface-elevated);
-  color: var(--atom-accent);
-  border: 1px solid var(--atom-border-subtle);
-}
-
-.cardTitle {
-  font-size: 1.25rem;
-  font-weight: 700;
+  align-items: flex-start;
+  gap: 16px;
   color: var(--atom-text-primary);
-  margin: 0 0 10px;
 }
-
-.cardDescription {
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--atom-text-secondary);
-  margin: 0 0 20px;
-  flex: 1;
-}
-
-.cardLinkText {
-  font-size: 0.875rem;
-  font-weight: 700;
+.questions a > span:first-child {
+  background: var(--atom-accent-soft);
   color: var(--atom-accent);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  min-width: 42px;
+  height: 42px;
+  font-size: 0.8rem;
 }
-
-/* --- Principles Banner --- */
-.principlesBanner {
-  background: linear-gradient(
-    135deg,
-    rgba(17, 24, 39, 0.9) 0%,
-    rgba(10, 14, 26, 0.95) 100%
-  );
-  border: 1px solid var(--atom-border-subtle);
-  border-radius: var(--atom-radius-xl);
-  padding: 48px 40px;
-  margin-bottom: 64px;
-}
-
-:global([data-theme="light"]) .principlesBanner {
-  background: linear-gradient(
-    135deg,
-    var(--atom-surface-panel) 0%,
-    var(--atom-surface-elevated) 100%
-  );
-}
-
-.principlesTitle {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--atom-text-primary);
+.questions h2 {
+  font-size: 1.1rem;
   margin: 0 0 8px;
-  text-align: center;
+  letter-spacing: -0.025em;
 }
-
-.principlesSubtitle {
-  font-size: 1rem;
-  color: var(--atom-text-secondary);
-  text-align: center;
-  margin: 0 0 36px;
-}
-
-.principlesGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-}
-
-.principleItem {
-  background: var(--atom-surface-elevated);
-  border: 1px solid var(--atom-border-subtle);
-  border-radius: var(--atom-radius-md);
-  padding: 20px;
-}
-
-.principleItem strong {
-  display: block;
-  font-size: 1rem;
-  color: var(--atom-text-primary);
-  margin-bottom: 8px;
-}
-
-.principleItem p {
-  font-size: 0.875rem;
-  line-height: 1.5;
+.questions p {
   color: var(--atom-text-secondary);
   margin: 0;
+  font-size: 0.9rem;
 }
-
-@media (max-width: 640px) {
-  .principlesBanner {
-    padding: 32px 20px;
+.feature {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  padding: 72px 0;
+  align-items: center;
+}
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--atom-accent);
+}
+.feature h2 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+.feature p,
+.next p {
+  color: var(--atom-text-secondary);
+  line-height: 1.7;
+  max-width: 60ch;
+}
+.evidence {
+  background: var(--atom-surface-panel);
+  border: 1px solid var(--atom-border-default);
+  border-radius: 24px;
+  padding: 32px;
+}
+.evidence h3 {
+  font-size: 1.4rem;
+  letter-spacing: -0.03em;
+}
+.next {
+  border-top: 1px solid var(--atom-border-default);
+  padding: 32px 0 64px;
+}
+.next h2 {
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+}
+@media (max-width: 760px) {
+  .questions,
+  .feature {
+    grid-template-columns: 1fr;
+  }
+  .questions {
+    gap: 24px;
+  }
+  .feature {
+    gap: 24px;
+    padding: 40px 0;
   }
 }

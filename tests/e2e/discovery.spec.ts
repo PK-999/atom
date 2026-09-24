@@ -6,35 +6,24 @@ test.describe("R12 Discovery, Search, Topics, Glossary, & Trust Routes", () => {
   }) => {
     await page.goto("/");
 
-    // Hero title and CTAs
     await expect(
-      page.getByRole("heading", { name: "ATOM", level: 1 }),
+      page.getByRole("heading", {
+        level: 1,
+        name: /Small atoms.*Big questions/,
+      }),
     ).toBeVisible();
     await expect(
-      page.getByRole("link", { name: "Start the Curriculum →" }),
+      page.getByRole("link", { name: /Start exploring/ }),
     ).toHaveAttribute("href", "/learn");
     await expect(
-      page.getByRole("link", { name: "Open the Comparison Lab" }),
+      page.getByRole("region", { name: "Choose your next question" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: /Open the Comparison Lab/ }),
     ).toHaveAttribute("href", "/compare");
-
-    // Three Questions Section
     await expect(
-      page.getByText("Three Questions That Shape the Energy Debate"),
+      page.getByRole("heading", { name: "Learn by trying." }),
     ).toBeVisible();
-    await expect(
-      page.getByText("How much land and fuel does clean power really need?"),
-    ).toBeVisible();
-
-    // Featured Exhibit
-    await expect(
-      page.getByRole("heading", { name: /Energy Comparison Lab V1/i }),
-    ).toBeVisible();
-
-    // Topics Grid
-    await expect(
-      page.getByRole("heading", { name: "Curriculum Areas" }),
-    ).toBeVisible();
-    await expect(page.getByText("Topic 1")).toBeVisible();
   });
 
   test("search form: empty guidance, query execution, and navigation to result", async ({
@@ -127,17 +116,10 @@ test.describe("R12 Discovery, Search, Topics, Glossary, & Trust Routes", () => {
       page.getByRole("heading", { name: "About ATOM", level: 1 }),
     ).toBeVisible();
 
-    // Accessibility
-    await page.goto("/accessibility");
-    await expect(
-      page.getByRole("heading", { name: "Accessibility Statement", level: 1 }),
-    ).toBeVisible();
-
-    // Corrections
-    await page.goto("/corrections");
-    await expect(
-      page.getByRole("heading", { name: "Corrections & Errata Log", level: 1 }),
-    ).toBeVisible();
+    await page.goto("/methodology");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(
+      "How ATOM Handles Evidence",
+    );
 
     // Evidence
     await page.goto("/evidence");

@@ -4,7 +4,7 @@
   width: 100%;
   margin: 0 auto;
   padding: 0 0 4rem 0;
-  color: var(--color-foreground, #f8fafc);
+  color: var(--atom-text-primary);
 }
 
 .header {
@@ -20,7 +20,7 @@
   line-height: 1.2;
   letter-spacing: -0.025em;
   margin-bottom: 0.75rem;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #38bdf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -29,13 +29,13 @@
 .summary {
   font-size: 1.1rem;
   line-height: 1.65;
-  color: var(--color-muted-foreground, #94a3b8);
+  color: var(--atom-text-secondary);
   max-width: 52rem;
 }
 
 /* Interactive Filter Panel */
 .filterPanel {
-  background: rgba(15, 23, 42, 0.75);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
@@ -65,7 +65,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #38bdf8;
+  color: var(--atom-accent);
 }
 
 .filterSelect,
@@ -74,15 +74,15 @@
   font-size: 0.9rem;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(30, 41, 59, 0.7);
-  color: #f1f5f9;
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-primary);
   min-height: 42px;
   transition: all 0.2s ease;
 }
 
 .filterSelect option {
   background: #0f172a;
-  color: #f1f5f9;
+  color: var(--atom-text-primary);
 }
 
 .filterInput:focus,
@@ -109,7 +109,7 @@
 
 /* Map Card */
 .mapCard {
-  background: rgba(15, 23, 42, 0.75);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
@@ -141,7 +141,7 @@
   font-size: 1.15rem;
   font-weight: 700;
   margin: 0;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -149,7 +149,7 @@
 
 .viewModeToggle {
   display: inline-flex;
-  background: rgba(15, 23, 42, 0.9);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(56, 189, 248, 0.25);
   border-radius: 8px;
   padding: 3px;
@@ -159,7 +159,7 @@
 .viewModeBtn {
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   padding: 0.35rem 0.75rem;
   border-radius: 6px;
   font-size: 0.8rem;
@@ -172,7 +172,7 @@
 }
 
 .viewModeBtn:hover {
-  color: #f1f5f9;
+  color: var(--atom-text-primary);
   background: rgba(255, 255, 255, 0.05);
 }
 
@@ -190,9 +190,9 @@
 }
 
 .toolbarBtn {
-  background: rgba(30, 41, 59, 0.85);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #f1f5f9;
+  color: var(--atom-text-primary);
   padding: 0.35rem 0.65rem;
   border-radius: 6px;
   font-size: 0.8rem;
@@ -207,20 +207,20 @@
 .toolbarBtn:hover {
   background: rgba(56, 189, 248, 0.15);
   border-color: #38bdf8;
-  color: #38bdf8;
+  color: var(--atom-accent);
 }
 
 .toolbarBtnActive {
   background: rgba(16, 185, 129, 0.2);
   border-color: #10b981;
-  color: #34d399;
+  color: var(--atom-positive);
 }
 
 .zoomBadge {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #94a3b8;
-  background: rgba(15, 23, 42, 0.6);
+  color: var(--atom-text-secondary);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.35rem 0.6rem;
   border-radius: 6px;
@@ -229,7 +229,7 @@
 
 .mapCount {
   font-size: 0.82rem;
-  color: #38bdf8;
+  color: var(--atom-accent);
   font-weight: 600;
   background: rgba(56, 189, 248, 0.1);
   padding: 0.3rem 0.75rem;
@@ -261,7 +261,7 @@
   border: 1px solid rgba(56, 189, 248, 0.4);
   border-radius: 12px;
   padding: 1.15rem;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   box-shadow:
     0 12px 36px rgba(0, 0, 0, 0.65),
     0 0 20px rgba(56, 189, 248, 0.15);
@@ -311,13 +311,13 @@
   font-weight: 700;
   line-height: 1.25;
   margin: 0;
-  color: #ffffff;
+  color: var(--atom-text-primary);
 }
 
 .popupCityState {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #38bdf8;
+  color: var(--atom-accent);
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -326,14 +326,14 @@
 
 .popupCountry {
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-weight: 500;
 }
 
 .popupCloseBtn {
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-size: 1rem;
   line-height: 1;
   padding: 0.25rem;
@@ -343,7 +343,7 @@
 }
 
 .popupCloseBtn:hover {
-  color: #ffffff;
+  color: var(--atom-text-primary);
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -365,25 +365,25 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #38bdf8;
+  color: var(--atom-accent);
 }
 
 .popupMetricValue {
   font-size: 1rem;
   font-weight: 700;
-  color: #34d399;
+  color: var(--atom-positive);
 }
 
 .popupMetricCoordinates {
   font-size: 0.82rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
   font-weight: 600;
 }
 
 .popupMetricValueSub {
   font-size: 0.8rem;
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
   line-height: 1.35;
 }
 
@@ -397,14 +397,14 @@
 }
 
 .popupSourceNotice {
-  color: #64748b;
+  color: var(--atom-text-muted);
   font-style: italic;
 }
 
 .popupInspectBtn {
   background: rgba(56, 189, 248, 0.15);
   border: 1px solid rgba(56, 189, 248, 0.35);
-  color: #38bdf8;
+  color: var(--atom-accent);
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.35rem 0.65rem;
@@ -417,7 +417,7 @@
 
 .popupInspectBtn:hover {
   background: #0284c7;
-  color: #ffffff;
+  color: var(--atom-text-primary);
 }
 
 .mapVisualArea {
@@ -469,22 +469,22 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 0.75rem;
-  background: rgba(15, 23, 42, 0.7);
+  background: var(--atom-surface-elevated);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-weight: 600;
 }
 
 .paneBadge {
-  color: #38bdf8;
+  color: var(--atom-accent);
   display: flex;
   align-items: center;
   gap: 0.35rem;
 }
 
 .paneHint {
-  color: #64748b;
+  color: var(--atom-text-muted);
   font-size: 0.7rem;
 }
 
@@ -560,7 +560,7 @@
   align-items: center;
   gap: 0.45rem;
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-weight: 500;
 }
 
@@ -586,7 +586,7 @@
 
 /* Directory Table Card */
 .directoryCard {
-  background: rgba(15, 23, 42, 0.75);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
@@ -609,8 +609,8 @@
 }
 
 .table th {
-  background: rgba(30, 41, 59, 0.8);
-  color: #94a3b8;
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-secondary);
   font-weight: 700;
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -622,7 +622,7 @@
 .table td {
   padding: 0.85rem 0.75rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
 }
 
 .tableRow {
@@ -637,12 +637,12 @@
 }
 
 .tableRowSelected {
-  background: rgba(56, 189, 248, 0.15) !important;
+  background: var(--atom-surface-elevated) !important;
   color: #ffffff !important;
 }
 
 .tableRowSelected td {
-  color: #f8fafc;
+  color: var(--atom-text-primary);
 }
 
 /* Status Badges */
@@ -658,25 +658,25 @@
 
 .statusOperating {
   background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
+  color: var(--atom-positive);
   border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .statusConstruction {
   background: rgba(14, 165, 233, 0.15);
-  color: #38bdf8;
+  color: var(--atom-accent);
   border: 1px solid rgba(14, 165, 233, 0.3);
 }
 
 .statusShutdown {
   background: rgba(239, 68, 68, 0.15);
-  color: #f87171;
+  color: var(--atom-negative);
   border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .statusMixed {
   background: rgba(245, 158, 11, 0.15);
-  color: #fbbf24;
+  color: var(--atom-warning);
   border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
@@ -710,7 +710,7 @@
 /* Facility Inspector Card */
 .inspectorCard {
   position: relative;
-  background: rgba(15, 23, 42, 0.85);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(56, 189, 248, 0.2);
@@ -742,7 +742,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #38bdf8;
+  color: var(--atom-accent);
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -751,7 +751,7 @@
 .inspectorStatusHint {
   font-size: 0.75rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  color: #64748b;
+  color: var(--atom-text-muted);
 }
 
 /* Magnifying Focal Lens Header inside Inspector */
@@ -784,12 +784,12 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--atom-text-primary);
 }
 
 .focalLensReticle {
   font-size: 1rem;
-  color: #38bdf8;
+  color: var(--atom-accent);
   line-height: 1;
   margin-bottom: 2px;
 }
@@ -797,7 +797,7 @@
 .focalLensCode {
   font-size: 0.72rem;
   letter-spacing: 0.05em;
-  color: #e2e8f0;
+  color: var(--atom-text-primary);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
@@ -831,14 +831,14 @@
   font-size: 1.35rem;
   font-weight: 700;
   margin: 0;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   line-height: 1.25;
 }
 
 .facilityLocation {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #38bdf8;
+  color: var(--atom-accent);
   line-height: 1.35;
   display: flex;
   align-items: center;
@@ -874,25 +874,25 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
 }
 
 .metricBlockValue {
   font-size: 1.05rem;
   font-weight: 700;
-  color: #34d399;
+  color: var(--atom-positive);
 }
 
 .metricBlockCoords {
   font-size: 0.82rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
   font-weight: 600;
 }
 
 .metricBlockSub {
   font-size: 0.8rem;
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
   line-height: 1.35;
 }
 
@@ -924,10 +924,10 @@
 }
 
 .unitsTable th {
-  background: rgba(30, 41, 59, 0.8);
+  background: var(--atom-surface-elevated);
   padding: 0.5rem 0.65rem;
   font-weight: 600;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   text-align: left;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -935,19 +935,19 @@
 .unitsTable td {
   padding: 0.55rem 0.65rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
 }
 
 .sourceFooter {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 1rem;
   font-size: 0.8rem;
-  color: #64748b;
+  color: var(--atom-text-muted);
   margin-top: auto;
 }
 
 .sourceLink {
-  color: #38bdf8;
+  color: var(--atom-accent);
   text-decoration: underline;
   margin-left: 0.35rem;
   transition: color 0.15s ease;
@@ -974,7 +974,7 @@
    Light Theme Overrides for Global Facilities Viewer
    ========================================================= */
 :global([data-theme="light"]) .container {
-  color: #0f172a;
+  color: var(--atom-text-primary);
 }
 
 :global([data-theme="light"]) .header {
@@ -988,14 +988,14 @@
 }
 
 :global([data-theme="light"]) .summary {
-  color: #475569;
+  color: var(--atom-text-secondary);
 }
 
 :global([data-theme="light"]) .filterPanel,
 :global([data-theme="light"]) .mapCard,
 :global([data-theme="light"]) .inspectorCard,
 :global([data-theme="light"]) .directoryCard {
-  background: #ffffff;
+  background: var(--atom-surface-elevated);
   border-color: rgba(15, 23, 42, 0.12);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
@@ -1015,25 +1015,25 @@
 :global([data-theme="light"]) .mapTitle,
 :global([data-theme="light"]) .facilityName,
 :global([data-theme="light"]) .popupName {
-  color: #0f172a;
+  color: var(--atom-text-primary);
 }
 
 :global([data-theme="light"]) .filterLabel,
 :global([data-theme="light"]) .inspectorBadge,
 :global([data-theme="light"]) .facilityLocation {
-  color: #0284c7;
+  color: var(--atom-accent);
 }
 
 :global([data-theme="light"]) .filterInput,
 :global([data-theme="light"]) .filterSelect {
   background: #f8fafc;
-  color: #0f172a;
+  color: var(--atom-text-primary);
   border-color: rgba(15, 23, 42, 0.2);
 }
 
 :global([data-theme="light"]) .filterSelect option {
-  background: #ffffff;
-  color: #0f172a;
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-primary);
 }
 
 :global([data-theme="light"]) .viewModeToggle {
@@ -1042,12 +1042,12 @@
 }
 
 :global([data-theme="light"]) .viewModeBtn {
-  color: #334155;
+  color: var(--atom-text-secondary);
 }
 
 :global([data-theme="light"]) .viewModeBtn:hover {
-  color: #0f172a;
-  background: rgba(0, 0, 0, 0.05);
+  color: var(--atom-text-primary);
+  background: var(--atom-surface-elevated);
 }
 
 :global([data-theme="light"]) .viewModeBtnActive {
@@ -1057,19 +1057,19 @@
 
 :global([data-theme="light"]) .toolbarBtn {
   background: #f8fafc;
-  color: #1e293b;
+  color: var(--atom-text-primary);
   border-color: rgba(15, 23, 42, 0.2);
 }
 
 :global([data-theme="light"]) .toolbarBtn:hover {
   background: #f1f5f9;
-  color: #0284c7;
+  color: var(--atom-accent);
   border-color: #0284c7;
 }
 
 :global([data-theme="light"]) .zoomBadge {
   background: #f1f5f9;
-  color: #475569;
+  color: var(--atom-text-secondary);
   border-color: rgba(15, 23, 42, 0.15);
 }
 
@@ -1081,7 +1081,7 @@
 
 :global([data-theme="light"]) .paneHeader {
   background: #f1f5f9;
-  color: #475569;
+  color: var(--atom-text-secondary);
   border-bottom-color: rgba(15, 23, 42, 0.08);
 }
 
@@ -1094,7 +1094,7 @@
 
 :global([data-theme="light"]) .inspectorStatusHint,
 :global([data-theme="light"]) .sourceFooter {
-  color: #64748b;
+  color: var(--atom-text-muted);
 }
 
 :global([data-theme="light"]) .sourceLink {
@@ -1149,15 +1149,15 @@
   box-shadow:
     0 0 16px rgba(2, 132, 199, 0.2),
     inset 0 0 12px rgba(2, 132, 199, 0.15);
-  color: #0f172a;
+  color: var(--atom-text-primary);
 }
 
 :global([data-theme="light"]) .focalLensReticle {
-  color: #0284c7;
+  color: var(--atom-accent);
 }
 
 :global([data-theme="light"]) .focalLensCode {
-  color: #0f172a;
+  color: var(--atom-text-primary);
 }
 
 :global([data-theme="light"]) .inspectorMetricsGrid {
@@ -1166,7 +1166,7 @@
 }
 
 :global([data-theme="light"]) .metricBlockLabel {
-  color: #64748b;
+  color: var(--atom-text-muted);
 }
 
 :global([data-theme="light"]) .metricBlockValue {
@@ -1175,7 +1175,7 @@
 
 :global([data-theme="light"]) .metricBlockCoords,
 :global([data-theme="light"]) .metricBlockSub {
-  color: #475569;
+  color: var(--atom-text-secondary);
 }
 
 :global([data-theme="light"]) .mixedCallout {
@@ -1187,13 +1187,13 @@
 :global([data-theme="light"]) .table th,
 :global([data-theme="light"]) .unitsTable th {
   background: #f1f5f9;
-  color: #475569;
+  color: var(--atom-text-secondary);
   border-bottom-color: rgba(15, 23, 42, 0.1);
 }
 
 :global([data-theme="light"]) .table td,
 :global([data-theme="light"]) .unitsTable td {
-  color: #1e293b;
+  color: var(--atom-text-primary);
   border-bottom-color: rgba(15, 23, 42, 0.06);
 }
 
@@ -1207,7 +1207,7 @@
 }
 
 :global([data-theme="light"]) .tableRowSelected td {
-  color: #0f172a;
+  color: var(--atom-text-primary);
 }
 
 :global([data-theme="light"]) .tableRowSelected div[style*="color:#64748b"] {
@@ -1235,7 +1235,7 @@
 }
 
 :global([data-theme="light"]) .legendItem {
-  color: #475569;
+  color: var(--atom-text-secondary);
 }
 
 @media (max-width: 640px) {
@@ -1284,4 +1284,8 @@
   .mapSvg {
     height: 380px;
   }
+}
+
+.tableRowSelected {
+  background: var(--atom-surface-elevated);
 }

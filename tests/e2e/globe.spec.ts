@@ -7,7 +7,7 @@ test.describe("Facility Directory and Globe Engine (R16-G)", () => {
     const consoleErrors: string[] = [];
     page.on("pageerror", (err) => consoleErrors.push(err.message));
 
-    await page.goto("/globe", { waitUntil: "domcontentloaded" });
+    await page.goto("/globe", { waitUntil: "networkidle" });
 
     await expect(
       page.getByRole("heading", {
@@ -18,7 +18,7 @@ test.describe("Facility Directory and Globe Engine (R16-G)", () => {
 
     // Map SVG and Table are visible
     await expect(
-      page.getByRole("img", { name: /World map showing nuclear facility/i }),
+      page.getByRole("group", { name: /World map showing nuclear facility/i }),
     ).toBeVisible();
     await expect(
       page.getByRole("table", { name: /Nuclear Facilities Table/i }),
@@ -26,8 +26,7 @@ test.describe("Facility Directory and Globe Engine (R16-G)", () => {
 
     // Verify map pins and table rows count
     const pins = page.getByRole("button", { name: /Select facility/i });
-    const pinCount = await pins.count();
-    expect(pinCount).toBeGreaterThanOrEqual(8);
+    await expect.poll(() => pins.count()).toBeGreaterThanOrEqual(8);
 
     expect(consoleErrors).toEqual([]);
   });
@@ -38,7 +37,7 @@ test.describe("Facility Directory and Globe Engine (R16-G)", () => {
     const consoleErrors: string[] = [];
     page.on("pageerror", (err) => consoleErrors.push(err.message));
 
-    await page.goto("/globe", { waitUntil: "domcontentloaded" });
+    await page.goto("/globe", { waitUntil: "networkidle" });
     await page.waitForLoadState("networkidle");
 
     // Wait for initial hydration
@@ -90,7 +89,7 @@ test.describe("Facility Directory and Globe Engine (R16-G)", () => {
   });
 
   test("filters by operating status and search query", async ({ page }) => {
-    await page.goto("/globe", { waitUntil: "domcontentloaded" });
+    await page.goto("/globe", { waitUntil: "networkidle" });
 
     // Wait for initial hydration
     await expect(
@@ -142,7 +141,7 @@ test.describe("Facility Directory and Globe Engine (R16-G)", () => {
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/globe", { waitUntil: "domcontentloaded" });
+    await page.goto("/globe", { waitUntil: "networkidle" });
 
     await expect(
       page.getByRole("heading", {
@@ -152,7 +151,9 @@ test.describe("Facility Directory and Globe Engine (R16-G)", () => {
     ).toBeVisible();
 
     // Touch table row
-    const row = page.getByText("Kudankulam Nuclear Power Plant").first();
+    const row = page
+      .getByRole("table")
+      .getByText("Kudankulam Nuclear Power Plant");
     await row.click();
     await expect(
       page.getByRole("heading", {

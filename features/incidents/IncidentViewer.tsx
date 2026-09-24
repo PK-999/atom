@@ -132,8 +132,13 @@ export function IncidentViewer() {
                       INES {inc.inesLevel}
                     </span>
                   </div>
-                  <h3 className={styles.incidentName}>{inc.name}</h3>
-                  <span style={{ fontSize: "0.8rem", color: "#94a3b8" }}>
+                  <strong className={styles.incidentName}>{inc.name}</strong>
+                  <span
+                    style={{
+                      fontSize: "0.8rem",
+                      color: "var(--atom-text-secondary)",
+                    }}
+                  >
                     {inc.location}
                   </span>
                 </button>
@@ -164,13 +169,14 @@ export function IncidentViewer() {
                   style={{
                     display: "flex",
                     gap: "0.35rem",
+                    flexWrap: "wrap",
                     alignItems: "center",
                   }}
                 >
                   <span
                     style={{
                       fontSize: "0.75rem",
-                      color: "#64748b",
+                      color: "var(--atom-text-muted)",
                       textTransform: "uppercase",
                       fontWeight: 700,
                     }}
@@ -190,9 +196,12 @@ export function IncidentViewer() {
                         cursor: "pointer",
                         background:
                           effectiveLevel === lvl
-                            ? "#38bdf8"
-                            : "rgba(30, 41, 59, 0.6)",
-                        color: effectiveLevel === lvl ? "#0f172a" : "#94a3b8",
+                            ? "var(--atom-accent)"
+                            : "var(--atom-surface-elevated)",
+                        color:
+                          effectiveLevel === lvl
+                            ? "var(--atom-text-inverse)"
+                            : "var(--atom-text-primary)",
                         borderColor:
                           effectiveLevel === lvl
                             ? "#38bdf8"
@@ -273,13 +282,13 @@ export function IncidentViewer() {
                 </h3>
                 <div
                   style={{
-                    background: "rgba(15, 23, 42, 0.7)",
+                    background: "var(--atom-surface-elevated)",
                     padding: "1rem 1.25rem",
                     borderRadius: "8px",
                     borderLeft: "3px solid #f43f5e",
                     marginBottom: "1.25rem",
                     fontSize: "0.95rem",
-                    color: "#fca5a5",
+                    color: "var(--atom-negative)",
                   }}
                 >
                   <strong>Fundamental Trigger:</strong>{" "}
@@ -332,7 +341,7 @@ export function IncidentViewer() {
                   <div className={styles.statItem}>
                     <div
                       className={styles.statValue}
-                      style={{ color: "#fb923c" }}
+                      style={{ color: "var(--atom-warning)" }}
                     >
                       {currentIncident.radiologicalRelease.totalActivityPBq}
                     </div>
@@ -344,7 +353,7 @@ export function IncidentViewer() {
                     <div className={styles.statItem}>
                       <div
                         className={styles.statValue}
-                        style={{ color: "#38bdf8" }}
+                        style={{ color: "var(--atom-accent)" }}
                       >
                         {currentIncident.radiologicalRelease.iodine131PBq}
                       </div>
@@ -368,7 +377,7 @@ export function IncidentViewer() {
                   <h4
                     style={{
                       fontSize: "0.95rem",
-                      color: "#f8fafc",
+                      color: "var(--atom-text-primary)",
                       margin: "0 0 0.5rem 0",
                     }}
                   >
@@ -378,7 +387,7 @@ export function IncidentViewer() {
                     style={{
                       fontSize: "0.95rem",
                       lineHeight: 1.6,
-                      color: "#cbd5e1",
+                      color: "var(--atom-text-secondary)",
                       margin: 0,
                     }}
                   >
@@ -390,7 +399,7 @@ export function IncidentViewer() {
                   <h4
                     style={{
                       fontSize: "0.95rem",
-                      color: "#f8fafc",
+                      color: "var(--atom-text-primary)",
                       margin: "0 0 0.5rem 0",
                     }}
                   >
@@ -400,7 +409,7 @@ export function IncidentViewer() {
                     style={{
                       fontSize: "0.95rem",
                       lineHeight: 1.6,
-                      color: "#cbd5e1",
+                      color: "var(--atom-text-secondary)",
                       margin: 0,
                     }}
                   >
@@ -482,7 +491,12 @@ export function IncidentViewer() {
 
           <div className={styles.faqList}>
             {filteredFaqs.length === 0 ? (
-              <p style={{ color: "#94a3b8", padding: "1.5rem 0" }}>
+              <p
+                style={{
+                  color: "var(--atom-text-secondary)",
+                  padding: "1.5rem 0",
+                }}
+              >
                 No fact-checks match your search. Try broadening your query.
               </p>
             ) : (
@@ -509,7 +523,7 @@ export function IncidentViewer() {
                       <span
                         style={{
                           fontSize: "0.85rem",
-                          color: "#38bdf8",
+                          color: "var(--atom-accent)",
                           transform: isExpanded
                             ? "rotate(180deg)"
                             : "rotate(0deg)",

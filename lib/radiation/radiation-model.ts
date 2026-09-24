@@ -64,10 +64,10 @@ export function formatDose(doseMicroSv: number): {
 } {
   if (!Number.isFinite(doseMicroSv) || doseMicroSv < 0) {
     return {
-      microSv: "0 µSv",
-      milliSv: "0 mSv",
-      sv: "0 Sv",
-      bestFormatted: "0 µSv",
+      microSv: "Unavailable",
+      milliSv: "Unavailable",
+      sv: "Unavailable",
+      bestFormatted: "Unavailable",
     };
   }
 

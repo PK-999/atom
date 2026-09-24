@@ -23,61 +23,23 @@ test.describe("Comparison Lab V1 Acceptance & Regression Drills (R09)", () => {
     });
     await expect(
       page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText("Nuclear: 92 %");
+    ).toContainText("Nuclear: 92.5 %");
     await expect(
       page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText("Solar: 24 %");
+    ).toContainText("Solar: 24.6 %");
 
-    // 3. Economics Category: LCOE
-    await page.goto("/compare?metric=lcoe&sources=nuclear,solar", {
-      waitUntil: "domcontentloaded",
-    });
-    await expect(
-      page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText(/Nuclear: 75 USD\s*\/?\s*MWh/);
-    await expect(
-      page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText(/Solar: 42 USD\s*\/?\s*MWh/);
-
-    // 4. Human Impact Category: Mortality Rate
-    await page.goto("/compare?metric=mortality-rate&sources=nuclear,coal", {
-      waitUntil: "domcontentloaded",
-    });
-    await expect(
-      page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText(/Nuclear: 0\.03 deaths\s*\/?\s*TWh/);
-    await expect(
-      page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText(/Coal: 24\.6 deaths\s*\/?\s*TWh/);
-
-    // 5. Security Category: Fuel Energy Density
-    await page.goto(
-      "/compare?metric=fuel-energy-density&sources=nuclear,coal",
-      {
-        waitUntil: "domcontentloaded",
-      },
-    );
-    await expect(
-      page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText(/Nuclear: 500000/);
-
-    // 6. Technical Category: Thermal Efficiency (with non-thermal physics constraint)
-    await page.goto(
-      "/compare?metric=thermal-efficiency&sources=nuclear,gas,solar",
-      {
-        waitUntil: "domcontentloaded",
-      },
-    );
-    await expect(
-      page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText("Nuclear: 34 %");
-    await expect(
-      page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText("Gas: 60 %");
-    // Non-thermal solar should not have thermal efficiency
-    await expect(
-      page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).not.toContainText("Solar: 34 %");
+    // Unreleased categories must not reuse unrelated numeric observations.
+    for (const metric of [
+      "lcoe",
+      "mortality-rate",
+      "fuel-energy-density",
+      "thermal-efficiency",
+    ]) {
+      await page.goto(`/compare?metric=${metric}&sources=nuclear,solar`);
+      await expect(
+        page.getByRole("list", { name: "Accessible comparison summary" }),
+      ).toContainText("We do not currently have reliable comparable data");
+    }
   });
 
   test("edge cases: aliases, invalid parameters, single source, full 9 sources, and levels", async ({

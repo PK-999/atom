@@ -1,4 +1,5 @@
 "use client";
+import { SCENE_PALETTES } from "@/lib/graphics/scene-palette";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import * as THREE from "three";
@@ -8,6 +9,7 @@ import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import type { ReactorSystem, ReactorComponent } from "@/lib/reactor/schemas";
 import { useMotionPreferences } from "@/lib/accessibility/motion";
+import { disposeScene } from "@/lib/graphics/dispose-scene";
 import styles from "./Reactor3DCanvas.module.css";
 
 export interface Reactor3DCanvasProps {
@@ -16,6 +18,7 @@ export interface Reactor3DCanvasProps {
   onSelectPart: (id: string) => void;
   powerLevel: 100 | 50 | 0;
   activeLoopFilter: "all" | "primary" | "secondary" | "tertiary";
+  onUnavailable?: () => void;
 }
 
 interface ComponentTarget {
@@ -29,6 +32,7 @@ export function Reactor3DCanvas({
   onSelectPart,
   powerLevel,
   activeLoopFilter,
+  onUnavailable,
 }: Reactor3DCanvasProps) {
   const canvasMountRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
@@ -55,6 +59,7 @@ export function Reactor3DCanvas({
   const interactiveMeshesRef = useRef<THREE.Object3D[]>([]);
   const powerLevelRef = useRef(powerLevel);
   const shouldAnimateRef = useRef(true);
+  const rotateRequestedRef = useRef(false);
   const animationFrameRef = useRef<number | null>(null);
   const startAnimationRef = useRef<(() => void) | null>(null);
 
@@ -71,25 +76,29 @@ export function Reactor3DCanvas({
     null,
   );
   const [zoomPercent, setZoomPercent] = useState(100);
-  const { shouldAnimate } = useMotionPreferences();
+  const motion = useMotionPreferences();
+  const [flowPlaying, setFlowPlaying] = useState(false);
+  const shouldAnimate = motion.shouldAnimate && (flowPlaying || isAutoRotate);
+  const visibleRef = useRef(true);
+  const failureRef = useRef(onUnavailable);
+  useEffect(() => {
+    failureRef.current = onUnavailable;
+  }, [onUnavailable]);
 
   const activeLoopFilterRef = useRef(activeLoopFilter);
   useEffect(() => {
     activeLoopFilterRef.current = activeLoopFilter;
+    startAnimationRef.current?.();
   }, [activeLoopFilter]);
 
   useEffect(() => {
     powerLevelRef.current = powerLevel;
+    startAnimationRef.current?.();
   }, [powerLevel]);
 
   useEffect(() => {
     shouldAnimateRef.current = shouldAnimate;
-    if (shouldAnimate) {
-      startAnimationRef.current?.();
-    } else if (animationFrameRef.current !== null) {
-      cancelAnimationFrame(animationFrameRef.current);
-      animationFrameRef.current = null;
-    }
+    startAnimationRef.current?.();
   }, [shouldAnimate]);
 
   // Raycaster for mouse interaction
@@ -98,8 +107,10 @@ export function Reactor3DCanvas({
 
   // Sync auto rotate state
   useEffect(() => {
+    rotateRequestedRef.current = isAutoRotate;
     if (controlsRef.current) {
       controlsRef.current.autoRotate = isAutoRotate;
+      startAnimationRef.current?.();
       controlsRef.current.autoRotateSpeed = 1.0;
     }
   }, [isAutoRotate]);
@@ -252,6 +263,7 @@ export function Reactor3DCanvas({
       targetLookAtRef.current.copy(target.pos);
       targetCamPosRef.current.copy(target.camPos);
       isTransitioningRef.current = true;
+      startAnimationRef.current?.();
     }
   }, [selectedId, system.id, getComponentTargets]);
 
@@ -260,6 +272,7 @@ export function Reactor3DCanvas({
     targetLookAtRef.current.set(12, -2, 0);
     targetCamPosRef.current.set(20, 30, 140);
     isTransitioningRef.current = true;
+    startAnimationRef.current?.();
   };
 
   // Zoom In / Out Buttons
@@ -311,11 +324,11 @@ export function Reactor3DCanvas({
         powerPreference: "high-performance",
       });
     } catch {
-      // In non-WebGL environments (e.g. jsdom / test runners / disabled WebGL), gracefully degrade
+      failureRef.current?.();
       return;
     }
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -338,7 +351,7 @@ export function Reactor3DCanvas({
     composerRef.current = composer;
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
+    controls.enableDamping = false;
     controls.dampingFactor = 0.05;
     controls.maxDistance = 250;
     controls.minDistance = 5;
@@ -365,16 +378,20 @@ export function Reactor3DCanvas({
     blueFill.position.set(-60, 40, -50);
     scene.add(blueFill);
 
+    let groundMaterial: THREE.MeshStandardMaterial | null = null;
     const applySceneTheme = () => {
       const isLight = document.documentElement.dataset.theme === "light";
-      scene.background = new THREE.Color(isLight ? 0xf1f5f9 : 0x050a14);
+      const palette = SCENE_PALETTES[isLight ? "light" : "dark"];
+      scene.background = new THREE.Color(palette.background);
+      groundMaterial?.color.setHex(palette.ground);
       if (scene.fog) {
-        scene.fog.color.set(isLight ? 0xe2e8f0 : 0x050a14);
+        scene.fog.color.set(palette.fog);
       }
       ambientLight.intensity = isLight ? 1.55 : 1.2;
       mainSun.intensity = isLight ? 2.35 : 2.0;
       blueFill.intensity = isLight ? 0.95 : 1.5;
-      bloomPass.strength = isLight ? 0.25 : 0.6;
+      bloomPass.strength = isLight ? 0.12 : 0.28;
+      startAnimationRef.current?.();
     };
 
     applySceneTheme();
@@ -400,6 +417,8 @@ export function Reactor3DCanvas({
       roughness: 0.8,
       metalness: 0.3,
     });
+    groundMaterial = groundMat;
+    applySceneTheme();
     const ground = new THREE.Mesh(groundGeo, groundMat);
     ground.position.set(12, -26, 0);
     ground.receiveShadow = true;
@@ -1516,18 +1535,32 @@ export function Reactor3DCanvas({
     // -------------------------------------------------------------
     let animationFrameId: number;
 
+    let previousTime = 0;
     const animate = () => {
-      if (!shouldAnimateRef.current) {
-        renderer.render(scene, camera);
-        animationFrameRef.current = null;
+      if (animationFrameRef.current !== null)
+        cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+      if (!visibleRef.current || document.hidden) {
+        previousTime = 0;
         return;
       }
-      animationFrameId = requestAnimationFrame(animate);
-      animationFrameRef.current = animationFrameId;
-
+      const running = shouldAnimateRef.current;
+      const time = performance.now();
+      const elapsed =
+        running && previousTime
+          ? Math.min((time - previousTime) / 1000, 0.05)
+          : 0;
+      previousTime = running ? time : 0;
+      const frameScale = elapsed * 60;
+      if (!running && isTransitioningRef.current && controlsRef.current) {
+        controlsRef.current.target.copy(targetLookAtRef.current);
+        camera.position.copy(targetCamPosRef.current);
+        isTransitioningRef.current = false;
+      }
+      controls.autoRotate = running && rotateRequestedRef.current;
       // 1. Controls & Camera Transitions
       if (controlsRef.current) {
-        controlsRef.current.update();
+        controlsRef.current.update(elapsed);
       }
 
       if (isTransitioningRef.current && controlsRef.current) {
@@ -1546,7 +1579,7 @@ export function Reactor3DCanvas({
       if (controlsRef.current) {
         const dist = camera.position.distanceTo(controlsRef.current.target);
         const zPct = Math.round((140 / dist) * 100);
-        setZoomPercent(zPct);
+        setZoomPercent((previous) => (previous === zPct ? previous : zPct));
       }
 
       // 2. Animate Turbines
@@ -1554,7 +1587,7 @@ export function Reactor3DCanvas({
       const turbineSpeed =
         currentPowerLevel === 100 ? 0.25 : currentPowerLevel === 50 ? 0.12 : 0;
       turbineRotorsRef.current.forEach((rotor) => {
-        rotor.rotation.x += turbineSpeed;
+        rotor.rotation.x += turbineSpeed * frameScale;
       });
 
       // 3. Animate Control Rod Height based on Power Level
@@ -1562,7 +1595,8 @@ export function Reactor3DCanvas({
         const targetY =
           currentPowerLevel === 100 ? 12 : currentPowerLevel === 50 ? 6 : 0;
         controlRodsRef.current.position.y +=
-          (targetY - controlRodsRef.current.position.y) * 0.05;
+          (targetY - controlRodsRef.current.position.y) *
+          (running ? 1 - Math.exp(-3 * elapsed) : 1);
       }
 
       // 4. Core Fission Light Intensity
@@ -1570,14 +1604,15 @@ export function Reactor3DCanvas({
         const targetIntensity =
           currentPowerLevel === 100 ? 3.0 : currentPowerLevel === 50 ? 1.4 : 0;
         coreLightRef.current.intensity +=
-          (targetIntensity - coreLightRef.current.intensity) * 0.05;
+          (targetIntensity - coreLightRef.current.intensity) *
+          (running ? 1 - Math.exp(-3 * elapsed) : 1);
       }
 
       // 5. Animate Cooling Tower Vapor Plume
       const vaporSpeedMult =
         currentPowerLevel === 100 ? 1.0 : currentPowerLevel === 50 ? 0.5 : 0.05;
       vaporParticlesRef.current.forEach((p) => {
-        p.mesh.position.y += p.speed * vaporSpeedMult;
+        p.mesh.position.y += p.speed * vaporSpeedMult * frameScale;
         const scale = 1 + (p.mesh.position.y - 24) * 0.08;
         p.mesh.scale.set(scale, scale, scale);
         const mat = p.mesh.material as THREE.MeshBasicMaterial;
@@ -1600,7 +1635,7 @@ export function Reactor3DCanvas({
         } else {
           p.mesh.visible = true;
           if (flowSpeedMult > 0) {
-            p.progress += p.speed * flowSpeedMult;
+            p.progress += p.speed * flowSpeedMult * frameScale;
             if (p.progress > 1) p.progress -= 1;
             const pt = p.curve.getPointAt(p.progress);
             p.mesh.position.copy(pt);
@@ -1614,8 +1649,35 @@ export function Reactor3DCanvas({
       } else {
         renderer.render(scene, camera);
       }
+      if (running) {
+        animationFrameId = requestAnimationFrame(animate);
+        animationFrameRef.current = animationFrameId;
+      }
     };
 
+    const renderOnInteraction = () => {
+      renderer.render(scene, camera);
+      const percentage = Math.round(
+        (140 / camera.position.distanceTo(controls.target)) * 100,
+      );
+      setZoomPercent((previous) =>
+        previous === percentage ? previous : percentage,
+      );
+    };
+    controls.addEventListener("change", renderOnInteraction);
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      visibleRef.current = entry.isIntersecting;
+      animate();
+    });
+    visibilityObserver.observe(mount);
+    const contextLost = (event: Event) => {
+      event.preventDefault();
+      shouldAnimateRef.current = false;
+      cancelAnimationFrame(animationFrameId);
+      failureRef.current?.();
+    };
+    renderer.domElement.addEventListener("webglcontextlost", contextLost);
+    document.addEventListener("visibilitychange", animate);
     startAnimationRef.current = animate;
     animate();
 
@@ -1628,6 +1690,7 @@ export function Reactor3DCanvas({
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
+        startAnimationRef.current?.();
         if (composerRef.current) {
           composerRef.current.setSize(w, h);
         }
@@ -1648,6 +1711,12 @@ export function Reactor3DCanvas({
       window.removeEventListener("resize", handleResize);
       resizeObserver.disconnect();
       themeObserver.disconnect();
+      visibilityObserver.disconnect();
+      document.removeEventListener("visibilitychange", animate);
+      renderer.domElement.removeEventListener("webglcontextlost", contextLost);
+      disposeScene(scene);
+      bloomPass.dispose();
+      composer.dispose();
       cancelAnimationFrame(animationFrameId);
       animationFrameRef.current = null;
       startAnimationRef.current = null;
@@ -1658,6 +1727,11 @@ export function Reactor3DCanvas({
         renderer.domElement.parentNode.removeChild(renderer.domElement);
       }
       renderer.dispose();
+      renderer.forceContextLoss();
+      turbineRotorsRef.current = [];
+      vaporParticlesRef.current = [];
+      flowParticlesRef.current = [];
+      interactiveMeshesRef.current = [];
     };
   }, [system.id]);
 
@@ -1727,6 +1801,15 @@ export function Reactor3DCanvas({
         aria-label="3D Interactive Reactor Model Canvas"
       />
 
+      <button
+        type="button"
+        className={styles.hudButton}
+        aria-pressed={flowPlaying}
+        onClick={() => setFlowPlaying((p) => !p)}
+        disabled={motion.prefersReducedMotion}
+      >
+        {flowPlaying ? "Pause flow" : "Play flow"}
+      </button>
       {/* Floating Zoom Level Badge */}
       <div className={styles.zoomBadge}>
         <span>🔍 {zoomPercent}%</span>

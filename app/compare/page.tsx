@@ -17,8 +17,12 @@ export default async function ComparisonPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
-  const state = parseComparisonState(params);
+  const notices: string[] = [];
+  const state = parseComparisonState(params, undefined, {
+    onWarning: (warning) => notices.push(warning.message),
+  });
   const comparison = await fetchComparisonData(state);
+  comparison.warnings = [...notices, ...(comparison.warnings ?? [])];
 
   return (
     <AppShell>

@@ -7,9 +7,9 @@
 
 :root {
   /* --- Surface --- */
-  --atom-surface-canvas: #0a0e1a;
-  --atom-surface-panel: #111827;
-  --atom-surface-elevated: #1a2332;
+  --atom-surface-canvas: #15161d;
+  --atom-surface-panel: #1e2029;
+  --atom-surface-elevated: #292b35;
   --atom-surface-reading: #f5f1e9;
   --atom-surface-glass: rgba(17, 24, 39, 0.7);
 
@@ -18,7 +18,7 @@
   --atom-text-secondary: #9ca3af;
   --atom-text-muted: #9ca3af;
   --atom-text-reading: #101823;
-  --atom-text-inverse: #0a0e1a;
+  --atom-text-inverse: #15161d;
 
   /* --- Border --- */
   --atom-border-subtle: rgba(255, 255, 255, 0.06);
@@ -26,29 +26,29 @@
   --atom-border-strong: rgba(255, 255, 255, 0.2);
 
   /* --- Accent (electric blue) --- */
-  --atom-accent: #00d4ff;
-  --atom-accent-soft: rgba(0, 212, 255, 0.15);
-  --atom-accent-hover: #33ddff;
-  --atom-accent-glow: 0 0 20px rgba(0, 212, 255, 0.3);
+  --atom-accent: #72d4c6;
+  --atom-accent-soft: rgba(114, 212, 198, 0.12);
+  --atom-accent-hover: #a0e5da;
+  --atom-accent-glow: none;
 
   /* --- Secondary accent (emerald) --- */
-  --atom-accent-secondary: #22ff66;
+  --atom-accent-secondary: #b8a0e6;
   --atom-accent-secondary-soft: rgba(34, 255, 102, 0.12);
 
   /* --- Interactive --- */
-  --atom-interactive-primary: #00d4ff;
-  --atom-interactive-hover: #33ddff;
+  --atom-interactive-primary: #72d4c6;
+  --atom-interactive-hover: #a0e5da;
   --atom-interactive-active: #00b8d9;
-  --atom-focus-ring: #00d4ff;
+  --atom-focus-ring: #72d4c6;
 
   /* --- Feedback --- */
-  --atom-positive: #22c55e;
-  --atom-warning: #f59e0b;
-  --atom-negative: #ef4444;
+  --atom-positive: #6bddac;
+  --atom-warning: #f7c568;
+  --atom-negative: #ffaaaa;
   --atom-information: #3b82f6;
 
   /* --- Energy Source Tokens --- */
-  --atom-energy-nuclear: #a78bfa;
+  --atom-energy-nuclear: #c5adff;
   --atom-energy-solar: #fbbf24;
   --atom-energy-wind: #34d399;
   --atom-energy-gas: #f87171;
@@ -91,24 +91,30 @@
 
 /* --- Light theme override --- */
 :root[data-theme="light"] {
-  --atom-surface-canvas: #f8fafc;
+  --atom-surface-canvas: #faf8f3;
   --atom-surface-panel: #ffffff;
-  --atom-surface-elevated: #f1f5f9;
+  --atom-surface-elevated: #f0ede5;
   --atom-surface-glass: rgba(255, 255, 255, 0.7);
   --atom-text-primary: #0f172a;
   --atom-text-secondary: #475569;
-  --atom-text-muted: #64748b;
-  --atom-text-inverse: #f8fafc;
+  --atom-text-muted: #526074;
+  --atom-text-inverse: #faf8f3;
+  --atom-energy-nuclear: #65418f;
+  --atom-accent-secondary: #65418f;
+  --atom-warning: #7a480a;
+  --atom-positive: #116340;
+  --atom-negative: #a92c39;
+  --atom-information: #235eac;
   --atom-border-subtle: rgba(15, 23, 42, 0.06);
   --atom-border-default: rgba(15, 23, 42, 0.12);
   --atom-border-strong: rgba(15, 23, 42, 0.2);
-  --atom-accent: #0e7490;
+  --atom-accent: #06646c;
   --atom-accent-soft: rgba(8, 145, 178, 0.1);
-  --atom-accent-hover: #0e7490;
+  --atom-accent-hover: #06646c;
   --atom-accent-glow: none;
-  --atom-interactive-primary: #0e7490;
-  --atom-interactive-hover: #0e7490;
-  --atom-focus-ring: #0e7490;
+  --atom-interactive-primary: #06646c;
+  --atom-interactive-hover: #06646c;
+  --atom-focus-ring: #06646c;
   color-scheme: light;
 }
 
@@ -390,4 +396,8 @@ a:hover {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+/* Reading links need a visible distinction beyond hue. */
+p a {
+  text-decoration: underline;
 }

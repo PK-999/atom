@@ -36,7 +36,7 @@ export default function EvidenceDirectoryPage() {
           </h1>
           <p
             style={{
-              color: "#4b5563",
+              color: "var(--atom-text-secondary)",
               fontSize: "1.125rem",
               lineHeight: 1.6,
               margin: 0,
@@ -61,7 +61,8 @@ export default function EvidenceDirectoryPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(18rem, 1fr))",
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(min(100%, 18rem), 1fr))",
               gap: "1.25rem",
             }}
           >
@@ -70,7 +71,7 @@ export default function EvidenceDirectoryPage() {
               style={{
                 display: "block",
                 padding: "1.5rem",
-                backgroundColor: "#ffffff",
+                backgroundColor: "var(--atom-surface-panel)",
                 border: "1px solid #e5e7eb",
                 borderRadius: "0.75rem",
                 textDecoration: "none",
@@ -83,7 +84,7 @@ export default function EvidenceDirectoryPage() {
                   fontSize: "1.125rem",
                   fontWeight: 700,
                   marginBottom: "0.5rem",
-                  color: "#7c3aed",
+                  color: "var(--atom-energy-nuclear)",
                 }}
               >
                 Methodology & Verification Gates →
@@ -91,7 +92,7 @@ export default function EvidenceDirectoryPage() {
               <p
                 style={{
                   fontSize: "0.875rem",
-                  color: "#4b5563",
+                  color: "var(--atom-text-secondary)",
                   lineHeight: 1.5,
                   margin: 0,
                 }}
@@ -106,7 +107,7 @@ export default function EvidenceDirectoryPage() {
               style={{
                 display: "block",
                 padding: "1.5rem",
-                backgroundColor: "#ffffff",
+                backgroundColor: "var(--atom-surface-panel)",
                 border: "1px solid #e5e7eb",
                 borderRadius: "0.75rem",
                 textDecoration: "none",
@@ -119,7 +120,7 @@ export default function EvidenceDirectoryPage() {
                   fontSize: "1.125rem",
                   fontWeight: 700,
                   marginBottom: "0.5rem",
-                  color: "#7c3aed",
+                  color: "var(--atom-energy-nuclear)",
                 }}
               >
                 Comparison Lab V1 →
@@ -127,7 +128,7 @@ export default function EvidenceDirectoryPage() {
               <p
                 style={{
                   fontSize: "0.875rem",
-                  color: "#4b5563",
+                  color: "var(--atom-text-secondary)",
                   lineHeight: 1.5,
                   margin: 0,
                 }}
@@ -151,7 +152,7 @@ export default function EvidenceDirectoryPage() {
           </h2>
           <ul
             style={{
-              color: "#374151",
+              color: "var(--atom-text-secondary)",
               lineHeight: 1.8,
               paddingLeft: "1.25rem",
             }}

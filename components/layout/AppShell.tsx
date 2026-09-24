@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 
 import { ThemeControl } from "@/components/settings/ThemeControl";
 
+import { MobileMenu } from "./MobileMenu";
+import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
 import { GlobalComplexityControl } from "./GlobalComplexityControl";
 import styles from "./AppShell.module.css";
 
@@ -26,23 +28,15 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Link href="/compare">Compare</Link>
             <Link href="/evidence">Evidence</Link>
           </nav>
-          <details className={styles.mobileMenu}>
-            <summary>Menu</summary>
-            <nav aria-label="Mobile navigation">
-              <Link href="/learn">Learn</Link>
-              <Link href="/explore">Explore</Link>
-              <Link href="/compare">Compare</Link>
-              <Link href="/evidence">Evidence</Link>
-              <Link href="/how-it-works">How It Works</Link>
-              <Link href="/reactors">Reactors</Link>
-              <Link href="/simulations">Simulations</Link>
-              <Link href="/radiation">Radiation</Link>
-              <Link href="/incidents">Incidents</Link>
-              <Link href="/myths">Myths</Link>
-              <Link href="/debates">Debate</Link>
-            </nav>
-          </details>
+          <MobileMenu />
           <div className={styles.preferences}>
+            <Link
+              href="/search"
+              className={styles.searchUtility}
+              aria-label="Search ATOM"
+            >
+              <MagnifyingGlass size={20} aria-hidden />
+            </Link>
             <GlobalComplexityControl />
             <ThemeControl />
           </div>
@@ -60,7 +54,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <strong>ATOM</strong>
             <p>
               An evidence-first interactive energy-literacy platform. Verify
-              ATOM through its sources, methods, and peer-reviewed data.
+              ATOM through its sources, methods, and stated limitations.
             </p>
           </div>
           <div className={styles.footerLinksGrid}>
@@ -96,8 +90,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
         <div className={styles.footerBottom}>
           <p>
-            © ATOM Energy Literacy Project. All scientific claims inspectable
-            with citations.
+            © ATOM Energy Literacy Project. Explore the sources and limitations
+            behind the science.
           </p>
         </div>
       </footer>

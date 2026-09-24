@@ -35,7 +35,7 @@ export default function GlobePage(props: GlobePageProps) {
       <Suspense
         fallback={
           <div style={{ padding: "3rem 0" }}>
-            <p style={{ color: "#64748b" }}>
+            <p style={{ color: "var(--atom-text-muted)" }}>
               Loading nuclear facilities directory...
             </p>
           </div>

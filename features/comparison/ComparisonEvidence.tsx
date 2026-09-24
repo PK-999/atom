@@ -124,10 +124,10 @@ export function EvidenceDialog({
           <Dialog.Description className={styles.dialogDescription}>
             {isChallenge
               ? isReviewed
-                ? `Submit a challenge or alternative evidence review for ${observation.technologyName}.`
+                ? `Inspect the record for ${observation.technologyName}. A correction submission service is not yet available.`
                 : `The challenge workflow will open after evidence review for ${observation.technologyName}. Until then, no correction can be submitted against an unpublished preview value.`
               : isReviewed
-                ? "This passport exposes the verified scientific provenance, methodology, and system boundary behind the displayed value."
+                ? "This passport shows the available source record, methodology, and system boundary behind the displayed estimate."
                 : "This passport shows the fields ATOM will expose after scientific and editorial review."}
           </Dialog.Description>
           <dl className={styles.passportGrid}>
@@ -138,7 +138,9 @@ export function EvidenceDialog({
             <div>
               <dt>Representative value</dt>
               <dd>
-                {observation.typicalValue} {comparison.unit}
+                {observation.typicalValue === null
+                  ? "Unavailable"
+                  : `${observation.typicalValue} ${comparison.unit}`}
               </dd>
             </div>
             <div>
@@ -166,7 +168,7 @@ export function EvidenceDialog({
                     observation.source.name
                   )
                 ) : isReviewed ? (
-                  "IPCC AR5 WGIII Annex III"
+                  "Source record unavailable"
                 ) : (
                   "Evidence review pending"
                 )}
@@ -177,7 +179,7 @@ export function EvidenceDialog({
               <dd>
                 {observation.methodology ??
                   (isReviewed
-                    ? "Harmonized lifecycle assessment synthesis"
+                    ? "Method record unavailable"
                     : "Not available in this interface preview")}
               </dd>
             </div>
@@ -185,7 +187,7 @@ export function EvidenceDialog({
               <dt>Dataset version</dt>
               <dd>
                 {observation.datasetVersionId ??
-                  (isReviewed ? "ipcc-ar5-v1" : "Preview draft")}
+                  (isReviewed ? "Version unavailable" : "Preview draft")}
               </dd>
             </div>
             <div>
@@ -195,7 +197,7 @@ export function EvidenceDialog({
                   ? `${observation.range.min} – ${observation.range.max} ${comparison.unit} (${observation.range.semantics})`
                   : (observation.uncertainty ??
                     (isReviewed
-                      ? "Harmonized distribution across literature"
+                      ? "Uncertainty record unavailable"
                       : "Review pending"))}
               </dd>
             </div>
@@ -204,7 +206,7 @@ export function EvidenceDialog({
             <Info aria-hidden size={20} />
             <p>
               {isReviewed
-                ? "This observation has completed editorial, scientific, and licensing review."
+                ? "This catalog does not expose independent scientific, editorial, or licensing sign-off records. Publication in the interface is not proof of completed review."
                 : "Do not cite these preview values. The published Lab will link every quantitative claim to inspectable evidence."}
             </p>
           </div>

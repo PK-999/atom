@@ -284,9 +284,7 @@ describe("ComparisonLab", () => {
       screen.getByRole("dialog", { name: "Challenge this number" }),
     ).toBeVisible();
     expect(
-      screen.getByText(
-        /Submit a challenge or alternative evidence review for Nuclear/i,
-      ),
+      screen.getByText(/correction submission service is not yet available/i),
     ).toBeVisible();
   });
 

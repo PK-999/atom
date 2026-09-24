@@ -111,7 +111,11 @@ export function SourcesViewer() {
       <section aria-label="Scientific Sources List">
         {filteredSources.length === 0 ? (
           <p
-            style={{ color: "#94a3b8", padding: "2rem 0", textAlign: "center" }}
+            style={{
+              color: "var(--atom-text-secondary)",
+              padding: "2rem 0",
+              textAlign: "center",
+            }}
           >
             No scientific sources match your search. Try broadening your
             criteria.

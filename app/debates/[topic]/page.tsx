@@ -63,22 +63,27 @@ export default async function DebateTopicPage({
             alignItems: "center",
             gap: "0.5rem",
             fontSize: "0.875rem",
-            color: "#64748b",
+            color: "var(--atom-text-muted)",
             marginBottom: "1.5rem",
           }}
         >
-          <Link href="/" style={{ color: "#64748b", textDecoration: "none" }}>
+          <Link
+            href="/"
+            style={{ color: "var(--atom-text-muted)", textDecoration: "none" }}
+          >
             Home
           </Link>
           <span>/</span>
           <Link
             href="/debates"
-            style={{ color: "#64748b", textDecoration: "none" }}
+            style={{ color: "var(--atom-text-muted)", textDecoration: "none" }}
           >
             Debates
           </Link>
           <span>/</span>
-          <span style={{ color: "#0f172a", fontWeight: 500 }}>{topic.id}</span>
+          <span style={{ color: "var(--atom-text-primary)", fontWeight: 500 }}>
+            {topic.id}
+          </span>
         </nav>
 
         <DebateViewer topic={topic} />

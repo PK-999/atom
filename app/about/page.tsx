@@ -16,7 +16,7 @@ export default function AboutPage() {
           maxWidth: "56rem",
           margin: "0 auto",
           padding: "2.5rem 1.5rem 6rem",
-          color: "#f8fafc",
+          color: "var(--atom-text-primary)",
         }}
       >
         <header
@@ -30,7 +30,7 @@ export default function AboutPage() {
             style={{
               display: "inline-block",
               background: "rgba(56, 189, 248, 0.15)",
-              color: "#38bdf8",
+              color: "var(--atom-accent)",
               fontSize: "0.8rem",
               fontWeight: 700,
               textTransform: "uppercase",
@@ -49,14 +49,14 @@ export default function AboutPage() {
               fontWeight: 800,
               letterSpacing: "-0.025em",
               marginBottom: "0.75rem",
-              color: "#f8fafc",
+              color: "var(--atom-text-primary)",
             }}
           >
             About ATOM
           </h1>
           <p
             style={{
-              color: "#94a3b8",
+              color: "var(--atom-text-secondary)",
               fontSize: "1.15rem",
               lineHeight: 1.65,
               margin: 0,
@@ -74,14 +74,14 @@ export default function AboutPage() {
               fontSize: "1.5rem",
               fontWeight: 700,
               marginBottom: "1rem",
-              color: "#f8fafc",
+              color: "var(--atom-text-primary)",
             }}
           >
             Our Mission & Scientific Stance
           </h2>
           <p
             style={{
-              color: "#cbd5e1",
+              color: "var(--atom-text-secondary)",
               lineHeight: 1.75,
               marginBottom: "1.25rem",
               fontSize: "1.05rem",
@@ -108,7 +108,7 @@ export default function AboutPage() {
               style={{
                 margin: 0,
                 fontWeight: 600,
-                color: "#e9d5ff",
+                color: "var(--atom-text-primary)",
                 fontSize: "1.1rem",
                 lineHeight: 1.6,
                 fontStyle: "italic",
@@ -120,7 +120,11 @@ export default function AboutPage() {
           </div>
 
           <p
-            style={{ color: "#cbd5e1", lineHeight: 1.75, fontSize: "1.05rem" }}
+            style={{
+              color: "var(--atom-text-secondary)",
+              lineHeight: 1.75,
+              fontSize: "1.05rem",
+            }}
           >
             ATOM is not a nuclear advocacy site. The platform presents evidence
             that strongly favors nuclear power on dimensions such as lifecycle
@@ -137,37 +141,43 @@ export default function AboutPage() {
               fontSize: "1.5rem",
               fontWeight: 700,
               marginBottom: "1rem",
-              color: "#f8fafc",
+              color: "var(--atom-text-primary)",
             }}
           >
             Editorial & Evidence Standards
           </h2>
           <ul
             style={{
-              color: "#cbd5e1",
+              color: "var(--atom-text-secondary)",
               lineHeight: 1.8,
               paddingLeft: "1.5rem",
               fontSize: "1rem",
             }}
           >
             <li>
-              <strong style={{ color: "#f8fafc" }}>No invented values:</strong>{" "}
+              <strong style={{ color: "var(--atom-text-primary)" }}>
+                No invented values:
+              </strong>{" "}
               Every quantitative claim must be traceable to peer-reviewed
               literature or authoritative international scientific agencies
               (UNSCEAR, IPCC, IAEA, IEA, UNECE, WHO, NREL).
             </li>
             <li>
-              <strong style={{ color: "#f8fafc" }}>Honest missing data:</strong>{" "}
+              <strong style={{ color: "var(--atom-text-primary)" }}>
+                Honest missing data:
+              </strong>{" "}
               Missing observations or incompatible methodologies are never
               silently hidden or set to zero.
             </li>
             <li>
-              <strong style={{ color: "#f8fafc" }}>Adaptive complexity:</strong>{" "}
+              <strong style={{ color: "var(--atom-text-primary)" }}>
+                Adaptive complexity:
+              </strong>{" "}
               Presentation complexity changes depth from Beginner to Geeky, but
               never alters the underlying scientific evidence.
             </li>
             <li>
-              <strong style={{ color: "#f8fafc" }}>
+              <strong style={{ color: "var(--atom-text-primary)" }}>
                 Separation of concerns:
               </strong>{" "}
               Scientific logic, units, and physics models remain strictly
@@ -187,7 +197,7 @@ export default function AboutPage() {
               fontSize: "1.25rem",
               fontWeight: 700,
               marginBottom: "1rem",
-              color: "#f8fafc",
+              color: "var(--atom-text-primary)",
             }}
           >
             Explore the Platform
@@ -203,7 +213,7 @@ export default function AboutPage() {
                 background: "rgba(56, 189, 248, 0.15)",
                 border: "1px solid rgba(56, 189, 248, 0.3)",
                 borderRadius: "8px",
-                color: "#38bdf8",
+                color: "var(--atom-accent)",
                 fontWeight: 600,
                 textDecoration: "none",
                 fontSize: "0.95rem",
@@ -221,7 +231,7 @@ export default function AboutPage() {
                 background: "rgba(168, 85, 247, 0.15)",
                 border: "1px solid rgba(168, 85, 247, 0.3)",
                 borderRadius: "8px",
-                color: "#c084fc",
+                color: "var(--atom-energy-nuclear)",
                 fontWeight: 600,
                 textDecoration: "none",
                 fontSize: "0.95rem",
@@ -239,7 +249,7 @@ export default function AboutPage() {
                 background: "rgba(16, 185, 129, 0.15)",
                 border: "1px solid rgba(16, 185, 129, 0.3)",
                 borderRadius: "8px",
-                color: "#34d399",
+                color: "var(--atom-positive)",
                 fontWeight: 600,
                 textDecoration: "none",
                 fontSize: "0.95rem",

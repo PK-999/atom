@@ -93,5 +93,6 @@ describe("comparison-api", () => {
     );
     expect(placeholder).toBeDefined();
     expect(placeholder?.evidenceStatus).toBe("unreviewed");
+    expect(placeholder?.typicalValue).toBeNull();
   });
 });

@@ -4,7 +4,7 @@
   max-width: 72rem;
   margin: 0 auto;
   padding: 1.5rem 1rem 5rem 1rem;
-  color: var(--color-foreground, #f8fafc);
+  color: var(--atom-text-primary);
 }
 
 .header {
@@ -18,7 +18,7 @@
   align-items: center;
   gap: 0.5rem;
   background: rgba(244, 63, 94, 0.15);
-  color: #fb7185;
+  color: var(--atom-negative);
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -35,7 +35,7 @@
   line-height: 1.2;
   letter-spacing: -0.025em;
   margin-bottom: 0.75rem;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #f43f5e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -44,7 +44,7 @@
 .subtitle {
   font-size: 1.1rem;
   line-height: 1.65;
-  color: var(--color-muted-foreground, #94a3b8);
+  color: var(--atom-text-secondary);
   max-width: 50rem;
   margin: 0;
 }
@@ -59,9 +59,9 @@
 }
 
 .modeButton {
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   padding: 0.65rem 1.25rem;
   border-radius: 10px;
   font-size: 0.95rem;
@@ -74,14 +74,14 @@
 }
 
 .modeButton:hover {
-  color: #f8fafc;
-  background: rgba(30, 41, 59, 0.8);
+  color: var(--atom-text-primary);
+  background: var(--atom-surface-elevated);
 }
 
 .modeButtonActive {
   background: rgba(244, 63, 94, 0.2);
   border-color: #f43f5e;
-  color: #ffffff;
+  color: var(--atom-text-primary);
   box-shadow: 0 0 16px rgba(244, 63, 94, 0.25);
 }
 
@@ -94,7 +94,7 @@
 }
 
 .incidentTab {
-  background: rgba(15, 23, 42, 0.7);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
@@ -109,13 +109,13 @@
 }
 
 .incidentTab:hover {
-  background: rgba(30, 41, 59, 0.8);
+  background: var(--atom-surface-elevated);
   border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
 }
 
 .incidentTabSelected {
-  background: rgba(30, 41, 59, 0.9) !important;
+  background: var(--atom-surface-elevated);
   border-color: #38bdf8 !important;
   box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
 }
@@ -128,14 +128,14 @@
 
 .incidentYear {
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-weight: 600;
 }
 
 .incidentName {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   margin: 0;
 }
 
@@ -150,25 +150,25 @@
 
 .inesLevel7 {
   background: rgba(239, 68, 68, 0.2);
-  color: #f87171;
+  color: var(--atom-negative);
   border: 1px solid rgba(239, 68, 68, 0.4);
 }
 
 .inesLevel6 {
   background: rgba(249, 115, 22, 0.2);
-  color: #fb923c;
+  color: var(--atom-warning);
   border: 1px solid rgba(249, 115, 22, 0.4);
 }
 
 .inesLevel5 {
   background: rgba(234, 179, 8, 0.2);
-  color: #facc15;
+  color: var(--atom-warning);
   border: 1px solid rgba(234, 179, 8, 0.4);
 }
 
 /* Detailed Incident View */
 .incidentDetailCard {
-  background: rgba(15, 23, 42, 0.8);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
@@ -195,7 +195,7 @@
 .detailTitle {
   font-size: 1.75rem;
   font-weight: 800;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   margin: 0;
 }
 
@@ -204,18 +204,18 @@
   flex-wrap: wrap;
   gap: 1.25rem;
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
 }
 
 .detailMeta strong {
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
 }
 
 .detailSummary {
   font-size: 1.05rem;
   line-height: 1.6;
-  color: #cbd5e1;
-  background: rgba(30, 41, 59, 0.5);
+  color: var(--atom-text-secondary);
+  background: var(--atom-surface-elevated);
   padding: 1rem 1.25rem;
   border-radius: 10px;
   border-left: 4px solid #38bdf8;
@@ -237,7 +237,7 @@
   background: transparent;
   border: 1px solid transparent;
   border-radius: 8px;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
@@ -245,19 +245,19 @@
 }
 
 .subTabButton:hover {
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   background: rgba(255, 255, 255, 0.05);
 }
 
 .subTabButtonActive {
   background: rgba(56, 189, 248, 0.15);
   border-color: rgba(56, 189, 248, 0.3);
-  color: #38bdf8;
+  color: var(--atom-accent);
 }
 
 /* Section Content */
 .sectionCard {
-  background: rgba(30, 41, 59, 0.5);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   padding: 1.5rem;
@@ -267,7 +267,7 @@
 .sectionTitle {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   margin: 0 0 1rem 0;
   display: flex;
   align-items: center;
@@ -277,7 +277,7 @@
 .explanationBox {
   font-size: 1rem;
   line-height: 1.7;
-  color: #e2e8f0;
+  color: var(--atom-text-primary);
 }
 
 /* Stats / Health Metrics Grid */
@@ -289,7 +289,7 @@
 }
 
 .statItem {
-  background: rgba(15, 23, 42, 0.7);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 1.25rem;
@@ -306,7 +306,7 @@
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   font-weight: 600;
 }
 
@@ -338,7 +338,7 @@
 .timelineTime {
   font-size: 0.8rem;
   font-weight: 700;
-  color: #38bdf8;
+  color: var(--atom-accent);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin-bottom: 0.25rem;
@@ -347,13 +347,13 @@
 .timelineTitle {
   font-size: 1rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   margin: 0 0 0.35rem 0;
 }
 
 .timelineDesc {
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   line-height: 1.5;
   margin: 0;
 }
@@ -369,14 +369,14 @@
 }
 
 .lessonItem {
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--atom-surface-elevated);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-left: 3px solid #10b981;
   border-radius: 8px;
   padding: 0.85rem 1.25rem;
   font-size: 0.925rem;
   line-height: 1.5;
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
 }
 
 /* Sources Footer */
@@ -391,13 +391,13 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #64748b;
+  color: var(--atom-text-muted);
   margin-bottom: 0.5rem;
 }
 
 .sourcesList {
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: var(--atom-text-secondary);
   line-height: 1.6;
 }
 
@@ -420,8 +420,8 @@
   padding: 0.6rem 1rem;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(15, 23, 42, 0.7);
-  color: #f1f5f9;
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-primary);
   font-size: 0.9rem;
 }
 
@@ -437,21 +437,21 @@
   font-size: 0.8rem;
   font-weight: 600;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(15, 23, 42, 0.6);
-  color: #94a3b8;
+  background: var(--atom-surface-elevated);
+  color: var(--atom-text-secondary);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .categoryPill:hover {
-  color: #f8fafc;
-  background: rgba(30, 41, 59, 0.8);
+  color: var(--atom-text-primary);
+  background: var(--atom-surface-elevated);
 }
 
 .categoryPillActive {
   background: rgba(56, 189, 248, 0.2);
   border-color: #38bdf8;
-  color: #38bdf8;
+  color: var(--atom-accent);
 }
 
 .faqList {
@@ -461,7 +461,7 @@
 }
 
 .faqCard {
-  background: rgba(15, 23, 42, 0.75);
+  background: var(--atom-surface-elevated);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
@@ -472,7 +472,7 @@
 .faqQuestion {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: var(--atom-text-primary);
   margin: 0 0 0.75rem 0;
   cursor: pointer;
   display: flex;
@@ -481,19 +481,19 @@
 }
 
 .faqQuestion:hover {
-  color: #38bdf8;
+  color: var(--atom-accent);
 }
 
 .faqAnswer {
   font-size: 0.95rem;
   line-height: 1.65;
-  color: #cbd5e1;
+  color: var(--atom-text-secondary);
   margin: 0 0 1rem 0;
 }
 
 .faqSource {
   font-size: 0.8rem;
-  color: #64748b;
+  color: var(--atom-text-muted);
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   padding-top: 0.5rem;
   margin: 0;

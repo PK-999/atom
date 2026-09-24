@@ -1,0 +1,718 @@
+[
+  {
+    "route": "/",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/learn",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/learn/energy",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/learn/atom",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/learn/fission",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/learn/reactor",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/learn/waste",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/compare",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/grid",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/simulations",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [
+      {
+        "tag": "BUTTON",
+        "cls": "SimulationsHub_tabButton__9TqAJ "
+      },
+      {
+        "tag": "BUTTON",
+        "cls": "SimulationsHub_tabButton__9TqAJ "
+      },
+      {
+        "tag": "BUTTON",
+        "cls": "SimulationsHub_tabButton__9TqAJ "
+      },
+      {
+        "tag": "BUTTON",
+        "cls": "SimulationsHub_tabButton__9TqAJ "
+      }
+    ],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/reactors",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/reactors/pwr",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/globe",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [
+      {
+        "tag": "TABLE",
+        "cls": "GlobeViewer_unitsTable__Xl7KC"
+      },
+      {
+        "tag": "THEAD",
+        "cls": ""
+      },
+      {
+        "tag": "TR",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TBODY",
+        "cls": ""
+      },
+      {
+        "tag": "TR",
+        "cls": ""
+      }
+    ],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/how-it-works",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [
+      {
+        "tag": "BUTTON",
+        "cls": "HowItWorksViewer_navBtn__UnM5k"
+      }
+    ],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/radiation",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [
+      {
+        "tag": "TABLE",
+        "cls": "DoseExplorer_table__gaemR"
+      },
+      {
+        "tag": "THEAD",
+        "cls": ""
+      },
+      {
+        "tag": "TR",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      }
+    ],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/myths",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/incidents",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/debates",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/debates/waste",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/topics",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/search",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/glossary",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/sources",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/evidence",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/methodology",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/about",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/ask",
+    "theme": "light",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/learn",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/learn/energy",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/learn/atom",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/learn/fission",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/learn/reactor",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/learn/waste",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/compare",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/grid",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/simulations",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [
+      {
+        "tag": "BUTTON",
+        "cls": "SimulationsHub_tabButton__9TqAJ "
+      },
+      {
+        "tag": "BUTTON",
+        "cls": "SimulationsHub_tabButton__9TqAJ "
+      },
+      {
+        "tag": "BUTTON",
+        "cls": "SimulationsHub_tabButton__9TqAJ "
+      },
+      {
+        "tag": "BUTTON",
+        "cls": "SimulationsHub_tabButton__9TqAJ "
+      }
+    ],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/reactors",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/reactors/pwr",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/globe",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [
+      {
+        "tag": "TABLE",
+        "cls": "GlobeViewer_unitsTable__Xl7KC"
+      },
+      {
+        "tag": "THEAD",
+        "cls": ""
+      },
+      {
+        "tag": "TR",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TBODY",
+        "cls": ""
+      },
+      {
+        "tag": "TR",
+        "cls": ""
+      }
+    ],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/how-it-works",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [
+      {
+        "tag": "BUTTON",
+        "cls": "HowItWorksViewer_navBtn__UnM5k"
+      }
+    ],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/radiation",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [
+      {
+        "tag": "TABLE",
+        "cls": "DoseExplorer_table__gaemR"
+      },
+      {
+        "tag": "THEAD",
+        "cls": ""
+      },
+      {
+        "tag": "TR",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      },
+      {
+        "tag": "TH",
+        "cls": ""
+      }
+    ],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/myths",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/incidents",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/debates",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/debates/waste",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/topics",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/search",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/glossary",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/sources",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/evidence",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/methodology",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/about",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  },
+  {
+    "route": "/ask",
+    "theme": "dark",
+    "width": 320,
+    "status": 200,
+    "overflow": false,
+    "overflowElements": [],
+    "errors": [],
+    "violations": []
+  }
+]

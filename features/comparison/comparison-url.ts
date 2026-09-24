@@ -71,7 +71,7 @@ export interface ComparisonUrlCatalog {
 }
 
 export type ComparisonUrlWarningCode =
-  "identifier-too-long" | "too-many-sources";
+  "identifier-too-long" | "too-many-sources" | "unavailable-identifier";
 
 export interface ComparisonUrlWarning {
   readonly code: ComparisonUrlWarningCode;
@@ -145,7 +145,14 @@ function parseCatalogIdentifier(
     parameter === "metric" && value === "lifecycle-emissions"
       ? "lifecycle-ghg"
       : value;
-  return allowed.has(canonicalValue) ? canonicalValue : fallback;
+  if (!canonicalValue) return fallback;
+  if (!allowed.has(canonicalValue))
+    onWarning({
+      code: "unavailable-identifier",
+      parameter,
+      message: `The requested ${parameter} “${canonicalValue}” is not in the current catalog. No alternative has been substituted.`,
+    });
+  return canonicalValue;
 }
 
 function parseSources(
@@ -173,7 +180,12 @@ function parseSources(
       });
       continue;
     }
-    if (!technologyIds.has(sourceId)) continue;
+    if (!technologyIds.has(sourceId))
+      onWarning({
+        code: "unavailable-identifier",
+        parameter: "sources",
+        message: `The requested technology “${sourceId}” is not in the current catalog.`,
+      });
 
     if (sources.length === MAX_SOURCE_COUNT) {
       if (!countWarningEmitted) {
@@ -189,7 +201,7 @@ function parseSources(
     sources.push(sourceId);
   }
 
-  return sources.length > 0 ? sources : [...DEFAULT_COMPARISON_STATE.sources];
+  return sources;
 }
 
 const LEGACY_COMPLEXITY_MAP: Record<string, ComplexityLevel> = {

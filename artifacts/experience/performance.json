@@ -1,0 +1,24 @@
+{
+  "base": "http://127.0.0.1:3104",
+  "conditions": "Chromium, cold cache, 390×844, 150ms latency, 1.6Mbps down, 4× CPU throttle; local production server, not field data.",
+  "results": [
+    {
+      "run": 1,
+      "lcp": 928,
+      "cls": 0.0001578460488827226,
+      "transferredBytes": 416665
+    },
+    {
+      "run": 2,
+      "lcp": 912,
+      "cls": 0.0001578460488827226,
+      "transferredBytes": 416665
+    },
+    {
+      "run": 3,
+      "lcp": 916,
+      "cls": 0.0001578460488827226,
+      "transferredBytes": 416668
+    }
+  ]
+}

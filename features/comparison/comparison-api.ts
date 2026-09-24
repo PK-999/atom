@@ -59,7 +59,7 @@ function mapResultToPreviewComparison(
       const typicalValue =
         typeof entry.value === "number"
           ? entry.value
-          : (entry.numericValue ?? 0);
+          : (entry.numericValue ?? null);
 
       observations.push({
         technologyId: techId,
@@ -91,7 +91,7 @@ function mapResultToPreviewComparison(
           techId.charAt(0).toUpperCase() + techId.slice(1),
         color,
         marker,
-        typicalValue: 0,
+        typicalValue: null,
         range: null,
         evidenceStatus: "unreviewed",
         source: null,

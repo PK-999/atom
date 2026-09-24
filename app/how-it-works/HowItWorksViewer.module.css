@@ -46,6 +46,7 @@
 
 /* Step Navigation Tabs */
 .stepTabs {
+  flex-wrap: wrap;
   display: flex;
   gap: 8px;
   overflow-x: auto;
@@ -70,7 +71,7 @@
   color: var(--atom-text-secondary);
   font-weight: 600;
   font-size: 0.9375rem;
-  white-space: nowrap;
+  white-space: normal;
   cursor: pointer;
   transition: all var(--atom-motion-fast) ease;
 }
@@ -309,7 +310,7 @@
 /* Callouts */
 .ctaRow {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 20px;
 }
 

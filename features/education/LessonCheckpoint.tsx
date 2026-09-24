@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import type { Checkpoint } from "@/lib/education/schemas";
 import {
-  getLessonProgress,
+  isLessonCompleted,
   recordLessonProgress,
 } from "@/lib/education/progress";
 import styles from "./Education.module.css";
@@ -23,9 +23,13 @@ export function LessonCheckpoint({
 }: LessonCheckpointProps) {
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isCompleted, setIsCompleted] = useState<boolean>(() => {
-    return getLessonProgress(lessonId)?.completed ?? false;
-  });
+  const hydrated = useSyncExternalStore(
+    () => () => undefined,
+    () => true,
+    () => false,
+  );
+  const [completedNow, setIsCompleted] = useState(false);
+  const isCompleted = completedNow || (hydrated && isLessonCompleted(lessonId));
 
   const selectedOption = checkpoint.options.find(
     (opt) => opt.id === selectedOptionId,

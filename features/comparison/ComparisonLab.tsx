@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 
 import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
 
@@ -52,6 +52,15 @@ export function ComparisonLab({
     setPrevActiveLevel(activeLevel);
     setActiveState({ ...initialState, level: activeLevel });
   }
+
+  // A route transition started before a depth change can finish afterward.
+  // Keep the latest chosen depth without resetting the experiment or filters.
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("level") === activeLevel) return;
+    url.searchParams.set("level", activeLevel);
+    window.history.replaceState(window.history.state, "", url);
+  }, [activeLevel, initialState]);
 
   const updateState = (updater: (prev: ComparisonState) => ComparisonState) => {
     const next = updater(activeState);
@@ -124,7 +133,7 @@ export function ComparisonLab({
             techInfo?.name ?? id.charAt(0).toUpperCase() + id.slice(1),
           color: techInfo?.color ?? "#737373",
           marker: techInfo?.marker ?? "circle",
-          typicalValue: 0, // not displayed: evidenceStatus=unreviewed suppresses the bar value
+          typicalValue: null,
           range: null,
           evidenceStatus: "unreviewed",
           source: null,
@@ -170,7 +179,7 @@ export function ComparisonLab({
               •
             </span>
             <span className={styles.labSubtitle}>
-              Peer-reviewed lifecycle and grid metrics across 9 technologies
+              Lifecycle and grid estimates, with source records and limitations
             </span>
           </div>
         </div>

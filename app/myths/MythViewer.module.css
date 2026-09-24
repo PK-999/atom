@@ -172,7 +172,7 @@
   padding: 4px 10px;
   border-radius: var(--atom-radius-full);
   background: rgba(239, 68, 68, 0.15);
-  color: #f87171;
+  color: var(--atom-negative);
   border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
@@ -184,7 +184,7 @@
   padding: 4px 10px;
   border-radius: var(--atom-radius-full);
   background: rgba(245, 158, 11, 0.15);
-  color: #fbbf24;
+  color: var(--atom-warning);
   border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
@@ -196,7 +196,7 @@
   padding: 4px 10px;
   border-radius: var(--atom-radius-full);
   background: rgba(168, 85, 247, 0.15);
-  color: #c084fc;
+  color: var(--atom-energy-nuclear);
   border: 1px solid rgba(168, 85, 247, 0.3);
 }
 

@@ -24,7 +24,10 @@ export function projectObservation(
   unitMode: UnitMode = "scientific",
   metricId?: string,
 ): ObservationProjection {
-  if (observation.evidenceStatus === "unreviewed") {
+  if (
+    observation.evidenceStatus === "unreviewed" ||
+    observation.typicalValue === null
+  ) {
     return {
       kind: "unavailable",
       label:
@@ -108,6 +111,8 @@ export function projectObservation(
 export function getComparisonScale(observations: PreviewObservation[]): number {
   return Math.max(
     1,
-    ...observations.map((observation) => observation.typicalValue),
+    ...observations.flatMap((observation) =>
+      observation.typicalValue === null ? [] : [observation.typicalValue],
+    ),
   );
 }

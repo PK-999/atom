@@ -35,7 +35,7 @@ export default function GlossaryPage() {
           </h1>
           <p
             style={{
-              color: "#6b7280",
+              color: "var(--atom-text-muted)",
               fontSize: "1.125rem",
               maxWidth: "36rem",
             }}
@@ -48,7 +48,8 @@ export default function GlossaryPage() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(24rem, 1fr))",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(100%, 24rem), 1fr))",
             gap: "1.25rem",
           }}
         >
@@ -56,7 +57,7 @@ export default function GlossaryPage() {
             <div
               key={item.id}
               style={{
-                backgroundColor: "#ffffff",
+                backgroundColor: "var(--atom-surface-panel)",
                 border: "1px solid #e5e7eb",
                 borderRadius: "0.75rem",
                 padding: "1.5rem",
@@ -105,7 +106,7 @@ export default function GlossaryPage() {
                 </h2>
                 <p
                   style={{
-                    color: "#4b5563",
+                    color: "var(--atom-text-secondary)",
                     fontSize: "0.9375rem",
                     lineHeight: 1.5,
                     margin: 0,
@@ -125,7 +126,7 @@ export default function GlossaryPage() {
                 <Link
                   href={`/glossary/${item.id}`}
                   style={{
-                    color: "#7c3aed",
+                    color: "var(--atom-energy-nuclear)",
                     fontSize: "0.875rem",
                     fontWeight: 600,
                     textDecoration: "none",

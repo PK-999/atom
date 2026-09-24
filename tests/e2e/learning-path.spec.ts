@@ -49,24 +49,30 @@ test.describe("R11 Learning Path: Seven-Lesson Educational Experience", () => {
       "Chemical fuels store energy in electron bonds",
     );
 
+    await page
+      .locator("#lesson-prediction")
+      .fill("More time means more energy.");
+
     // Switch to Kid (Level 1)
-    const article = page.getByRole("article", { name: "Energy & Power" });
-    await article.getByRole("button", { name: "Kid" }).click();
+    await page.getByLabel("Reading depth").selectOption("beginner");
     await expect(explanation).toContainText("Energy is the ability to do work");
 
     // Switch to Technical (Level 4)
-    await article.getByRole("button", { name: "Technical" }).click();
+    await page.getByLabel("Reading depth").selectOption("deep-dive");
     await expect(explanation).toContainText(
       "Specific energy density governs fuel cycle logistics",
+    );
+
+    await expect(page.locator("#lesson-prediction")).toHaveValue(
+      "More time means more energy.",
     );
 
     // Interactive slider check
     const interaction = page.getByTestId("energy-interaction");
     await expect(interaction).toBeVisible();
-    const slider = page.locator("#pellet-slider");
-    await expect(slider).toBeVisible();
-    await slider.fill("3");
-    await expect(page.getByText("3 ton")).toBeVisible();
+    await page.getByLabel("Power (kW)").fill("3");
+    await page.getByLabel("Time (hours)").fill("4");
+    await expect(interaction).toContainText("12 kWh");
   });
 
   test("formative checkpoint: wrong answer shows feedback, correct answer records completion", async ({
