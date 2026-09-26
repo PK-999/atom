@@ -10,5 +10,13 @@
     "atom-git-main-pks-projects-35b7ae41.vercel.app"
   ],
   "verifiedAt": "2026-09-26T10:19:12.827Z",
-  "historyCheck": "Vercel did not supply previous SHA; current records validated. CI/local historical check separate."
+  "historyCheck": "Vercel did not supply previous SHA; current records validated. CI/local historical check separate.",
+  "historyFollowup": {
+    "commit": "41ae977a5efd0989a8d3a4df120aeda44fdbf24b",
+    "id": "dpl_GL4QbsdsuNgFJigFSWHLnZZtjaYi",
+    "status": "READY",
+    "url": "atom-li4bai2e4-pks-projects-35b7ae41.vercel.app",
+    "baseline": "c6bbc5870de647b2686b7317fe7109efb881c3f3",
+    "buildCheck": "Evidence history preserved; 0 active numerical releases"
+  }
 }
