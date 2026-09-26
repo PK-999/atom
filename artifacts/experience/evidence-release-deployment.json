@@ -1,0 +1,14 @@
+{
+  "id": "dpl_5CdznVvMdsjzPWtYgFsPwbBMi7yK",
+  "status": "READY",
+  "target": "production",
+  "url": "atom-qlirihc3g-pks-projects-35b7ae41.vercel.app",
+  "sha": "c6bbc5870de647b2686b7317fe7109efb881c3f3",
+  "alias": [
+    "atom-opal-omega.vercel.app",
+    "atom-pks-projects-35b7ae41.vercel.app",
+    "atom-git-main-pks-projects-35b7ae41.vercel.app"
+  ],
+  "verifiedAt": "2026-09-26T10:19:12.827Z",
+  "historyCheck": "Vercel did not supply previous SHA; current records validated. CI/local historical check separate."
+}

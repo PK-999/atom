@@ -28,6 +28,24 @@ try {
       await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
       await expect(page.locator("main")).toHaveCount(1);
       await expect(page.locator("h1")).toHaveCount(1);
+      if (
+        route === "/compare" &&
+        process.env.ATOM_QA_EXPECT_PENDING === "true"
+      ) {
+        const nuclear = page.getByRole("button", {
+          name: "Inspect evidence for Nuclear",
+        });
+        await expect(nuclear).toHaveText("Review pending");
+        await expect(
+          page.getByText(/Reviewed comparison evidence is not available/),
+        ).toBeVisible();
+        await nuclear.click();
+        await expect(
+          page.getByRole("dialog").getByText("No active reviewed version"),
+        ).toBeVisible();
+        await page.keyboard.press("Escape");
+        await expect(page.getByRole("dialog")).toHaveCount(0);
+      }
       const axe = await new AxeBuilder({ page }).analyze();
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth > innerWidth,
@@ -96,7 +114,7 @@ try {
 } finally {
   await mkdir("artifacts/experience", { recursive: true });
   await writeFile(
-    "artifacts/experience/production-smoke.json",
+    process.env.ATOM_QA_OUTPUT || "artifacts/experience/production-smoke.json",
     JSON.stringify(
       { base, verifiedAt: new Date().toISOString(), results },
       null,

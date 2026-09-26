@@ -1,6 +1,6 @@
 # ATOM delivery tracker
 
-Last updated: 2026-09-25. This is the current status and verification authority. The site-wide experience plan is being delivered as small, verified slices on `codex/atom-experience-foundation`.
+Last updated: 2026-09-26. This is the current status and verification authority. Current bounded work: E01 on `codex/evidence-release-serving`. The museum integration is already deployed.
 
 ## Current entry point
 
@@ -12,7 +12,7 @@ Read in order:
 4. [Ordered E00–E18 implementation plan](../superpowers/plans/2026-09-21-atom-learning-experience.md).
 5. Applicable product policies, ADRs and the historical R-package specification mapped by the task.
 
-**Current delivery: deployed software integration.** Theme `3472875`, annual grid `1af5cf4`, and museum/exhibit integration `71fb672` are committed and pushed to `main`. Vercel production deployment `dpl_Brfv7essoj3t9Dees1QUnDvAmdPC` is Ready at [ATOM](https://atom-opal-omega.vercel.app). The live browser checks passed. See the acceptance/deployment records below for exact scope and remaining gates. **Next unblocked implementation task: E01 evidence publication/serving reconciliation**, with the remaining E18 verification and lesson/exhibit refinements tracked separately.
+**Current delivery: E01 software correction deployed.** The museum/exhibit integration remains live. Reviewed evidence serving is committed at `c6bbc58`, pushed to `main`, and verified on production deployment `dpl_5CdznVvMdsjzPWtYgFsPwbBMi7yK` at [ATOM](https://atom-opal-omega.vercel.app). Comparisons now withhold unsupported numerical values explicitly. **Next bounded task: E02 real lifecycle-emissions artifact extraction and review preparation.** Qualified scientific/editorial/licensing decisions remain required before activating values. E18 verification and lesson/exhibit refinements remain separately tracked.
 
 Scientific/editorial/licensing review remains a separate gate. Existing content was not newly approved; no new lesson URL or India profile was released.
 
@@ -43,7 +43,7 @@ Rows describe the broader roadmap, not a claim that implemented software has edi
 | ID     | Deliverable                                                 | Depends on                   | Status                                                                        |
 | ------ | ----------------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------- |
 | E00    | Reconciled status, liveness and browser/CI baseline         | Planning                     | Software baseline passes; publication/operations gates remain                 |
-| E01    | Auditable evidence publication and release serving          | E00                          | Planned                                                                       |
+| E01    | Auditable evidence publication and release serving          | E00                          | Software accepted/deployed at `c6bbc58`; zero numerical releases              |
 | E02    | Reviewed comparison sources/category releases               | E01                          | Planned; real review required                                                 |
 | E03    | Lossless Comparison Lab and shared evidence/charts          | E00; release E02             | Core URL/missing-data/evidence UI repaired; E01/E02 release gates open        |
 | E04    | Evidence metadata routes, public filters and Lab acceptance | E01–E03                      | Planned; public lesson gate                                                   |
@@ -182,7 +182,7 @@ This table is the current status authority for the user’s ten-step experience 
 
 ### Remaining work, in execution order
 
-1. **Current code task — E01:** evidence publication/serving reconciliation is implemented and undergoing final verification and independent review (record below). The present software integration is already committed, pushed and production-verified; do not redo it or mark the wider roadmap complete.
+1. **E01 software accepted:** evidence publication/serving reconciliation passed independent review and production verification at `c6bbc58` (record below). **Next bounded task: E02**, acquire and locate a primary lifecycle-emissions artifact, prepare reproducible extraction and explicit coverage; keep it in review until real qualified decisions exist. The present software integration is already committed, pushed and production-verified; do not redo it or mark the wider roadmap complete.
 2. **E18 software verification:** actual 200% browser zoom and assistive-technology journeys; repeated-mount GPU resource profiling and real background-tab behavior; production field LCP/CLS/INP monitoring. Close gaps with evidence rather than broad “site complete” assertions.
 3. **E01–E04 evidence infrastructure:** reconcile source-level provenance, public metadata routes, release-serving rules and review records. Preserve unavailable states and release filtering. Real scientific/editorial/licensing review remains an external gate; this does not prevent implementing the missing software contracts next.
 4. **E07/E09/E12/E13 lesson completion:** map substantive claims to exact sources, expand genuine five-level explanations, remove duplicated prediction prompts in embedded exhibits, review geometry/scale assumptions and checkpoint validity, persist path context consistently, then run a learning pilot. Existing released lesson URLs stay canonical.
@@ -202,7 +202,6 @@ Ruling: retain one Next.js application and one Vercel deployment. Reuse shared c
 - **Rollback reference:** previous production application revision `da727f9`; preserve the Vercel deployment history. Review/source/publication and the remaining software/manual QA tasks above remain open.
 - **Documentation follow-up:** the subsequent documentation/QA-artifact commit records this release; it does not change application code. Production Git integration may rebuild that record-only revision.
 
-
 ### E01 implementation record — 2026-09-26
 
 - **Task / dependency:** E01, publication and serving reconciliation; follows the production-verified experience integration. E02 scientific/source review remains separate.
@@ -213,5 +212,23 @@ Ruling: retain one Next.js application and one Vercel deployment. Reuse shared c
 - **Regression evidence:** publication flags without provenance initially failed the new oracle; matching review provenance now passes. Changed payloads, dropped historical decisions, draft/withdrawn versions, restricted reuse, unknown relationships and direct-read bypass are rejected. Synthetic review fixtures exist only in test support; none are production records.
 - **Verification so far:** full Vitest **546/546** in 82 files; focused three-browser comparison/regression suite **24/24**. Six comparison states at 320px, 390px and 1440px in light/dark have no overflow or axe violations. [Audit](../../artifacts/experience/evidence-release-audit.json), [light mobile](../../artifacts/experience/comparison-unreviewed-light-390.png), [dark mobile](../../artifacts/experience/comparison-unreviewed-dark-390.png). Typecheck, lint (10 existing warnings), formatting and production build passed before the final catalog-history extraction; final rerun recorded below when complete.
 - **Content/data versions:** governed ledger currently contains **zero active numerical releases**. No scientific/editorial/licensing approval is claimed. Comparisons remain unavailable until E02 supplies real artifacts and qualified decisions. Existing educational models/content are unchanged.
-- **Review / release status:** independent review, final full browser run, commit/push and production deployment pending.
+- **Review / release status:** accepted and deployed; final outcomes below supersede this record’s interim checks.
 - **Unverified gates / next:** E02 actual artifact extraction and independent review; E04 public provenance route expansion; manual 200% zoom/assistive technology, sustained GPU profiling and field performance remain open. Existing Next.js `NoFallbackError` server diagnostics on intentionally unknown 404 routes require E18 investigation; passing client status checks do not establish clean server logs.
+
+#### E01 acceptance and release verification
+
+- **Accepted software commit:** `c6bbc5870de647b2686b7317fe7109efb881c3f3`, pushed to the feature branch and `main`; no force push. [ADR 0010](../decisions/0010-evidence-release-serving.md) records the file-based serving choice. No active numerical dataset or new scientific approval was released.
+- **Final commands:** `npm test -- --run` → 546/546, 82 files; `npm run typecheck` → pass; `npm run lint` → 0 errors, 10 existing warnings; `npm run format:check` and `git diff --check` → pass; `npm run build` → pass including publisher check. `EVIDENCE_BASE_REF=d59c3e0 npm run evidence:check` and the same against `HEAD` → pass. Historical catalog definitions are loaded from the base commit as JSON, not replaced with current definitions.
+- **Browser evidence:** focused Comparison Lab/regression journeys passed 24/24 across Chromium/Firefox/WebKit. Full run at 2 workers: 203 passed, 1 Firefox `/ask` navigation timeout, 6 explicitly skipped instrumentation cases. All five Firefox Ask tests passed on isolated retest. An earlier full run had four timing failures that passed in the second run. This is **not** represented as a clean single full run; E18 retains timing stabilization. Six responsive/theme comparison audit states passed, and both 390px screenshots were inspected.
+- **Independent review:** immutable `d59c3e0..c6bbc58`, zero Critical/Important findings; reviewer independently ran 36 focused tests and the baseline-history check. Minor tracker header/queue inconsistency is corrected here. Scientific truth, reviewer qualification, licensing, hosted checks and later E03/E04 tasks were explicitly outside that code-review verdict.
+- **Preview:** `dpl_2SApUaNQRDpdzwa9vW1xZy3yw57B`, Ready, exact `c6bbc58`, `atom-b3v6idk06-pks-projects-35b7ae41.vercel.app`. Authenticated health and comparison HTML checks passed with deployment protection intact. Initial branch build had no previous deployment SHA and correctly logged current-record validation only.
+- **Verification artifact:** [machine-readable record](../../artifacts/experience/evidence-release-verification.json). Production result is recorded below.
+- **Remaining scope:** E02 real evidence/review, E04 inspectable public provenance, lesson depth/claim review, reactor camera/model refinements, India and contextual-cost work remain open. Existing legacy educational/Ask statements are not newly approved by the comparison serving correction.
+
+#### E01 production record — 2026-09-26
+
+- **Deployment:** `dpl_5CdznVvMdsjzPWtYgFsPwbBMi7yK`, Ready/Production, exact code SHA `c6bbc5870de647b2686b7317fe7109efb881c3f3`, aliased to [ATOM](https://atom-opal-omega.vercel.app). [Sanitized metadata](../../artifacts/experience/evidence-release-deployment.json).
+- **Live verification:** `ATOM_QA_EXPECT_PENDING=true ATOM_QA_OUTPUT=artifacts/experience/evidence-release-production.json node scripts/qa-production.mjs` → pass: 14 route/theme states and two interactive journeys, expected HTTP status, no core overflow/axe violations/captured page errors. Explicitly verified “Review pending”, the unavailable interpretation, “No active reviewed version” in the evidence drawer, and Escape dismissal in both themes. Existing theme/reload, homepage stepping, single-event fission, 3D loading and context-loss fallback also passed. [Results](../../artifacts/experience/evidence-release-production.json). The QA script’s optional output path preserves the previous integration record.
+- **Hosted validation limit:** Vercel did not expose `VERCEL_GIT_PREVIOUS_SHA` on this project’s preview or production build. Both validated current records. Historical comparison passed locally, and the GitHub quality job passed with its explicit base SHA. Vercel documents that this SHA is exposed only with an Ignored Build Step. A follow-up `vercel.json` sets `ignoreCommand: "exit 1"` to preserve always-build behavior and expose the history baseline. Hosted history verification for that configuration is recorded after its deployment. Current ledger is empty, so this delivery rewrites no reviewed history.
+- **Rollback reference:** previous application revision `d59c3e0`, deployment `dpl_5iK1E5CSF7kpGzwXLdrH8YZ2EzNz`. A rollback would restore unsupported comparison metadata as well as the prior app; prefer a forward correction if this E01 release needs repair.
+- **Documentation follow-up:** the subsequent configuration/documentation commit contains the hosted-history setting, QA artifacts, tracker updates and reusable QA-script options. It changes no application runtime code.

@@ -1,0 +1,54 @@
+{
+  "codeCommit": "c6bbc5870de647b2686b7317fe7109efb881c3f3",
+  "verifiedOn": "2026-09-26",
+  "unit": {
+    "passed": 546,
+    "files": 82
+  },
+  "typecheck": "pass",
+  "lint": {
+    "errors": 0,
+    "existingWarnings": 10
+  },
+  "format": "pass",
+  "build": "pass; includes evidence:check",
+  "historyCheck": "pass against d59c3e0 and HEAD",
+  "browser": {
+    "projects": ["chromium", "firefox", "webkit"],
+    "focusedComparison": {
+      "passed": 24
+    },
+    "fullRun": {
+      "passed": 203,
+      "failed": 1,
+      "skipped": 6,
+      "failure": "Firefox /ask navigation timed out before DOMContentLoaded"
+    },
+    "askFirefoxRetest": {
+      "passed": 5
+    },
+    "earlierRun": {
+      "passed": 200,
+      "failed": 4,
+      "skipped": 6,
+      "note": "Menu, graphics-pause and Firefox navigation timing; all passed in later run. No clean single full run claimed."
+    }
+  },
+  "responsiveAudit": "evidence-release-audit.json; six light/dark states 320/390/1440 clean",
+  "independentReview": {
+    "range": "d59c3e0..c6bbc58",
+    "critical": 0,
+    "important": 0,
+    "minor": "Tracker header/queue stale; corrected in release record",
+    "independentTestsPassed": 36
+  },
+  "activeNumericalReleases": 0,
+  "scientificApproval": false,
+  "remainingGates": [
+    "E02 real source extraction and qualified scientific/editorial/licensing decisions",
+    "E04 public provenance routes",
+    "E18 browser timing instability and unknown-route NoFallbackError",
+    "Manual 200% zoom and assistive technology",
+    "Sustained GPU profiling and production field performance"
+  ]
+}

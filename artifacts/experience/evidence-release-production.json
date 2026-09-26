@@ -1,0 +1,114 @@
+{
+  "base": "https://atom-opal-omega.vercel.app",
+  "verifiedAt": "2026-09-26T10:19:50.888Z",
+  "results": [
+    {
+      "route": "/",
+      "theme": "light",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/learn",
+      "theme": "light",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/learn/fission",
+      "theme": "light",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/compare",
+      "theme": "light",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/simulations",
+      "theme": "light",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/reactors/pwr",
+      "theme": "light",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/globe",
+      "theme": "light",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "light",
+      "journeys": "homepage step; explicit theme and reload; idempotent fission; 3D and context-loss fallback",
+      "pageErrors": []
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/learn",
+      "theme": "dark",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/learn/fission",
+      "theme": "dark",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/compare",
+      "theme": "dark",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/simulations",
+      "theme": "dark",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/reactors/pwr",
+      "theme": "dark",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/globe",
+      "theme": "dark",
+      "status": 200,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "journeys": "homepage step; explicit theme and reload; idempotent fission; 3D and context-loss fallback",
+      "pageErrors": []
+    }
+  ]
+}
