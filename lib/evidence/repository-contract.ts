@@ -1,3 +1,4 @@
+import { withSyntheticReview } from "./release-fixtures.test-support";
 import { describe, expect, it } from "vitest";
 
 import type { EvidenceSnapshot } from "./local-repository";
@@ -10,7 +11,7 @@ export type EvidenceRepositoryFactory = (
 export type EvidenceSnapshotFactory = () => EvidenceSnapshot;
 
 export function createEvidenceRepositoryContractSnapshot(): EvidenceSnapshot {
-  return {
+  const snapshot: EvidenceSnapshot = {
     geographies: [
       { id: "fixture-region", name: "Fixture region", scope: "region" },
       { id: "fixture-global", name: "Fixture global", scope: "global" },
@@ -159,6 +160,7 @@ export function createEvidenceRepositoryContractSnapshot(): EvidenceSnapshot {
       },
     ],
   };
+  return withSyntheticReview(snapshot);
 }
 
 function pointObservation(

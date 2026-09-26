@@ -2,34 +2,14 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 test.describe("Comparison Lab V1 Acceptance & Regression Drills (R09)", () => {
-  test("cross-category representative journeys assert values, units, and dataset versions", async ({
+  test("unreviewed categories never expose historical values or inferred rankings", async ({
     page,
   }) => {
-    // 1. Environment Category: Lifecycle GHG
-    await page.goto("/compare?metric=lifecycle-ghg&sources=nuclear,gas", {
-      waitUntil: "domcontentloaded",
-    });
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(
-      page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText("Nuclear: 12 g CO₂e / kWh");
-    await expect(
-      page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText("Gas: 490 g CO₂e / kWh");
-
-    // 2. Reliability Category: Capacity Factor
-    await page.goto("/compare?metric=capacity-factor&sources=nuclear,solar", {
-      waitUntil: "domcontentloaded",
-    });
-    await expect(
-      page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText("Nuclear: 92.5 %");
-    await expect(
-      page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText("Solar: 24.6 %");
-
-    // Unreleased categories must not reuse unrelated numeric observations.
     for (const metric of [
+      "lifecycle-ghg",
+      "capacity-factor",
+      "land-use",
+      "water-consumption",
       "lcoe",
       "mortality-rate",
       "fuel-energy-density",
@@ -39,6 +19,23 @@ test.describe("Comparison Lab V1 Acceptance & Regression Drills (R09)", () => {
       await expect(
         page.getByRole("list", { name: "Accessible comparison summary" }),
       ).toContainText("We do not currently have reliable comparable data");
+      await expect(
+        page.getByText(/Missing evidence is not zero/),
+      ).toBeVisible();
+      await expect(
+        page.getByText(/Fossil fuel estimates are much higher/),
+      ).toHaveCount(0);
+      await page
+        .getByRole("button", {
+          name: "Inspect evidence for Nuclear",
+          exact: true,
+        })
+        .click();
+      const passport = page.getByRole("dialog", { name: "Why this number?" });
+      await expect(
+        passport.getByText("No active reviewed version"),
+      ).toBeVisible();
+      await expect(passport.getByText("Not yet published")).toBeVisible();
     }
   });
 
@@ -52,7 +49,9 @@ test.describe("Comparison Lab V1 Acceptance & Regression Drills (R09)", () => {
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(
       page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText("Nuclear: 12 g CO₂e / kWh");
+    ).toContainText(
+      "Nuclear: We do not currently have reliable comparable data",
+    );
 
     // Invalid parameters fallback gracefully to defaults
     await page.goto(
@@ -72,7 +71,9 @@ test.describe("Comparison Lab V1 Acceptance & Regression Drills (R09)", () => {
     });
     await expect(
       page.getByRole("list", { name: "Accessible comparison summary" }),
-    ).toContainText("Nuclear: 12 g CO₂e / kWh");
+    ).toContainText(
+      "Nuclear: We do not currently have reliable comparable data",
+    );
 
     // 9 technologies selection
     await page.goto(
@@ -106,7 +107,7 @@ test.describe("Comparison Lab V1 Acceptance & Regression Drills (R09)", () => {
       "true",
     );
     await expect(
-      page.getByText(/Source-level raw observations are not available/),
+      page.getByText(/Reviewed comparison evidence is not available/),
     ).toBeVisible();
 
     await page.goto("/compare?mode=range", { waitUntil: "domcontentloaded" });
@@ -115,7 +116,7 @@ test.describe("Comparison Lab V1 Acceptance & Regression Drills (R09)", () => {
       "true",
     );
     await expect(
-      page.getByText(/Reviewed range evidence is not available/),
+      page.getByText(/Reviewed comparison evidence is not available/),
     ).toBeVisible();
 
     const accessibility = await new AxeBuilder({ page }).analyze();

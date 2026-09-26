@@ -102,3 +102,19 @@ describe("ComparisonInterpretation", () => {
     ).toBeVisible();
   });
 });
+
+it("does not draw a ranking from unavailable observations", () => {
+  render(
+    <ComparisonInterpretation
+      metricId="lifecycle-ghg"
+      metricName="Lifecycle emissions"
+      level="curious"
+      displayMode="typical"
+      hasEvidence={false}
+    />,
+  );
+  expect(screen.getByText(/Missing evidence is not zero/)).toBeVisible();
+  expect(
+    screen.queryByText(/Fossil fuel estimates are much higher/),
+  ).not.toBeInTheDocument();
+});

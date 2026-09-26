@@ -16,6 +16,7 @@ const UNAVAILABLE_EXPLANATIONS: Record<
 };
 
 interface ComparisonInterpretationProps {
+  hasEvidence?: boolean;
   metricId: string;
   metricName: string;
   level: ComplexityLevel;
@@ -55,12 +56,19 @@ export function getInterpretation(
 }
 
 export function ComparisonInterpretation({
+  hasEvidence = true,
   metricId,
   metricName,
   level,
   displayMode,
 }: ComparisonInterpretationProps) {
-  const result = getInterpretation(metricId, level, displayMode, metricName);
+  const result = hasEvidence
+    ? getInterpretation(metricId, level, displayMode, metricName)
+    : {
+        found: false,
+        text: "Reviewed comparison evidence is not available for this selection. ATOM is checking the exact sources, methods, and reuse permissions before publishing values. Missing evidence is not zero, and does not establish a ranking.",
+        limitations: undefined,
+      };
 
   return (
     <aside className={styles.interpretation} aria-labelledby="meaning-title">

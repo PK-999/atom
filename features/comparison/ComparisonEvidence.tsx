@@ -102,10 +102,10 @@ export function EvidenceDialog({
                 {isChallenge
                   ? isReviewed
                     ? "Challenge published record"
-                    : "Challenge preview"
+                    : "Evidence awaiting review"
                   : isReviewed
                     ? "Data passport"
-                    : "Data passport preview"}
+                    : "Data passport"}
               </p>
               <Dialog.Title className={styles.dialogTitle}>
                 {isChallenge ? "Challenge this number" : "Why this number?"}
@@ -180,14 +180,16 @@ export function EvidenceDialog({
                 {observation.methodology ??
                   (isReviewed
                     ? "Method record unavailable"
-                    : "Not available in this interface preview")}
+                    : "No reviewed method record available")}
               </dd>
             </div>
             <div>
               <dt>Dataset version</dt>
               <dd>
                 {observation.datasetVersionId ??
-                  (isReviewed ? "Version unavailable" : "Preview draft")}
+                  (isReviewed
+                    ? "Version unavailable"
+                    : "No active reviewed version")}
               </dd>
             </div>
             <div>
@@ -206,8 +208,8 @@ export function EvidenceDialog({
             <Info aria-hidden size={20} />
             <p>
               {isReviewed
-                ? "This catalog does not expose independent scientific, editorial, or licensing sign-off records. Publication in the interface is not proof of completed review."
-                : "Do not cite these preview values. The published Lab will link every quantitative claim to inspectable evidence."}
+                ? "Release checks bind this record to a reviewed source version. Metadata checks alone do not establish scientific truth; inspect the source, methods, and limitations."
+                : "Values are withheld until source, scientific, editorial, and reuse reviews are recorded. An unavailable value does not mean zero."}
             </p>
           </div>
         </Dialog.Content>

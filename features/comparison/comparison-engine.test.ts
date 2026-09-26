@@ -1,3 +1,4 @@
+import { withSyntheticReview } from "@/lib/evidence/release-fixtures.test-support";
 import { describe, expect, it } from "vitest";
 
 import { LocalEvidenceRepository } from "@/lib/evidence/local-repository";
@@ -140,14 +141,20 @@ describe("getComparisonResult (headless comparison engine)", () => {
       }
     }
 
-    return new LocalEvidenceRepository({
-      geographies: params.geographies ?? [mockGeoGlobal, mockGeoDE, mockGeoFR],
-      technologies: params.technologies ?? [mockTechA, mockTechB, mockTechC],
-      metrics: params.metrics ?? [mockMetricGhg, mockMetricCategorical],
-      metricReleases: params.releases ?? [baseRelease, categoricalRelease],
-      observations,
-      observationDatasetVersionIds: versionMap,
-    });
+    return new LocalEvidenceRepository(
+      withSyntheticReview({
+        geographies: params.geographies ?? [
+          mockGeoGlobal,
+          mockGeoDE,
+          mockGeoFR,
+        ],
+        technologies: params.technologies ?? [mockTechA, mockTechB, mockTechC],
+        metrics: params.metrics ?? [mockMetricGhg, mockMetricCategorical],
+        metricReleases: params.releases ?? [baseRelease, categoricalRelease],
+        observations,
+        observationDatasetVersionIds: versionMap,
+      }),
+    );
   }
 
   it("handles absent repository config with honest unavailable status", async () => {
@@ -542,7 +549,7 @@ describe("getComparisonResult (headless comparison engine)", () => {
   it("resolves output provenance IDs to exact observations used", async () => {
     const obs = createBaseObservation({
       id: "exact-obs-id-999",
-      datasetId: "exact-dataset-version-777",
+      datasetId: "stable-dataset-777",
       value: 12,
     });
 
@@ -561,7 +568,9 @@ describe("getComparisonResult (headless comparison engine)", () => {
     const entry = result.entries[0] as AvailableComparisonEntry;
     expect(entry.evidenceId).toBe("exact-obs-id-999");
     expect(entry.observationIds).toEqual(["exact-obs-id-999"]);
-    expect(result.datasetVersionIds).toContain("exact-dataset-version-777");
+    expect(result.datasetVersionIds).toEqual(["version-1"]);
+    expect(entry.datasetVersionId).toBe("version-1");
+    expect(result.datasetVersionIds).not.toContain("stable-dataset-777");
   });
 
   it("resolves explicit representative and emits warning when multi-study observations differ in methodology", async () => {

@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { IdentifierSchema } from "./schemas";
 import type { Geography, Metric, Observation, Technology } from "./schemas";
 
 export interface MetricRelease {
@@ -25,3 +27,15 @@ export interface EvidenceRepository {
     query: ObservationQuery,
   ): Promise<readonly Observation[]>;
 }
+
+export const MetricReleaseSchema = z
+  .object({
+    activeDatasetVersionId: IdentifierSchema,
+    availabilityStatus: z.enum(["supported", "unavailable", "restricted"]),
+    featureEnabled: z.boolean(),
+    geographyIds: z.array(IdentifierSchema),
+    metricId: IdentifierSchema,
+    publicationStatus: z.literal("published"),
+    technologyIds: z.array(IdentifierSchema),
+  })
+  .strict();

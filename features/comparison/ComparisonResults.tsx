@@ -42,6 +42,9 @@ export function ComparisonResults({
   // Automatic table view when 9 or more technologies are selected
   const effectiveView = selectedObservations.length >= 9 ? "table" : view;
 
+  const hasValues = selectedObservations.some(
+    (o) => o.evidenceStatus === "reviewed" && o.typicalValue !== null,
+  );
   const scaleMaximum = getComparisonScale(selectedObservations);
 
   return (
@@ -82,8 +85,10 @@ export function ComparisonResults({
           </button>
         </div>
       ) : effectiveView === "chart" ? (
-        <div className={styles.chart}>
-          <span className={styles.zero}>0</span>
+        <div
+          className={`${styles.chart} ${!hasValues ? styles.unavailableChart : ""}`}
+        >
+          {hasValues && <span className={styles.zero}>0</span>}
           {selectedObservations.map((observation) => {
             const projection = projectObservation(
               observation,
@@ -98,7 +103,7 @@ export function ComparisonResults({
 
             return (
               <div
-                className={styles.chartRow}
+                className={`${styles.chartRow} ${projection.kind === "unavailable" ? styles.unavailableRow : ""}`}
                 key={observation.technologyId}
                 style={chartStyle}
               >
@@ -114,11 +119,17 @@ export function ComparisonResults({
                       <span className={styles.bar} />
                     </span>
                   ) : (
-                    <span className={styles.pendingTrack} aria-hidden />
+                    projection.kind !== "unavailable" && (
+                      <span className={styles.pendingTrack} aria-hidden />
+                    )
                   )}
                   <EvidenceDialog
                     comparison={comparison}
-                    displayLabel={projection.label}
+                    displayLabel={
+                      projection.kind === "unavailable"
+                        ? "Review pending"
+                        : projection.label
+                    }
                     observation={observation}
                     triggerLabel={`Inspect evidence for ${observation.technologyName}`}
                   />
@@ -190,8 +201,8 @@ export function ComparisonResults({
       </ul>
 
       <p className={styles.previewNotice}>
-        Preview data for interface development only — not for citation or
-        decision-making.
+        Inspect sources, versions and limitations before using any estimate.
+        Unavailable values do not mean zero.
       </p>
     </div>
   );

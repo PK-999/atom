@@ -1,98 +1,80 @@
 import { describe, it, expect } from "vitest";
 import { fetchComparisonData } from "./comparison-api";
-import { PUBLISHED_METRIC_RELEASES } from "@/lib/evidence/published-evidence";
-import { getMetric } from "@/lib/evidence/metrics";
-import { getUnitDisplayLabel } from "@/lib/evidence/units";
+import {
+  PUBLISHED_EVIDENCE_SNAPSHOT,
+  PUBLISHED_METRICS,
+} from "@/lib/evidence/published-evidence";
+import { LocalEvidenceRepository } from "@/lib/evidence/local-repository";
+import { createEvidenceRepositoryContractSnapshot } from "@/lib/evidence/repository-contract";
 import type { ComparisonState } from "./comparison-types";
 
-describe("comparison-api", () => {
-  const baseState: ComparisonState = {
-    sources: ["nuclear", "solar", "wind", "gas", "coal"],
-    metric: "lifecycle-ghg",
-    region: "global",
-    mode: "typical",
-    units: "scientific",
-    level: "curious",
-  };
-
-  it("fetches preview comparison data for default state", async () => {
-    const comparison = await fetchComparisonData(baseState);
-
-    expect(comparison.metricId).toBe("lifecycle-ghg");
-    expect(comparison.metricName).toBe("Lifecycle greenhouse-gas emissions");
-    expect(comparison.metricShortName).toBe("Lifecycle emissions");
-    expect(comparison.unit).toBe("g CO₂e / kWh");
-    expect(comparison.observations.length).toBeGreaterThanOrEqual(5);
-
-    const nuclear = comparison.observations.find(
-      (o) => o.technologyId === "nuclear",
-    );
-    expect(nuclear).toBeDefined();
-    expect(nuclear?.evidenceStatus).toBe("reviewed");
-    expect(nuclear?.typicalValue).toBe(12);
-  });
-
-  it("ensures every published metric release has a valid metric definition with name and shortName", () => {
-    expect(PUBLISHED_METRIC_RELEASES.length).toBeGreaterThan(0);
-
-    for (const release of PUBLISHED_METRIC_RELEASES) {
-      const metric = getMetric(release.metricId);
+const base: ComparisonState = {
+  sources: ["nuclear", "solar", "gas"],
+  metric: "lifecycle-ghg",
+  region: "global",
+  mode: "typical",
+  units: "scientific",
+  level: "curious",
+};
+describe("comparison API release boundary", () => {
+  it("keeps known metric names/units while unreviewed numerical releases are unavailable", async () => {
+    for (const metric of PUBLISHED_METRICS) {
+      const comparison = await fetchComparisonData({
+        ...base,
+        metric: metric.id,
+      });
+      expect(comparison.metricName).toBe(metric.name);
+      expect(comparison.unit).not.toBe("unknown");
+      expect(comparison.observations).toHaveLength(3);
       expect(
-        metric,
-        `Metric ${release.metricId} from PUBLISHED_METRIC_RELEASES must exist in METRICS catalog`,
-      ).toBeDefined();
-
-      expect(metric?.name).toBeTruthy();
-      expect(metric?.shortName).toBeTruthy();
-      if (metric?.valueKind === "numeric") {
-        expect(metric.canonicalUnit).toBeTruthy();
-        const displayUnit = getUnitDisplayLabel(metric.canonicalUnit);
-        expect(displayUnit).toBeTruthy();
-      }
+        comparison.observations.every(
+          (o) =>
+            o.typicalValue === null &&
+            o.range === null &&
+            o.evidenceStatus === "unreviewed",
+        ),
+      ).toBe(true);
+      expect(comparison.datasetVersionIds).toEqual([]);
+      expect(comparison.warnings?.join(" ")).toMatch(/not yet released/);
     }
   });
-
-  it("successfully fetches comparison data for every published metric release", async () => {
-    for (const release of PUBLISHED_METRIC_RELEASES) {
-      const state: ComparisonState = {
-        ...baseState,
-        metric: release.metricId,
-        sources: [...release.technologyIds.slice(0, 3)],
-      };
-
-      const comparison = await fetchComparisonData(state);
-      expect(comparison.metricId).toBe(release.metricId);
-      expect(comparison.metricName).toBeTruthy();
-      expect(comparison.metricShortName).toBeTruthy();
-      expect(comparison.unit).toBeTruthy();
-      expect(comparison.observations).toBeDefined();
-      expect(Array.isArray(comparison.observations)).toBe(true);
-    }
+  it("does not create observations, licences, dates or reviews for the legacy catalog", () => {
+    expect(PUBLISHED_EVIDENCE_SNAPSHOT.observations).toEqual([]);
+    expect(PUBLISHED_EVIDENCE_SNAPSHOT.metricReleases).toEqual([]);
+    expect(PUBLISHED_EVIDENCE_SNAPSHOT.provenance?.versions).toEqual([]);
   });
-
-  it("handles unknown metrics gracefully without throwing", async () => {
-    const state: ComparisonState = {
-      ...baseState,
-      metric: "unknown-metric",
-    };
-
-    const comparison = await fetchComparisonData(state);
-    expect(comparison.metricId).toBe("unknown-metric");
-    expect(comparison.observations).toBeDefined();
-  });
-
-  it("handles unreviewed/unknown technologies by returning placeholder rows", async () => {
-    const state: ComparisonState = {
-      ...baseState,
-      sources: ["nuclear", "fusion-experimental"],
-    };
-
-    const comparison = await fetchComparisonData(state);
-    const placeholder = comparison.observations.find(
-      (o) => o.technologyId === "fusion-experimental",
+  it("projects eligible synthetic evidence through the same adapter", async () => {
+    const repository = new LocalEvidenceRepository(
+      createEvidenceRepositoryContractSnapshot(),
     );
-    expect(placeholder).toBeDefined();
-    expect(placeholder?.evidenceStatus).toBe("unreviewed");
-    expect(placeholder?.typicalValue).toBeNull();
+    const result = await fetchComparisonData(
+      {
+        ...base,
+        metric: "fixture-metric",
+        sources: ["fixture-technology-a", "missing-technology"],
+        region: "fixture-global",
+      },
+      repository,
+    );
+    expect(result.observations[0]).toMatchObject({
+      typicalValue: 1,
+      evidenceStatus: "reviewed",
+      datasetVersionId: "fixture-version-active",
+    });
+    expect(result.observations[1]).toMatchObject({
+      typicalValue: null,
+      evidenceStatus: "unreviewed",
+    });
+  });
+  it("preserves unknown requests without borrowing another metric's unit or value", async () => {
+    const result = await fetchComparisonData({
+      ...base,
+      metric: "unknown-metric",
+      sources: ["fusion-experimental"],
+    });
+    expect(result.metricId).toBe("unknown-metric");
+    expect(result.observations[0].typicalValue).toBeNull();
+    expect(result.observations[0].source).toBeNull();
+    expect(result.unit).not.toContain("CO₂");
   });
 });

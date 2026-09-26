@@ -1,3 +1,10 @@
+import { MetricReleaseSchema } from "./repository";
+import {
+  hasPublicationProvenance,
+  isReviewedVersion,
+  validateProvenance,
+  type EvidenceProvenance,
+} from "./release-provenance";
 import {
   GeographySchema,
   IdentifierSchema,
@@ -16,6 +23,7 @@ import type {
 } from "./repository";
 
 export interface EvidenceSnapshot {
+  readonly provenance?: EvidenceProvenance;
   readonly geographies: readonly Geography[];
   readonly metricReleases: readonly MetricRelease[];
   readonly metrics: readonly Metric[];
@@ -35,7 +43,22 @@ export class LocalEvidenceRepository implements EvidenceRepository {
       snapshot.observationDatasetVersionIds,
       observations,
     );
+    for (const records of [
+      snapshot.geographies,
+      snapshot.technologies,
+      snapshot.metrics,
+      observations,
+    ]) {
+      if (new Set(records.map((record) => record.id)).size !== records.length)
+        throw new Error("Duplicate evidence snapshot identity.");
+    }
+    if (
+      new Set(snapshot.metricReleases.map((r) => r.metricId)).size !==
+      snapshot.metricReleases.length
+    )
+      throw new Error("Ambiguous active metric release.");
     this.snapshot = deepFreeze({
+      provenance: validateProvenance(structuredClone(snapshot.provenance)),
       geographies: snapshot.geographies.map((geography) =>
         GeographySchema.parse(structuredClone(geography)),
       ),
@@ -106,6 +129,7 @@ export class LocalEvidenceRepository implements EvidenceRepository {
             this.snapshot.observationDatasetVersionIds[observation.id] ===
               release.activeDatasetVersionId &&
             observation.metricId === query.metricId &&
+            hasPublicationProvenance(this.snapshot, observation) &&
             observation.publicationStatus === "published" &&
             observation.rawAccess === "permitted" &&
             observation.license.redistribution === "allowed" &&
@@ -131,6 +155,7 @@ export class LocalEvidenceRepository implements EvidenceRepository {
   private isPublishedEnabledReleaseWithMetric(release: MetricRelease): boolean {
     return (
       isPublishedEnabledRelease(release) &&
+      isReviewedVersion(this.snapshot, release.activeDatasetVersionId) &&
       this.snapshot.metrics.some((metric) => metric.id === release.metricId)
     );
   }
@@ -152,21 +177,7 @@ function compareNameAndId(
 }
 
 function validateMetricRelease(value: MetricRelease): MetricRelease {
-  if (
-    !value.activeDatasetVersionId ||
-    !value.metricId ||
-    value.publicationStatus !== "published" ||
-    !["supported", "unavailable", "restricted"].includes(
-      value.availabilityStatus,
-    ) ||
-    !Array.isArray(value.technologyIds) ||
-    !Array.isArray(value.geographyIds) ||
-    value.technologyIds.some((id) => !id) ||
-    value.geographyIds.some((id) => !id)
-  ) {
-    throw new Error("EvidenceSnapshot contains an invalid metric release.");
-  }
-  return value;
+  return MetricReleaseSchema.parse(value);
 }
 
 function validateObservationVersionMappings(

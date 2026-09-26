@@ -13,12 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 24.20.0
           cache: npm
       - run: npm ci
       - run: npm run format:check
+      - run: npm run evidence:check
+        env:
+          EVIDENCE_BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test

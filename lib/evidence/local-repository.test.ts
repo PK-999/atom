@@ -105,3 +105,14 @@ describe("LocalEvidenceRepository", () => {
     expect(date.getFullYear()).toBe(2026);
   });
 });
+
+it("does not publish flags-only observations without source/version review provenance", async () => {
+  const snapshot = createEvidenceRepositoryContractSnapshot();
+  const repository = new LocalEvidenceRepository({
+    ...snapshot,
+    provenance: undefined,
+  } as EvidenceSnapshot);
+  expect(
+    await repository.getPublishedObservations({ metricId: "fixture-metric" }),
+  ).toEqual([]);
+});

@@ -1,0 +1,111 @@
+{
+  "metrics": [
+    {
+      "id": "lifecycle-ghg",
+      "name": "Lifecycle greenhouse-gas emissions",
+      "shortName": "Lifecycle emissions",
+      "category": "environment",
+      "definition": "Full lifecycle greenhouse gas emissions per unit electricity generated.",
+      "valueKind": "numeric",
+      "canonicalUnit": "gCO2e/kWh",
+      "rangeSemantics": "point-or-range",
+      "geographySupport": ["global", "country"],
+      "supportedUnits": ["gCO2e/kWh", "kgCO2e/MWh"]
+    },
+    {
+      "id": "land-use",
+      "name": "Direct and indirect land use",
+      "shortName": "Land use",
+      "category": "environment",
+      "definition": "Direct and indirect land footprint required per unit of generated electricity.",
+      "valueKind": "numeric",
+      "canonicalUnit": "m2/MWh",
+      "rangeSemantics": "point-or-range",
+      "geographySupport": ["global", "country"],
+      "supportedUnits": ["m2/MWh", "ha/TWh"]
+    },
+    {
+      "id": "capacity-factor",
+      "name": "Annual capacity factor",
+      "shortName": "Capacity factor",
+      "category": "reliability",
+      "definition": "Ratio of actual electrical output to maximum potential output over an annual period.",
+      "valueKind": "numeric",
+      "canonicalUnit": "%",
+      "rangeSemantics": "point-or-range",
+      "geographySupport": ["global", "country"],
+      "supportedUnits": ["%"]
+    },
+    {
+      "id": "water-consumption",
+      "name": "Operational water consumption",
+      "shortName": "Water consumption",
+      "category": "environment",
+      "definition": "Volume of freshwater evaporated or consumed per unit of generated energy.",
+      "valueKind": "numeric",
+      "canonicalUnit": "L/MWh",
+      "rangeSemantics": "point-or-range",
+      "geographySupport": ["global", "country"],
+      "supportedUnits": ["L/MWh", "m3/MWh"]
+    }
+  ],
+  "technologies": [
+    {
+      "id": "nuclear",
+      "name": "Nuclear",
+      "description": "Commercial nuclear fission power (light water and heavy water reactors)."
+    },
+    {
+      "id": "solar",
+      "name": "Solar",
+      "description": "Utility-scale ground-mount and rooftop crystalline silicon photovoltaics."
+    },
+    {
+      "id": "wind",
+      "name": "Wind",
+      "description": "Onshore and offshore horizontal-axis wind turbo-generators."
+    },
+    {
+      "id": "gas",
+      "name": "Gas",
+      "description": "Natural gas combined-cycle (NGCC) and open-cycle thermal generation."
+    },
+    {
+      "id": "coal",
+      "name": "Coal",
+      "description": "Supercritical and subcritical pulverized coal combustion plants."
+    },
+    {
+      "id": "hydro",
+      "name": "Hydro",
+      "description": "Run-of-river and reservoir impoundment hydroelectric facilities."
+    },
+    {
+      "id": "storage",
+      "name": "Storage",
+      "description": "Grid-scale lithium-ion battery and pumped hydro energy storage."
+    },
+    {
+      "id": "biomass",
+      "name": "Biomass",
+      "description": "Dedicated solid biomass combustion and co-firing facilities."
+    },
+    {
+      "id": "geothermal",
+      "name": "Geothermal",
+      "description": "Flash steam and binary cycle hydrothermal electricity plants."
+    }
+  ],
+  "geographies": [
+    {
+      "id": "global",
+      "name": "Global",
+      "scope": "global"
+    },
+    {
+      "id": "india",
+      "name": "India",
+      "scope": "country"
+    }
+  ]
+}

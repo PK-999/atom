@@ -198,9 +198,7 @@ export async function getComparisonResult(
         left.id.localeCompare(right.id),
       );
 
-      for (const obs of sortedObservations) {
-        datasetVersionIds.add(obs.datasetId);
-      }
+      datasetVersionIds.add(release.activeDatasetVersionId);
 
       if (metric.valueKind === "categorical") {
         const obs = sortedObservations[0];
@@ -227,7 +225,7 @@ export async function getComparisonResult(
           range: null,
           source: obs.sourceId ? { name: obs.sourceId, url: null } : null,
           verifiedAt: obs.lastVerifiedAt,
-          datasetVersionId: obs.datasetId,
+          datasetVersionId: release.activeDatasetVersionId,
           methodology: obs.methodology,
           systemBoundary: obs.systemBoundary,
           uncertainty: obs.uncertainty,
@@ -291,7 +289,7 @@ export async function getComparisonResult(
             range,
             source: obs.sourceId ? { name: obs.sourceId, url: null } : null,
             verifiedAt: obs.lastVerifiedAt,
-            datasetVersionId: obs.datasetId,
+            datasetVersionId: release.activeDatasetVersionId,
             methodology: obs.methodology,
             systemBoundary: obs.systemBoundary,
             uncertainty: obs.uncertainty,
@@ -358,7 +356,7 @@ export async function getComparisonResult(
               ? { name: primaryObs.sourceId, url: null }
               : null,
             verifiedAt: primaryObs.lastVerifiedAt,
-            datasetVersionId: primaryObs.datasetId,
+            datasetVersionId: release.activeDatasetVersionId,
             methodology: primaryObs.methodology,
             systemBoundary: primaryObs.systemBoundary,
             uncertainty: primaryObs.uncertainty,

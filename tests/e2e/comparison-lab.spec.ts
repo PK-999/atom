@@ -30,7 +30,7 @@ test("comparison journey preserves context and exposes evidence", async ({
   ).toBeVisible();
   await expect(
     page.getByRole("list", { name: "Accessible comparison summary" }),
-  ).toContainText("Nuclear: 12 g CO₂e / kWh");
+  ).toContainText("Nuclear: We do not currently have reliable comparable data");
 
   await page.getByRole("button", { name: "Remove Coal" }).click();
   await expect(
@@ -54,7 +54,7 @@ test("comparison journey preserves context and exposes evidence", async ({
   ).toHaveCount(0);
   await expect(
     page.getByRole("list", { name: "Accessible comparison summary" }),
-  ).toContainText("Nuclear: 5.1 - 28");
+  ).toContainText("Nuclear: We do not currently have reliable comparable data");
   await page.reload();
   await expect(page.getByLabel("Reading depth")).toHaveValue("deep-dive");
 
@@ -157,9 +157,9 @@ test("full canonical journey: remove, add, metric change, range, passport, chall
   const passportDialog = page.getByRole("dialog", { name: "Why this number?" });
   await expect(passportDialog).toBeVisible();
   await expect(passportDialog.getByText("Data passport")).toBeVisible();
-  await expect(passportDialog.getByText("Published evidence")).toBeVisible();
+  await expect(passportDialog.getByText("Not yet published")).toBeVisible();
   await expect(
-    passportDialog.getByText(/dataset-energy-synthesis/),
+    passportDialog.getByText("No active reviewed version"),
   ).toBeVisible();
   await page.getByRole("button", { name: "Close evidence" }).click();
   await expect(passportDialog).toHaveCount(0);
@@ -172,7 +172,7 @@ test("full canonical journey: remove, add, metric change, range, passport, chall
   await expect(challengeDialog).toBeVisible();
   await expect(
     challengeDialog.getByText(
-      /correction submission service is not yet available/i,
+      /no correction can be submitted against an unpublished/i,
     ),
   ).toBeVisible();
   await page.getByRole("button", { name: "Close evidence" }).click();

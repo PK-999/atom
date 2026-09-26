@@ -28,9 +28,8 @@ const defaultEvidenceRepository = new LocalEvidenceRepository(
 // Internal helper — not exported. Use fetchComparisonData for all external callers.
 async function resolveComparisonData(
   state: ComparisonState,
+  repository: EvidenceRepository,
 ): Promise<{ result: ComparisonResult; comparison: PreviewComparison }> {
-  const repository: EvidenceRepository = defaultEvidenceRepository;
-
   const result = await getComparisonResult(state, repository);
   const comparison = mapResultToPreviewComparison(result, state);
 
@@ -39,8 +38,9 @@ async function resolveComparisonData(
 
 export async function fetchComparisonData(
   state: ComparisonState,
+  repository: EvidenceRepository = defaultEvidenceRepository,
 ): Promise<PreviewComparison> {
-  const { comparison } = await resolveComparisonData(state);
+  const { comparison } = await resolveComparisonData(state, repository);
   return comparison;
 }
 
@@ -106,11 +106,15 @@ function mapResultToPreviewComparison(
   }
 
   const availableEntry = result.entries.find((e) => e.kind === "available");
+  const metricDef = getMetric(state.metric);
   const rawUnit =
-    availableEntry?.kind === "available" ? availableEntry.unit : "unknown";
+    availableEntry?.kind === "available"
+      ? availableEntry.unit
+      : metricDef?.valueKind === "numeric"
+        ? metricDef.canonicalUnit
+        : "";
   const unit = getUnitDisplayLabel(rawUnit);
 
-  const metricDef = getMetric(state.metric);
   const metricName =
     metricDef?.name ??
     (availableEntry?.kind === "available"

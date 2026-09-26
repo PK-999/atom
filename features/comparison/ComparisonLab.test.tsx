@@ -108,7 +108,7 @@ describe("ComparisonLab", () => {
     expect(screen.getByText("g CO₂e / kWh")).toBeInTheDocument();
     expect(screen.getByText("Published evidence")).toBeVisible();
     expect(
-      screen.getByText(/preview data for interface development/i),
+      screen.getByText(/Unavailable values do not mean zero/i),
     ).toBeVisible();
     const summary = screen.getByRole("list", {
       name: "Accessible comparison summary",

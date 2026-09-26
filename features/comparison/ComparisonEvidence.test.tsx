@@ -49,7 +49,7 @@ describe("ComparisonEvidence", () => {
     );
   });
 
-  it("renders DataPassport for an unreviewed observation with preview draft state", () => {
+  it("renders DataPassport for an unreviewed observation with unavailable release state", () => {
     render(
       <EvidenceDialog
         appearance="primary"
@@ -65,9 +65,11 @@ describe("ComparisonEvidence", () => {
 
     const dialog = screen.getByRole("dialog", { name: "Why this number?" });
     expect(dialog).toBeVisible();
-    expect(within(dialog).getByText("Data passport preview")).toBeVisible();
+    expect(within(dialog).getByText("Data passport")).toBeVisible();
     expect(within(dialog).getByText("Not yet published")).toBeVisible();
-    expect(within(dialog).getByText("Preview draft")).toBeVisible();
+    expect(
+      within(dialog).getByText("No active reviewed version"),
+    ).toBeVisible();
   });
 
   it("renders disabled trigger when observation is null", () => {

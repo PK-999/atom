@@ -1178,3 +1178,18 @@
     justify-content: flex-start;
   }
 }
+
+.unavailableChart::before {
+  display: none;
+}
+.unavailableRow {
+  grid-template-columns: 22px minmax(0, 1fr) minmax(80px, auto);
+}
+.unavailableRow .chartMeasure {
+  padding-right: 0;
+}
+.unavailableRow .valueEvidence {
+  font-family: inherit;
+  margin-left: 0;
+  overflow-wrap: anywhere;
+}

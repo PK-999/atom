@@ -222,6 +222,9 @@ export function ComparisonLab({
           />
 
           <ComparisonInterpretation
+            hasEvidence={selectedObservations.some(
+              (o) => o.evidenceStatus === "reviewed" && o.typicalValue !== null,
+            )}
             displayMode={activeState.mode}
             level={activeLevel}
             metricId={comparison.metricId}
