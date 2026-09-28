@@ -27,19 +27,19 @@ const HIGH_RES_RENDERS = [
     title: "Pressurized Water Reactor (PWR) 3D Cutaway",
     src: "/assets/reactor/reactor_schematic_1789243747503.jpg",
     caption:
-      "Full digital museum cutaway schematic showing containment dome, reactor pressure vessel, primary coolant loops, steam generator, and turbine building.",
+      "Conceptual cutaway illustration showing a containment dome, reactor pressure vessel, primary coolant loops, steam generator, and turbine building. It is not to scale.",
   },
   {
     title: "Nuclear Fuel Assembly Core 3D Geometry",
     src: "/assets/reactor/fuel_assembly_1789243766975.jpg",
     caption:
-      "High-precision geometric lattice of zirconium-clad fuel rods, spacer grids, and water channels emitting Cherenkov radiation.",
+      "Conceptual fuel-assembly illustration showing cladding tubes, spacer grids, and coolant channels. It is not a measured core map.",
   },
   {
     title: "Plant & Grid Power Distribution Facility",
     src: "/assets/reactor/nuclear_plant_overview_1789243785602.jpg",
     caption:
-      "Architectural overview of reactor containment, multi-stage cooling towers, switchyard transformers, and high-voltage transmission interconnects.",
+      "Conceptual plant-and-grid illustration showing containment, cooling towers, switchyard equipment, and transmission lines. It is not a site plan or operational map.",
   },
 ];
 

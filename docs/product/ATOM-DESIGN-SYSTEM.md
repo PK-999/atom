@@ -96,6 +96,12 @@ Recommended visual direction:
 
 > Digital science museum interaction with restrained editorial presentation.
 
+### Selected target — restrained dark exhibit room
+
+The 2026-09-28 target uses a deep ink-blue gallery canvas, warm white typography, muted cyan interaction states and one amber heat cue. The homepage presents one illuminated conceptual exhibit, a short heat-to-electricity path and an adjacent evidence affordance. The light theme keeps the warm museum companion; dark mode is the primary target for new visual compositions. See the [visual target](../design/2026-09-27-playable-atom/visual-target.md) and [asset manifest](../design/2026-09-27-playable-atom/asset-manifest.json).
+
+Generated or existing reactor artwork is always labeled as conceptual illustration. It cannot stand in for measured geometry, plant performance, an India forecast or source evidence. Use reviewed schematics and text for engineering claims.
+
 The visual system should favor:
 
 - clean surfaces

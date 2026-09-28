@@ -1,0 +1,105 @@
+{
+  "version": "2026-09-28",
+  "selectedDirection": "restrained-dark-exhibit-room",
+  "selectedReference": "selected-option-2.png",
+  "assets": [
+    {
+      "id": "selected-option-2",
+      "path": "docs/design/2026-09-27-playable-atom/selected-option-2.png",
+      "role": "visual target reference",
+      "dimensions": "1586x992",
+      "crop": {
+        "desktop": "full frame at 1440x900 reference scale",
+        "mobile": "recompose the hierarchy; do not crop the whole desktop frame"
+      },
+      "alt": "Dark museum-room concept for ATOM with a conceptual reactor exhibit, energy pathway and evidence drawer",
+      "origin": "OpenAI ImageGen, generated 2026-09-28 from ATOM screenshots and repository tokens",
+      "usageRights": "Internal design reference; do not treat as published engineering artwork",
+      "scientificReviewStatus": "conceptual illustration; not evidence"
+    },
+    {
+      "id": "conversion-museum",
+      "path": "public/images/exhibits/conversion-museum-v1.webp",
+      "role": "homepage energy-journey illustration",
+      "dimensions": "1536x1024",
+      "crop": {
+        "desktop": "wide exhibit crop with the reactor at left and generator at right",
+        "mobile": "full-width crop with the conceptual label retained"
+      },
+      "alt": "Conceptual museum illustration of a reactor vessel, steam turbine and generator",
+      "origin": "Existing repository asset; generated conceptual artwork",
+      "usageRights": "Repository use only until provenance and rights are recorded",
+      "scientificReviewStatus": "conceptual illustration; not a scale drawing or measurement"
+    },
+    {
+      "id": "dark-exhibit-room",
+      "path": "public/assets/home/dark-exhibit-room.png",
+      "role": "homepage dark exhibit-room background",
+      "dimensions": "1586x992",
+      "crop": {
+        "desktop": "cover the hero room behind copy and the exhibit card",
+        "mobile": "cover with the room texture retained behind the stacked hero"
+      },
+      "alt": "Conceptual dark museum gallery with an empty illuminated exhibit plinth",
+      "origin": "OpenAI ImageGen, generated 2026-09-28 from the selected ATOM visual target",
+      "usageRights": "Internal repository artwork; review provenance and rights before public reuse",
+      "scientificReviewStatus": "conceptual atmosphere only; no scientific content"
+    },
+    {
+      "id": "museum-background",
+      "path": "public/assets/comparison/museum-light-background.png",
+      "role": "dark exhibit-room texture",
+      "dimensions": "1586x992",
+      "crop": {
+        "desktop": "cover the homepage hero room without hiding text",
+        "mobile": "cover; decorative only"
+      },
+      "alt": "Subtle dark blue museum texture",
+      "origin": "Existing repository asset; source record not attached in this task",
+      "usageRights": "Repository use only pending provenance and rights review",
+      "scientificReviewStatus": "decorative texture; no scientific content"
+    },
+    {
+      "id": "reactor-cutaway",
+      "path": "public/assets/reactor/reactor_schematic_1789243747503.jpg",
+      "role": "reactor gallery image",
+      "dimensions": "1376x768",
+      "crop": {
+        "desktop": "wide gallery crop",
+        "mobile": "center on the vessel and coolant loop"
+      },
+      "alt": "Conceptual cutaway illustration of a pressurized-water reactor",
+      "origin": "Existing repository asset; source record not attached in this task",
+      "usageRights": "Repository use only pending provenance and rights review",
+      "scientificReviewStatus": "conceptual illustration; not to scale"
+    },
+    {
+      "id": "fuel-assembly",
+      "path": "public/assets/reactor/fuel_assembly_1789243766975.jpg",
+      "role": "fuel gallery image",
+      "dimensions": "1024x1024",
+      "crop": {
+        "desktop": "square inspection crop",
+        "mobile": "square crop centered on the lattice"
+      },
+      "alt": "Conceptual illustration of a fuel-assembly lattice with cladding tubes and spacer grids",
+      "origin": "Existing repository asset; source record not attached in this task",
+      "usageRights": "Repository use only pending provenance and rights review",
+      "scientificReviewStatus": "conceptual illustration; not a measured core map"
+    },
+    {
+      "id": "plant-grid",
+      "path": "public/assets/reactor/nuclear_plant_overview_1789243785602.jpg",
+      "role": "plant-and-grid gallery image",
+      "dimensions": "1376x768",
+      "crop": {
+        "desktop": "wide crop including the plant and transmission lines",
+        "mobile": "center on the plant; omit peripheral grid detail when needed"
+      },
+      "alt": "Conceptual illustration of a nuclear plant, cooling towers and transmission lines",
+      "origin": "Existing repository asset; source record not attached in this task",
+      "usageRights": "Repository use only pending provenance and rights review",
+      "scientificReviewStatus": "conceptual illustration; not a site plan or operational map"
+    }
+  ]
+}

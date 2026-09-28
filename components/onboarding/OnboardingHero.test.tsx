@@ -16,6 +16,10 @@ describe("museum homepage", () => {
     expect(
       screen.getByRole("link", { name: "Compare energy" }),
     ).toHaveAttribute("href", "/compare");
+    expect(screen.getByText("Exhibit 01 · Heat to electricity")).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: /Explore the evidence/ }),
+    ).toHaveAttribute("href", "/evidence");
   });
   it("supports stepped energy conversion without requiring autoplay", () => {
     render(<OnboardingHero />);

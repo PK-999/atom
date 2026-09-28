@@ -7,6 +7,8 @@ import { Atom } from "@phosphor-icons/react/Atom";
 import { Drop } from "@phosphor-icons/react/Drop";
 import { Fan } from "@phosphor-icons/react/Fan";
 import { Lightning } from "@phosphor-icons/react/Lightning";
+import { ArrowUpRight } from "@phosphor-icons/react/ArrowUpRight";
+import Link from "next/link";
 import styles from "./EnergyJourney.module.css";
 const steps = [
   {
@@ -44,6 +46,10 @@ export function EnergyJourney() {
       ref={target}
       aria-label="Heat to electricity journey"
     >
+      <div className={styles.exhibitHeader}>
+        <span>The hands-on collection</span>
+        <span>Exhibit 01</span>
+      </div>
       <div className={styles.poster}>
         {started ? (
           <EnergyConversionDiagram stage={stage} />
@@ -129,6 +135,10 @@ export function EnergyJourney() {
             </>
           )}
           <span>Heat → steam → motion → electricity</span>
+          <Link className={styles.evidenceLink} href="/evidence">
+            <span>Explore the evidence</span>
+            <ArrowUpRight size={16} aria-hidden />
+          </Link>
         </div>
         {started && (
           <p className={styles.note}>

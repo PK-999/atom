@@ -1,12 +1,26 @@
 .hero {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;
   align-items: center;
   gap: clamp(24px, 5vw, 64px);
   padding: clamp(28px, 6vw, 72px) 0 48px;
 }
+.exhibitMarker {
+  display: inline-flex;
+  margin: 0 0 20px;
+  color: var(--atom-accent);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
 .copy {
   min-width: 0;
+  position: relative;
+  z-index: 1;
 }
 .eyebrow {
   text-transform: uppercase;
@@ -60,11 +74,35 @@
   border: 1px solid var(--atom-border-strong);
   color: var(--atom-text-primary);
 }
+:global([data-theme="dark"]) .hero {
+  padding-inline: clamp(20px, 4vw, 56px);
+  border: 1px solid var(--atom-border-default);
+  border-radius: var(--atom-radius-xl);
+  background-color: #0b1119;
+  background-image: url("/assets/home/dark-exhibit-room.png");
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 28px 80px rgb(0 0 0 / 24%);
+}
+:global([data-theme="dark"]) .hero::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: rgb(11 17 25 / 66%);
+  content: "";
+}
+:global([data-theme="dark"]) .exhibitMarker {
+  color: #c8b495;
+}
 @media (max-width: 760px) {
   .hero {
     grid-template-columns: 1fr;
     padding-top: 24px;
     gap: 18px;
+  }
+  :global([data-theme="dark"]) .hero {
+    padding-inline: 16px;
+    border-radius: var(--atom-radius-lg);
   }
   .eyebrow {
     margin-bottom: 20px;

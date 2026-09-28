@@ -6,6 +6,7 @@ export function OnboardingHero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
       <div className={styles.copy}>
+        <p className={styles.exhibitMarker}>Exhibit 01 · Heat to electricity</p>
         <p className={styles.eyebrow}>
           A little curiosity. A bigger perspective.
         </p>
