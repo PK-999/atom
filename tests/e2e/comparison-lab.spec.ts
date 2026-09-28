@@ -22,7 +22,9 @@ test("comparison journey preserves context and exposes evidence", async ({
     }
   });
 
-  await page.goto("/compare", { waitUntil: "domcontentloaded" });
+  await page.goto("/compare?level=expert#main-content", {
+    waitUntil: "domcontentloaded",
+  });
   await page.waitForLoadState("networkidle");
 
   await expect(
@@ -41,14 +43,15 @@ test("comparison journey preserves context and exposes evidence", async ({
     "aria-pressed",
     "true",
   );
-  await page.getByLabel("Reading depth").selectOption("deep-dive");
+  await expect(page.getByLabel("Reading depth")).toHaveCount(0);
 
   await expect(page.getByRole("button", { name: "Range" })).toHaveAttribute(
     "aria-pressed",
     "true",
   );
-  await expect(page.getByLabel("Reading depth")).toHaveValue("deep-dive");
-  await expect(page).toHaveURL(/(?:\?|&)level=deep-dive(?:&|$)/);
+  await expect(page.getByLabel("Reading depth")).toHaveCount(0);
+  expect(new URL(page.url()).searchParams.has("level")).toBe(false);
+  expect(new URL(page.url()).hash).toBe("#main-content");
   await expect(
     page.locator("[data-chart-label]", { hasText: "Coal" }),
   ).toHaveCount(0);
@@ -56,7 +59,7 @@ test("comparison journey preserves context and exposes evidence", async ({
     page.getByRole("list", { name: "Accessible comparison summary" }),
   ).toContainText("Nuclear: We do not currently have reliable comparable data");
   await page.reload();
-  await expect(page.getByLabel("Reading depth")).toHaveValue("deep-dive");
+  await expect(page.getByLabel("Reading depth")).toHaveCount(0);
 
   await page.getByRole("button", { name: "Typical" }).click();
   await page.getByRole("button", { name: "Table view" }).click();
@@ -241,7 +244,9 @@ test("mobile comparison reflows without core horizontal overflow", async ({
   ).toBeVisible();
   await page.getByRole("button", { name: "Menu", exact: true }).click();
   await expect(
-    page.getByRole("dialog").getByLabel("Reading depth"),
+    page
+      .getByRole("dialog")
+      .getByRole("navigation", { name: "Mobile navigation" }),
   ).toBeVisible();
   await page.keyboard.press("Escape");
 

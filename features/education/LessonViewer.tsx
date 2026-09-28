@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { recordLessonVisit } from "@/lib/education/progress";
 import Link from "next/link";
 import type { LessonRecord, Topic, Checkpoint } from "@/lib/education/schemas";
-import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
+import { Explanation } from "@/components/education/Explanation";
 import { LessonInteraction } from "./LessonInteraction";
 import { LessonCheckpoint } from "./LessonCheckpoint";
 import styles from "./Education.module.css";
@@ -27,13 +27,9 @@ export function LessonViewer({
   prevLesson,
   nextLesson,
 }: LessonViewerProps) {
-  const [level] = useComplexityPreference("curious");
   const [prediction, setPrediction] = useState("");
   const guide = LESSON_GUIDES[lesson.id];
   useEffect(() => recordLessonVisit(lesson.id), [lesson.id]);
-
-  const activeContent =
-    lesson.contentByLevel[level] || lesson.contentByLevel.curious;
 
   return (
     <article className={styles.lessonPage} aria-labelledby="lesson-title">
@@ -71,7 +67,10 @@ export function LessonViewer({
           <span aria-hidden="true">•</span>
           <span>~5 min read</span>
           <span aria-hidden="true">•</span>
-          <span>Content dated: {lesson.lastVerifiedAt}</span>
+          <span>
+            Explanation updated:{" "}
+            {lesson.explanationVersion ?? lesson.lastVerifiedAt}
+          </span>
         </div>
 
         <div className={styles.objectiveCard}>
@@ -95,8 +94,8 @@ export function LessonViewer({
             placeholder="Make a prediction, then try the experiment."
           />
           <p>
-            Your prediction stays here while you change the explanation depth.
-            No answer is sent to a server.
+            Your prediction stays here while you explore the explanation. No
+            answer is sent to a server.
           </p>
         </section>
       )}
@@ -108,12 +107,12 @@ export function LessonViewer({
         aria-labelledby="explanation-heading"
       >
         <h2 id="explanation-heading">What explains the result?</h2>
-        <div className={styles.levelIndicator}>
-          Level: {level.toUpperCase()}
+        <div
+          className={styles.explanationText}
+          data-testid="lesson-explanation"
+        >
+          <Explanation content={lesson.explanation} />
         </div>
-        <p className={styles.explanationText} data-testid="lesson-explanation">
-          {activeContent}
-        </p>
       </section>
 
       {/* Formative Assessment Checkpoint */}

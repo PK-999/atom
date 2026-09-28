@@ -28,7 +28,7 @@ test("homepage journey is controllable and mobile navigation restores focus", as
   ).toBeFocused();
 });
 
-test("fission preserves event and prediction across tabs, depth, theme and views", async ({
+test("fission preserves event and prediction across tabs, details, theme and views", async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -134,7 +134,7 @@ for (const theme of ["light", "dark"] as const)
     });
   }
 
-test("playback reaches the final fission stage and depth preserves the experiment", async ({
+test("playback reaches the final fission stage and details preserve the experiment", async ({
   page,
 }) => {
   await page.goto("/simulations");
@@ -146,9 +146,11 @@ test("playback reaches the final fission stage and depth preserves the experimen
   await expect(page.getByText(/Events in this replay: 1/)).toBeVisible({
     timeout: 8000,
   });
-  await page.getByLabel("Reading depth", { exact: true }).selectOption("geeky");
+  await page
+    .getByText("Does this predict a chain reaction?", { exact: true })
+    .click();
   await expect(
-    page.getByText(/not a Monte Carlo transport calculation/),
+    page.getByText(/not a neutron-transport calculation/),
   ).toBeVisible();
   await expect(page.getByLabel("My prediction")).toHaveValue("split");
   await expect(page.getByText(/Events in this replay: 1/)).toBeVisible();

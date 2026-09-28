@@ -570,34 +570,6 @@
   margin: 0;
 }
 
-.explanationTabs {
-  display: flex;
-  gap: 0.25rem;
-  background: var(--atom-surface-elevated);
-  padding: 0.25rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
-.tabButton {
-  flex: 1;
-  padding: 0.45rem 0.6rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  border: none;
-  background: transparent;
-  color: var(--atom-text-secondary);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.tabButtonActive {
-  background: var(--atom-surface-panel);
-  color: var(--atom-text-primary);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-}
-
 .explanationBody {
   font-size: 0.95rem;
   line-height: 1.65;

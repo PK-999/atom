@@ -1,11 +1,8 @@
 "use client";
 
+import { Explanation } from "@/components/education/Explanation";
+import { explanationText } from "@/lib/education/explanation";
 import React, { useState, useMemo } from "react";
-import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
-import {
-  type ComplexityLevel,
-  COMPLEXITY_LEVELS,
-} from "@/lib/preferences/complexity-preference";
 import {
   INCIDENTS_DATA,
   INCIDENT_FAQS,
@@ -18,12 +15,10 @@ type ViewMode = "incidents" | "faqs";
 type IncidentSubTab = "analysis" | "timeline" | "health" | "lessons";
 
 export function IncidentViewer() {
-  const [userLevel] = useComplexityPreference("curious");
   const [mode, setMode] = useState<ViewMode>("incidents");
   const [selectedIncidentId, setSelectedIncidentId] =
     useState<string>("chernobyl");
   const [subTab, setSubTab] = useState<IncidentSubTab>("analysis");
-  const [customLevel, setCustomLevel] = useState<ComplexityLevel | null>(null);
 
   // FAQ state
   const [faqSearch, setFaqSearch] = useState("");
@@ -31,8 +26,6 @@ export function IncidentViewer() {
   const [expandedFaqId, setExpandedFaqId] = useState<string | null>(
     "faq-bomb-explosion",
   );
-
-  const effectiveLevel = customLevel ?? userLevel;
 
   const currentIncident: IncidentData = useMemo(() => {
     return (
@@ -49,12 +42,12 @@ export function IncidentViewer() {
       if (faqSearch.trim()) {
         const q = faqSearch.toLowerCase().trim();
         const matchQ = faq.question.toLowerCase().includes(q);
-        const matchA = faq.answer[effectiveLevel].toLowerCase().includes(q);
+        const matchA = explanationText(faq.answer).toLowerCase().includes(q);
         if (!matchQ && !matchA) return false;
       }
       return true;
     });
-  }, [faqCategory, faqSearch, effectiveLevel]);
+  }, [faqCategory, faqSearch]);
 
   const inesClass = (level: InesLevel) => {
     if (level === 7) return styles.inesLevel7;
@@ -165,54 +158,6 @@ export function IncidentViewer() {
                     {currentIncident.name} ({currentIncident.year})
                   </h2>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "0.35rem",
-                    flexWrap: "wrap",
-                    alignItems: "center",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "0.75rem",
-                      color: "var(--atom-text-muted)",
-                      textTransform: "uppercase",
-                      fontWeight: 700,
-                    }}
-                  >
-                    Depth:
-                  </span>
-                  {COMPLEXITY_LEVELS.map((lvl) => (
-                    <button
-                      key={lvl}
-                      type="button"
-                      style={{
-                        padding: "0.2rem 0.5rem",
-                        borderRadius: "4px",
-                        fontSize: "0.75rem",
-                        fontWeight: 600,
-                        border: "1px solid",
-                        cursor: "pointer",
-                        background:
-                          effectiveLevel === lvl
-                            ? "var(--atom-accent)"
-                            : "var(--atom-surface-elevated)",
-                        color:
-                          effectiveLevel === lvl
-                            ? "var(--atom-text-inverse)"
-                            : "var(--atom-text-primary)",
-                        borderColor:
-                          effectiveLevel === lvl
-                            ? "#38bdf8"
-                            : "rgba(255, 255, 255, 0.1)",
-                      }}
-                      onClick={() => setCustomLevel(lvl)}
-                    >
-                      {lvl}
-                    </button>
-                  ))}
-                </div>
               </div>
 
               <div className={styles.detailMeta}>
@@ -295,11 +240,10 @@ export function IncidentViewer() {
                   {currentIncident.rootCause}
                 </div>
                 <h3 className={styles.sectionTitle}>
-                  <span>📖</span> Detailed Explanation (
-                  {effectiveLevel.toUpperCase()} Level)
+                  <span>📖</span> What happened
                 </h3>
                 <div className={styles.explanationBox}>
-                  {currentIncident.explanations[effectiveLevel]}
+                  <Explanation content={currentIncident.explanation} />
                 </div>
               </div>
             )}
@@ -536,9 +480,9 @@ export function IncidentViewer() {
 
                     {isExpanded && (
                       <div>
-                        <p className={styles.faqAnswer}>
-                          {faq.answer[effectiveLevel]}
-                        </p>
+                        <div className={styles.faqAnswer}>
+                          <Explanation content={faq.answer} />
+                        </div>
                         <div className={styles.faqSource}>
                           <strong>Source:</strong> {faq.source.title} (
                           {faq.source.organization}, {faq.source.year}) —{" "}

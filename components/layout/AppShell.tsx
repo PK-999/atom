@@ -5,7 +5,6 @@ import { ThemeControl } from "@/components/settings/ThemeControl";
 
 import { MobileMenu } from "./MobileMenu";
 import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
-import { GlobalComplexityControl } from "./GlobalComplexityControl";
 import styles from "./AppShell.module.css";
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -37,7 +36,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               <MagnifyingGlass size={20} aria-hidden />
             </Link>
-            <GlobalComplexityControl />
             <ThemeControl />
           </div>
         </div>

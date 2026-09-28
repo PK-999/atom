@@ -64,8 +64,19 @@ export const ReactorComponentSchema = z
     type: ComponentTypeSchema,
     role: NonEmptyStringSchema,
     description: NonEmptyStringSchema,
-    simplerExplanation: NonEmptyStringSchema.optional(),
-    deeperExplanation: NonEmptyStringSchema.optional(),
+    details: z
+      .array(
+        z
+          .object({
+            id: IdentifierSchema,
+            title: NonEmptyStringSchema,
+            body: NonEmptyStringSchema,
+          })
+          .strict()
+          .readonly(),
+      )
+      .readonly()
+      .optional(),
     connectedFlowIds: z.array(IdentifierSchema).default([]).readonly(),
     diagramCoords: DiagramCoordsSchema.optional(),
     citationIds: z.array(IdentifierSchema).default([]).readonly(),

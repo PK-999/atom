@@ -12,7 +12,6 @@ import { vi } from "vitest";
 
 import { ComparisonLab } from "./ComparisonLab";
 import { mockComparison, mockInitialState } from "./test-fixtures";
-import { COMPLEXITY_PREFERENCE_KEY } from "@/lib/preferences/complexity-preference";
 
 const mockPush = vi.fn();
 vi.mock("next/navigation", () => ({
@@ -46,48 +45,22 @@ afterEach(() => {
 });
 
 describe("ComparisonLab", () => {
-  it("uses a stored level when the URL omits level for display and serialization", async () => {
-    window.history.replaceState(null, "", "/compare");
-    window.localStorage.setItem(COMPLEXITY_PREFERENCE_KEY, "geeky");
-
+  it("ignores stored reading preferences and preserves the anchor when updating filters", () => {
+    window.history.replaceState(null, "", "/compare?level=expert#main-content");
+    window.localStorage.setItem("atom:preferences:v2:complexity", "geeky");
     render(
       <ComparisonLab
         comparison={mockComparison}
         initialState={mockInitialState}
       />,
     );
-
-    await waitFor(() =>
-      expect(
-        screen.getByText(
-          /These interface values are not a published synthesis/,
-        ),
-      ).toBeVisible(),
-    );
-
     fireEvent.click(screen.getByRole("button", { name: "Range" }));
-
     expect(mockPush).toHaveBeenCalledWith(
-      expect.stringContaining("level=geeky"),
-      expect.anything(),
+      "/compare?sources=nuclear%2Csolar%2Cwind%2Cgas%2Ccoal&metric=lifecycle-ghg&region=global&mode=range&units=scientific#main-content",
+      { scroll: false },
     );
-  });
-
-  it("keeps an explicit URL level authoritative over stored preference", async () => {
-    window.history.replaceState(null, "", "/compare?level=deep-dive");
-    window.localStorage.setItem(COMPLEXITY_PREFERENCE_KEY, "geeky");
-
-    render(
-      <ComparisonLab
-        comparison={mockComparison}
-        initialState={{ ...mockInitialState, level: "deep-dive" }}
-      />,
-    );
-
-    await waitFor(() =>
-      expect(
-        screen.getByText(/The representative values differ substantially/),
-      ).toBeVisible(),
+    expect(window.localStorage.getItem("atom:preferences:v2:complexity")).toBe(
+      "geeky",
     );
   });
 
@@ -175,22 +148,6 @@ describe("ComparisonLab", () => {
     expect(
       screen.getAllByRole("button", { name: "Remove Nuclear" }),
     ).toHaveLength(1);
-  });
-
-  it("preserves URL level in navigation state updates", () => {
-    render(
-      <ComparisonLab
-        comparison={mockComparison}
-        initialState={{ ...mockInitialState, level: "deep-dive" }}
-      />,
-    );
-
-    fireEvent.click(screen.getByRole("button", { name: "Range" }));
-
-    expect(mockPush).toHaveBeenCalledWith(
-      expect.stringContaining("level=deep-dive"),
-      expect.anything(),
-    );
   });
 
   it("explains unavailable evidence instead of interpreting typical values", () => {

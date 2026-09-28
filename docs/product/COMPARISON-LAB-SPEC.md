@@ -33,18 +33,23 @@ The feature succeeds when:
 ## 4. Primary User Stories
 
 ### Casual visitor
+
 As a casual visitor, I want to compare nuclear and solar so I can understand their major trade-offs.
 
 ### Student
+
 As a student, I want to understand where lifecycle-emission numbers come from.
 
 ### Technical visitor
+
 As a technical visitor, I want to inspect the range, assumptions, and source metadata.
 
 ### Skeptical visitor
+
 As a skeptical visitor, I want to inspect alternative studies rather than accept one selected number.
 
 ### Mobile visitor
+
 As a mobile visitor, I want the comparison to remain understandable without horizontal scrolling.
 
 ---
@@ -54,6 +59,7 @@ As a mobile visitor, I want the comparison to remain understandable without hori
 Do not show an empty configuration.
 
 Default energy sources:
+
 - Nuclear
 - Solar
 - Wind
@@ -61,16 +67,20 @@ Default energy sources:
 - Coal
 
 Default metric:
+
 - Lifecycle greenhouse-gas emissions
 
 Default geography:
+
 - Global
 
 Default display mode:
+
 - Typical
 
-Default explanation level:
-- Curious
+Explanation:
+
+- One readable explanation with optional methodology and boundary details.
 
 ---
 
@@ -118,6 +128,7 @@ Default explanation level:
 Avoid a single giant dropdown.
 
 ### Environment
+
 - Lifecycle greenhouse-gas emissions
 - Land use
 - Water withdrawal
@@ -128,6 +139,7 @@ Avoid a single giant dropdown.
 - Waste persistence/toxicity where methodologically defensible
 
 ### Reliability and Grid
+
 - Capacity factor
 - Dispatchability
 - Variability
@@ -135,6 +147,7 @@ Avoid a single giant dropdown.
 - Storage dependence where scenario-based
 
 ### Economics
+
 - Capital cost
 - Operating cost
 - Fuel cost
@@ -145,6 +158,7 @@ Avoid a single giant dropdown.
 - Financing sensitivity where modeled
 
 ### Human Impact
+
 - Mortality per unit electricity
 - Air-pollution impacts
 - Occupational impacts
@@ -152,12 +166,14 @@ Avoid a single giant dropdown.
 - Evacuation/displacement where methodologically appropriate
 
 ### Energy Security
+
 - Fuel energy density
 - Fuel stockpiling potential
 - Import dependency
 - Supply-chain concentration
 
 ### Technical
+
 - Power density
 - Thermal efficiency
 - Refueling cycle
@@ -172,9 +188,11 @@ Missing comparable evidence must be shown honestly.
 ## 8. Comparison Modes
 
 ### Typical
+
 Shows one representative value.
 
 Use for:
+
 - Kid
 - Simple
 - Curious
@@ -182,20 +200,25 @@ Use for:
 Representative values must be methodologically justified.
 
 ### Range
+
 Shows:
+
 - min
 - representative value
 - max
 
 or:
+
 - confidence/credible interval where that is what the source provides
 
 The interface must label which kind of range is being shown.
 
 ### Raw
+
 Shows individual study observations or source-level values where licensing and data quality permit.
 
 Use for:
+
 - Technical
 - Expert
 
@@ -204,21 +227,25 @@ Use for:
 ## 9. Energy Source Selection
 
 Users can:
+
 - add
 - remove
 - reorder
 - restore defaults
 
 Desktop:
+
 - chips or compact multi-select
 - searchable add menu
 
 Mobile:
+
 - compact summary row
 - bottom sheet for selection
 
 Do not exceed a visual limit that makes charts unreadable.
 If the user selects too many sources:
+
 - switch to table view
 - or explain that fewer technologies improve readability
 
@@ -227,9 +254,11 @@ If the user selects too many sources:
 ## 10. Metric Selection
 
 Desktop:
+
 - searchable command-style menu grouped by category
 
 Mobile:
+
 - bottom sheet with:
   - search
   - categories
@@ -237,6 +266,7 @@ Mobile:
   - related metrics
 
 Each metric entry may show:
+
 - name
 - unit
 - short definition
@@ -248,6 +278,7 @@ Each metric entry may show:
 Support a geography filter only where source data supports it.
 
 Possible options:
+
 - Global
 - Country
 - Region
@@ -255,9 +286,11 @@ Possible options:
 Do not imply geography specificity if underlying data is global-only.
 
 If a metric is only available globally:
+
 > Country-level evidence is not available for this metric. Showing global evidence.
 
 Time:
+
 - display applicable year/period clearly
 - allow historical view only for metrics with real time-series support
 
@@ -268,14 +301,18 @@ Time:
 Support:
 
 ### Scientific
+
 Examples:
+
 - gCO₂e/kWh
 - deaths/TWh
 - m²/GWh
 - USD/kW
 
 ### Human-friendly
+
 Examples may translate into:
+
 - annual household electricity equivalents
 - football-field-sized land analogies only where defensible
 - material per 100,000 homes
@@ -290,12 +327,14 @@ Human-friendly units must never replace access to scientific units.
 The primary chart changes based on metric semantics.
 
 Examples:
+
 - discrete metric → horizontal comparison bars
 - uncertainty → range plot
 - relationship view → scatterplot
 - time series → line chart
 
 Universal requirements:
+
 - visible units
 - direct labels where possible
 - source access
@@ -314,54 +353,22 @@ Universal requirements:
 Every chart includes a concise interpretation.
 
 At L3 Curious:
+
 - 2–4 short sentences
 - explain largest differences
 - mention uncertainty when important
 - avoid prescribing a policy conclusion
 
 Actions:
-- Explain simpler
-- Go deeper
+
+- Inspect boundaries
 - Show methodology
 
 ---
 
-## 15. Complexity-Level Behavior
+## 15. Explanation and context
 
-### L1 — Kid
-- descriptive labels first
-- illustrations or simple comparison bars
-- minimal notation
-- “show number” affordance
-- short analogy
-- no expert controls by default
-
-### L2 — Simple
-- plain-English metric name
-- representative values
-- short summary
-
-### L3 — Curious
-- full standard chart
-- values and units
-- source summary
-- evidence card access
-
-### L4 — Technical
-- ranges
-- methodology
-- assumptions
-- study notes
-- additional filters
-
-### L5 — Expert
-- raw observations
-- source metadata
-- system boundaries
-- transformation details
-- data download where allowed
-
-Changing level must preserve current comparison configuration.
+Use one explanation with optional topic-specific details under [ADR 0011](../decisions/0011-single-reading-experience.md). Units, assumptions, sources and meaningful controls remain available to every visitor. Opening details preserves the current comparison. Unknown evidence remains explicitly unavailable.
 
 ---
 
@@ -370,6 +377,7 @@ Changing level must preserve current comparison configuration.
 Clicking “Why this number?” opens a concise evidence drawer.
 
 Fields:
+
 - Metric
 - Value
 - Unit
@@ -386,6 +394,7 @@ Fields:
 - Transformation summary
 
 Actions:
+
 - View source
 - Challenge this number
 - Show methodology
@@ -399,19 +408,25 @@ This is a signature interaction.
 The panel should show:
 
 ### Representative value
+
 The value displayed in the chart.
 
 ### Study/source range
+
 A visual distribution or range where available.
 
 ### Primary source
+
 Why it was selected.
 
 ### Alternative evidence
+
 Relevant studies or datasets.
 
 ### Why values differ
+
 Examples:
+
 - system boundary
 - financing assumptions
 - geography
@@ -423,6 +438,7 @@ Examples:
 - inclusion/exclusion rules
 
 ### Known limitations
+
 Explicitly stated.
 
 The interaction should not imply that disagreement means “nobody knows.”
@@ -442,10 +458,10 @@ sources=nuclear,solar,wind
 &region=global
 &mode=range
 &units=scientific
-&level=curious
 ```
 
 Requirements:
+
 - page refresh preserves state
 - browser back/forward works
 - invalid params fail gracefully
@@ -488,15 +504,19 @@ Gas
 ```
 
 Filters:
+
 - bottom sheet
 
 Evidence:
+
 - full-height sheet
 
 Chart:
+
 - vertical or stacked
 
 Table:
+
 - accessible alternate view
 
 ---
@@ -506,6 +526,7 @@ Table:
 Use content-shaped skeletons.
 
 Chart skeleton should suggest:
+
 - labels
 - bars/ranges
 - legend/controls
@@ -519,9 +540,11 @@ Avoid generic full-screen spinner.
 Use explicit language.
 
 Example:
+
 > We do not currently have reliable comparable data for this technology and metric.
 
 Offer:
+
 - remove technology
 - choose another metric
 - inspect source limitations
@@ -535,6 +558,7 @@ When values are not directly comparable:
 > These estimates use materially different methodologies and should not be interpreted as directly equivalent.
 
 Optionally show:
+
 - why
 - which boundaries differ
 - what would be required for fair comparison
@@ -573,7 +597,6 @@ Recommended privacy-conscious events:
 - `source_opened`
 - `data_passport_opened`
 - `number_challenged`
-- `complexity_changed`
 - `comparison_shared`
 - `table_view_opened`
 
@@ -584,6 +607,7 @@ Avoid collecting unnecessary personal data.
 ## 25. Edge Cases
 
 Handle:
+
 - no metric data
 - partial metric data
 - one selected technology
@@ -606,6 +630,7 @@ Handle:
 ## 26. Testing
 
 ### Unit
+
 - URL state parser
 - unit conversions
 - metric formatting
@@ -615,13 +640,15 @@ Handle:
 - representative-value logic
 
 ### Component
+
 - metric selector
 - source selector
 - Data Passport
 - challenge panel
-- complexity selector
+- optional boundary/methodology details
 
 ### Integration
+
 - URL state persistence
 - comparison switching
 - mode switching
@@ -629,7 +656,9 @@ Handle:
 - mobile filters
 
 ### E2E
+
 Core journey:
+
 1. open Comparison Lab
 2. remove Coal
 3. add Hydro
@@ -642,6 +671,7 @@ Core journey:
 10. verify state
 
 ### Accessibility
+
 - axe
 - keyboard-only
 - focus order

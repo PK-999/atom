@@ -21,10 +21,9 @@ test.describe("Ask ATOM Evidence Engine (R18)", () => {
 
     await expect(page.getByText("Peer-Reviewed Evidence Q&A")).toBeVisible();
 
-    // Check explanation levels inside main
-    await expect(main.getByRole("button", { name: "Simple" })).toBeVisible();
-    await expect(main.getByRole("button", { name: "Standard" })).toBeVisible();
-    await expect(main.getByRole("button", { name: "Technical" })).toBeVisible();
+    await expect(main.getByRole("button", { name: "Technical" })).toHaveCount(
+      0,
+    );
 
     expect(consoleErrors).toEqual([]);
   });
@@ -77,33 +76,6 @@ test.describe("Ask ATOM Evidence Engine (R18)", () => {
         /ATOM does not currently have verified peer-reviewed scientific evidence/i,
       ),
     ).toBeVisible();
-  });
-
-  test("allows switching explanation levels reactively", async ({ page }) => {
-    await page.goto("/ask", { waitUntil: "domcontentloaded" });
-    await expect(page.locator("[data-hydrated='true']")).toBeVisible();
-
-    const main = page.getByRole("main");
-    const input = page.getByLabel("Ask a question about nuclear energy");
-    await input.fill("What is the carbon footprint of nuclear energy?");
-    await input.press("Enter");
-
-    await expect(
-      main.getByRole("heading", {
-        level: 2,
-        name: /Synthesized Evidence Answer/i,
-      }),
-    ).toBeVisible();
-
-    // Switch to Simple inside main
-    await main.getByRole("button", { name: "Simple" }).click();
-    await expect(
-      page.getByText(/does not burn anything to create heat/i),
-    ).toBeVisible();
-
-    // Switch to Technical inside main
-    await main.getByRole("button", { name: "Technical" }).click();
-    await expect(page.getByText(/Harmonized LCA methods/i)).toBeVisible();
   });
 
   test("submits question via suggested topic chip", async ({ page }) => {

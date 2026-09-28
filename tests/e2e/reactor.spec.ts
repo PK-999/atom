@@ -32,7 +32,7 @@ test.describe("Reactor Explorer Engine (R15)", () => {
     expect(consoleErrors).toEqual([]);
   });
 
-  test("PWR explorer supports diagram and keyboard equivalence with explanation tiers", async ({
+  test("PWR explorer supports diagram and keyboard equivalence with component context", async ({
     page,
   }) => {
     const consoleErrors: string[] = [];
@@ -72,20 +72,12 @@ test.describe("Reactor Explorer Engine (R15)", () => {
       page.getByText(/Transfers primary heat to secondary water/i),
     ).toBeVisible();
 
-    // Switch explanation tier to Simple
-    const simpleTab = page.getByRole("tab", { name: /Simple/i });
-    await simpleTab.click();
-    await expect(
-      page.getByText(
-        /super-hot radioactive water gives its heat to clean water/i,
-      ),
-    ).toBeVisible();
-
-    // Switch explanation tier to Technical
-    const techTab = page.getByRole("tab", { name: /Technical/i });
-    await techTab.click();
+    await page.getByText("Transferring heat", { exact: true }).click();
     await expect(
       page.getByText(/Features thousands of Inconel/i),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 3, name: "Steam Generator" }),
     ).toBeVisible();
 
     // Click SVG diagram part for Control Rods

@@ -42,10 +42,10 @@ export function LearningPaths({
   const next = ordered.find((l) => !progress.completedLessons.includes(l.id));
   return (
     <section className={styles.frame} aria-label="Learning paths">
-      <h2>Choose your question. Set your own depth.</h2>
+      <h2>Choose your question. Follow your curiosity.</h2>
       <p>
-        Paths suggest an order. Reading depth changes the detail, and can be
-        adjusted on any page. Progress stays on this device.
+        Paths suggest an order. Explore individual lessons whenever you like.
+        Progress stays on this device.
       </p>
       {resume && (
         <p>

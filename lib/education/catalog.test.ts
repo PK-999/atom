@@ -33,14 +33,15 @@ describe("Education Catalog (R10)", () => {
     expect(getPublishedLesson("non-existent")).toBeNull();
   });
 
-  it("retrieves published lessons with all 5 complexity tiers present", () => {
+  it("keeps lesson progress versions while providing one explanation", () => {
     const lesson = getPublishedLesson("energy");
-    expect(lesson).not.toBeNull();
-    expect(lesson?.contentByLevel.beginner).toBeTruthy();
-    expect(lesson?.contentByLevel.explorer).toBeTruthy();
-    expect(lesson?.contentByLevel.curious).toBeTruthy();
-    expect(lesson?.contentByLevel["deep-dive"]).toBeTruthy();
-    expect(lesson?.contentByLevel.geeky).toBeTruthy();
+    expect(lesson?.version).toBe("1.0.0");
+    expect(lesson?.explanation.summary).toContain("Energy");
+    expect(
+      lesson?.explanation.details?.some(
+        (detail) => detail.id === "energy-density",
+      ),
+    ).toBe(true);
   });
 
   it("retrieves checkpoints associated with a lesson", () => {

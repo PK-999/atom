@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { OverlayPanel } from "@/components/ui/OverlayPanel";
-import { GlobalComplexityControl } from "./GlobalComplexityControl";
 import styles from "./AppShell.module.css";
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
@@ -16,7 +15,6 @@ export function MobileMenu() {
         open={open}
         onOpenChange={setOpen}
       >
-        <GlobalComplexityControl />
         <nav aria-label="Mobile navigation" className={styles.drawerNavigation}>
           {[
             ["/learn", "Learn"],

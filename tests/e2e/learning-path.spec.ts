@@ -26,7 +26,7 @@ test.describe("R11 Learning Path: Seven-Lesson Educational Experience", () => {
     ).toBeVisible();
   });
 
-  test("renders /learn/energy with 5-level explanation switcher and interaction", async ({
+  test("renders /learn/energy with optional context and a stateful interaction", async ({
     page,
   }) => {
     await page.goto("/learn/energy");
@@ -43,25 +43,24 @@ test.describe("R11 Learning Path: Seven-Lesson Educational Experience", () => {
       ),
     ).toBeVisible();
 
-    // Check default level (Curious)
+    // The explanation has a readable summary and optional context.
     const explanation = page.getByTestId("lesson-explanation");
-    await expect(explanation).toContainText(
-      "Chemical fuels store energy in electron bonds",
-    );
+    await expect(explanation).toContainText("Energy makes change possible.");
 
     await page
       .locator("#lesson-prediction")
       .fill("More time means more energy.");
 
-    // Switch to Kid (Level 1)
-    await page.getByLabel("Reading depth").selectOption("beginner");
-    await expect(explanation).toContainText("Energy is the ability to do work");
-
-    // Switch to Technical (Level 4)
-    await page.getByLabel("Reading depth").selectOption("deep-dive");
-    await expect(explanation).toContainText(
-      "Specific energy density governs fuel cycle logistics",
+    const details = explanation.getByText(
+      "Why does fuel energy density matter?",
+      { exact: true },
     );
+    await details.focus();
+    await page.keyboard.press("Enter");
+    await expect(
+      explanation.getByText(/Energy per kilogram affects/),
+    ).toBeVisible();
+    await expect(page.getByLabel("Reading depth")).toHaveCount(0);
 
     await expect(page.locator("#lesson-prediction")).toHaveValue(
       "More time means more energy.",

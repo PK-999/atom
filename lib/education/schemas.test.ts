@@ -7,13 +7,17 @@ test("LessonSchema validates a valid lesson", () => {
     title: "What is an atom?",
     moduleId: "nuclear-101",
     order: 1,
-    explanations: {
-      beginner: "An atom is a tiny building block.",
-      explorer: "Atoms are the basic units of matter.",
-      curious: "Atoms consist of a nucleus and electrons.",
-      "deep-dive":
-        "An atom comprises protons, neutrons, and electrons bound by electromagnetic forces.",
-      geeky: "Quantum mechanical model of the atom...",
+    explanation: {
+      summary: "Atoms are units of matter.",
+      body: ["The nucleus contains protons and neutrons."],
+      details: [
+        {
+          id: "isotopes",
+          title: "What changes an isotope?",
+          body: "Changing the neutron count changes the isotope.",
+        },
+      ],
+      citationIds: ["citation-atom"],
     },
     conceptIds: ["nucleus", "electron"],
   };
@@ -39,7 +43,6 @@ test("ConceptSchema validates a valid concept", () => {
     id: "nucleus",
     title: "Nucleus",
     summary: "The center of an atom.",
-    complexityMinimum: "curious",
   };
 
   const parsed = ConceptSchema.parse(concept);

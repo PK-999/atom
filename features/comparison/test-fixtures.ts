@@ -6,7 +6,6 @@ export const mockComparison: PreviewComparison = {
   metricShortName: "Lifecycle emissions",
   geography: "Global",
   unit: "g CO₂e / kWh",
-  defaultComplexity: "curious",
   defaultMode: "typical",
   observations: [
     {
@@ -73,5 +72,4 @@ export const mockInitialState: ComparisonState = {
   region: "global",
   mode: "typical",
   units: "scientific",
-  level: "curious",
 };

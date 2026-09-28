@@ -44,24 +44,6 @@
   margin: 0;
 }
 
-.levelSelectorWrapper {
-  background: var(--atom-surface-panel);
-  border: 1px solid var(--atom-border-subtle);
-  border-radius: var(--atom-radius-lg);
-  padding: 16px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.levelPrompt {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--atom-text-muted);
-}
-
 /* Recommended Banner */
 .recommendedTrack {
   background: linear-gradient(
@@ -142,13 +124,13 @@
 
 .grid3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 20px;
 }
 
 .grid2 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
   gap: 24px;
 }
 
@@ -225,7 +207,8 @@
 }
 
 @media (max-width: 768px) {
+  .grid3,
   .grid2 {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }

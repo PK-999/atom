@@ -1,0 +1,18 @@
+.explanation p {
+  margin-block: 0 0.85rem;
+}
+.details {
+  margin-block: 0.5rem;
+  border-top: 1px solid var(--atom-border-subtle);
+}
+.details summary {
+  min-height: 44px;
+  padding: 0.65rem 0.35rem;
+  line-height: 1.5;
+  cursor: pointer;
+  color: var(--atom-text-primary);
+}
+.details p {
+  margin: 0.25rem 0.35rem 1rem;
+  color: var(--atom-text-secondary);
+}

@@ -14,7 +14,6 @@ describe("AI Chat Provider Abstraction & Fallback (Phase 3.1 & 3.2)", () => {
           content: "What are the greenhouse gas emissions of nuclear?",
         },
       ],
-      level: "curious",
     });
 
     expect(result.provider).toBe("grounded-rag");
@@ -34,7 +33,6 @@ describe("AI Chat Provider Abstraction & Fallback (Phase 3.1 & 3.2)", () => {
       messages: [
         { role: "user", content: "How safe is nuclear compared to coal?" },
       ],
-      level: "curious",
     });
 
     expect(result.content).toBeTruthy();
@@ -54,7 +52,6 @@ describe("AI Chat Provider Abstraction & Fallback (Phase 3.1 & 3.2)", () => {
       messages: [
         { role: "user", content: "Tell me about nuclear waste and storage" },
       ],
-      level: "curious",
     });
 
     // Should seamlessly fall back without throwing an error

@@ -12,7 +12,6 @@ const SafeIdentifierSchema = z
 export const EVENT_SCHEMAS = {
   comparison_opened: z
     .object({
-      level: z.enum(["beginner", "explorer", "curious", "deep-dive", "geeky"]),
       sources_count: z.number().int().min(0).max(32),
     })
     .strict(),
@@ -44,11 +43,6 @@ export const EVENT_SCHEMAS = {
   units_changed: z
     .object({
       units: z.enum(["scientific", "human"]),
-    })
-    .strict(),
-  complexity_changed: z
-    .object({
-      level: z.enum(["beginner", "explorer", "curious", "deep-dive", "geeky"]),
     })
     .strict(),
   data_passport_opened: z

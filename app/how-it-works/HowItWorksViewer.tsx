@@ -2,11 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
-import {
-  COMPLEXITY_LABELS,
-  type ComplexityLevel,
-} from "@/lib/preferences/complexity-preference";
+import { Explanation } from "@/components/education/Explanation";
+import type { ExplanationContent } from "@/lib/education/schemas";
 import styles from "./HowItWorksViewer.module.css";
 
 interface StepData {
@@ -14,8 +11,8 @@ interface StepData {
   stepNumber: number;
   tabLabel: string;
   title: string;
-  explanations: Record<ComplexityLevel, string>;
-  keyTakeaways: Record<ComplexityLevel, string>;
+  explanation: ExplanationContent;
+  keyTakeaway: string;
 }
 
 const STEPS: StepData[] = [
@@ -24,159 +21,153 @@ const STEPS: StepData[] = [
     stepNumber: 1,
     tabLabel: "The Atom & Density",
     title: "1. The Atomic Nucleus & Extreme Energy Density",
-    explanations: {
-      beginner:
-        "Everything around us is made of tiny LEGO blocks called atoms. Chemical fuels like wood and coal burn by rearranging the electron coatings on the outside. But nuclear power taps directly into the nucleus — the atomic core held together by the strongest force in the entire universe! That is why a single uranium pellet the size of a gummy bear makes as much electricity as an entire train car of coal.",
-      explorer:
-        "Chemical combustion involves electron bonds (~4 electron-volts per reaction). In contrast, nuclear reactions tap the strong nuclear force binding protons and neutrons inside the nucleus (~200 million electron-volts per fission). Because nuclear force is millions of times stronger than chemical bonds, nuclear fuel requires thousands of times less physical mass and mining footprint than fossil fuels.",
-      curious:
-        "Energy density dictates supply-chain footprint. Uranium dioxide (UO₂) pellets achieve a specific energy density of approximately 500,000 MJ/kg (at typical 4.5% enrichment burnup), compared to natural gas at ~55 MJ/kg and bituminous coal at ~24 MJ/kg. This ~2,000,000x density differential drastically shrinks fuel transportation, operational land footprint, and aggregate solid waste volume per megawatt-hour.",
-      "deep-dive":
-        "The nuclear mass defect governs energy density via Einstein's rest mass-energy relation ΔE = Δm · c². In U-235 fission, roughly 0.09% of the total rest mass converts directly into kinetic energy and gamma rays (~200 MeV per fission event, or 3.204 × 10⁻¹¹ J). Standard commercial light-water reactor fuel assemblies operate at burnups between 45 and 60 GWd/tU (gigawatt-days per metric ton of uranium).",
-      geeky:
-        "Binding energy per nucleon increases from ~7.6 MeV in heavy actinides like U-235 to ~8.5 MeV in mid-mass fission product fragments (e.g., A ≈ 95 and A ≈ 140 peaks of the asymmetric fission yield curve). The ~0.9 MeV/nucleon deficit manifests as ~200 MeV recoverable Q-value: 168 MeV fragment kinetic energy, 5 MeV prompt neutron kinetic energy, 7 MeV prompt gamma, 7 MeV delayed gamma, 8 MeV beta particles, and 12 MeV antineutrino energy (unrecoverable).",
+    explanation: {
+      summary:
+        "Energy makes change possible. Power describes how quickly energy is transferred.",
+      body: [
+        "A lamp transfers electrical energy into light and heat. Its power tells you the rate; the energy used also depends on how long it stays on.",
+        "Chemical reactions rearrange electrons and bonds. Fission changes atomic nuclei, making nuclear fuel a concentrated source of energy.",
+      ],
+      details: [
+        {
+          id: "energy-density",
+          title: "Why does fuel energy density matter?",
+          body: "Energy per kilogram affects how much fuel must be mined, transported and stored. A comparison needs to say whether it counts raw material, prepared fuel or electricity actually delivered.",
+        },
+        {
+          id: "mass-energy",
+          title: "Where does the energy come from?",
+          body: "The mass difference between the initial particles and reaction products corresponds to released energy: ΔE = Δm × c². Much of the recoverable fission energy begins as motion of the fragments and becomes heat.",
+        },
+      ],
+      citationIds: [],
     },
-    keyTakeaways: {
-      beginner: "1 uranium fuel pellet = 1 ton of coal = 149 gallons of oil.",
-      explorer:
-        "Nuclear force is millions of times stronger than chemical combustion bonds.",
-      curious:
-        "High energy density reduces raw fuel mining, shipping logistics, and lifecycle land use.",
-      "deep-dive":
-        "Commercial UO₂ achieves ~45–60 GWd/tU burnup, extracting ~200 MeV per fission.",
-      geeky:
-        "Fragment kinetic energy dominates recoverable Q (~168 MeV out of ~190 MeV thermal).",
-    },
+    keyTakeaway:
+      "Energy makes change possible. Power describes how quickly energy is transferred.",
   },
   {
     id: "fission-mechanics",
     stepNumber: 2,
     tabLabel: "Fission Mechanics",
     title: "2. Induced Nuclear Fission: Splitting the Nucleus",
-    explanations: {
-      beginner:
-        "How do you crack an atom? You gently tap it with a neutron! When an extra neutron enters a heavy uranium-235 atom, the atom starts wobbling like a water droplet in zero gravity. It stretches out and snaps into two smaller pieces, shooting out hot energy and 2 or 3 brand-new free neutrons.",
-      explorer:
-        "Fission begins when a low-energy thermal neutron is absorbed by a uranium-235 nucleus. This forms an excited uranium-236 compound nucleus. Within less than a picosecond, the compound nucleus deforms and undergoes binary fission, splitting into two lighter fragment nuclei (such as Barium-141 and Krypton-92) while releasing 2 to 3 free prompt neutrons and intense thermal radiation.",
-      curious:
-        "The fundamental fission equation can be expressed as: n + ²³⁵U → ²³⁶U* → ¹⁴¹Ba + ⁹²Kr + 3n + ~200 MeV. Because the resulting fission fragments possess excess neutrons relative to stable valley isotopes, they undergo radioactive beta decay over time, releasing residual decay heat that requires continued coolant circulation even after the reactor shuts down.",
-      "deep-dive":
-        "Fission cross section σ_f depends strongly on incident neutron kinetic energy. For fissile U-235, thermal neutrons (0.025 eV) have an absorption cross section of ~585 barns, compared to only ~1 barn for fast 1 MeV neutrons. This 500-fold cross section difference requires moderating fast fission neutrons down to thermal energies using light water (H₂O) or heavy water (D₂O).",
-      geeky:
-        "Liquid drop model Bohr-Wheeler fission barrier is ~5.7 MeV for U-236. The neutron separation energy of U-236 is ~6.5 MeV; thus, zero-kinetic-energy (thermal) neutron capture provides sufficient excitation energy to exceed the fission barrier without incident threshold energy (unlike fertile U-238, which requires fast neutrons >1 MeV to overcome its ~6.2 MeV barrier).",
+    explanation: {
+      summary:
+        "Fission splits a heavy nucleus, releasing energy and additional neutrons.",
+      body: [
+        "A captured neutron can lead to fission, but not every capture causes a split. The fragments transfer energy to their surroundings as heat.",
+        "Released neutrons may escape, be absorbed, or cause further fissions. A chain reaction continues when enough of them cause new splits.",
+      ],
+      details: [
+        {
+          id: "moderation",
+          title: "Why slow neutrons down?",
+          body: "In light-water reactors, water acts as a moderator: collisions slow neutrons. The chance of fission depends on both the isotope and the neutron energy.",
+        },
+        {
+          id: "criticality",
+          title: "What does critical mean?",
+          body: "The effective multiplication factor, k_eff, compares neutron populations across generations. At k_eff = 1 the chain reaction is self-sustaining; below 1 it declines and above 1 it grows. Delayed neutrons affect how quickly it responds. This exhibit does not calculate k_eff.",
+        },
+      ],
+      citationIds: [],
     },
-    keyTakeaways: {
-      beginner:
-        "A single neutron splits uranium, creating heat and free neutrons to keep the process going.",
-      explorer:
-        "Neutron absorption creates an unstable intermediate nucleus that divides within picoseconds.",
-      curious:
-        "Fission produces decay heat that persists post-shutdown due to radioactive fission products.",
-      "deep-dive":
-        "Thermal neutrons have 585 barns fission cross section versus 1 barn for fast neutrons.",
-      geeky:
-        "U-235 thermal capture exceeds the 5.7 MeV barrier, enabling thermal light-water reactors.",
-    },
+    keyTakeaway:
+      "Fission splits a heavy nucleus, releasing energy and additional neutrons.",
   },
   {
     id: "chain-reaction",
     stepNumber: 3,
     tabLabel: "Chain Reactions",
     title: "3. Self-Sustaining Criticality & Safe Control",
-    explanations: {
-      beginner:
-        "Imagine a room filled with thousands of mousetraps, each holding two ping-pong balls. If you drop one ball, it triggers a chain reaction! In a nuclear power plant, we keep the reaction perfectly balanced so exactly ONE neutron from each split goes on to cause another split. We use control rods like gentle sponges that soak up extra neutrons.",
-      explorer:
-        "A reactor operates in a state called 'criticality' (k = 1.0), where the neutron population remains exactly constant from one generation to the next. If the rate increases (supercritical), control rods containing neutron-absorbing elements like Boron, Cadmium, or Hafnium are lowered into the core to absorb neutrons and restore equilibrium.",
-      curious:
-        "The effective neutron multiplication factor is k_eff. When k_eff = 1.0, power output is steady. Commercial reactors are engineered with intrinsic negative temperature reactivity coefficients: if the core overheats, water expands and becomes less dense, moderating fewer neutrons, which naturally chokes off the reaction without human intervention.",
-      "deep-dive":
-        "Reactor kinetics relies critically on delayed neutrons. While prompt neutrons emit within 10⁻¹⁴ seconds, roughly 0.65% (β_eff ≈ 0.0065 in U-235) are emitted seconds to minutes later by decaying precursor isotopes (e.g., Br-87, I-137). This delayed fraction shifts the effective neutron generation time from microseconds to seconds, allowing mechanical control systems and control-rod stepping mechanisms to comfortably regulate core power.",
-      geeky:
-        "The 6-factor formula k_eff = ε · p · f · η · P_FNL · P_TNL dictates the neutron economy. Inherent passive safety requires negative Doppler coefficient (∂ρ/∂T_fuel < 0 via resonance capture broadening in U-238) and negative moderator temperature coefficient (∂ρ/∂T_mod < 0). Commercial PWR/BWR designs legally forbid positive void coefficients at operational states.",
+    explanation: {
+      summary:
+        "Fission splits a heavy nucleus, releasing energy and additional neutrons.",
+      body: [
+        "A captured neutron can lead to fission, but not every capture causes a split. The fragments transfer energy to their surroundings as heat.",
+        "Released neutrons may escape, be absorbed, or cause further fissions. A chain reaction continues when enough of them cause new splits.",
+      ],
+      details: [
+        {
+          id: "moderation",
+          title: "Why slow neutrons down?",
+          body: "In light-water reactors, water acts as a moderator: collisions slow neutrons. The chance of fission depends on both the isotope and the neutron energy.",
+        },
+        {
+          id: "criticality",
+          title: "What does critical mean?",
+          body: "The effective multiplication factor, k_eff, compares neutron populations across generations. At k_eff = 1 the chain reaction is self-sustaining; below 1 it declines and above 1 it grows. Delayed neutrons affect how quickly it responds. This exhibit does not calculate k_eff.",
+        },
+      ],
+      citationIds: [],
     },
-    keyTakeaways: {
-      beginner:
-        "Control rods absorb extra neutrons to keep the reaction calm and perfectly steady.",
-      explorer:
-        "k_eff = 1.0 means constant electricity generation. Control rods regulate output.",
-      curious:
-        "Inherent negative temperature feedback means hotter water automatically slows the reactor down.",
-      "deep-dive":
-        "Delayed neutrons (β_eff ~0.0065) slow core response from microseconds to seconds for control.",
-      geeky:
-        "Doppler resonance capture in U-238 provides instantaneous physical negative reactivity feedback.",
-    },
+    keyTakeaway:
+      "Fission splits a heavy nucleus, releasing energy and additional neutrons.",
   },
   {
     id: "thermal-generation",
     stepNumber: 4,
     tabLabel: "Thermal to Electricity",
     title: "4. The Three Isolated Loops: Turning Heat into Clean Power",
-    explanations: {
-      beginner:
-        "A nuclear plant is basically a super high-tech steam kettle! The nuclear core heats water in a sealed loop. That hot loop warms up a second clean water loop until it boils into high-pressure steam. The rushing steam spins a giant electric fan (a turbine) connected to a generator. The steam is then cooled back into water and used again and again.",
-      explorer:
-        "Modern nuclear plants use three separate, isolated water circuits. Loop 1 (Primary) circulates through the reactor core to absorb fission heat. Loop 2 (Secondary) receives heat via a steam generator to create clean steam that drives the turbo-generator. Loop 3 (Tertiary) draws cooling water from a cooling tower or ocean to condense the steam back into liquid water.",
-      curious:
-        "Because Loop 1 (pressurized to ~155 bar in PWRs to prevent boiling at 315°C) is completely isolated by the steam generator tubes, the water that turns the turbine contains zero radioactive activation products. The huge white clouds rising from nuclear cooling towers are 100% pure water vapor, not smoke or pollution.",
-      "deep-dive":
-        "The thermodynamic cycle follows a modified Rankine cycle with moisture separators and reheat stages, achieving thermal efficiencies around 33% to 37%. Pressurizers maintain primary loop pressure to prevent bulk subcooled nucleate boiling departure (DNB). Secondary steam at ~60–70 bar and ~280°C expands through high- and low-pressure turbine casings coupled to a synchronous 50/60 Hz electric generator.",
-      geeky:
-        "Thermal-hydraulic heat balance: Q_thermal = m_dot · (h_out - h_in). Critical Heat Flux (CHF) margin is monitored via Departure from Nucleate Boiling Ratio (DNBR > 1.3 minimum safety limit). Condenser vacuum (typically 0.04 to 0.08 bar absolute) maximizes turbine enthalpy drop Δh, rejecting low-grade heat through hyperbolic cooling towers via evaporative heat flux.",
+    explanation: {
+      summary:
+        "Steam turns a turbine, and the turbine drives an electrical generator.",
+      body: [
+        "A nuclear station converts heat into motion and then electricity. A condenser turns the turbine exhaust steam back into water for reuse.",
+        "Some heat must be rejected to the surroundings. Cooling arrangements may use rivers, seawater or cooling towers; they differ between plants.",
+      ],
+      details: [
+        {
+          id: "efficiency",
+          title: "Why is heat output larger than electric output?",
+          body: "A heat engine converts only part of its heat input into useful work. The temperature difference between the heat source and heat sink limits the possible efficiency. Actual plant performance also includes losses and the electricity used by equipment.",
+        },
+        {
+          id: "cycles",
+          title: "How does the steam cycle work?",
+          body: "The Rankine cycle describes heating and vaporizing water, expanding steam through a turbine, condensing it and pumping the liquid back. Reactor designs supply heat to this cycle in different ways.",
+        },
+      ],
+      citationIds: [],
     },
-    keyTakeaways: {
-      beginner:
-        "Nuclear plants make steam that spins a generator; cooling towers release pure water vapor.",
-      explorer:
-        "Three separate closed loops ensure radiation never touches the steam turbine.",
-      curious:
-        "The primary loop operates at 155 atmospheres of pressure so water stays liquid at 315°C.",
-      "deep-dive":
-        "Rankine thermodynamic cycle achieves ~34% thermal-to-electric conversion efficiency.",
-      geeky:
-        "DNBR safety margins prevent film boiling and protect fuel cladding thermal integrity.",
-    },
+    keyTakeaway:
+      "Steam turns a turbine, and the turbine drives an electrical generator.",
   },
   {
     id: "defense-in-depth",
     stepNumber: 5,
     tabLabel: "Safety Barriers",
     title: "5. Defense-in-Depth: Four Concentric Safety Barriers",
-    explanations: {
-      beginner:
-        "Nuclear reactors are built like nesting Russian dolls of steel and concrete. Even if one wall fails, there are three more solid walls trapping all the radiation inside. The outermost building is made of reinforced concrete so thick it can survive a direct hit from an airplane!",
-      explorer:
-        "Safety relies on 'Defense-in-Depth'. Four physical containment boundaries exist between the radioactive fuel and the environment: (1) the solid ceramic fuel pellet, (2) the sealed Zircaloy fuel cladding tube, (3) the thick steel reactor pressure vessel, and (4) the massive steel-lined reinforced concrete containment building.",
-      curious:
-        "Commercial reactors are designed around Design Basis Accidents (DBAs) like a double-ended guillotine break of the largest primary coolant pipe. Emergency Core Cooling Systems (ECCS), passive gravity-fed cooling tanks, and containment spray systems ensure core cooling even in the complete loss of off-site electrical power (station blackout).",
-      "deep-dive":
-        "Barrier 1: UO₂ ceramic matrix retains >98% of fission gases. Barrier 2: Zircaloy-4 / M5 alloy cladding tubes withstand 1200°C without runaway oxidation. Barrier 3: Low-alloy carbon steel RPV (15–25 cm thick with stainless steel liner) withstands 17 MPa operating pressure. Barrier 4: Pre-stressed post-tensioned concrete containment building (1.2–1.8 m thick with a steel liner plate) engineered for internal pressure containment up to 0.5 MPa.",
-      geeky:
-        "Probabilistic Risk Assessment (PRA) calculates Core Damage Frequency (CDF) below 10⁻⁵ / reactor-year for Gen III/III+ plants (AP1000, EPR, VVER-1200) and Large Early Release Frequency (LERF) below 10⁻⁶. Passive containment cooling systems (PCCS) rely purely on natural circulation, gravity drainage, and atmospheric heat sinks for 72+ hours coping time without AC power.",
+    explanation: {
+      summary:
+        "Defense in depth combines barriers, cooling systems and operating practices.",
+      body: [
+        "Fuel, cladding, the coolant boundary and containment can help retain radioactive material. The exact barriers and backup systems depend on the design.",
+        "Safety also depends on maintenance, regulation, training and preparation for accidents. Multiple layers reduce risk; they do not make an accident impossible.",
+      ],
+      details: [
+        {
+          id: "passive",
+          title: "What does passive cooling mean?",
+          body: "Some systems use gravity, natural circulation or evaporation to move coolant and heat. Their capability still depends on conditions such as water inventory, available heat sinks and the duration of an event.",
+        },
+        {
+          id: "risk",
+          title: "How is safety assessed?",
+          body: "Engineers examine accident sequences and the reliability of protective systems. Probabilistic assessments estimate risks under stated assumptions; historical experience and accident investigations provide a separate source of lessons.",
+        },
+      ],
+      citationIds: [],
     },
-    keyTakeaways: {
-      beginner:
-        "4 nested layers of ceramic, metal, steel, and concrete trap all radioactive material.",
-      explorer:
-        "The outer dome is over a meter of reinforced concrete designed to resist airplane impacts.",
-      curious:
-        "Emergency Core Cooling Systems use gravity and pressurized tanks to cool the core without power.",
-      "deep-dive":
-        "UO₂ ceramic matrix + Zircaloy cladding retain 98%+ of volatile fission products.",
-      geeky:
-        "Gen III+ passive safety achieves Core Damage Frequency < 10⁻⁵ / reactor-year with 72h coping.",
-    },
+    keyTakeaway:
+      "Defense in depth combines barriers, cooling systems and operating practices.",
   },
 ];
 
 export function HowItWorksViewer() {
-  const [level, setLevel] = useComplexityPreference("curious");
   const [activeStepIndex, setActiveStepIndex] = useState(0);
 
   const currentStep = STEPS[activeStepIndex];
-  const explanation = currentStep.explanations[level];
-  const takeaway = currentStep.keyTakeaways[level];
+  const takeaway = currentStep.keyTakeaway;
 
   const handleNext = () => {
     if (activeStepIndex < STEPS.length - 1) {
@@ -482,15 +473,14 @@ export function HowItWorksViewer() {
         <div className={styles.stageContent}>
           <div className={styles.stageHeader}>
             <h2 className={styles.stageTitle}>{currentStep.title}</h2>
-            <span className={styles.stageLevelBadge}>
-              Level: {COMPLEXITY_LABELS[level]}
-            </span>
           </div>
 
-          <p className={styles.stageExplanation}>{explanation}</p>
+          <div className={styles.stageExplanation}>
+            <Explanation content={currentStep.explanation} />
+          </div>
 
           <div className={styles.keyTakeawayBox}>
-            <strong>Key Concept ({COMPLEXITY_LABELS[level]}):</strong>
+            <strong>Key Concept:</strong>
             <p>{takeaway}</p>
           </div>
 

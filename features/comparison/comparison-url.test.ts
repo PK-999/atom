@@ -18,7 +18,7 @@ describe("parseComparisonUrl", () => {
 
     expect(state.sources).toEqual(["nuclear", "wind"]);
     expect(state.mode).toBe("typical");
-    expect(state.level).toBe("geeky");
+    expect(state).not.toHaveProperty("level");
   });
 
   it("returns the complete useful default when every field is absent", () => {
@@ -32,7 +32,6 @@ describe("parseComparisonUrl", () => {
     ["region=unknown&mode=raw&level=expert", "region", "unknown"],
     ["mode=unknown&units=human&level=expert", "mode", "typical"],
     ["units=unknown&mode=range&level=expert", "units", "scientific"],
-    ["level=unknown&mode=raw&units=human", "level", "curious"],
   ] as const)(
     "repairs an invalid %s independently for %s",
     (query, field, fallback) => {
@@ -48,9 +47,6 @@ describe("parseComparisonUrl", () => {
       );
       expect(state.units).toBe(
         query.includes("units=human") ? "human" : "scientific",
-      );
-      expect(state.level).toBe(
-        query.includes("level=expert") ? "geeky" : "curious",
       );
     },
   );
@@ -105,12 +101,10 @@ describe("parseComparisonUrl", () => {
 
     const thirtyTwo = parseComparisonState(
       new URLSearchParams(`sources=${technologyIds.slice(0, 32).join(",")}`),
-      undefined,
       { catalog, onWarning: warn },
     );
     const thirtyThree = parseComparisonState(
       new URLSearchParams(`sources=${technologyIds.join(",")}`),
-      undefined,
       { catalog, onWarning: warn },
     );
 
@@ -138,7 +132,6 @@ describe("parseComparisonUrl", () => {
     expect(
       parseComparisonState(
         new URLSearchParams(`sources=${accepted},${rejected}`),
-        undefined,
         { catalog, onWarning: warn },
       ).sources,
     ).toEqual([accepted]);
@@ -184,7 +177,6 @@ describe("parseComparisonUrl", () => {
       metric: "capacity-factor",
       region: "india",
       units: "human",
-      level: "geeky",
     });
   });
 
@@ -202,7 +194,6 @@ describe("parseComparisonUrl", () => {
       new URLSearchParams(
         `sources=nuclear,%F0%9F%92%A5,${oversized}&metric=%E2%98%A2&region=${oversized}`,
       ),
-      undefined,
       { onWarning: warn },
     );
 
@@ -244,28 +235,38 @@ describe("parseComparisonUrl", () => {
       region: "india",
       mode: "range",
       units: "human",
-      level: "deep-dive",
     });
   });
 
-  it("applies URL level over a local preference, then preference over default", () => {
+  it.each([
+    "kid",
+    "simple",
+    "curious",
+    "technical",
+    "expert",
+    "beginner",
+    "explorer",
+    "deep-dive",
+    "geeky",
+    "unknown",
+    "",
+  ])("ignores legacy level %s without losing the comparison", (level) => {
+    const state = parseComparisonState(
+      new URLSearchParams(
+        `sources=wind,nuclear&metric=land-use&region=india&mode=range&units=human&level=${level}`,
+      ),
+    );
+    expect(state).toEqual({
+      sources: ["wind", "nuclear"],
+      metric: "land-use",
+      region: "india",
+      mode: "range",
+      units: "human",
+    });
     expect(
-      parseComparisonState(new URLSearchParams("level=expert"), {
-        level: "explorer",
-      }).level,
-    ).toBe("geeky");
-    expect(
-      parseComparisonState(new URLSearchParams(), { level: "explorer" }).level,
-    ).toBe("explorer");
-    expect(parseComparisonState(new URLSearchParams()).level).toBe("curious");
-  });
-
-  it("does not let an invalid explicit URL level consume the preference fallback", () => {
-    expect(
-      parseComparisonState(new URLSearchParams("level=unknown"), {
-        level: "explorer",
-      }).level,
-    ).toBe("explorer");
+      parseComparisonState(new URLSearchParams(`sources=&level=${level}`))
+        .sources,
+    ).toEqual([]);
   });
 });
 
@@ -279,7 +280,7 @@ describe("serializeComparisonState", () => {
     expect(result.success).toBe(false);
   });
 
-  it("always emits all six keys in deterministic contract order", () => {
+  it("always emits all five keys in deterministic contract order", () => {
     const params = serializeComparisonState({
       ...DEFAULT_COMPARISON_STATE,
       sources: [],
@@ -291,10 +292,9 @@ describe("serializeComparisonState", () => {
       "region",
       "mode",
       "units",
-      "level",
     ]);
     expect(params.toString()).toBe(
-      "sources=&metric=lifecycle-ghg&region=global&mode=typical&units=scientific&level=curious",
+      "sources=&metric=lifecycle-ghg&region=global&mode=typical&units=scientific",
     );
   });
 
@@ -305,7 +305,6 @@ describe("serializeComparisonState", () => {
       region: "india",
       mode: "raw" as const,
       units: "human" as const,
-      level: "geeky" as const,
     };
 
     expect(parseComparisonState(serializeComparisonState(state))).toEqual(

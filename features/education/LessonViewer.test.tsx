@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import { LessonViewer } from "./LessonViewer";
 import type { LessonRecord, Topic } from "@/lib/education/schemas";
@@ -13,14 +13,17 @@ const sampleLesson: LessonRecord = {
   prerequisiteIds: [],
   conceptIds: ["energy-conservation"],
   claimIds: ["fuel-energy-density"],
-  contentByLevel: {
-    beginner: "Energy is the ability to do work.",
-    explorer: "Energy is measured in kilowatt-hours and power in watts.",
-    curious:
-      "Chemical fuels store energy in electron bonds (~4 eV), while nuclear fuels store energy in nuclei (~200 MeV).",
-    "deep-dive":
-      "Specific energy density governs fuel logistics: uranium dioxide yields ~500,000 MJ/kg.",
-    geeky: "Mass-energy equivalence governs nuclear mass defect in fission.",
+  explanation: {
+    summary: "Energy is the ability to do work.",
+    body: ["Power describes how quickly energy is transferred."],
+    details: [
+      {
+        id: "units",
+        title: "Energy and power units",
+        body: "Energy is measured in kilowatt-hours and power in watts.",
+      },
+    ],
+    citationIds: [],
   },
   checkpointIds: ["chk-energy-density"],
   nextLessonId: "atom",
@@ -49,12 +52,10 @@ const sampleNextLesson: LessonRecord = {
   prerequisiteIds: ["energy"],
   conceptIds: [],
   claimIds: [],
-  contentByLevel: {
-    beginner: "Atoms are tiny.",
-    explorer: "Atoms have protons.",
-    curious: "Atoms have nuclei.",
-    "deep-dive": "Atomic cross sections.",
-    geeky: "Binding energy.",
+  explanation: {
+    summary: "Atoms have nuclei.",
+    body: ["Protons identify an element."],
+    citationIds: [],
   },
   checkpointIds: [],
   nextLessonId: null,
@@ -79,7 +80,7 @@ beforeEach(() => {
 });
 
 describe("LessonViewer", () => {
-  it("renders breadcrumbs, title, objective, and level switcher", () => {
+  it("renders breadcrumbs, title, objective, and next lesson", () => {
     render(
       <LessonViewer
         lesson={sampleLesson}
@@ -103,7 +104,7 @@ describe("LessonViewer", () => {
     );
   });
 
-  it("adapts explanation content based on stored complexity level", () => {
+  it("ignores legacy preferences and opens details without changing a prediction", () => {
     window.localStorage.setItem("atom:preferences:v1:complexity", "beginner");
 
     render(
@@ -114,6 +115,16 @@ describe("LessonViewer", () => {
       />,
     );
 
+    const prediction = screen.getByRole("textbox");
+    fireEvent.change(prediction, {
+      target: { value: "More fuel holds more energy" },
+    });
+    fireEvent.click(screen.getByText("Energy and power units"));
+    expect(prediction).toHaveValue("More fuel holds more energy");
+    expect(screen.queryByLabelText("Reading depth")).not.toBeInTheDocument();
+    expect(window.localStorage.getItem("atom:preferences:v1:complexity")).toBe(
+      "beginner",
+    );
     const explanationEl = screen.getByTestId("lesson-explanation");
     expect(explanationEl).toHaveTextContent(
       "Energy is the ability to do work.",

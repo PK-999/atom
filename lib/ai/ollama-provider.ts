@@ -71,7 +71,7 @@ Ground your answer in these verified sources:
 ${citationsText}
 ${groundedFallback.consensus ? `Consensus: ${groundedFallback.consensus}` : ""}
 ${groundedFallback.uncertainty ? `Uncertainties: ${groundedFallback.uncertainty}` : ""}
-Audience level: ${options.level || "curious"}. Keep explanations concise, balanced, and clear.`;
+Keep explanations concise, balanced, and clear.`;
 
       const promptPayload = {
         model: this.model,

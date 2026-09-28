@@ -5,7 +5,7 @@ import { GroundedRagProvider } from "@/lib/ai/chat-provider";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { messages, level, providerPreference } = body;
+    const { messages, providerPreference } = body;
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json(
@@ -19,10 +19,10 @@ export async function POST(req: Request) {
 
     let result;
     if (providerPreference === "ollama") {
-      result = await ollama.generateResponse({ messages, level });
+      result = await ollama.generateResponse({ messages });
     } else {
       // Default to Ollama with Grounded fallback
-      result = await ollama.generateResponse({ messages, level });
+      result = await ollama.generateResponse({ messages });
     }
 
     return NextResponse.json(result);

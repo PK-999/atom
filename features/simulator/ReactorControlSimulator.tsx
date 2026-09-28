@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
 import { useMotionPreferences } from "@/lib/accessibility/motion";
 import {
   calculateReactorCoreState,
@@ -11,7 +10,6 @@ import {
 import styles from "./ReactorControlSimulator.module.css";
 
 export function ReactorControlSimulator() {
-  const [complexity] = useComplexityPreference("curious");
   const { shouldAnimate } = useMotionPreferences();
 
   const [input, setInput] = useState<ReactorControlInput>({
@@ -92,137 +90,24 @@ export function ReactorControlSimulator() {
           Commercial Reactor Core & Control Rod Simulator
         </h3>
         <p className={styles.description}>
-          {complexity === "beginner"
-            ? "Take the controls of a 1,000 MW nuclear power station! Control rods soak up neutrons like sponges to control the heat. If anything goes wrong, hit the big red SCRAM button to drop all rods instantly!"
-            : complexity === "geeky"
-              ? "Thermo-hydraulic and reactivity balance for a 3,000 MWt PWR core. Solves coupled Doppler resonance absorption (α_fuel = -2.5 pcm/°C), moderator temperature feedback (α_mod = -15 pcm/°C), and ANS-5.1/Way-Wigner decay heat post-SCRAM."
-              : "Operate a commercial light-water reactor core. Regulate thermal power output by adjusting control rod insertion and coolant flow, or trigger an emergency SCRAM to inspect residual decay heat dynamics."}
+          Explore how rod insertion and coolant flow affect this simplified
+          reactor model. Try a shutdown to see why cooling remains necessary.
         </p>
       </div>
 
-      {/* Level-Customized Pedagogical Insight Banner */}
-      <div className={styles.levelBanner}>
-        <div className={styles.levelBannerHeader}>
-          <span className={styles.levelBannerBadge}>
-            Level{" "}
-            {complexity === "beginner"
-              ? "1 · Beginner"
-              : complexity === "explorer"
-                ? "2 · Explorer"
-                : complexity === "curious"
-                  ? "3 · Curious"
-                  : complexity === "deep-dive"
-                    ? "4 · Deep Dive"
-                    : "5 · Geeky"}
-          </span>
-          <span className={styles.sliderValue}>
-            Thermal Power: {state.thermalPowerMwt.toLocaleString()} MWt (
-            {((state.thermalPowerMwt / 3000) * 100).toFixed(0)}%)
-          </span>
-        </div>
-
-        {complexity === "beginner" && (
-          <div>
-            <div className={styles.levelBannerTitle}>
-              🫖 The Giant Clean Tea Kettle
-            </div>
-            <p className={styles.levelBannerText}>
-              A nuclear reactor works just like a giant, super-clean tea kettle!
-              Inside, ceramic uranium fuel pellets make water blazing hot
-              without burning any coal or gas. The steam rushes through giant
-              turbine blades to power whole cities. Control rods are like magic
-              safety brakes: drop them into the core and the nuclear reaction
-              stops in under 2 seconds!
-            </p>
-          </div>
-        )}
-
-        {complexity === "explorer" && (
-          <div>
-            <div className={styles.levelBannerTitle}>
-              🔄 Primary Coolant Loop & Control Rod Balance
-            </div>
-            <p className={styles.levelBannerText}>
-              In a Pressurized Water Reactor (PWR), primary water is kept under
-              155 atmospheres of intense pressure so it stays liquid even at
-              326°C. High-flow coolant pumps circulate 16,000 kg of water per
-              second through 50,000 fuel rods. Moving the control rod banks up
-              or down fine-tunes thermal power with millimeter precision.
-            </p>
-          </div>
-        )}
-
-        {complexity === "curious" && (
-          <div>
-            <div className={styles.levelBannerTitle}>
-              ⚡ Thermal Conversion & Way-Wigner Decay Heat Law
-            </div>
-            <p className={styles.levelBannerText}>
-              Nuclear reactors produce 3,000 MW of thermal heat, yielding 1,000
-              MW of electrical power at 33.3% Carnot efficiency. When an
-              emergency SCRAM drops control rods, the fission chain reaction
-              halts instantly. However, accumulated radioactive fission products
-              continue decaying, generating ~6.5% (~195 MWt) residual decay
-              heat, which requires emergency cooling systems (ECCS) to prevent
-              overheating.
-            </p>
-            <div className={styles.levelBannerFormula}>
-              <span>
-                P_decay(t) = P_0 · 0.065 · (t + 1)^(-0.2) | 3,000 MWt → 1,000
-                MWe (η = 33.3%)
-              </span>
-            </div>
-          </div>
-        )}
-
-        {complexity === "deep-dive" && (
-          <div>
-            <div className={styles.levelBannerTitle}>
-              🛡️ Inherent Safety: Doppler & Moderator Reactivity Coefficients
-            </div>
-            <p className={styles.levelBannerText}>
-              Commercial LWR cores are engineered with strictly negative
-              reactivity feedback. As fuel heats up, Doppler broadening of ²³⁸U
-              absorption resonances at 6.67 eV captures more neutrons (α_fuel =
-              -2.5 pcm/°C). As coolant warms, its density drops, reducing
-              moderation (α_mod = -15 pcm/°C). If core power spikes, these
-              physical laws automatically throttle reactivity back down without
-              human intervention.
-            </p>
-            <div className={styles.levelBannerFormula}>
-              <span>
-                {
-                  "Δρ_total = Δρ_rods + α_Doppler · ΔT_fuel + α_mod · ΔT_coolant | α_Doppler < 0, α_mod < 0"
-                }
-              </span>
-            </div>
-          </div>
-        )}
-
-        {complexity === "geeky" && (
-          <div>
-            <div className={styles.levelBannerTitle}>
-              🔬 Point Kinetics, ANS-5.1 Decay Heat & DNBR Margin Limits
-            </div>
-            <p className={styles.levelBannerText}>
-              A reactor trip introduces -4,500 pcm of negative shutdown
-              reactivity. The prompt jump causes prompt neutron flux to drop by
-              a factor of β/(β - ρ) in ~10⁻⁴ s, leaving delayed neutron
-              precursor groups and fission product decay (ANS-5.1 standard).
-              Thermal margin is strictly governed by Departure from Nucleate
-              Boiling Ratio (DNBR &gt; 1.30) to prevent boiling crisis along
-              zircaloy fuel pin surfaces.
-            </p>
-            <div className={styles.levelBannerFormula}>
-              <span>
-                {
-                  'DNBR = q"_crit / q"_actual > 1.30 | Δρ_scram = -4,500 pcm | Prompt drop: n₁/n₀ ≈ β/(β - ρ)'
-                }
-              </span>
-            </div>
-          </div>
-        )}
-      </div>
+      <details className={styles.modelContext}>
+        <summary>How this model connects heat and control</summary>
+        <p>
+          Control rods absorb neutrons. Coolant removes heat. After shutdown,
+          radioactive decay continues to produce heat, so stopping the chain
+          reaction does not remove the need for cooling.
+        </p>
+        <p>
+          The model uses simplified reactivity feedback and an approximate
+          decay-heat curve. Its values are illustrative; it is not a validated
+          plant operating or accident simulator.
+        </p>
+      </details>
 
       {/* Safety Annunciator Status Banner */}
       <div

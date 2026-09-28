@@ -7,6 +7,7 @@ ATOM contains scientific claims, calculations, interactive visualizations, and e
 Quality is therefore not only “does the page load?”
 
 A feature must be:
+
 - scientifically correct
 - functionally correct
 - visually coherent
@@ -19,19 +20,23 @@ A feature must be:
 ## 2. Testing Pyramid
 
 ### Unit tests
+
 Required for:
+
 - calculations
 - conversions
 - parsing
 - normalization
 - representative-value selection
-- URL-state encoding/decoding
+- URL-state encoding/decoding, including inert legacy `level` values
 - filtering
 - sorting
 
 ### Component tests
+
 Required for:
-- ComplexitySelector
+
+- Explanation disclosures preserving interaction state
 - MetricCard
 - DataPassport
 - ChallengeNumber
@@ -39,7 +44,9 @@ Required for:
 - evidence drawers
 
 ### Integration tests
+
 Required for:
+
 - comparison filters
 - URL state
 - mode switching
@@ -47,10 +54,13 @@ Required for:
 - content/evidence rendering
 
 ### E2E tests
+
 Required for flagship journeys.
 
 ### Visual verification
+
 Required for:
+
 - desktop
 - tablet
 - mobile
@@ -59,7 +69,9 @@ Required for:
 - loading/error states
 
 ### Accessibility
+
 Required:
+
 - automated axe
 - keyboard-only flow
 - focus order
@@ -74,11 +86,13 @@ Required:
 Example:
 
 Input:
+
 - capacity = 1000 MW
 - capacity factor = 0.90
 - year = 8760 hours
 
 Expected:
+
 - annual generation = 7,884,000 MWh
 - = 7.884 TWh
 
@@ -106,12 +120,15 @@ For every substantial UI change:
 - evidence drawers open/close
 - URL state behaves
 - back/forward navigation behaves
+- legacy reading preferences are never accessed; theme and completed lessons survive
+- contextual details preserve prediction, answer, selection and simulator state
 
 ---
 
 ## 5. Performance Verification
 
 Watch:
+
 - JS bundle size
 - LCP
 - CLS
@@ -127,6 +144,7 @@ Heavy interactive features should not penalize unrelated educational pages.
 ## 6. Content QA
 
 Before publishing a quantitative claim:
+
 - source exists
 - source is correctly attributed
 - unit is correct
@@ -171,11 +189,13 @@ Use this checklist in PRs:
 ## 8. Completion Rule
 
 Do not say:
+
 > Done
 
 unless verification has actually been run.
 
 If something was not verified, say:
+
 > Implemented, but not yet verified for X.
 
 Evidence before assertion applies to engineering too.

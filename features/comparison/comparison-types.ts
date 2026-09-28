@@ -1,6 +1,3 @@
-import type { ComplexityLevel } from "@/lib/preferences/complexity-preference";
-export type { ComplexityLevel };
-
 export type DisplayMode = "typical" | "range" | "raw";
 
 export type UnitMode = "scientific" | "human";
@@ -11,7 +8,6 @@ export interface ComparisonState {
   region: string;
   mode: DisplayMode;
   units: UnitMode;
-  level: ComplexityLevel;
 }
 
 export type EnergyMarker =
@@ -48,7 +44,6 @@ export interface PreviewComparison {
   metricShortName: string;
   geography: string;
   unit: string;
-  defaultComplexity: ComplexityLevel;
   defaultMode: DisplayMode;
   observations: PreviewObservation[];
   datasetVersionIds?: readonly string[];

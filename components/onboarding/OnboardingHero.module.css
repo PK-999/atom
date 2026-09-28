@@ -60,35 +60,6 @@
   border: 1px solid var(--atom-border-strong);
   color: var(--atom-text-primary);
 }
-.depth {
-  font-size: 0.85rem;
-  color: var(--atom-text-secondary);
-  max-width: 440px;
-  margin-top: 24px;
-}
-.depth summary {
-  cursor: pointer;
-  min-height: 44px;
-  padding: 10px 0;
-}
-.levels {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.levels button {
-  min-height: 44px;
-  border-radius: 8px;
-  border: 1px solid var(--atom-border-default);
-  background: var(--atom-surface-panel);
-  color: var(--atom-text-primary);
-  padding: 8px;
-  cursor: pointer;
-}
-.levels button[aria-pressed="true"] {
-  border-color: var(--atom-accent);
-  background: var(--atom-accent-soft);
-}
 @media (max-width: 760px) {
   .hero {
     grid-template-columns: 1fr;
@@ -100,8 +71,5 @@
   }
   .subtitle {
     margin: 20px 0;
-  }
-  .depth {
-    margin-top: 8px;
   }
 }

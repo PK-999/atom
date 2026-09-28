@@ -24,12 +24,10 @@ describe("Analytics Tracker", () => {
 
   it("validates and accepts valid typed events", () => {
     const success = trackEvent("comparison_opened", {
-      level: "curious",
       sources_count: 5,
     });
     expect(success).toBe(true);
     expect(mockTransport.send).toHaveBeenCalledWith("comparison_opened", {
-      level: "curious",
       sources_count: 5,
     });
   });
@@ -80,7 +78,6 @@ describe("Analytics Tracker", () => {
   it("rejects unknown fields to prevent accidental PII leakage", () => {
     expect(() =>
       validateAnalyticsEvent("comparison_opened", {
-        level: "curious",
         sources_count: 3,
         extra_free_text: "John Doe",
       }),

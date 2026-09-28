@@ -1,3 +1,4 @@
+import { ExplanationContentSchema } from "@/lib/education/schemas";
 import { z } from "zod";
 
 import { canConvertUnit } from "./unit-registry";
@@ -10,14 +11,6 @@ export const IdentifierSchema = z
 const NonEmptyStringSchema = z.string().trim().min(1);
 const CalendarDateSchema = z.iso.date();
 const YearSchema = z.number().int().min(1800).max(3000);
-
-export const ComplexityLevelSchema = z.enum([
-  "beginner",
-  "explorer",
-  "curious",
-  "deep-dive",
-  "geeky",
-]);
 
 export const GeographyScopeSchema = z.enum([
   "global",
@@ -207,16 +200,7 @@ export const ClaimSchema = z
 export const ExplanationSchema = z
   .object({
     id: IdentifierSchema,
-    levels: z
-      .object({
-        curious: NonEmptyStringSchema,
-        expert: NonEmptyStringSchema,
-        kid: NonEmptyStringSchema,
-        simple: NonEmptyStringSchema,
-        technical: NonEmptyStringSchema,
-      })
-      .strict()
-      .readonly(),
+    content: ExplanationContentSchema,
     subjectId: IdentifierSchema,
     subjectType: z.enum(["metric", "technology", "claim", "concept"]),
   })

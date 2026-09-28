@@ -1,7 +1,8 @@
 "use client";
 
+import { ExplanationDetails } from "@/components/education/Explanation";
 import Link from "next/link";
-import type { ComplexityLevel, DisplayMode } from "./comparison-types";
+import type { DisplayMode } from "./comparison-types";
 import styles from "./ComparisonLab.module.css";
 
 import { METRIC_CATALOG_EXPLANATIONS } from "@/content/metrics";
@@ -19,13 +20,11 @@ interface ComparisonInterpretationProps {
   hasEvidence?: boolean;
   metricId: string;
   metricName: string;
-  level: ComplexityLevel;
   displayMode: DisplayMode;
 }
 
 export function getInterpretation(
   metricId: string,
-  level: ComplexityLevel,
   displayMode: DisplayMode = "typical",
   metricName?: string,
 ): {
@@ -41,17 +40,17 @@ export function getInterpretation(
     };
   }
   const record = METRIC_CATALOG_EXPLANATIONS[metricId];
-  if (record?.explanations?.[level]) {
+  if (record?.explanation) {
     return {
       found: true,
-      text: record.explanations[level],
+      text: [record.explanation.summary, ...record.explanation.body].join(" "),
       limitations: record.limitations,
       systemBoundary: record.systemBoundary,
     };
   }
   return {
     found: false,
-    text: `Reviewed explanation for ${metricName ?? metricId} is not yet available at the ${level} level. Showing evidence metrics directly without unverified editorial interpretation.`,
+    text: `Reviewed explanation for ${metricName ?? metricId} is not yet available. Showing evidence metrics directly without unverified editorial interpretation.`,
   };
 }
 
@@ -59,15 +58,15 @@ export function ComparisonInterpretation({
   hasEvidence = true,
   metricId,
   metricName,
-  level,
   displayMode,
 }: ComparisonInterpretationProps) {
   const result = hasEvidence
-    ? getInterpretation(metricId, level, displayMode, metricName)
+    ? getInterpretation(metricId, displayMode, metricName)
     : {
         found: false,
         text: "Reviewed comparison evidence is not available for this selection. ATOM is checking the exact sources, methods, and reuse permissions before publishing values. Missing evidence is not zero, and does not establish a ranking.",
         limitations: undefined,
+        systemBoundary: undefined,
       };
 
   return (
@@ -77,6 +76,17 @@ export function ComparisonInterpretation({
         Interpretation
       </h2>
       <p aria-live="polite">{result.text}</p>
+      {result.systemBoundary && (
+        <ExplanationDetails
+          details={[
+            {
+              id: "boundary",
+              title: "What is counted?",
+              body: result.systemBoundary,
+            },
+          ]}
+        />
+      )}
       {result.limitations && (
         <p className={styles.limitations}>
           <strong>Limitations:</strong> {result.limitations}

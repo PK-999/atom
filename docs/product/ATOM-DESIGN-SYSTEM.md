@@ -15,98 +15,47 @@ The product should feel like:
 ## 2. Product Experience Principles
 
 ### 2.1 Evidence before persuasion
+
 The interface must make sources, assumptions, uncertainty, and alternative estimates accessible.
 
-### 2.2 Complexity is user-controlled
-Visitors choose how deep they want to go.
+### 2.2 Optional context
 
-### 2.3 Same evidence, different presentation
-Changing explanation level may change wording, notation, controls, and density, but not the underlying factual dataset.
+One explanation serves every visitor. Named details offer more context.
+
+### 2.3 Stable evidence and interactions
+
+Opening details preserves the factual dataset, active controls and learner state.
 
 ### 2.4 Exploration over lecturing
+
 Whenever useful, let users manipulate, compare, scrub, filter, or simulate rather than only read.
 
 ### 2.5 Progressive disclosure
+
 Start simple. Reveal more detail when the user asks for it.
 
 ### 2.6 Mobile is a first-class environment
+
 No flagship feature may be desktop-only in its intellectual value.
 
 ### 2.7 Transparency earns trust
+
 Important numbers should expose provenance.
 
 ---
 
-## 3. Audience Model
+## 3. One reading experience
 
-### L1 — Kid
-Approximate audience: ages 5–10.
+[ADR 0011](../decisions/0011-single-reading-experience.md) supersedes audience levels. Start with a plain-language summary and a useful visual. Keep units, sources and active assumptions visible. Put derivations or supporting context behind named native details such as “Why slow neutrons down?” rather than generic proficiency labels.
 
-Characteristics:
-- short sentences
-- concrete analogy
-- minimal units
-- illustrations
-- guided interaction
-- no unnecessary jargon
-- no equations
-
-### L2 — Simple
-Approximate audience: older children, teens, casual adults.
-
-Characteristics:
-- plain English
-- familiar units
-- short explanations
-- simple charts
-- limited terminology
-
-### L3 — Curious
-Default general-adult mode.
-
-Characteristics:
-- normal scientific terminology with definitions
-- complete charts
-- numerical values
-- context and trade-offs
-- methodology summaries
-
-### L4 — Technical
-Students, analysts, professionals.
-
-Characteristics:
-- distributions/ranges
-- technical terminology
-- assumptions
-- derivations where useful
-- system boundaries
-- engineering/economic context
-
-### L5 — Expert
-Engineers, researchers, advanced users.
-
-Characteristics:
-- raw observations where available
-- detailed methodology
-- equations
-- study-level comparisons
-- data download
-- uncertainty discussion
-- source metadata
-
-### Behavior
-- Selector remains accessible globally.
-- Changing level does not reload the page where avoidable.
-- Page position and current selection should be preserved.
-- Preference persists locally.
-- Advanced controls may appear progressively.
-- Technical data remains available on demand even in simpler modes.
+Every visitor can inspect ranges, methods and raw observations where actually available. All essential controls remain accessible. Expanding context must preserve focus, predictions, filters, playback and selected components. Old reading preferences are inert.
 
 ---
 
 ## 4. Brand Personality
 
 ### ATOM should feel
+
 - scientific
 - curious
 - calm
@@ -118,6 +67,7 @@ Characteristics:
 - serious when required
 
 ### ATOM should not feel
+
 - propagandistic
 - political-campaign-like
 - corporate energy-company-like
@@ -147,6 +97,7 @@ Recommended visual direction:
 > Digital science museum interaction with restrained editorial presentation.
 
 The visual system should favor:
+
 - clean surfaces
 - large explanatory headings
 - restrained use of gradients
@@ -166,42 +117,55 @@ Use actual font choices only after licensing, loading performance, and readabili
 Suggested type roles:
 
 ### Display
+
 Desktop: 48–80px
 Mobile: 36–48px
 
 Use for:
+
 - homepage hero
 - flagship section intros
 
 ### H1
+
 ~48/56 desktop
 
 ### H2
+
 ~36/44
 
 ### H3
+
 ~28/36
 
 ### Body Large
+
 ~20/30
 
 ### Body
+
 ~16/26
 
 ### Caption
+
 ~13/18
 
 ### Data Label
+
 ~14/18
 
 ### Scientific / code / measurements
+
 Monospace where useful.
 
 ### Reading width
+
 Narrative prose:
+
 - target max width around 680–760px
 
 Data/interactive workspace:
+
 - target max width around 1360–1480px
 
 Avoid dense full-width paragraphs.
@@ -213,35 +177,41 @@ Avoid dense full-width paragraphs.
 Start with semantic tokens rather than one-off hex values.
 
 ### Surface
+
 - `surface-primary`
 - `surface-secondary`
 - `surface-tertiary`
 - `surface-elevated`
 
 ### Text
+
 - `text-primary`
 - `text-secondary`
 - `text-muted`
 - `text-inverse`
 
 ### Border
+
 - `border-subtle`
 - `border-default`
 - `border-strong`
 
 ### Interaction
+
 - `interactive-primary`
 - `interactive-hover`
 - `interactive-active`
 - `interactive-focus`
 
 ### Feedback
+
 - `positive`
 - `warning`
 - `negative`
 - `information`
 
 ### Energy source tokens
+
 - `energy-nuclear`
 - `energy-solar`
 - `energy-wind`
@@ -253,6 +223,7 @@ Start with semantic tokens rather than one-off hex values.
 - `energy-geothermal`
 
 Energy colors must remain consistent across:
+
 - charts
 - maps
 - cards
@@ -289,14 +260,17 @@ Avoid ad-hoc spacing except inside specialized visualization geometry.
 ## 9. Layout Grid
 
 ### Desktop
+
 - 12 columns
 - max content width around 1440px
 - outer gutter around 32–48px
 
 ### Tablet
+
 - 8 columns
 
 ### Mobile
+
 - 4 columns
 - margins around 16–20px
 
@@ -307,6 +281,7 @@ Narrative pages and interactive workspaces may use different content widths whil
 ## 10. Core UI Components
 
 Foundation:
+
 - Button
 - IconButton
 - Link
@@ -333,7 +308,8 @@ Foundation:
 - ErrorState
 
 ATOM-specific:
-- ComplexitySelector
+
+- Explanation / named context disclosures
 - EnergySourceChip
 - MetricCard
 - EvidenceBadge
@@ -350,6 +326,7 @@ ATOM-specific:
 - MethodologySummary
 
 Visualization:
+
 - ComparisonBar
 - RangePlot
 - DistributionPlot
@@ -363,6 +340,7 @@ Visualization:
 - ChartNarrativeSummary
 
 Every component must define:
+
 - default
 - hover
 - focus
@@ -379,10 +357,13 @@ Every component must define:
 ## 11. Motion System
 
 ### Micro-interaction
+
 Typical duration:
+
 - 100–180ms
 
 Use for:
+
 - hover
 - focus
 - toggles
@@ -390,17 +371,22 @@ Use for:
 - small selection feedback
 
 ### UI transition
+
 Typical duration:
+
 - 180–300ms
 
 Use for:
+
 - tabs
 - drawers
 - bottom sheets
 - panel changes
 
 ### Educational animation
+
 May be longer when animation itself teaches:
+
 - fission
 - decay
 - grid flow
@@ -408,9 +394,11 @@ May be longer when animation itself teaches:
 - timelines
 
 ### Reduced motion
+
 Respect `prefers-reduced-motion`.
 
 When reduced motion is enabled:
+
 - remove decorative parallax
 - avoid large transforms
 - replace animated teaching sequences with stepped or static alternatives where needed
@@ -420,43 +408,53 @@ When reduced motion is enabled:
 ## 12. Data Visualization Grammar
 
 ### Bar charts
+
 Use for discrete comparisons.
 
 Rules:
+
 - normally begin at zero
 - direct label values when possible
 - include unit
 - avoid 3D effects
 
 ### Line charts
+
 Use for changes over time.
 
 Rules:
+
 - label time range
 - make missing periods explicit
 - avoid smoothing that implies unavailable observations
 
 ### Scatterplots
+
 Use for relationships.
 
 Rules:
+
 - label axes clearly
 - expose point metadata
 - provide a text/table alternative
 
 ### Range/distribution plots
+
 Use when uncertainty or study variation matters.
 
 Rules:
+
 - distinguish min/max from confidence intervals
 - distinguish representative estimate from observed distribution
 - explain what each interval means
 
 ### Pie/donut charts
+
 Avoid by default.
 Use only where part-to-whole is the central question.
 
 ### Universal chart requirements
+
 - units visible
 - source reachable
 - data table/text fallback
@@ -491,10 +489,13 @@ Every major metric should be able to expose:
 Primary evidence actions:
 
 ### Why this number?
+
 Opens a concise Data Passport.
 
 ### Challenge this number
+
 Opens a deeper comparison of:
+
 - source
 - alternative studies
 - methodology differences
@@ -502,6 +503,7 @@ Opens a deeper comparison of:
 - known limitations
 
 ### View source
+
 Takes user to the original or canonical source.
 
 ---
@@ -520,6 +522,7 @@ ATOM should distinguish:
 Use neutral language.
 
 Avoid:
+
 - “obviously”
 - “unquestionably”
 - “proves once and for all”
@@ -529,6 +532,7 @@ Avoid:
 - “nuclear solves everything”
 
 Prefer:
+
 - “available evidence suggests”
 - “estimates vary because”
 - “under this methodology”
@@ -543,6 +547,7 @@ Prefer:
 Default to a clear, understandable view.
 
 Offer paths such as:
+
 - Explain simpler
 - Go deeper
 - Show data
@@ -559,6 +564,7 @@ Do not dump all technical detail into the first screen.
 Do not compress desktop layouts mechanically.
 
 Prefer:
+
 - vertical comparison
 - stacked charts
 - bottom-sheet filters
@@ -574,6 +580,7 @@ Core information must not require horizontal scrolling.
 ## 17. Accessibility
 
 Minimum requirements:
+
 - WCAG AA contrast
 - keyboard navigation
 - visible focus
@@ -592,20 +599,27 @@ Minimum requirements:
 ## 18. Loading, Empty, and Error States
 
 ### Loading
+
 Use content-shaped skeletons.
 
 Charts should show chart-shaped skeletons instead of generic spinners where possible.
 
 ### Missing evidence
+
 Use:
+
 > We do not currently have reliable comparable data for this metric and technology.
 
 ### Methodological incompatibility
+
 Use:
+
 > These estimates use materially different methodologies and should not be interpreted as directly equivalent.
 
 ### Source unavailable
+
 Use:
+
 > Source currently unavailable. Showing the last verified value from YYYY-MM-DD.
 
 ---
@@ -613,6 +627,7 @@ Use:
 ## 19. Design QA Checklist
 
 Before handoff:
+
 - visual hierarchy clear
 - primary task obvious
 - no unnecessary controls

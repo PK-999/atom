@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { ComplexityLevelSchema } from "../evidence/schemas";
 
 export const IdentifierSchema = z
   .string()
@@ -8,6 +7,30 @@ export const IdentifierSchema = z
   .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
 
 export const NonEmptyStringSchema = z.string().trim().min(1);
+
+/** One explanation, with optional topic-specific detail. Citation IDs are references, not review approval. */
+export const ExplanationContentSchema = z
+  .object({
+    summary: NonEmptyStringSchema,
+    body: z.array(NonEmptyStringSchema).readonly(),
+    details: z
+      .array(
+        z
+          .object({
+            id: IdentifierSchema,
+            title: NonEmptyStringSchema,
+            body: NonEmptyStringSchema,
+          })
+          .strict()
+          .readonly(),
+      )
+      .readonly()
+      .optional(),
+    citationIds: z.array(IdentifierSchema).readonly(),
+  })
+  .strict()
+  .readonly();
+export type ExplanationContent = z.infer<typeof ExplanationContentSchema>;
 
 export const ContentStatusSchema = z.enum([
   "draft",
@@ -69,15 +92,9 @@ export const LessonRecordSchema = z
     prerequisiteIds: z.array(IdentifierSchema).readonly(),
     conceptIds: z.array(IdentifierSchema).readonly(),
     claimIds: z.array(IdentifierSchema).readonly(),
-    contentByLevel: z
-      .object({
-        beginner: NonEmptyStringSchema,
-        explorer: NonEmptyStringSchema,
-        curious: NonEmptyStringSchema,
-        "deep-dive": NonEmptyStringSchema,
-        geeky: NonEmptyStringSchema,
-      })
-      .strict(),
+    explanation: ExplanationContentSchema,
+    explanationVersion: NonEmptyStringSchema.optional(),
+    explanationReviewStatus: z.enum(["pending", "reviewed"]).optional(),
     checkpointIds: z.array(IdentifierSchema).readonly(),
     nextLessonId: IdentifierSchema.nullable(),
     status: ContentStatusSchema,
@@ -87,13 +104,12 @@ export const LessonRecordSchema = z
   .strict()
   .readonly();
 
-// Legacy schemas preserved for backward compatibility
+// Compact authoring schemas
 export const ConceptSchema = z
   .object({
     id: IdentifierSchema,
     title: NonEmptyStringSchema,
     summary: NonEmptyStringSchema,
-    complexityMinimum: ComplexityLevelSchema,
   })
   .strict()
   .readonly();
@@ -104,15 +120,7 @@ export const LessonSchema = z
     title: NonEmptyStringSchema,
     moduleId: IdentifierSchema,
     order: z.number().int().min(1),
-    explanations: z
-      .object({
-        beginner: NonEmptyStringSchema,
-        explorer: NonEmptyStringSchema,
-        curious: NonEmptyStringSchema,
-        "deep-dive": NonEmptyStringSchema,
-        geeky: NonEmptyStringSchema,
-      })
-      .strict(),
+    explanation: ExplanationContentSchema,
     conceptIds: z.array(IdentifierSchema).readonly(),
   })
   .strict()

@@ -1,11 +1,8 @@
 "use client";
 
+import { Explanation } from "@/components/education/Explanation";
+import { explanationText } from "@/lib/education/explanation";
 import { useState, useMemo } from "react";
-import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
-import {
-  COMPLEXITY_LABELS,
-  type ComplexityLevel,
-} from "@/lib/preferences/complexity-preference";
 import {
   MYTHS_DATA,
   type MythCategory,
@@ -24,7 +21,6 @@ const CATEGORIES: { id: "all" | MythCategory; label: string }[] = [
 ];
 
 export function MythViewer() {
-  const [level, setLevel] = useComplexityPreference("curious");
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<"all" | MythCategory>(
     "all",
@@ -54,10 +50,10 @@ export function MythViewer() {
         !q ||
         myth.claim.toLowerCase().includes(q) ||
         myth.quickReality.toLowerCase().includes(q) ||
-        myth.explanations[level].toLowerCase().includes(q);
+        explanationText(myth.explanation).toLowerCase().includes(q);
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, searchQuery, level]);
+  }, [activeCategory, searchQuery]);
 
   const getVerdictBadgeClass = (verdict: MythItem["verdict"]) => {
     switch (verdict) {
@@ -143,7 +139,6 @@ export function MythViewer() {
         ) : (
           filteredMyths.map((myth) => {
             const isExpanded = expandedIds.has(myth.id);
-            const explanation = myth.explanations[level];
 
             return (
               <article
@@ -193,12 +188,11 @@ export function MythViewer() {
                   <div className={styles.cardBody}>
                     <div className={styles.detailedEvidenceHeader}>
                       <strong>Detailed Evidence Analysis</strong>
-                      <span className={styles.levelTag}>
-                        Tailored for: {COMPLEXITY_LABELS[level]}
-                      </span>
                     </div>
 
-                    <p className={styles.fullExplanation}>{explanation}</p>
+                    <div className={styles.fullExplanation}>
+                      <Explanation content={myth.explanation} />
+                    </div>
 
                     <div className={styles.citationsBox}>
                       <span className={styles.citationsHeading}>

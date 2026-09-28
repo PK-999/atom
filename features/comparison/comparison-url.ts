@@ -4,21 +4,12 @@ import { METRICS } from "@/lib/evidence/metrics";
 
 import type {
   ComparisonState,
-  ComplexityLevel,
   DisplayMode,
   UnitMode,
 } from "./comparison-types";
 
 const DISPLAY_MODES = ["typical", "range", "raw"] as const;
 const UNIT_MODES = ["scientific", "human"] as const;
-const COMPLEXITY_LEVELS = [
-  "beginner",
-  "explorer",
-  "curious",
-  "deep-dive",
-  "geeky",
-] as const;
-
 export const COMPARISON_TECHNOLOGY_IDS = [
   "nuclear",
   "solar",
@@ -45,7 +36,6 @@ export const ComparisonUrlSchema = z
     region: z.string().min(1).max(MAX_IDENTIFIER_LENGTH),
     mode: z.enum(DISPLAY_MODES),
     units: z.enum(UNIT_MODES),
-    level: z.enum(COMPLEXITY_LEVELS),
   })
   .strict();
 
@@ -57,12 +47,7 @@ export const DEFAULT_COMPARISON_STATE: ComparisonUrlState = {
   region: "global",
   mode: "typical",
   units: "scientific",
-  level: "curious",
 };
-
-export interface ComparisonPreferences {
-  readonly level?: ComplexityLevel;
-}
 
 export interface ComparisonUrlCatalog {
   readonly technologyIds: readonly string[];
@@ -204,39 +189,12 @@ function parseSources(
   return sources;
 }
 
-const LEGACY_COMPLEXITY_MAP: Record<string, ComplexityLevel> = {
-  kid: "beginner",
-  simple: "explorer",
-  technical: "deep-dive",
-  expert: "geeky",
-};
-
-function parseComplexityLevelParam(
-  raw: string | null,
-  fallback: ComplexityLevel,
-): ComplexityLevel {
-  if (raw === null) return fallback;
-  const value = raw.trim();
-  if (COMPLEXITY_LEVELS.includes(value as ComplexityLevel)) {
-    return value as ComplexityLevel;
-  }
-  if (value in LEGACY_COMPLEXITY_MAP) {
-    return LEGACY_COMPLEXITY_MAP[value]!;
-  }
-  return fallback;
-}
-
 export function parseComparisonState(
   searchParams: ComparisonSearchParams,
-  preferences?: ComparisonPreferences,
   options: ComparisonUrlParseOptions = {},
 ): ComparisonState {
   const catalog = options.catalog ?? DEFAULT_CATALOG;
   const onWarning = options.onWarning ?? emitDefaultWarning;
-  const preferredLevel = parseComplexityLevelParam(
-    preferences?.level ?? null,
-    DEFAULT_COMPARISON_STATE.level,
-  );
 
   return ComparisonUrlSchema.parse({
     sources: parseSources(
@@ -268,10 +226,6 @@ export function parseComparisonState(
       UNIT_MODES,
       DEFAULT_COMPARISON_STATE.units,
     ) as UnitMode,
-    level: parseComplexityLevelParam(
-      firstValue(searchParams, "level"),
-      preferredLevel,
-    ),
   });
 }
 
@@ -280,10 +234,9 @@ export function parseComparisonState(
  */
 export function parseComparisonUrl(
   searchParams: ComparisonSearchParams,
-  preferences?: ComparisonPreferences,
   options?: ComparisonUrlParseOptions,
 ): ComparisonUrlState {
-  return parseComparisonState(searchParams, preferences, options);
+  return parseComparisonState(searchParams, options);
 }
 
 export function serializeComparisonState(
@@ -298,7 +251,6 @@ export function serializeComparisonState(
   params.set("region", state.region);
   params.set("mode", state.mode);
   params.set("units", state.units);
-  params.set("level", state.level);
   return params;
 }
 

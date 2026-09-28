@@ -117,15 +117,15 @@ describe("IncidentViewer Component", () => {
     ).toBeNull();
   });
 
-  it("allows switching explanation depth level", () => {
+  it("opens mechanism context while preserving the incident selection", () => {
     renderViewer();
-
-    // Switch to Geeky level
-    const geekyBtn = screen.getByRole("button", { name: "geeky" });
-    fireEvent.click(geekyBtn);
-
-    // Look for technical geeky terminology
-    expect(screen.getAllByText(/INSAG-7/i).length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText(/delayed neutron fraction/i)).toBeDefined();
+    fireEvent.click(screen.getByText("Reactivity and coolant"));
+    expect(
+      screen.getByText(/A positive void coefficient means/),
+    ).toBeInTheDocument();
+    expect(screen.getAllByText(/Chernobyl Disaster/).length).toBeGreaterThan(0);
+    expect(
+      screen.queryByRole("button", { name: "geeky" }),
+    ).not.toBeInTheDocument();
   });
 });

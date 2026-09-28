@@ -1,3 +1,4 @@
+import { explanationText } from "@/lib/education/explanation";
 import type { AskCitation } from "@/lib/ask/schemas";
 import { askAtom } from "@/lib/ask/retrieval-engine";
 
@@ -11,7 +12,6 @@ export interface ChatCompletionOptions {
   systemPrompt?: string;
   temperature?: number;
   maxTokens?: number;
-  level?: "beginner" | "explorer" | "curious" | "deep-dive" | "geeky";
 }
 
 export interface ChatCompletionResult {
@@ -53,22 +53,13 @@ export class GroundedRagProvider implements IChatProvider {
 
     const queryText = lastUserMessage?.content ?? "nuclear energy";
 
-    // Map level to ask engine level
-    let askLevel: "explorer" | "standard" | "deep-dive" = "standard";
-    if (options.level === "beginner" || options.level === "explorer") {
-      askLevel = "explorer";
-    } else if (options.level === "deep-dive" || options.level === "geeky") {
-      askLevel = "deep-dive";
-    }
-
     const askResult = askAtom({
       id: `debate-${Date.now()}`,
       prompt: queryText,
       timestamp: new Date().toISOString(),
-      level: askLevel,
     });
 
-    const content = askResult.answerText;
+    const content = explanationText(askResult.explanation);
 
     return {
       content,

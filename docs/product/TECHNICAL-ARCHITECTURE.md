@@ -3,6 +3,7 @@
 ## 1. Architecture Goals
 
 The system should be:
+
 - fast
 - inspectable
 - maintainable
@@ -16,34 +17,23 @@ The system should be:
 
 ## 2. High-Level Architecture
 
+The current architecture is defined by ADR 0010: one Next.js application reads checked-in reviewed source metadata, immutable dataset versions and explicit release records through the evidence repository. Validation, normalization and pure calculation precede presentation. The earlier Supabase proposal below is historical, not an instruction to restore a database.
+
 ```text
-Vercel CDN
-   ↓
-Next.js App Router
-   ├── static educational routes
-   ├── server-rendered evidence routes
-   ├── interactive client features
-   └── API/server actions where necessary
-   ↓
-Supabase / PostgreSQL
-   ├── metrics
-   ├── studies
-   ├── citations
-   ├── claims
-   ├── facilities
-   ├── reactors
-   └── optional user data
-   ↓
-Evidence ingestion/normalization
-   ├── TypeScript
-   └── Python where data work is easier
+Checked-in evidence and release records
+  → repository
+  → scientific validation / normalization / pure models
+  → server-rendered reading and small interactive React exhibits
 ```
+
+Reading content uses `ExplanationContent` with optional named details. No reading-level store, selector, prompt parameter or presentation DTO field exists. Theme and learning progress remain local. Legacy `level=` links are ignored. See ADR 0011.
 
 ---
 
 ## 3. Frontend
 
 Preferred:
+
 - Next.js App Router
 - TypeScript
 - React
@@ -62,20 +52,26 @@ Use D3 primarily for scales, geometry, and specialized chart calculations.
 ## 4. Rendering Strategy
 
 ### Static/SSG
+
 Use for:
+
 - core explainers
 - glossary
 - stable educational pages
 - debate pages where data is periodically rebuilt
 
 ### SSR/server components
+
 Use for:
+
 - evidence-heavy pages
 - dynamic metadata
 - query-driven comparisons where beneficial
 
 ### Client components
+
 Use only where interaction requires them:
+
 - simulations
 - charts
 - sliders
@@ -89,14 +85,18 @@ Avoid making entire pages client-rendered without need.
 ## 5. Content Strategy
 
 ### MDX
+
 Use for:
+
 - lessons
 - narrative explainers
 - guided stories
 - debate editorial framing
 
-### PostgreSQL
+### Structured evidence files (ADR 0010)
+
 Use for:
+
 - metrics
 - observations
 - sources
@@ -107,7 +107,9 @@ Use for:
 - structured claims
 
 ### Typed JSON/config
+
 Use for:
+
 - simulation presets
 - chart definitions
 - quiz configuration
@@ -213,6 +215,7 @@ PUBLISH
 ```
 
 Store:
+
 - source URL/id
 - access date
 - version
@@ -227,6 +230,7 @@ Store:
 Keep scientific calculations in framework-independent modules.
 
 Examples:
+
 - energy generation math
 - capacity factor math
 - unit conversions
@@ -243,6 +247,7 @@ Domain functions should have unit tests.
 ## 10. State Management
 
 Prefer:
+
 - URL state for shareable comparison configuration
 - local component state for ephemeral UI
 - Zustand for complex cross-component simulation state
@@ -255,6 +260,7 @@ Do not use a global store for everything.
 ## 11. Search
 
 Search should eventually support:
+
 - concepts
 - topics
 - technologies
@@ -300,6 +306,7 @@ AI may not invent evidence.
 ## 13. Performance
 
 Targets:
+
 - LCP < 2.5s on representative mobile connection
 - Lighthouse Performance > 90 target
 - Accessibility > 95 target
@@ -307,6 +314,7 @@ Targets:
 - SEO > 95 target
 
 Strategies:
+
 - static generation
 - cache stable evidence
 - lazy-load heavy maps/simulations
@@ -320,18 +328,23 @@ Strategies:
 ## 14. Progressive Enhancement
 
 If JavaScript fails:
+
 - educational content remains readable
 
 If chart JS fails:
+
 - table fallback remains
 
 If map cannot load:
+
 - facility list/table remains
 
 If GPU is weak:
+
 - simplified experience allowed
 
 If data fetch fails:
+
 - show cached value with timestamp where safe
 
 ---
@@ -339,9 +352,11 @@ If data fetch fails:
 ## 15. Authentication
 
 V1:
+
 - no login required for learning
 
 Later optional accounts:
+
 - saved simulations
 - bookmarks
 - learning progress
@@ -367,12 +382,14 @@ Never gate public educational content behind account creation.
 ## 17. Deployment
 
 Preferred:
+
 - GitHub
 - Vercel
 - Supabase
 - GitHub Actions
 
 Stages:
+
 - preview
 - staging
 - production
@@ -384,6 +401,7 @@ Use preview deployments for design review.
 ## 18. Observability
 
 Track:
+
 - errors
 - performance
 - failed data ingestion

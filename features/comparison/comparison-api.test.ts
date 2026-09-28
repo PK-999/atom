@@ -14,7 +14,6 @@ const base: ComparisonState = {
   region: "global",
   mode: "typical",
   units: "scientific",
-  level: "curious",
 };
 describe("comparison API release boundary", () => {
   it("keeps known metric names/units while unreviewed numerical releases are unavailable", async () => {

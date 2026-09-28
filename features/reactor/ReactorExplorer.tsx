@@ -1,4 +1,5 @@
 "use client";
+import { ExplanationDetails } from "@/components/education/Explanation";
 import { GraphicsBoundary } from "@/features/exhibits/GraphicsBoundary";
 
 import React, { useState } from "react";
@@ -60,9 +61,6 @@ export function ReactorExplorer({ system }: ReactorExplorerProps) {
   const [showGallery, setShowGallery] = useState(false);
   const [gallerySlide, setGallerySlide] = useState(0);
   const [hoveredPartId, setHoveredPartId] = useState<string | null>(null);
-  const [explanationMode, setExplanationMode] = useState<
-    "standard" | "simpler" | "deeper"
-  >("standard");
   const [powerLevel, setPowerLevel] = useState<100 | 50 | 0>(100);
   const [activeLoopFilter, setActiveLoopFilter] = useState<
     "all" | "primary" | "secondary" | "tertiary"
@@ -349,57 +347,13 @@ export function ReactorExplorer({ system }: ReactorExplorerProps) {
                 <p className={styles.partRole}>{selectedComponent.role}</p>
               </div>
 
-              {/* Explanation Level Toggles */}
-              <div
-                className={styles.explanationTabs}
-                role="tablist"
-                aria-label="Explanation Complexity"
-              >
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={explanationMode === "simpler"}
-                  className={`${styles.tabButton} ${
-                    explanationMode === "simpler" ? styles.tabButtonActive : ""
-                  }`}
-                  onClick={() => setExplanationMode("simpler")}
-                >
-                  Simple (L1–L2)
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={explanationMode === "standard"}
-                  className={`${styles.tabButton} ${
-                    explanationMode === "standard" ? styles.tabButtonActive : ""
-                  }`}
-                  onClick={() => setExplanationMode("standard")}
-                >
-                  Standard (L3)
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={explanationMode === "deeper"}
-                  className={`${styles.tabButton} ${
-                    explanationMode === "deeper" ? styles.tabButtonActive : ""
-                  }`}
-                  onClick={() => setExplanationMode("deeper")}
-                >
-                  Technical (L4–L5)
-                </button>
-              </div>
-
-              {/* Explanation Prose */}
               <p className={styles.explanationBody}>
-                {explanationMode === "simpler" &&
-                selectedComponent.simplerExplanation
-                  ? selectedComponent.simplerExplanation
-                  : explanationMode === "deeper" &&
-                      selectedComponent.deeperExplanation
-                    ? selectedComponent.deeperExplanation
-                    : selectedComponent.description}
+                {selectedComponent.description}
               </p>
+              <ExplanationDetails
+                key={selectedComponent.id}
+                details={selectedComponent.details}
+              />
 
               {/* Connected Fluid Flows */}
               {connectedFlows.length > 0 && (

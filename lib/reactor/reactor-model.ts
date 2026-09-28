@@ -54,10 +54,14 @@ export const PWR_SYSTEM_DATA: ReactorSystem = {
       role: "Houses the reactor core and sustains intense coolant pressure",
       description:
         "A thick forged carbon-steel vessel (approx. 20-25 cm thick wall) with an internal stainless-steel cladding that encases the core and contains high-pressure water at 15.5 MPa.",
-      simplerExplanation:
-        "A gigantic, super-strong steel container that holds the fuel and hot water under intense pressure without breaking.",
-      deeperExplanation:
-        "Fabricated from low-alloy manganese-molybdenum-nickel steel (e.g. SA-508) to withstand neutron embrittlement, thermal transients, and 17 MPa design pressure over a 60-80 year design life.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Vessel materials",
+          body: "Fabricated from low-alloy manganese-molybdenum-nickel steel (e.g. SA-508) to withstand neutron embrittlement, thermal transients, and 17 MPa design pressure over a 60-80 year design life.",
+        },
+      ],
       connectedFlowIds: ["pwr-primary-hot", "pwr-primary-cold"],
       diagramCoords: { x: 100, y: 150, width: 90, height: 160 },
       citationIds: ["cit-nrc-pwr-basics"],
@@ -69,10 +73,14 @@ export const PWR_SYSTEM_DATA: ReactorSystem = {
       role: "Generates heat via controlled uranium-235 nuclear fission",
       description:
         "Sintered ceramic uranium dioxide (UO2) pellets, enriched to 3-5% U-235, sealed within corrosion-resistant zirconium alloy (zircaloy) fuel rods arranged in square lattice bundles.",
-      simplerExplanation:
-        "Small ceramic fuel pellets packed inside metal tubes that release massive amounts of heat when atomic nuclei split.",
-      deeperExplanation:
-        "Standard 17x17 array containing ~264 fuel rods. Fission energy is transferred across the helium gap and zircaloy cladding to the surrounding forced-circulation water coolant.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Fuel and heat transfer",
+          body: "Standard 17x17 array containing ~264 fuel rods. Fission energy is transferred across the helium gap and zircaloy cladding to the surrounding forced-circulation water coolant.",
+        },
+      ],
       connectedFlowIds: ["pwr-primary-hot"],
       diagramCoords: { x: 115, y: 200, width: 60, height: 80 },
       citationIds: ["cit-nrc-pwr-basics", "cit-iaea-pwr-status"],
@@ -84,10 +92,14 @@ export const PWR_SYSTEM_DATA: ReactorSystem = {
       role: "Regulates reactor power and provides emergency shutdown (SCRAM)",
       description:
         "Neutron-absorbing material (such as silver-indium-cadmium or boron carbide) inserted into the core from the top to capture thermal neutrons and throttle or halt fission.",
-      simplerExplanation:
-        "Neutron sponges that drop into the fuel to slow down or immediately shut off the atomic reaction in seconds.",
-      deeperExplanation:
-        "Gravity-assisted failsafe release mechanisms ensure rapid negative reactivity insertion (SCRAM) within 2-3 seconds upon loss of electrical power to magnetic clutches.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Neutron absorption",
+          body: "Gravity-assisted failsafe release mechanisms ensure rapid negative reactivity insertion (SCRAM) within 2-3 seconds upon loss of electrical power to magnetic clutches.",
+        },
+      ],
       connectedFlowIds: [],
       diagramCoords: { x: 120, y: 110, width: 50, height: 35 },
       citationIds: ["cit-nrc-pwr-basics"],
@@ -99,10 +111,14 @@ export const PWR_SYSTEM_DATA: ReactorSystem = {
       role: "Maintains primary coolant system pressure to prevent boiling",
       description:
         "A vertical cylindrical pressure vessel with electric immersion heaters and water spray nozzles that keeps primary water pressurized at ~15.5 MPa (155 atmospheres).",
-      simplerExplanation:
-        "Like an electronic pressure cooker regulator that keeps water from turning into bubbles even when it's hotter than 300°C.",
-      deeperExplanation:
-        "Maintains saturated steam-water equilibrium. If pressure drops, electric heaters boil water to increase steam volume; if pressure spikes, cold-leg spray condenses steam to lower pressure.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Pressure control",
+          body: "Maintains saturated steam-water equilibrium. If pressure drops, electric heaters boil water to increase steam volume; if pressure spikes, cold-leg spray condenses steam to lower pressure.",
+        },
+      ],
       connectedFlowIds: ["pwr-primary-hot"],
       diagramCoords: { x: 215, y: 80, width: 45, height: 110 },
       citationIds: ["cit-nrc-pwr-basics"],
@@ -114,10 +130,14 @@ export const PWR_SYSTEM_DATA: ReactorSystem = {
       role: "Transfers primary heat to secondary water to produce clean steam",
       description:
         "A tall heat exchanger containing thousands of inverted U-tubes. Hot primary water flows inside the tubes, boiling secondary water outside the tubes into dry saturated steam.",
-      simplerExplanation:
-        "A heat exchanger where super-hot radioactive water gives its heat to clean water without the two liquids ever mixing.",
-      deeperExplanation:
-        "Features thousands of Inconel (alloy 690) tubes that act as the principal barrier between the active primary loop and the inactive secondary turbine system, generating steam at ~6.5 MPa.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Transferring heat",
+          body: "Features thousands of Inconel (alloy 690) tubes that act as the principal barrier between the active primary loop and the inactive secondary turbine system, generating steam at ~6.5 MPa.",
+        },
+      ],
       connectedFlowIds: [
         "pwr-primary-hot",
         "pwr-primary-cold",
@@ -134,10 +154,14 @@ export const PWR_SYSTEM_DATA: ReactorSystem = {
       role: "Circulates high-pressure water through the core and steam generator",
       description:
         "High-inertia vertical centrifugal pump designed to pump tens of thousands of gallons per minute of pressurized water through the primary circuit.",
-      simplerExplanation:
-        "A heavy-duty pump that pushes massive amounts of water around the core loop constantly.",
-      deeperExplanation:
-        "Fitted with heavy flywheels that provide coast-down flow inertia during a station blackout, ensuring natural circulation transition without core dryout.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Coolant circulation",
+          body: "Fitted with heavy flywheels that provide coast-down flow inertia during a station blackout, ensuring natural circulation transition without core dryout.",
+        },
+      ],
       connectedFlowIds: ["pwr-primary-cold"],
       diagramCoords: { x: 220, y: 260, width: 50, height: 50 },
       citationIds: ["cit-nrc-pwr-basics"],
@@ -149,10 +173,14 @@ export const PWR_SYSTEM_DATA: ReactorSystem = {
       role: "Converts thermal steam energy into mechanical rotation and electricity",
       description:
         "Multi-stage high-pressure and low-pressure steam turbines driving a 3000/3600 RPM synchronous electric generator connected to the high-voltage transmission grid.",
-      simplerExplanation:
-        "Giant spinning blades pushed by high-pressure steam that spin a magnet to generate electricity for homes and cities.",
-      deeperExplanation:
-        "Expansion of saturated steam through impulse and reaction blading with intermediate moisture separators and reheaters (MSR) to prevent blade erosion.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Converting heat into motion",
+          body: "Expansion of saturated steam through impulse and reaction blading with intermediate moisture separators and reheaters (MSR) to prevent blade erosion.",
+        },
+      ],
       connectedFlowIds: ["pwr-secondary-steam", "pwr-secondary-condensate"],
       diagramCoords: { x: 440, y: 130, width: 120, height: 70 },
       citationIds: ["cit-nrc-pwr-basics"],
@@ -164,10 +192,14 @@ export const PWR_SYSTEM_DATA: ReactorSystem = {
       role: "Condenses low-pressure exhaust steam back into liquid water",
       description:
         "A shell-and-tube heat exchanger maintained under high vacuum beneath the turbine. Cold tertiary water flows through tubes to condense exhaust steam.",
-      simplerExplanation:
-        "Cools the spent steam back into liquid water so it can be pumped back to the steam generator to be used again.",
-      deeperExplanation:
-        "Operates under vacuum (~5-10 kPa) to maximize thermodynamic Carnot cycle efficiency, returning condensate to the secondary feedwater preheaters.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Returning steam to water",
+          body: "Operates under vacuum (~5-10 kPa) to maximize thermodynamic Carnot cycle efficiency, returning condensate to the secondary feedwater preheaters.",
+        },
+      ],
       connectedFlowIds: ["pwr-secondary-condensate", "pwr-tertiary-cooling"],
       diagramCoords: { x: 450, y: 240, width: 100, height: 60 },
       citationIds: ["cit-nrc-pwr-basics"],
@@ -179,10 +211,14 @@ export const PWR_SYSTEM_DATA: ReactorSystem = {
       role: "Hermetic radiation and missile impact barrier encasing primary system",
       description:
         "A pre-stressed post-tensioned reinforced concrete dome lined with leak-tight carbon steel, engineered to withstand aircraft impact, seismic earthquakes, and peak internal design pressure.",
-      simplerExplanation:
-        "A massive dome of concrete and steel built like a fortress to stop radiation and resist external impacts.",
-      deeperExplanation:
-        "Designed to contain the full thermal energy and steam inventory of a design-basis Loss-of-Coolant Accident (LOCA) at ~0.4 to 0.5 MPa without releasing radioactivity to the environment.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Containment and heat removal",
+          body: "Designed to contain the full thermal energy and steam inventory of a design-basis Loss-of-Coolant Accident (LOCA) at ~0.4 to 0.5 MPa without releasing radioactivity to the environment.",
+        },
+      ],
       connectedFlowIds: [],
       diagramCoords: { x: 50, y: 40, width: 330, height: 310 },
       citationIds: ["cit-nrc-pwr-basics", "cit-iaea-pwr-status"],
@@ -194,10 +230,14 @@ export const PWR_SYSTEM_DATA: ReactorSystem = {
       role: "Rejects residual low-temperature waste heat to the atmosphere or body of water",
       description:
         "A natural-draft hyperbolic reinforced concrete cooling tower that evaporates a tiny fraction of cooling water into the air, visible as pure water vapor.",
-      simplerExplanation:
-        "The iconic curved tower that lets harmless warm water vapor evaporate into the air.",
-      deeperExplanation:
-        "Rejects the ~65% of thermodynamic heat not converted into electricity. The white plume emitted is pure condensed water vapor, never radioactive gas.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Rejecting heat",
+          body: "Rejects the ~65% of thermodynamic heat not converted into electricity. The white plume emitted is pure condensed water vapor, never radioactive gas.",
+        },
+      ],
       connectedFlowIds: ["pwr-tertiary-cooling"],
       diagramCoords: { x: 620, y: 150, width: 85, height: 150 },
       citationIds: ["cit-nrc-pwr-basics"],
@@ -287,10 +327,14 @@ export const BWR_SYSTEM_DATA: ReactorSystem = {
       role: "Contains the core and directly generates saturated steam at 7.0 MPa",
       description:
         "Large vertical pressure vessel with steam dryers and moisture separators in the upper dome, allowing water to boil directly around the core.",
-      simplerExplanation:
-        "A giant boiler pot that creates steam right inside the vessel directly from the nuclear fuel.",
-      deeperExplanation:
-        "Internal steam separators swirl two-phase mixture using centrifugal forces; moisture dryers reduce moisture content below 0.1% before steam exit.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Vessel materials",
+          body: "Internal steam separators swirl two-phase mixture using centrifugal forces; moisture dryers reduce moisture content below 0.1% before steam exit.",
+        },
+      ],
       connectedFlowIds: ["bwr-steam-line", "bwr-feedwater"],
       diagramCoords: { x: 120, y: 130, width: 100, height: 200 },
       citationIds: ["cit-nrc-bwr-basics"],
@@ -302,10 +346,14 @@ export const BWR_SYSTEM_DATA: ReactorSystem = {
       role: "Fission heat source with channel boxes directing two-phase flow",
       description:
         "Low-enriched uranium dioxide rods encased in zircaloy channels that maintain defined coolant flow channels between fuel assemblies.",
-      simplerExplanation:
-        "Nuclear fuel rods enclosed in metal boxes that boil water directly as it flows past them.",
-      deeperExplanation:
-        "Channel boxes prevent cross-flow between adjacent assemblies and provide guiding channels for bottom-entry cruciform control rods.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Fuel and heat transfer",
+          body: "Channel boxes prevent cross-flow between adjacent assemblies and provide guiding channels for bottom-entry cruciform control rods.",
+        },
+      ],
       connectedFlowIds: ["bwr-steam-line"],
       diagramCoords: { x: 140, y: 220, width: 60, height: 80 },
       citationIds: ["cit-nrc-bwr-basics"],
@@ -317,10 +365,14 @@ export const BWR_SYSTEM_DATA: ReactorSystem = {
       role: "Cruciform control blades inserted from the bottom of the vessel",
       description:
         "Because the top of a BWR vessel is filled with steam dryers, control rods are hydraulically pushed up into the core from below.",
-      simplerExplanation:
-        "Control rods that push up from underneath the reactor because the top is full of steam machinery.",
-      deeperExplanation:
-        "Hydraulic control rod drive mechanisms (CRDMs) provide fast insertion against gravity using high-pressure accumulator nitrogen gas.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Neutron absorption",
+          body: "Hydraulic control rod drive mechanisms (CRDMs) provide fast insertion against gravity using high-pressure accumulator nitrogen gas.",
+        },
+      ],
       connectedFlowIds: [],
       diagramCoords: { x: 145, y: 310, width: 50, height: 35 },
       citationIds: ["cit-nrc-bwr-basics"],
@@ -332,10 +384,14 @@ export const BWR_SYSTEM_DATA: ReactorSystem = {
       role: "Spun directly by primary steam from the reactor core",
       description:
         "Turbine receiving steam directly from the reactor pressure vessel, housed in a shielded turbine building.",
-      simplerExplanation:
-        "Turbine driven directly by steam made in the reactor.",
-      deeperExplanation:
-        "Carries Nitrogen-16 activity (7-second half-life) during operation; radiation decays away completely within minutes of plant shutdown.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Converting heat into motion",
+          body: "Carries Nitrogen-16 activity (7-second half-life) during operation; radiation decays away completely within minutes of plant shutdown.",
+        },
+      ],
       connectedFlowIds: ["bwr-steam-line", "bwr-feedwater"],
       diagramCoords: { x: 380, y: 150, width: 120, height: 70 },
       citationIds: ["cit-nrc-bwr-basics"],
@@ -347,10 +403,14 @@ export const BWR_SYSTEM_DATA: ReactorSystem = {
       role: "Condenses turbine exhaust steam and pumps it back to the reactor core",
       description:
         "Vacuum condenser that liquifies steam and returns demineralized water via high-pressure feedwater pumps.",
-      simplerExplanation:
-        "Turns steam back into clean water to be pumped right back into the reactor pot.",
-      deeperExplanation:
-        "Full-flow condensate polishing demineralizers maintain strict water chemistry to minimize activation and deposition inside the core.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Returning steam to water",
+          body: "Full-flow condensate polishing demineralizers maintain strict water chemistry to minimize activation and deposition inside the core.",
+        },
+      ],
       connectedFlowIds: ["bwr-feedwater"],
       diagramCoords: { x: 390, y: 260, width: 100, height: 60 },
       citationIds: ["cit-nrc-bwr-basics"],
@@ -415,10 +475,14 @@ export const PHWR_SYSTEM_DATA: ReactorSystem = {
       role: "Contains heavy water moderator at near-atmospheric pressure and low temperature",
       description:
         "Large cylindrical stainless steel tank pierced horizontally by hundreds of calandria tubes through which pressure tubes pass.",
-      simplerExplanation:
-        "A large tank filled with heavy water at normal room pressure that slows neutrons down efficiently.",
-      deeperExplanation:
-        "Maintains D2O moderator at ~70°C and 0.1 MPa, completely insulated from the hot pressurized coolant by an insulating gas annulus.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Moderator and coolant",
+          body: "Maintains D2O moderator at ~70°C and 0.1 MPa, completely insulated from the hot pressurized coolant by an insulating gas annulus.",
+        },
+      ],
       connectedFlowIds: ["phwr-primary-hot", "phwr-primary-cold"],
       diagramCoords: { x: 120, y: 150, width: 140, height: 160 },
       citationIds: ["cit-iaea-phwr-status"],
@@ -430,10 +494,14 @@ export const PHWR_SYSTEM_DATA: ReactorSystem = {
       role: "Short fuel bundles containing natural (unenriched 0.7% U-235) uranium",
       description:
         "Half-meter-long circular bundles of zircaloy tubes filled with natural UO2, designed for robotic on-power loading and shuffling.",
-      simplerExplanation:
-        "Short cylinders of natural uranium that can be changed while the reactor is running at full power.",
-      deeperExplanation:
-        "Enables domestic nuclear power without uranium enrichment infrastructure; high burnup is achieved by bi-directional shuffling.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Fuel and heat transfer",
+          body: "Enables domestic nuclear power without uranium enrichment infrastructure; high burnup is achieved by bi-directional shuffling.",
+        },
+      ],
       connectedFlowIds: ["phwr-primary-hot"],
       diagramCoords: { x: 140, y: 210, width: 100, height: 40 },
       citationIds: ["cit-iaea-phwr-status"],
@@ -445,10 +513,14 @@ export const PHWR_SYSTEM_DATA: ReactorSystem = {
       role: "Transfers heat from pressurized heavy water to ordinary light water steam loop",
       description:
         "Vertical inverted U-tube heat exchangers that generate light water steam for the turbine.",
-      simplerExplanation:
-        "Separates the expensive heavy water from the normal water that spins the generator turbine.",
-      deeperExplanation:
-        "Heavy water remains entirely confined to the primary loop; secondary loop uses standard light water Rankine cycle.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Transferring heat",
+          body: "Heavy water remains entirely confined to the primary loop; secondary loop uses standard light water Rankine cycle.",
+        },
+      ],
       connectedFlowIds: [
         "phwr-primary-hot",
         "phwr-primary-cold",
@@ -464,10 +536,14 @@ export const PHWR_SYSTEM_DATA: ReactorSystem = {
       role: "Generates electricity using conventional steam",
       description:
         "Standard multi-stage turbine running on saturated steam produced by the secondary side of the steam generators.",
-      simplerExplanation:
-        "Standard power plant turbine driven by regular clean steam.",
-      deeperExplanation:
-        "Completely non-radioactive secondary steam driving a high-capacity electric generator.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Converting heat into motion",
+          body: "Completely non-radioactive secondary steam driving a high-capacity electric generator.",
+        },
+      ],
       connectedFlowIds: ["phwr-secondary-steam"],
       diagramCoords: { x: 440, y: 140, width: 110, height: 70 },
       citationIds: ["cit-iaea-phwr-status"],
@@ -528,10 +604,14 @@ export const RBMK_SYSTEM_DATA: ReactorSystem = {
       role: "Slows down neutrons to sustain fission",
       description:
         "A massive cylindrical structure built from thousands of graphite blocks, honeycombed with vertical channels for fuel and control rods.",
-      simplerExplanation:
-        "A giant stack of carbon blocks that bounces neutrons around to keep the chain reaction going.",
-      deeperExplanation:
-        "Graphite absorbs very few neutrons, allowing the use of low-enriched uranium. However, it can burn if exposed to oxygen at high temperatures.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Graphite and heat",
+          body: "Graphite absorbs very few neutrons, allowing the use of low-enriched uranium. However, it can burn if exposed to oxygen at high temperatures.",
+        },
+      ],
       connectedFlowIds: ["rbmk-coolant-flow"],
       diagramCoords: { x: 100, y: 150, width: 90, height: 160 },
       citationIds: [],
@@ -543,10 +623,14 @@ export const RBMK_SYSTEM_DATA: ReactorSystem = {
       role: "Separates steam from water",
       description:
         "Large horizontal cylinders located above the core that separate the steam-water mixture emerging from the pressure tubes.",
-      simplerExplanation:
-        "Huge tanks that catch the boiling water and separate the dry steam to spin the turbine.",
-      deeperExplanation:
-        "The separated water is pumped back down to the core inlet, while the dry steam goes directly to the turbine (a direct cycle).",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Vessel materials",
+          body: "The separated water is pumped back down to the core inlet, while the dry steam goes directly to the turbine (a direct cycle).",
+        },
+      ],
       connectedFlowIds: ["rbmk-steam-flow"],
       diagramCoords: { x: 100, y: 50, width: 90, height: 40 },
       citationIds: [],
@@ -558,9 +642,14 @@ export const RBMK_SYSTEM_DATA: ReactorSystem = {
       role: "Regulates reactor power",
       description:
         "Boron carbide rods that move vertically through the graphite matrix. Originally featured graphite 'displacer' tips which caused a brief power spike when inserted.",
-      simplerExplanation: "Rods that absorb neutrons to control the reaction.",
-      deeperExplanation:
-        "The flawed design of the displacer tips was a direct contributor to the Chernobyl accident. This flaw was corrected across the fleet.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Neutron absorption",
+          body: "The flawed design of the displacer tips was a direct contributor to the Chernobyl accident. This flaw was corrected across the fleet.",
+        },
+      ],
       connectedFlowIds: [],
       diagramCoords: { x: 120, y: 100, width: 50, height: 35 },
       citationIds: [],
@@ -572,9 +661,14 @@ export const RBMK_SYSTEM_DATA: ReactorSystem = {
       role: "Converts steam pressure to rotational energy",
       description:
         "Direct-cycle turbine driven by radioactive steam from the core.",
-      simplerExplanation: "A giant fan spun by steam to make electricity.",
-      deeperExplanation:
-        "Because it is a direct cycle, the turbine hall must be shielded, as the steam contains short-lived radioactive isotopes.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Converting heat into motion",
+          body: "Because it is a direct cycle, the turbine hall must be shielded, as the steam contains short-lived radioactive isotopes.",
+        },
+      ],
       connectedFlowIds: ["rbmk-steam-flow"],
       diagramCoords: { x: 300, y: 150, width: 80, height: 60 },
       citationIds: [],
@@ -625,10 +719,14 @@ export const FBR_SYSTEM_DATA: ReactorSystem = {
       role: "Houses the core and primary coolant",
       description:
         "A large unpressurized vessel filled with liquid sodium. The core, primary pumps, and intermediate heat exchangers are entirely submerged within it.",
-      simplerExplanation:
-        "A giant swimming pool of molten metal that keeps the reactor cool without needing high pressure.",
-      deeperExplanation:
-        "The pool-type design provides massive thermal inertia, meaning the reactor can safely absorb decay heat for days without active cooling.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Vessel materials",
+          body: "The pool-type design provides massive thermal inertia, meaning the reactor can safely absorb decay heat for days without active cooling.",
+        },
+      ],
       connectedFlowIds: ["fbr-primary-flow"],
       diagramCoords: { x: 100, y: 150, width: 120, height: 160 },
       citationIds: [],
@@ -640,10 +738,14 @@ export const FBR_SYSTEM_DATA: ReactorSystem = {
       role: "Transfers heat to the secondary sodium loop",
       description:
         "Submerged inside the primary pool, it transfers heat from the radioactive primary sodium to the non-radioactive secondary sodium loop.",
-      simplerExplanation:
-        "A heat bridge that keeps the radioactive metal separate from the clean metal.",
-      deeperExplanation:
-        "Ensures that if the steam generator leaks water into the sodium, the resulting chemical explosion does not affect the radioactive primary core.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Heat-exchanger materials",
+          body: "Ensures that if the steam generator leaks water into the sodium, the resulting chemical explosion does not affect the radioactive primary core.",
+        },
+      ],
       connectedFlowIds: ["fbr-primary-flow", "fbr-intermediate-flow"],
       diagramCoords: { x: 180, y: 150, width: 40, height: 100 },
       citationIds: [],
@@ -655,9 +757,14 @@ export const FBR_SYSTEM_DATA: ReactorSystem = {
       role: "Boils water using intermediate sodium",
       description:
         "Transfers heat from the secondary sodium loop to a tertiary water loop, creating high-pressure steam for the turbine.",
-      simplerExplanation: "A boiler where hot metal boils water into steam.",
-      deeperExplanation:
-        "Must be incredibly robust, as any leak between the sodium and water sides causes a violent exothermic reaction.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Transferring heat",
+          body: "Must be incredibly robust, as any leak between the sodium and water sides causes a violent exothermic reaction.",
+        },
+      ],
       connectedFlowIds: ["fbr-intermediate-flow"],
       diagramCoords: { x: 260, y: 150, width: 60, height: 120 },
       citationIds: [],
@@ -708,10 +815,14 @@ export const MSR_SYSTEM_DATA: ReactorSystem = {
       role: "Moderates neutrons to achieve criticality",
       description:
         "A vessel filled with graphite channels. The fuel-salt mixture only achieves criticality (sustains a chain reaction) while passing through this moderated region.",
-      simplerExplanation:
-        "The area where the flowing liquid fuel gets 'turned on' by the carbon blocks around it.",
-      deeperExplanation:
-        "Because the fuel is liquid and expands when heated, MSRs have an incredibly strong negative temperature coefficient, making them walk-away safe.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Graphite and heat",
+          body: "Performance depends on the design, materials and operating conditions. This conceptual diagram does not calculate accident behavior or establish a safety guarantee.",
+        },
+      ],
       connectedFlowIds: ["msr-fuel-flow"],
       diagramCoords: { x: 100, y: 150, width: 90, height: 120 },
       citationIds: [],
@@ -723,10 +834,14 @@ export const MSR_SYSTEM_DATA: ReactorSystem = {
       role: "Transfers heat from fuel salt to clean salt",
       description:
         "Extracts heat from the highly radioactive primary fuel salt and transfers it to a secondary coolant salt loop.",
-      simplerExplanation:
-        "Takes the heat from the radioactive liquid and gives it to a clean liquid.",
-      deeperExplanation:
-        "Constructed of specialized alloys like Hastelloy-N to resist corrosion from the hot fluoride salts and fission products.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Heat-exchanger materials",
+          body: "Constructed of specialized alloys like Hastelloy-N to resist corrosion from the hot fluoride salts and fission products.",
+        },
+      ],
       connectedFlowIds: ["msr-fuel-flow"],
       diagramCoords: { x: 200, y: 150, width: 50, height: 100 },
       citationIds: [],
@@ -738,10 +853,14 @@ export const MSR_SYSTEM_DATA: ReactorSystem = {
       role: "Filters and processes the fuel salt",
       description:
         "An adjacent loop that continuously bubbles noble gases out of the salt and filters out neutron-absorbing fission products (reactor poisons).",
-      simplerExplanation:
-        "A built-in filter that cleans the liquid fuel while the reactor is running.",
-      deeperExplanation:
-        "This eliminates the need to shut down the reactor for refueling. Fresh fissile or fertile material can be added dynamically.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Coolant circulation",
+          body: "This eliminates the need to shut down the reactor for refueling. Fresh fissile or fertile material can be added dynamically.",
+        },
+      ],
       connectedFlowIds: ["msr-fuel-flow"],
       diagramCoords: { x: 100, y: 280, width: 80, height: 60 },
       citationIds: [],
@@ -804,10 +923,14 @@ export const SMR_SYSTEM_DATA: ReactorSystem = {
       role: "Houses the nuclear core, helical-coil steam generators, and pressurizer in a single compact vessel",
       description:
         "High-strength forged steel pressure vessel (~20 m height, 2.7 m diameter) enclosing the entire primary coolant system, eliminating reactor coolant loop piping.",
-      simplerExplanation:
-        "An all-in-one steel pressure cylinder that contains the atomic fuel, steam boiler, and pressure regulator inside a single sealed unit.",
-      deeperExplanation:
-        "By packaging all primary systems inside one pressure envelope, large-break LOCAs are geometrically precluded. Natural circulation drives coolant flow without reactor coolant pumps.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Vessel materials",
+          body: "By packaging all primary systems inside one pressure envelope, large-break LOCAs are geometrically precluded. Natural circulation drives coolant flow without reactor coolant pumps.",
+        },
+      ],
       connectedFlowIds: ["smr-primary-flow"],
       diagramCoords: { x: 120, y: 130, width: 90, height: 220 },
       citationIds: ["cit-iaea-smr-status", "cit-nrc-nuscale"],
@@ -819,10 +942,14 @@ export const SMR_SYSTEM_DATA: ReactorSystem = {
       role: "Generates fission heat at low power density for prolonged refueling intervals",
       description:
         "Standard uranium dioxide (UO2) fuel enriched up to 4.95% U-235 in a compact 17x17 lattice, configured for 24-month or longer operational cycles.",
-      simplerExplanation:
-        "A compact uranium fuel core operating at modest power output to maximize safety margins and run for years without refueling.",
-      deeperExplanation:
-        "Lower volumetric power density reduces peak cladding temperatures during transients and provides high thermal margins under natural convection flow.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Fuel and heat transfer",
+          body: "Lower volumetric power density reduces peak cladding temperatures during transients and provides high thermal margins under natural convection flow.",
+        },
+      ],
       connectedFlowIds: ["smr-primary-flow"],
       diagramCoords: { x: 135, y: 260, width: 60, height: 70 },
       citationIds: ["cit-iaea-smr-status"],
@@ -834,10 +961,14 @@ export const SMR_SYSTEM_DATA: ReactorSystem = {
       role: "Regulates core reactivity and provides failsafe gravity shutdown",
       description:
         "Top-mounted magnetic latch drive mechanisms holding neutron-absorbing control rod assemblies that drop by gravity into the core upon power cut.",
-      simplerExplanation:
-        "Safety rods suspended above the core that instantly fall into the fuel to halt the reaction if electricity is ever interrupted.",
-      deeperExplanation:
-        "Gravity insertion is assisted by hydraulic pressure differentials. Magnetic clutches release instantaneously on trip signals or blackout conditions.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Neutron absorption",
+          body: "Gravity insertion is assisted by hydraulic pressure differentials. Magnetic clutches release instantaneously on trip signals or blackout conditions.",
+        },
+      ],
       connectedFlowIds: [],
       diagramCoords: { x: 140, y: 90, width: 50, height: 35 },
       citationIds: ["cit-nrc-nuscale"],
@@ -849,10 +980,14 @@ export const SMR_SYSTEM_DATA: ReactorSystem = {
       role: "Transfers primary heat to secondary feedwater to produce superheated steam",
       description:
         "Two independent helical-coil tube bundles wrapped around the upper riser section inside the vessel, through which secondary water flows and vaporizes.",
-      simplerExplanation:
-        "Spiral metal piping coiled inside the upper vessel where clean water turns into steam from the reactor's heat.",
-      deeperExplanation:
-        "Operates under once-through counter-flow thermodynamics producing dry superheated steam without requiring separate steam separators or dryers.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Transferring heat",
+          body: "Operates under once-through counter-flow thermodynamics producing dry superheated steam without requiring separate steam separators or dryers.",
+        },
+      ],
       connectedFlowIds: ["smr-primary-flow", "smr-secondary-flow"],
       diagramCoords: { x: 130, y: 160, width: 70, height: 80 },
       citationIds: ["cit-iaea-smr-status", "cit-nrc-nuscale"],
@@ -864,10 +999,14 @@ export const SMR_SYSTEM_DATA: ReactorSystem = {
       role: "Provides high-pressure fission product barrier and passes heat to the cooling pool",
       description:
         "An evacuated, cylindrical high-pressure steel vessel surrounding the RPV, submerged in an underground water pool acting as an infinite heat sink.",
-      simplerExplanation:
-        "A heavy steel capsule sitting under water that captures any leaked steam and radiates heat directly into the giant pool.",
-      deeperExplanation:
-        "Under vacuum during normal operations to eliminate convective heat loss. Upon safety actuation, steam condenses against the containment wall directly into the pool.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Containment and heat removal",
+          body: "Under vacuum during normal operations to eliminate convective heat loss. Upon safety actuation, steam condenses against the containment wall directly into the pool.",
+        },
+      ],
       connectedFlowIds: ["smr-passive-cooling"],
       diagramCoords: { x: 100, y: 80, width: 130, height: 290 },
       citationIds: ["cit-nrc-nuscale"],
@@ -879,10 +1018,14 @@ export const SMR_SYSTEM_DATA: ReactorSystem = {
       role: "Serves as the ultimate heat sink for indefinite passive cooling",
       description:
         "A large below-ground, seismically isolated water pool enclosing multiple module bays, absorbing decay heat via conduction through containment walls.",
-      simplerExplanation:
-        "A massive underground pool of water that keeps the reactor cool forever without any pumps, electricity, or operator action.",
-      deeperExplanation:
-        "Contains sufficient water volume to passively dissipate post-trip decay heat for over 30 days of unmitigated station blackout without boiling dry.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Heat-exchanger materials",
+          body: "Contains sufficient water volume to passively dissipate post-trip decay heat for over 30 days of unmitigated station blackout without boiling dry.",
+        },
+      ],
       connectedFlowIds: ["smr-passive-cooling"],
       diagramCoords: { x: 80, y: 70, width: 170, height: 310 },
       citationIds: ["cit-iaea-smr-status"],
@@ -894,10 +1037,14 @@ export const SMR_SYSTEM_DATA: ReactorSystem = {
       role: "Converts superheated steam enthalpy into electrical power",
       description:
         "A dedicated, skid-mounted compact steam turbine connected to a high-efficiency synchronous electrical generator.",
-      simplerExplanation:
-        "A spinning turbine that uses high-pressure steam from the reactor module to produce 50-77 megawatts of electricity.",
-      deeperExplanation:
-        "Operates on a standard Rankine steam cycle with air-cooled or water-cooled condenser return, optimized for fast ramp-rates to complement renewables.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Converting heat into motion",
+          body: "Operates on a standard Rankine steam cycle with air-cooled or water-cooled condenser return, optimized for fast ramp-rates to complement renewables.",
+        },
+      ],
       connectedFlowIds: ["smr-secondary-flow"],
       diagramCoords: { x: 320, y: 160, width: 90, height: 60 },
       citationIds: ["cit-iaea-smr-status"],
@@ -980,10 +1127,14 @@ export const HTGR_SYSTEM_DATA: ReactorSystem = {
       role: "Contains the high-pressure helium gas coolant and graphite core structure",
       description:
         "Heavy forged alloy-steel vessel with external thermal insulation and internal metallic core-barrel, designed for 7 MPa helium service.",
-      simplerExplanation:
-        "A thick steel container engineered to hold high-pressure helium gas while keeping heat focused in the core.",
-      deeperExplanation:
-        "Maintained at lower temperatures (~300°C) via returning cold-leg helium flow sweeping the inner vessel walls, preventing high-temperature creep.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Vessel materials",
+          body: "Maintained at lower temperatures (~300°C) via returning cold-leg helium flow sweeping the inner vessel walls, preventing high-temperature creep.",
+        },
+      ],
       connectedFlowIds: ["htgr-helium-primary"],
       diagramCoords: { x: 100, y: 130, width: 110, height: 230 },
       citationIds: ["cit-iaea-htgr-status"],
@@ -995,10 +1146,14 @@ export const HTGR_SYSTEM_DATA: ReactorSystem = {
       role: "Moderates fast neutrons to thermal energies and provides massive thermal heat capacity",
       description:
         "High-purity nuclear-grade graphite blocks forming the core cavity and surrounding reflector, capable of absorbing decay heat for days without active cooling.",
-      simplerExplanation:
-        "A giant core made of carbon blocks that slows down atomic particles and absorbs enormous amounts of heat safely.",
-      deeperExplanation:
-        "Graphite maintains structural integrity above 2000°C, meaning the core cannot melt or lose geometry even during complete loss of helium coolant.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Graphite and heat",
+          body: "Performance depends on the design, materials and operating conditions. This conceptual diagram does not calculate accident behavior or establish a safety guarantee.",
+        },
+      ],
       connectedFlowIds: ["htgr-helium-primary"],
       diagramCoords: { x: 115, y: 160, width: 80, height: 180 },
       citationIds: ["cit-iaea-htgr-status"],
@@ -1010,10 +1165,14 @@ export const HTGR_SYSTEM_DATA: ReactorSystem = {
       role: "Generates fission heat with ceramic micro-containment resistant to temperatures up to 1600°C",
       description:
         "Billiard-ball sized graphite pebbles (or prismatic hexagonal blocks) embedded with thousands of sub-millimeter TRISO particles coated in pyrolytic carbon and silicon carbide.",
-      simplerExplanation:
-        "Super-durable ceramic fuel spheres that seal radioactive waste inside microscopic containment shields that cannot melt.",
-      deeperExplanation:
-        "Each TRISO particle features a silicon carbide shell that retains 100% of radioactive fission products up to 1600°C—far above any possible accident temperature.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Fuel and heat transfer",
+          body: "Performance depends on the design, materials and operating conditions. This conceptual diagram does not calculate accident behavior or establish a safety guarantee.",
+        },
+      ],
       connectedFlowIds: ["htgr-helium-primary"],
       diagramCoords: { x: 125, y: 200, width: 60, height: 120 },
       citationIds: ["cit-iaea-htgr-status", "cit-doe-triso"],
@@ -1025,10 +1184,14 @@ export const HTGR_SYSTEM_DATA: ReactorSystem = {
       role: "Regulates core neutron population and provides backup reactivity shutdown",
       description:
         "Boron carbide absorber rods located in channels within the side graphite reflector, operating outside the hottest fuel region.",
-      simplerExplanation:
-        "Neutron-absorbing control rods inserted into the outer graphite walls to start, adjust, or shut down the reactor.",
-      deeperExplanation:
-        "Due to the strongly negative Doppler temperature coefficient, HTGRs naturally shut themselves down when temperature rises, making control rods a secondary defense.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Neutron absorption",
+          body: "Performance depends on the design, materials and operating conditions. This conceptual diagram does not calculate accident behavior or establish a safety guarantee.",
+        },
+      ],
       connectedFlowIds: [],
       diagramCoords: { x: 130, y: 90, width: 50, height: 35 },
       citationIds: ["cit-iaea-htgr-status"],
@@ -1040,10 +1203,14 @@ export const HTGR_SYSTEM_DATA: ReactorSystem = {
       role: "Forces circulation of pressurized helium coolant through the core and steam generator",
       description:
         "High-reliability variable-speed electric blower with active magnetic bearings, mounted vertically above or below the steam generator.",
-      simplerExplanation:
-        "A high-tech gas fan that blows inert helium gas through the hot atomic core to carry heat away.",
-      deeperExplanation:
-        "Uses magnetic bearings to eliminate lubricating oil contamination inside the high-purity helium coolant loop.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Coolant circulation",
+          body: "Uses magnetic bearings to eliminate lubricating oil contamination inside the high-purity helium coolant loop.",
+        },
+      ],
       connectedFlowIds: ["htgr-helium-primary"],
       diagramCoords: { x: 250, y: 290, width: 50, height: 45 },
       citationIds: ["cit-iaea-htgr-status"],
@@ -1055,10 +1222,14 @@ export const HTGR_SYSTEM_DATA: ReactorSystem = {
       role: "Transfers 750°C helium heat to secondary water to produce high-temperature supercritical steam",
       description:
         "Counter-flow heat exchanger housed in a separate pressure vessel connected to the reactor vessel via a cross-duct, generating steam at 560°C.",
-      simplerExplanation:
-        "A heat transfer tower where hot helium gas boils clean water into high-pressure superheated steam.",
-      deeperExplanation:
-        "High steam temperatures (560°C at 13.5 MPa) match modern supercritical coal plants, achieving over 44% thermal-to-electric efficiency.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Transferring heat",
+          body: "High steam temperatures (560°C at 13.5 MPa) match modern supercritical coal plants, achieving over 44% thermal-to-electric efficiency.",
+        },
+      ],
       connectedFlowIds: ["htgr-helium-primary", "htgr-steam-secondary"],
       diagramCoords: { x: 240, y: 150, width: 70, height: 130 },
       citationIds: ["cit-iaea-htgr-status"],
@@ -1070,10 +1241,14 @@ export const HTGR_SYSTEM_DATA: ReactorSystem = {
       role: "Drives electrical generator using superheated steam with optional cogeneration take-off",
       description:
         "Multi-stage high-temperature turbine producing electricity with potential extraction of 500°C steam for industrial chemical processing.",
-      simplerExplanation:
-        "An advanced steam turbine generating electricity at record thermal efficiency or providing clean industrial heat.",
-      deeperExplanation:
-        "Dual-purpose cogeneration configuration: high-grade steam can be diverted to high-temperature steam electrolysis for zero-carbon hydrogen production.",
+
+      details: [
+        {
+          id: "engineering-context",
+          title: "Converting heat into motion",
+          body: "Dual-purpose cogeneration configuration: high-grade steam can be diverted to high-temperature steam electrolysis for zero-carbon hydrogen production.",
+        },
+      ],
       connectedFlowIds: ["htgr-steam-secondary"],
       diagramCoords: { x: 360, y: 160, width: 90, height: 60 },
       citationIds: ["cit-iaea-htgr-status"],

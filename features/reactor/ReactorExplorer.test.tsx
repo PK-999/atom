@@ -61,35 +61,28 @@ describe("ReactorExplorer Component (R15)", () => {
     ).toBeDefined();
   });
 
-  it("switches between simple, standard, and technical explanation tiers", () => {
+  it("opens component context without resetting the selected part or power", () => {
     render(<ReactorExplorer system={PWR_SYSTEM_DATA} />);
-
-    // Select Reactor Pressure Vessel
-    const vesselBtn = screen.getByRole("button", {
-      name: "Reactor Pressure Vessel (RPV)",
-    });
-    fireEvent.click(vesselBtn);
-
-    // Initial is standard
+    fireEvent.click(screen.getByRole("radio", { name: /50% Reduced/ }));
+    fireEvent.click(screen.getByText("Vessel materials"));
+    expect(screen.getByRole("radio", { name: /50% Reduced/ })).toHaveAttribute(
+      "aria-checked",
+      "true",
+    );
     expect(
-      screen.getByText(/A thick forged carbon-steel vessel/i),
-    ).toBeDefined();
-
-    // Switch to Simpler (L1-L2)
-    const simplerTab = screen.getByRole("tab", { name: /Simple/i });
-    fireEvent.click(simplerTab);
-    expect(
-      screen.getByText(/A gigantic, super-strong steel container/i),
-    ).toBeDefined();
-
-    // Switch to Technical (L4-L5)
-    const deeperTab = screen.getByRole("tab", { name: /Technical/i });
-    fireEvent.click(deeperTab);
+      screen.getByRole("heading", {
+        level: 3,
+        name: "Reactor Pressure Vessel (RPV)",
+      }),
+    ).toBeVisible();
     expect(
       screen.getByText(
-        /Fabricated from low-alloy manganese-molybdenum-nickel steel/i,
+        /Fabricated from low-alloy manganese-molybdenum-nickel steel/,
       ),
-    ).toBeDefined();
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("tablist", { name: /Explanation Complexity/ }),
+    ).not.toBeInTheDocument();
   });
 
   it("displays connected flows with operating temperature and pressure", () => {

@@ -69,8 +69,8 @@ export default function HomePage() {
             Evidence follows every step.
           </h3>
           <p>
-            Change the explanation depth whenever you like. Look for the model
-            limits, read a source, and come to your own conclusion.
+            Open the details when a question catches your attention. Look for
+            the model limits, read a source, and come to your own conclusion.
           </p>
           <Link href="/methodology">How we handle evidence →</Link>
         </div>

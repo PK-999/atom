@@ -2,9 +2,7 @@
 
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-import { useEffect, useMemo, useState, useTransition } from "react";
-
-import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
+import { useMemo, useState, useTransition } from "react";
 
 import { ComparisonControls } from "./ComparisonControls";
 import { getTechnology } from "./comparison-technology-catalog";
@@ -36,38 +34,22 @@ export function ComparisonLab({
   const pathname = usePathname();
   const [, startTransition] = useTransition();
 
-  const [activeLevel, setActiveLevel] = useComplexityPreference(
-    initialState.level,
-  );
   const [view, setView] = useState<"chart" | "table">("chart");
   const [prevInitialState, setPrevInitialState] = useState(initialState);
-  const [prevActiveLevel, setPrevActiveLevel] = useState(activeLevel);
-  const [activeState, setActiveState] = useState<ComparisonState>({
-    ...initialState,
-    level: activeLevel,
-  });
-
-  if (initialState !== prevInitialState || activeLevel !== prevActiveLevel) {
+  const [activeState, setActiveState] = useState<ComparisonState>(initialState);
+  if (initialState !== prevInitialState) {
     setPrevInitialState(initialState);
-    setPrevActiveLevel(activeLevel);
-    setActiveState({ ...initialState, level: activeLevel });
+    setActiveState(initialState);
   }
-
-  // A route transition started before a depth change can finish afterward.
-  // Keep the latest chosen depth without resetting the experiment or filters.
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    if (url.searchParams.get("level") === activeLevel) return;
-    url.searchParams.set("level", activeLevel);
-    window.history.replaceState(window.history.state, "", url);
-  }, [activeLevel, initialState]);
 
   const updateState = (updater: (prev: ComparisonState) => ComparisonState) => {
     const next = updater(activeState);
     setActiveState(next);
     const query = serializeComparisonState(next);
     startTransition(() => {
-      router.push(`${pathname}?${query.toString()}`, { scroll: false });
+      router.push(`${pathname}?${query.toString()}${window.location.hash}`, {
+        scroll: false,
+      });
     });
   };
 
@@ -109,7 +91,6 @@ export function ComparisonLab({
   };
 
   const handleResetComparison = () => {
-    setActiveLevel(DEFAULT_COMPARISON_STATE.level);
     updateState(() => ({ ...DEFAULT_COMPARISON_STATE }));
   };
 
@@ -150,7 +131,7 @@ export function ComparisonLab({
   const canonicalUrl = useMemo(() => {
     const query = serializeComparisonState(activeState);
     if (typeof window !== "undefined") {
-      return `${window.location.origin}${pathname}?${query.toString()}`;
+      return `${window.location.origin}${pathname}?${query.toString()}${window.location.hash}`;
     }
     return `${pathname}?${query.toString()}`;
   }, [activeState, pathname]);
@@ -226,7 +207,6 @@ export function ComparisonLab({
               (o) => o.evidenceStatus === "reviewed" && o.typicalValue !== null,
             )}
             displayMode={activeState.mode}
-            level={activeLevel}
             metricId={comparison.metricId}
             metricName={comparison.metricName}
           />

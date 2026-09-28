@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { METRIC_CATALOG_EXPLANATIONS } from "@/content/metrics";
 import { METRICS, getMetric } from "@/lib/evidence/metrics";
 import { getInterpretation } from "@/features/comparison/ComparisonInterpretation";
-import type { ComplexityLevel } from "@/features/comparison/comparison-types";
+import { ExplanationContentSchema } from "@/lib/education/schemas";
 
 describe("Metric Catalog & Multi-Category Synthesis (R08)", () => {
   it("has no duplicate metric IDs in METRICS catalog", () => {
@@ -35,13 +35,6 @@ describe("Metric Catalog & Multi-Category Synthesis (R08)", () => {
     expect(getMetric("nonexistent-metric")).toBeUndefined();
   });
 
-  const allLevels: ComplexityLevel[] = [
-    "beginner",
-    "explorer",
-    "curious",
-    "deep-dive",
-    "geeky",
-  ];
   const canonicalCategories = [
     "environment",
     "reliability",
@@ -51,7 +44,7 @@ describe("Metric Catalog & Multi-Category Synthesis (R08)", () => {
     "technical",
   ] as const;
 
-  it("provides 5-level explanations for all canonical metrics", () => {
+  it("retains metric explanations, categories and boundaries", () => {
     const metricIds = Object.keys(METRIC_CATALOG_EXPLANATIONS);
     expect(metricIds.length).toBeGreaterThanOrEqual(16);
 
@@ -62,14 +55,9 @@ describe("Metric Catalog & Multi-Category Synthesis (R08)", () => {
       expect(metric.limitations.length).toBeGreaterThan(10);
       expect(metric.systemBoundary.length).toBeGreaterThan(10);
 
-      for (const level of allLevels) {
-        const text = metric.explanations[level];
-        expect(
-          text,
-          `Metric ${id} missing explanation for ${level}`,
-        ).toBeTruthy();
-        expect(text.length).toBeGreaterThan(10);
-      }
+      expect(
+        ExplanationContentSchema.safeParse(metric.explanation).success,
+      ).toBe(true);
     }
   });
 
@@ -86,25 +74,13 @@ describe("Metric Catalog & Multi-Category Synthesis (R08)", () => {
     }
   });
 
-  it("enforces scientific rigor: progressive depth across complexity levels", () => {
-    for (const [id, metric] of Object.entries(METRIC_CATALOG_EXPLANATIONS)) {
-      // Beginner explanations should be accessible and avoid dense jargon
-      const kidText = metric.explanations.beginner;
-      expect(kidText).toBeTruthy();
-
-      // Deep-dive and geeky should offer deeper nuance
-      const techText = metric.explanations["deep-dive"];
-      const expertText = metric.explanations.geeky;
-      expect(techText).not.toEqual(kidText);
-      expect(expertText).not.toEqual(techText);
-    }
-  });
-
   describe("ComparisonInterpretation Component Integration", () => {
-    it("returns reviewed educational content when metric is in catalog", () => {
-      const result = getInterpretation("lifecycle-ghg", "curious");
+    it("returns metric explanation content when metric is in catalog", () => {
+      const result = getInterpretation("lifecycle-ghg");
       expect(result.found).toBe(true);
-      expect(result.text).toContain("Fossil fuel estimates are much higher");
+      expect(result.text).toContain(
+        "Climate pollution across the electricity lifecycle",
+      );
       expect(result.limitations).toContain(
         "Vintage and supply chain regionalization",
       );
@@ -112,22 +88,9 @@ describe("Metric Catalog & Multi-Category Synthesis (R08)", () => {
     });
 
     it("returns honest fallback message for uncatalogued metrics without fabricating data", () => {
-      const result = getInterpretation(
-        "unknown-hypothetical-metric",
-        "curious",
-      );
+      const result = getInterpretation("unknown-hypothetical-metric");
       expect(result.found).toBe(false);
       expect(result.text).toContain("Reviewed explanation for");
-    });
-
-    it("respects all 5 complexity levels faithfully", () => {
-      for (const level of allLevels) {
-        const result = getInterpretation("land-use", level);
-        expect(result.found).toBe(true);
-        expect(result.text).toBe(
-          METRIC_CATALOG_EXPLANATIONS["land-use"].explanations[level],
-        );
-      }
     });
   });
 });

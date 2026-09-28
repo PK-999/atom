@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { INCIDENTS_DATA, INCIDENT_FAQS } from "./incidents-data";
-import { COMPLEXITY_LEVELS } from "@/lib/preferences/complexity-preference";
+import { ExplanationContentSchema } from "@/lib/education/schemas";
 
 describe("Nuclear Incidents & FAQs Data Integrity", () => {
   it("contains canonical major nuclear incidents", () => {
@@ -13,7 +13,7 @@ describe("Nuclear Incidents & FAQs Data Integrity", () => {
     expect(ids).toContain("kyshtym");
   });
 
-  it("verifies every incident has explanations across all 5 complexity tiers", () => {
+  it("retains incident context, timeline, sources and physical severity", () => {
     for (const incident of INCIDENTS_DATA) {
       expect(incident.name).toBeTruthy();
       expect(incident.year).toBeGreaterThan(1940);
@@ -23,15 +23,13 @@ describe("Nuclear Incidents & FAQs Data Integrity", () => {
       expect(incident.sources.length).toBeGreaterThan(0);
       expect(incident.keyEngineeringLessons.length).toBeGreaterThan(0);
 
-      // Check all 5 complexity levels exist and have rich content
-      for (const level of COMPLEXITY_LEVELS) {
-        expect(incident.explanations[level]).toBeTruthy();
-        expect(incident.explanations[level].length).toBeGreaterThan(50);
-      }
+      expect(
+        ExplanationContentSchema.safeParse(incident.explanation).success,
+      ).toBe(true);
     }
   });
 
-  it("verifies Chernobyl facts align with UNSCEAR and INSAG", () => {
+  it("retains the existing Chernobyl data (not scientific review)", () => {
     const chernobyl = INCIDENTS_DATA.find((i) => i.id === "chernobyl")!;
     expect(chernobyl.inesLevel).toBe(7);
     expect(chernobyl.reactorType).toBe("RBMK-1000");
@@ -39,21 +37,21 @@ describe("Nuclear Incidents & FAQs Data Integrity", () => {
     expect(chernobyl.radiologicalRelease.iodine131PBq).toContain("1,760");
   });
 
-  it("verifies Fukushima facts align with UNSCEAR 2020", () => {
+  it("retains the existing Fukushima data (not scientific review)", () => {
     const fukushima = INCIDENTS_DATA.find((i) => i.id === "fukushima")!;
     expect(fukushima.inesLevel).toBe(7);
     expect(fukushima.healthImpacts.immediateFatalities).toBe(0);
     expect(fukushima.healthImpacts.evacuationImpact).toContain("2,200");
   });
 
-  it("verifies Three Mile Island facts align with Kemeny Commission", () => {
+  it("retains the existing Three Mile Island data (not scientific review)", () => {
     const tmi = INCIDENTS_DATA.find((i) => i.id === "three-mile-island")!;
     expect(tmi.inesLevel).toBe(5);
     expect(tmi.healthImpacts.immediateFatalities).toBe(0);
     expect(tmi.healthImpacts.radiationFatalitiesConfirmed).toBe(0);
   });
 
-  it("contains comprehensive fact-checking FAQs covering all 5 complexity levels", () => {
+  it("retains FAQ explanations and source attribution", () => {
     expect(INCIDENT_FAQS.length).toBeGreaterThanOrEqual(5);
 
     for (const faq of INCIDENT_FAQS) {
@@ -61,10 +59,7 @@ describe("Nuclear Incidents & FAQs Data Integrity", () => {
       expect(faq.source.title).toBeTruthy();
       expect(faq.source.organization).toBeTruthy();
 
-      for (const level of COMPLEXITY_LEVELS) {
-        expect(faq.answer[level]).toBeTruthy();
-        expect(faq.answer[level].length).toBeGreaterThan(40);
-      }
+      expect(ExplanationContentSchema.safeParse(faq.answer).success).toBe(true);
     }
   });
 });

@@ -4,7 +4,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { AskAtom } from "./AskAtom";
 
 describe("AskAtom Component (R18)", () => {
-  it("renders search bar, level selector, and suggested topics in empty state", () => {
+  it("renders search bar and suggested topics in empty state", () => {
     render(<AskAtom />);
 
     expect(
@@ -18,10 +18,9 @@ describe("AskAtom Component (R18)", () => {
     // Check empty state
     expect(screen.getByText(/Peer-Reviewed Evidence Q&A/i)).toBeDefined();
 
-    // Check level buttons
-    expect(screen.getByRole("button", { name: "Simple" })).toBeDefined();
-    expect(screen.getByRole("button", { name: "Standard" })).toBeDefined();
-    expect(screen.getByRole("button", { name: "Technical" })).toBeDefined();
+    expect(
+      screen.queryByRole("button", { name: "Technical" }),
+    ).not.toBeInTheDocument();
   });
 
   it("submits a question and displays answered state with citations", () => {
@@ -72,23 +71,17 @@ describe("AskAtom Component (R18)", () => {
     ).toBeDefined();
   });
 
-  it("switches explanation levels reactively", () => {
+  it("shows an initial question with its single explanation", () => {
     render(
       <AskAtom initialQuery="What is the carbon footprint of nuclear energy?" />,
     );
-
-    // Switch to Simple
-    const simpleBtn = screen.getByRole("button", { name: "Simple" });
-    fireEvent.click(simpleBtn);
-
+    expect(screen.getByLabelText(/Ask a question/)).toHaveValue(
+      "What is the carbon footprint of nuclear energy?",
+    );
     expect(
-      screen.getByText(/does not burn anything to create heat/i),
-    ).toBeDefined();
-
-    // Switch to Technical
-    const technicalBtn = screen.getByRole("button", { name: "Technical" });
-    fireEvent.click(technicalBtn);
-
-    expect(screen.getByText(/Harmonized LCA methods/i)).toBeDefined();
+      screen.getByText(
+        /Compare emissions across the full electricity lifecycle/,
+      ),
+    ).toBeVisible();
   });
 });

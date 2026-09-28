@@ -4,16 +4,16 @@ ATOM is an evidence-first interactive energy-literacy platform centered on nucle
 
 All coding agents working in this repository must follow this file before making changes.
 
-## Current execution entry point — updated 2026-09-07
+## Current execution entry point — updated 2026-09-27
 
 Read these first, in order:
 
-1. `docs/product/2026-09-07-ATOMIC-ENERGY-EXPERIENCE-AUDIT.md` — current code findings and learning-library product target.
-2. `docs/product/DELIVERY-TRACKER.md` — single source of truth for status, task queue, delegation instructions, and verification records.
-3. `docs/superpowers/plans/2026-09-07-learning-platform-recovery.md` — detailed implementation spec with step-by-step test oracles for R01–R19.
-4. The product documents in section 3 and the original stage plan referenced by the assigned work package.
+1. `docs/superpowers/specs/2026-09-27-playable-atom-design.md` — current design brief and codebase audit.
+2. `docs/product/DELIVERY-TRACKER.md` — status, queue, verification and publication gates.
+3. `docs/superpowers/plans/2026-09-27-playable-atom.md` — N01–N14 implementation order.
+4. Applicable product documents and ADRs, especially 0001, 0010 and 0011.
 
-R01–R03 are complete and independently reviewed. On a subsequent building request, begin with the first uncompleted dependency (currently R04), and finish one bounded task with verification before advancing.
+The user explicitly removed all reading levels. N01 implements that decision; later tasks follow the tracker. The September 7 audit/R-plan and September 21 E-plan remain historical/mapped acceptance references. Finish one bounded task and verify it before advancing. Delegate only when explicitly requested by the user.
 
 Repository-specific safeguards:
 
@@ -59,7 +59,7 @@ Primary product principle:
 9. Accessibility is part of the product, not post-launch polish.
 10. Serious topics such as accidents, radiation exposure, casualties, displacement, and weapons must be treated seriously.
 11. The interface should encourage curiosity, not agreement.
-12. Complexity changes presentation, never evidence.
+12. Optional detail never changes the underlying evidence.
 13. Do not hard-code scientific metrics inside UI components.
 14. Do not invent scientific values.
 15. Every chart must have a textual or tabular accessible alternative.
@@ -133,6 +133,7 @@ Unless the repository has already standardized otherwise:
 Do not add infrastructure without need.
 
 Avoid premature:
+
 - microservices
 - Kubernetes
 - Kafka
@@ -203,7 +204,7 @@ Scientific values and calculations must not live in presentational components.
 Bad:
 
 ```ts
-const nuclearDeaths = 0.03
+const nuclearDeaths = 0.03;
 ```
 
 inside a React card.
@@ -251,25 +252,9 @@ Never display invented confidence scores.
 
 ---
 
-## 9. Complexity Levels
+## 9. One Reading Experience
 
-ATOM uses five explanation levels:
-
-- L1 — Kid
-- L2 — Simple
-- L3 — Curious
-- L4 — Technical
-- L5 — Expert
-
-Rules:
-
-- Changing level should not change underlying factual data.
-- Current page context should be preserved.
-- Explanations may expand or contract.
-- Advanced controls may appear at higher levels.
-- Selection should persist locally.
-- Users can change level at any time.
-- Expert mode must be genuinely deeper, not merely longer prose.
+Follow ADR 0011. Use one plain-language explanation and optional named details for equations, assumptions and context. Do not introduce audience levels or hide controls behind proficiency labels. Opening details preserves interaction state and evidence. Ignore legacy `level=` parameters and stored complexity values; preserve theme and progress. Scientific classifications and heading levels are unrelated to this retired UI system.
 
 ---
 
@@ -320,6 +305,7 @@ Motion must do one of four things:
 Do not add animation solely because the page feels static.
 
 Examples where motion is useful:
+
 - neutron interaction
 - radioactive decay
 - grid flow
@@ -327,6 +313,7 @@ Examples where motion is useful:
 - timeline progression
 
 Examples where motion is usually unnecessary:
+
 - reading methodology
 - citations
 - long-form evidence text
@@ -376,9 +363,11 @@ ATOM should not feel:
 Avoid loaded phrasing.
 
 Prefer:
+
 > Historical estimates generally place nuclear among the lowest-mortality electricity sources per unit generated, though estimates depend on methodology and how accident impacts are counted.
 
 Avoid:
+
 > Nuclear is unquestionably the safest energy source.
 
 ---
@@ -390,12 +379,15 @@ Do not show silent blanks.
 Examples:
 
 Missing comparable evidence:
+
 > We do not currently have reliable comparable data for this metric and technology.
 
 Methodological mismatch:
+
 > These estimates use materially different methodologies and should not be interpreted as directly equivalent.
 
 Source temporarily unavailable:
+
 > Source currently unavailable. Showing the last verified value from YYYY-MM-DD.
 
 ---

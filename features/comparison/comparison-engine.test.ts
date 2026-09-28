@@ -164,7 +164,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, null);
@@ -187,7 +186,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, repo);
@@ -211,7 +209,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, faultyRepo);
@@ -243,7 +240,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "de",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const resultDE = await getComparisonResult(stateDE, repo);
@@ -287,7 +283,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result1 = await getComparisonResult(state, repoInOrder);
@@ -314,7 +309,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, repo);
@@ -346,7 +340,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, repo);
@@ -370,7 +363,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, repo);
@@ -420,7 +412,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, repo);
@@ -451,7 +442,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, repo);
@@ -483,7 +473,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "raw",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, repo);
@@ -510,7 +499,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, repo);
@@ -533,7 +521,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "de", // Request Germany, but only Global exists
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, repo);
@@ -561,7 +548,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, repo);
@@ -595,7 +581,6 @@ describe("getComparisonResult (headless comparison engine)", () => {
       region: "global",
       mode: "typical",
       units: "scientific",
-      level: "curious",
     };
 
     const result = await getComparisonResult(state, repo);

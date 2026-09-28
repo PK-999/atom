@@ -171,10 +171,10 @@ export default function AboutPage() {
             </li>
             <li>
               <strong style={{ color: "var(--atom-text-primary)" }}>
-                Adaptive complexity:
+                Optional context:
               </strong>{" "}
-              Presentation complexity changes depth from Beginner to Geeky, but
-              never alters the underlying scientific evidence.
+              Open topic-specific details when you want more context. The
+              underlying scientific evidence stays the same.
             </li>
             <li>
               <strong style={{ color: "var(--atom-text-primary)" }}>

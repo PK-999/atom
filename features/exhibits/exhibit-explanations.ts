@@ -1,55 +1,82 @@
-import type { ComplexityLevel } from "@/lib/preferences/complexity-preference";
-/** Explanation depth changes the reading, never the underlying experiment. */
+import type { ExplanationContent } from "@/lib/education/schemas";
+
 export const EXHIBIT_EXPLANATIONS: Record<
   "atom" | "fuel" | "fission" | "decay",
-  Record<ComplexityLevel, string>
+  ExplanationContent
 > = {
   atom: {
-    beginner:
-      "An atom has a tiny center called a nucleus, with electrons around it. Select each part to take a closer look.",
-    explorer:
-      "Protons and neutrons are in the nucleus. The electron cloud illustrates where electrons may be found, rather than a solid shell.",
-    curious:
-      "The proton count identifies an element. Changing neutron count changes the isotope. The drawing enlarges the nucleus so both regions can be inspected.",
-    "deep-dive":
-      "Atomic number Z counts protons; mass number A counts protons plus neutrons. A neutral atom has Z electrons. These quantities describe identity; this geometry does not predict stability.",
-    geeky:
-      "The displayed cloud is conceptual, not a computed wavefunction or radial probability density. Neither its points nor the nucleus arrangement represents measured particle positions. A physical orbital model would need a specified quantum state.",
+    summary:
+      "An atom has a tiny nucleus, with electrons around it. Select each part to take a closer look.",
+    body: [
+      "Protons identify the element; changing the neutron count changes the isotope. The nucleus is enlarged here so both regions can be inspected.",
+    ],
+    details: [
+      {
+        id: "identity",
+        title: "Atomic number and mass number",
+        body: "Atomic number Z counts protons; mass number A counts protons plus neutrons. A neutral atom has Z electrons. These quantities describe identity, not stability.",
+      },
+      {
+        id: "cloud",
+        title: "What does the cloud show?",
+        body: "The cloud is conceptual, not a computed wavefunction or measured particle positions. A physical orbital model would need a specified quantum state.",
+      },
+    ],
+    citationIds: [],
   },
   fuel: {
-    beginner:
-      "Small fuel pieces fit inside tubes. A bundle of tubes forms a fuel assembly. Explode the model to see the pieces.",
-    explorer:
-      "The model separates three parts: pellets, the surrounding rods, and the grids that hold the rods in place.",
-    curious:
-      "Fuel heats the surrounding coolant through its cladding. Spacer grids maintain the arrangement and coolant passages; the model is an illustrative assembly, not a particular plant specification.",
-    "deep-dive":
-      "Exploding the geometry changes the display only. It does not model deformation, coolant flow, cladding temperature, or a change in reactor power.",
-    geeky:
-      "This inspection model has no thermal-hydraulic solver, material properties, burnup history, or engineering tolerances. Its component identities remain the same in 2D and 3D; no performance estimate can be inferred from the spacing.",
+    summary:
+      "Fuel pellets fit inside rods. A bundle of rods forms a fuel assembly.",
+    body: [
+      "Separate the pieces to inspect the pellets, cladding and spacer grids. Fuel transfers heat through its cladding to the coolant; grids maintain the arrangement and coolant passages.",
+    ],
+    details: [
+      {
+        id: "geometry",
+        title: "Does separating the pieces change the physics?",
+        body: "No. This illustrative assembly has no thermal-hydraulic solver, material properties, burnup history or engineering tolerances. Changing the display does not calculate deformation, flow, temperature or power.",
+      },
+    ],
+    citationIds: [],
   },
   fission: {
-    beginner:
-      "Follow one neutron toward a nucleus, then watch one possible split. Step moves the story forward.",
-    explorer:
-      "A captured neutron can lead to a split that releases energy and more neutrons. Not every capture causes fission.",
-    curious:
-      "This replay follows one event. Released neutrons may escape, be absorbed, or cause further fissions, but those branches are not calculated here.",
-    "deep-dive":
-      "The stage counter records one physical event per replay. Returning to an earlier visual stage does not create a second event. Fragment species, yields and incident neutron energy are unspecified.",
-    geeky:
-      "This is an event storyboard, not a Monte Carlo transport calculation. It has no cross-section library, neutron energy distribution, spatial leakage model or multiplication-factor calculation. The fixed visual sequence must not be interpreted as a probability distribution.",
+    summary:
+      "Follow one neutron toward a nucleus, then watch one possible split.",
+    body: [
+      "Neutron capture can lead to fission, releasing energy and more neutrons. Not every capture causes a split. Released neutrons may escape, be absorbed or cause further fissions; those branches are not calculated here.",
+    ],
+    details: [
+      {
+        id: "event",
+        title: "What does the event counter count?",
+        body: "The counter records one event per replay. Revisiting a stage does not create a second event. Fragment species, yields and incident neutron energy are unspecified.",
+      },
+      {
+        id: "probability",
+        title: "Does this predict a chain reaction?",
+        body: "This is a storyboard, not a neutron-transport calculation. It has no cross-section library, energy distribution, leakage model or multiplication-factor calculation. The fixed sequence is not a probability distribution.",
+      },
+    ],
+    citationIds: [],
   },
   decay: {
-    beginner:
-      "Watch the parent atoms disappear from the sample. The crossed cells mark atoms that have decayed.",
-    explorer:
-      "A half-life describes how quickly a population decreases on average. A small sample will not always lose exactly half its atoms at each step.",
-    curious:
-      "Expected remaining fraction is 2 raised to minus the number of elapsed half-lives. The seeded sample shows one possible population history beside that expectation.",
-    "deep-dive":
-      "For independent atoms with constant decay probability per unit time, N(t) = N₀ exp(−λt), with λ = ln(2)/T½. Expected population is continuous; the observed count is an integer.",
-    geeky:
-      "The seeded uniform thresholds generate a reproducible survival sample using the exponential survival function. Population variance is binomial under the independent-atom assumption. Daughter decays, mixtures, detector response and radiation dose are outside this model.",
+    summary:
+      "Watch parent atoms decay. The crossed cells mark atoms that have changed.",
+    body: [
+      "A half-life describes how a population decreases on average. A small sample will not always lose exactly half its atoms at each step. The seeded sample shows one possible history beside the expected remaining fraction.",
+    ],
+    details: [
+      {
+        id: "equation",
+        title: "The decay equation",
+        body: "For independent atoms with a constant decay probability per unit time, N(t) = N₀ exp(−λt), where λ = ln(2)/T½. The expected remaining fraction is 2 raised to minus the elapsed half-lives. The expected population is continuous; a sample count is an integer.",
+      },
+      {
+        id: "sample",
+        title: "Why does the sample vary?",
+        body: "Seeded uniform thresholds produce a reproducible sample using exponential survival. Population variance is binomial under the independent-atom assumption. Daughter decays, mixtures, detector response and radiation dose are outside this model.",
+      },
+    ],
+    citationIds: [],
   },
 };

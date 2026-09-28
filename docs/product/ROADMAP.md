@@ -21,6 +21,7 @@ Do not parallel-build five half-polished flagship features.
 ## Phase 0 — Product Foundation
 
 Deliver:
+
 - product principles
 - audience model
 - design system
@@ -31,6 +32,7 @@ Deliver:
 - visual direction
 
 Exit criteria:
+
 - documents approved
 - initial visual target selected
 
@@ -39,6 +41,7 @@ Exit criteria:
 ## Phase 1 — Design System and Shell
 
 Deliver:
+
 - app shell
 - navigation
 - footer
@@ -46,13 +49,14 @@ Deliver:
 - spacing
 - colors
 - dark mode
-- complexity selector
+- optional contextual details
 - core UI primitives
 - evidence primitives
 - chart primitives
 - component playground / Storybook
 
 Exit criteria:
+
 - mobile + desktop foundations validated
 - visual language stable enough for flagship feature
 
@@ -61,6 +65,7 @@ Exit criteria:
 ## Phase 2 — Nuclear 101
 
 Deliver:
+
 - What is energy?
 - What is an atom?
 - What is fission?
@@ -70,10 +75,12 @@ Deliver:
 - Waste introduction
 
 Core capability:
-- five-level explanation system
+
+- one explanation with named details (ADR 0011)
 
 Exit criteria:
-- complexity selector works across multiple lessons
+
+- named details preserve lesson interaction and assessment state
 - content patterns validated
 
 ---
@@ -81,6 +88,7 @@ Exit criteria:
 ## Phase 3 — Evidence System
 
 Deliver:
+
 - metric model
 - source model
 - citation model
@@ -91,6 +99,7 @@ Deliver:
 - last-verified metadata
 
 Exit criteria:
+
 - quantitative claims do not come directly from UI constants
 
 ---
@@ -98,6 +107,7 @@ Exit criteria:
 ## Phase 4 — Energy Comparison Lab
 
 Deliver:
+
 - energy source selector
 - metric selector
 - geography where supported
@@ -116,6 +126,7 @@ This is the first share-worthy flagship feature.
 ## Phase 5 — Radiation Explorer
 
 Deliver:
+
 - logarithmic dose explorer
 - dose vs dose-rate education
 - contamination vs irradiation
@@ -127,6 +138,7 @@ Deliver:
 ## Phase 6 — Debate Engine
 
 Initial topics:
+
 - Is nuclear too expensive?
 - Is nuclear safe?
 - What happened at Chernobyl?
@@ -142,6 +154,7 @@ Initial topics:
 - Are SMRs economical?
 
 Each debate page:
+
 - strongest argument for
 - strongest argument against
 - evidence
@@ -155,6 +168,7 @@ Each debate page:
 ## Phase 7 — Reactor Explorer
 
 Deliver:
+
 - PWR
 - BWR
 - PHWR
@@ -164,6 +178,7 @@ Deliver:
 - molten-salt concept
 
 Interactive systems:
+
 - fuel
 - coolant
 - moderator
@@ -177,6 +192,7 @@ Interactive systems:
 ## Phase 8 — Nuclear Globe
 
 Deliver:
+
 - operating
 - construction
 - shutdown
@@ -193,6 +209,7 @@ Use MapLibre GL JS.
 ## Phase 9 — India
 
 Deliver:
+
 - Nuclear India map
 - PHWR story
 - three-stage programme
@@ -206,6 +223,7 @@ Deliver:
 ## Phase 10 — Grid / Power-a-City Simulator
 
 Begin simple:
+
 - annual demand
 - technology mix
 - annual generation
@@ -215,6 +233,7 @@ Begin simple:
 - simple reliability context
 
 Then progressively add:
+
 - hourly demand
 - renewable profiles
 - storage
@@ -232,6 +251,7 @@ Do not pretend a simple arithmetic model is a full grid model.
 Only after evidence retrieval is mature.
 
 Deliver:
+
 - grounded answers
 - inline source links
 - explain simpler
@@ -245,11 +265,12 @@ Deliver:
 ## Product Metrics
 
 Prefer:
+
 - concept completion
 - comparison completion
 - source opens
 - Challenge This Number use
-- complexity-level changes
+- detail disclosure without resetting learning state
 - simulation completion
 - return visits
 - learning-path completion
@@ -257,4 +278,5 @@ Prefer:
 Avoid optimizing primarily for pageviews.
 
 Potential signature metric:
+
 - Evidence Engagement Rate

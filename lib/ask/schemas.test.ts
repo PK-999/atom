@@ -21,7 +21,7 @@ describe("Ask ATOM Schemas (R18)", () => {
     expect(parsed.publisher).toBe("IPCC");
   });
 
-  it("validates AskQuerySchema with default explanation level", () => {
+  it("validates AskQuerySchema without a reading preference", () => {
     const query = {
       id: "q-1",
       prompt: "What is nuclear carbon intensity?",
@@ -29,7 +29,7 @@ describe("Ask ATOM Schemas (R18)", () => {
     };
 
     const parsed = AskQuerySchema.parse(query);
-    expect(parsed.level).toBe("standard");
+    expect(parsed).toEqual(query);
   });
 
   it("validates AskResponseSchema with answered state and resolved citations", () => {
@@ -37,8 +37,12 @@ describe("Ask ATOM Schemas (R18)", () => {
       queryId: "q-1",
       state: "answered" as const,
       prompt: "What is nuclear carbon intensity?",
-      answerText:
-        "Nuclear energy emits approximately 12 gCO2eq/kWh over its life-cycle.",
+      explanation: {
+        summary:
+          "Nuclear energy emits approximately 12 gCO2eq/kWh over its life-cycle.",
+        body: [],
+        citationIds: [],
+      },
       citations: [
         {
           id: "cit-ipcc",
@@ -48,7 +52,7 @@ describe("Ask ATOM Schemas (R18)", () => {
         },
       ],
       evidenceIds: ["ev-ipcc-2022"],
-      explanationLevel: "standard" as const,
+
       limitations: ["Regional grid factors vary slightly."],
     };
 
@@ -62,11 +66,14 @@ describe("Ask ATOM Schemas (R18)", () => {
       queryId: "q-2",
       state: "insufficient-evidence" as const,
       prompt: "How to build a reactor in my basement?",
-      answerText:
-        "ATOM does not currently have verified peer-reviewed scientific evidence in its published catalog to answer this query.",
+      explanation: {
+        summary:
+          "ATOM does not currently have verified peer-reviewed scientific evidence in its published catalog to answer this query.",
+        body: [],
+        citationIds: [],
+      },
       citations: [],
       evidenceIds: [],
-      explanationLevel: "standard" as const,
     };
 
     const parsed = AskResponseSchema.parse(response);

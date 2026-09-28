@@ -1,18 +1,26 @@
 # ATOM delivery tracker
 
-Last updated: 2026-09-26. This is the current status and verification authority. Current bounded work: E01 on `codex/evidence-release-serving`. The museum integration is already deployed.
+Last updated: 2026-09-28. This is the current status and verification authority. Current activity: N01 single-reading migration on `codex/single-reading-experience`. N01 software is verified locally; scientific/editorial/licensing review and deployment remain open. E02 remains the next evidence task and N02 is the next bounded redesign slice.
 
 ## Current entry point
 
 Read in order:
 
-1. [2026-09-21 codebase and experience audit](2026-09-21-CODEBASE-AND-EXPERIENCE-AUDIT.md).
+1. [2026-09-27 playable ATOM brief and codebase audit](../superpowers/specs/2026-09-27-playable-atom-design.md).
 2. This tracker.
-3. [Design specification](../superpowers/specs/2026-09-21-atom-learning-experience-design.md).
-4. [Ordered E00–E18 implementation plan](../superpowers/plans/2026-09-21-atom-learning-experience.md).
-5. Applicable product policies, ADRs and the historical R-package specification mapped by the task.
+3. [Ordered N01–N14 redesign plan](../superpowers/plans/2026-09-27-playable-atom.md).
+4. Applicable product policies and ADRs; preserve ADR 0001 release order and ADR 0010 file-based evidence serving.
+5. The [September 21 E-plan](../superpowers/plans/2026-09-21-atom-learning-experience.md) and historical R-packages for mapped acceptance requirements, not their superseded reading-level direction.
 
-**Current delivery: E01 software correction deployed.** The museum/exhibit integration remains live. Reviewed evidence serving is committed at `c6bbc58`, pushed to `main`, and verified on production deployment `dpl_5CdznVvMdsjzPWtYgFsPwbBMi7yK` at [ATOM](https://atom-opal-omega.vercel.app). Comparisons now withhold unsupported numerical values explicitly. **Next bounded task: E02 real lifecycle-emissions artifact extraction and review preparation.** Qualified scientific/editorial/licensing decisions remain required before activating values. E18 verification and lesson/exhibit refinements remain separately tracked.
+### Latest user direction — 2026-09-27
+
+The user explicitly requested a simple, modern, nuclear-themed learning website with enjoyable simulations, visual graphics, animations, optional sound, an India focus, removal of reading levels and redundant architecture, and a repository-grounded step-by-step plan. **Remove all reading/explanation levels** supersedes earlier five-level requirements, including those in AGENTS.md and historical records below. Preserve scientific classifications and optional contextual detail.
+
+The N-plan is the current proposed redesign execution sequence. On a subsequent implementation request, begin with **N01: complete reading-level migration**, then finish one bounded slice and its checks before advancing. **E02 remains the next numerical evidence task**; N04 maps that work into the redesign. New lesson/exhibit publication still depends on the Comparison Lab and real review gates. Existing accepted software is reused, not rebuilt or marked complete again.
+
+The planning delivery changes documentation only. It does not remove controls from the running application, activate numerical releases, approve content, install skills, or authorize a new deployment. All N implementation tasks are planned, not completed. Historical deployment authorization statements below describe earlier work and are not a substitute for current-session authorization.
+
+**Last accepted software delivery: E01 evidence correction.** The September 26 production record below documents the museum/exhibit integration and evidence serving at `c6bbc58`, pushed to `main`, verified on deployment `dpl_5CdznVvMdsjzPWtYgFsPwbBMi7yK` at [ATOM](https://atom-opal-omega.vercel.app). Hosted state was not rechecked during the September 27 planning pass. Comparisons withhold unsupported numerical values explicitly. **Next evidence task: E02 real lifecycle-emissions artifact extraction and review preparation (N04).** Qualified scientific/editorial/licensing decisions remain required before activating values. E18 verification and lesson/exhibit refinements remain separately tracked.
 
 Scientific/editorial/licensing review remains a separate gate. Existing content was not newly approved; no new lesson URL or India profile was released.
 
@@ -26,15 +34,15 @@ These historical claims are not current acceptance evidence. The restored 2026-0
 
 ## Planning status
 
-| Deliverable                                                       | Status                            | Evidence                                                                       |
-| ----------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------ |
-| Repository/route/domain/content/configuration review              | Complete for planning scope       | Audit capability map and A01–A23 findings                                      |
-| Current typecheck/unit/lint/build baseline                        | Verified for accepted slices      | Typecheck pass; 526 tests pass; lint 10 warnings; production build pass        |
-| Browser/accessibility sample                                      | Improved; broader gates open      | Chromium at 390px in light/dark: sampled routes fit, axe clean, no page errors |
-| Visual, learning-path, simulator, sound and architecture proposal | Written; proposed design          | Design specification                                                           |
-| Ordered task plan and verification criteria                       | Written; proposed plan            | E00–E18 plan                                                                   |
-| Historical audit and R-plan recovery                              | Restored as historical references | Read from `522550a`, no current completion inferred                            |
-| Product implementation and new evidence publication               | Software slices in progress       | `71fb672` deployed; no new scientific evidence published                       |
+| Deliverable                                                       | Status                            | Evidence                                                                            |
+| ----------------------------------------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------- |
+| Repository/route/domain/content/configuration review              | Complete for planning scope       | Audit capability map and A01–A23 findings                                           |
+| Current typecheck/unit/lint/build baseline                        | Fresh planning baseline verified  | 2026-09-27: typecheck pass; 546 tests pass; lint 10 warnings; production build pass |
+| Browser/accessibility sample                                      | Improved; broader gates open      | Chromium at 390px in light/dark: sampled routes fit, axe clean, no page errors      |
+| Visual, learning-path, simulator, sound and architecture proposal | Written; proposed design          | Design specification                                                                |
+| Ordered task plan and verification criteria                       | Written; proposed plan            | E00–E18 plan                                                                        |
+| Historical audit and R-plan recovery                              | Restored as historical references | Read from `522550a`, no current completion inferred                                 |
+| Product implementation and new evidence publication               | N01 software slice verified       | Single-reading migration verified locally; no new scientific evidence published     |
 
 ## Implementation queue
 
@@ -51,7 +59,7 @@ Rows describe the broader roadmap, not a claim that implemented software has edi
 | E06    | Compact shell, consistent themes and mobile navigation      | E05                          | Software deployed and browser-verified; manual zoom/AT review open            |
 | E07    | Content/path graph, real claims and review contracts        | E01; release E04             | Planned                                                                       |
 | E08    | One replayable fission model                                | E00                          | Replayable single-event storyboard implemented/tested; scientific review open |
-| E09    | Complete five-level fission lesson and shared frames        | E04/E06–E08                  | Lesson flow/exhibit implemented; claim review and full depth content open     |
+| E09    | Complete single-reading fission lesson and shared frames    | E04/E06–E08                  | Existing flow/exhibit implemented; N01/N06 migration and claim review open    |
 | E10    | Opt-in sound in the completed lesson                        | E09                          | Opt-in audio implemented; three-browser gesture/mute checks pass              |
 | E11    | Signature homepage and discovery                            | E04/E06/E09                  | Museum home and interactive conversion journey deployed                       |
 | E12a–f | Remaining six fundamentals lessons; fission is E09          | E09                          | Shared experiments integrated; lesson-by-lesson source/depth review open      |
@@ -180,12 +188,12 @@ This table is the current status authority for the user’s ten-step experience 
 - **Content/data/review:** existing `dataset-energy-synthesis`; conceptual poster v1; spatial exhibits v1; fission storyboard v1; seeded decay population v1. No new observation, reviewer identity, scientific approval or India release.
 - **Unverified acceptance gates:** actual browser 200% zoom (native automation surface unavailable), manual screen reader review, prolonged/repeated-mount GPU-memory profiling, full physical hidden-tab matrix, production field performance and a formative learning pilot. Responsive viewport checks are not represented as actual zoom.
 
-### Remaining work, in execution order
+### Remaining evidence and acceptance work, mapped into the N-plan above
 
-1. **E01 software accepted:** evidence publication/serving reconciliation passed independent review and production verification at `c6bbc58` (record below). **Next bounded task: E02**, acquire and locate a primary lifecycle-emissions artifact, prepare reproducible extraction and explicit coverage; keep it in review until real qualified decisions exist. The present software integration is already committed, pushed and production-verified; do not redo it or mark the wider roadmap complete.
+1. **E01 software accepted:** evidence publication/serving reconciliation passed independent review and production verification at `c6bbc58` (record below). **Next evidence task: E02 (N04)**, acquire and locate a primary lifecycle-emissions artifact, prepare reproducible extraction and explicit coverage; keep it in review until real qualified decisions exist. The present software integration is already committed, pushed and production-verified; do not redo it or mark the wider roadmap complete.
 2. **E18 software verification:** actual 200% browser zoom and assistive-technology journeys; repeated-mount GPU resource profiling and real background-tab behavior; production field LCP/CLS/INP monitoring. Close gaps with evidence rather than broad “site complete” assertions.
 3. **E01–E04 evidence infrastructure:** reconcile source-level provenance, public metadata routes, release-serving rules and review records. Preserve unavailable states and release filtering. Real scientific/editorial/licensing review remains an external gate; this does not prevent implementing the missing software contracts next.
-4. **E07/E09/E12/E13 lesson completion:** map substantive claims to exact sources, expand genuine five-level explanations, remove duplicated prediction prompts in embedded exhibits, review geometry/scale assumptions and checkpoint validity, persist path context consistently, then run a learning pilot. Existing released lesson URLs stay canonical.
+4. **E07/E09/E12/E13 lesson completion:** map substantive claims to exact sources, replace five-level explanations with one clear explanation and optional contextual detail under N01/N06/N07, remove duplicated prediction prompts in embedded exhibits, review geometry/scale assumptions and checkpoint validity, persist path context consistently, then run a learning pilot. Existing released lesson URLs stay canonical.
 5. **E17 remaining exhibit polish:** review approximate reactor-control equations and component labels; finish consistent overview/component/cutaway camera presets across reactor types; remove unverified “high-precision” gallery descriptions; continue splitting the legacy 3D renderer by reactor type. Current 2D/3D inspection and fallbacks work, but these refinements are not marked done.
 6. **E14/E15b/E16:** source-reviewed radiation/incident/claim investigations, contextual cost workbench, then reviewed India baseline and scenarios. India remains unreleased. New national, cost or hourly reliability outputs require reviewed inputs/models.
 7. **Optional E15c/E18b:** reviewed hourly grid and evaluated generated Ask answers. Before enabling generated answers, remove hard-coded confidence and no-hallucination guarantees in legacy AI providers; require supported citations and evaluated abstentions. Curated search remains the default.
@@ -239,3 +247,29 @@ Ruling: retain one Next.js application and one Vercel deployment. Reuse shared c
 - Both hosted build logs confirm **“Evidence history preserved against c6bbc5870de647b2686b7317fe7109efb881c3f3”**, followed by a passing release check. This closes the missing deployment-baseline setting identified above. First deployments without earlier history still perform current-record checks; later supplied but unavailable references fail closed.
 - Application runtime remains the independently reviewed `c6bbc58` code. `41ae977` adds the build-history setting and verification records only. The complete live browser audit is recorded above; production error-log query during the initial window returned no matching logs, not an ongoing monitoring guarantee.
 - Final record-only follow-up preserves this verified application/configuration revision; E02 is the next task, and the broader roadmap remains incomplete.
+
+## Planning handoff — 2026-09-27
+
+- **Task:** repository-wide review and N01–N14 redesign plan; maps to the existing E-roadmap without claiming implementation acceptance.
+- **Start:** `codex/evidence-release-serving`, `2a3ae6761ef971385dde34ed6acdb0c66caf12fa`, clean tree and one worktree. Inventory: 393 tracked paths; static route/import scan of 210 production text modules. Core journeys and domain boundaries inspected in depth; not an exhaustive scientific or security audit.
+- **Files changed:** this tracker, the [design/audit brief](../superpowers/specs/2026-09-27-playable-atom-design.md), and the [ordered plan](../superpowers/plans/2026-09-27-playable-atom.md). Product code, dependencies, datasets and deployments unchanged.
+- **Fresh baseline checks:** `npm run typecheck` exit 0; `npm run lint` exit 0 with 10 warnings; `npm test -- --reporter=dot` exit 0, 546 tests in 82 files; `npm run evidence:check` exit 0, zero active numerical releases; `npm run build` exit 0, 56 static-generation entries. Local Node `v26.5.0`; CI's separate runtime was not rerun.
+- **Plan verification:** N01–N14 headings present in order; local Markdown links resolve; no unresolved TODO/TBD/FIXME placeholders; new brief/plan pass Prettier with the Markdown ignore override; `git diff --check` passes. Inline review checked scope, dependencies, file targets, deletion safeguards and legacy URL/progress migration. No independent agent review is claimed.
+- **Visual/browser limits:** in-app browser initialization failed (`CUA_REPL_ENABLED_SURFACES is required`); browser CLI unavailable. No new browser/E2E, responsive, accessibility, performance or hosted acceptance. Existing conversion poster inspected as an asset, not a screenshot of the running website.
+- **Content/review state:** release ledger unchanged and empty; no new source extraction, qualified scientific/editorial/licensing decision, model approval or India release. Primary web sources informed positioning only and are linked in the brief.
+- **Next bounded implementation:** N01 complete reading-level migration. N02 establishes selected visual targets before broader UI redesign. E02/N04 remains the next evidence release preparation. New lesson publication still requires the Comparison Lab/content gates.
+- **Commit/deployment:** none created by this planning delivery; documentation remains available for review in the working tree.
+
+## N01 implementation handoff — 2026-09-28
+
+- **Task ID / mapped E task:** N01 / amendments to E03, E06, E07, E09, E13 and E18b. Remove the reading-level system while preserving the existing lesson, evidence and comparison contracts.
+- **Branch / HEAD / dirty files at start:** `codex/single-reading-experience`, base `2a3ae6761ef971385dde34ed6acdb0c66caf12fa`; the worktree already contained the three planning documents and tracker edits. No unrelated worktree changes were reset.
+- **Dependencies and publication gates:** existing E01 file-based evidence serving and ADR 0001/0010 remain in force. No numerical release, lesson publication or India content was activated. Scientific, editorial and licensing review remain separate gates.
+- **Files changed and learner-visible behavior:** removed complexity preference/selectors and global level controls; introduced one `ExplanationContent` with optional named details; migrated lessons, myths, incidents, metrics, exhibits, Ask, reactor and comparison consumers; preserved legacy `level=` URLs as inert compatibility input; retained theme, checkpoint, answer, filter, source order, hash and lesson progress state; added a browser regression for the single-reading experience. The narrow-screen layout now keeps Explore grids fluid and stacks How It Works controls at 320px.
+- **Regression or unmet acceptance observed before change:** the first 320px browser pass found Explore cards expanding the document to 332px and How It Works navigation reaching 323.67px. Both were corrected with responsive grid minimums and stacked controls.
+- **Commands and actual exit/results:** `npm test -- --reporter=dot` → exit 0, 80 files / 537 tests; `npm run typecheck` → exit 0; `npm run lint` → exit 0, 4 existing warnings / 0 errors; `npm run build` → exit 0, 56 generated entries and evidence check passed; `npx playwright test tests/e2e/single-reading.spec.ts --workers=3` → exit 0, 21/21 across Chromium, Firefox and WebKit; the affected plan journeys (`experience.spec.ts`, `foundation.spec.ts`, `comparison-lab.spec.ts`, `learning-path.spec.ts`) → exit 0, 78/78 across all three browsers. The targeted runs covered 320/390/1440px, light/dark themes, reduced motion, keyboard-open details, theme reload, progress/checkpoint persistence, page-error capture and axe checks.
+- **Browser viewports/themes/states and screenshot comparison:** all six route surfaces (`/explore`, `/myths`, `/incidents`, `/how-it-works`, `/ask`, `/reactors/pwr`) fit at 320, 390 and 1440px in light and dark themes. Screenshots were captured for each matrix state by the regression; no visual baseline comparison or manual screenshot review was claimed.
+- **Evidence/content/model/asset versions and real review status:** lesson catalog explanation version `2026-09-27`; no evidence observations or assets were added. Consolidated prose and reactor wording are software migrations pending scientific/editorial review; the release ledger remains at zero active numerical releases.
+- **Review findings and resolutions:** self-review found and fixed the 320px overflow noted above. Preservation checks confirmed lesson objectives/prerequisites/claim references/checkpoints/version, and non-explanation incident/myth/metric records and source attributions. No independent reviewer or scientific approval is claimed.
+- **Unverified gates / reason / next concrete action:** manual screen-reader and 200% zoom review, production deployment, full visual design QA and content/editorial review remain open. Next concrete slice is N02 visual-target and asset selection after this verified migration.
+- **Commit (if made), deployment (if authorized), next bounded task:** local commit at `HEAD` (`feat: move atom to one reading experience`); no deployment. Begin N02 visual target and asset selection next. E02 remains the separate next evidence task.

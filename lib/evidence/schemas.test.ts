@@ -124,12 +124,10 @@ describe("evidence entity schemas", () => {
       }),
       ExplanationSchema.parse({
         id: "fixture-explanation",
-        levels: {
-          curious: "Curious fixture explanation.",
-          expert: "Expert fixture explanation with assumptions.",
-          kid: "Kid fixture explanation.",
-          simple: "Simple fixture explanation.",
-          technical: "Technical fixture explanation.",
+        content: {
+          summary: "Fixture explanation.",
+          body: [],
+          citationIds: ["fixture-citation"],
         },
         subjectId: "fixture-metric",
         subjectType: "metric",

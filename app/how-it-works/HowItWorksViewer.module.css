@@ -170,16 +170,6 @@
   margin: 0;
 }
 
-.stageLevelBadge {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 4px 12px;
-  border-radius: var(--atom-radius-full);
-  background: var(--atom-accent-soft);
-  color: var(--atom-accent);
-  border: 1px solid rgba(0, 212, 255, 0.3);
-}
-
 .stageExplanation {
   font-size: 1.0625rem;
   line-height: 1.7;
@@ -224,6 +214,8 @@
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
+  min-width: 0;
+  max-width: 100%;
   border-radius: var(--atom-radius-md);
   font-weight: 600;
   font-size: 0.9375rem;
@@ -356,6 +348,20 @@
 }
 
 @media (max-width: 640px) {
+  .stepControls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stepControls > span {
+    order: -1;
+    text-align: center;
+  }
+
+  .navBtn {
+    justify-content: center;
+  }
+
   .stageContent {
     padding: 24px 20px;
   }

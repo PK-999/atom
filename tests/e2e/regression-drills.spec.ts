@@ -89,7 +89,7 @@ test.describe("Comparison Lab V1 Acceptance & Regression Drills (R09)", () => {
       page.getByRole("list", { name: "Accessible comparison summary" }),
     ).toContainText("Geothermal");
 
-    // All 5 complexity levels render cleanly
+    // Historical reading-level links still open the same comparison.
     for (const lvl of ["kid", "simple", "curious", "technical", "expert"]) {
       await page.goto(`/compare?level=${lvl}`, {
         waitUntil: "domcontentloaded",

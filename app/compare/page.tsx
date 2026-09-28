@@ -18,7 +18,7 @@ export default async function ComparisonPage({
 }) {
   const params = await searchParams;
   const notices: string[] = [];
-  const state = parseComparisonState(params, undefined, {
+  const state = parseComparisonState(params, {
     onWarning: (warning) => notices.push(warning.message),
   });
   const comparison = await fetchComparisonData(state);

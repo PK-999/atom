@@ -85,14 +85,12 @@ describe("MythViewer", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("toggles card expand/collapse and adapts to complexity level", () => {
+  it("toggles context while ignoring a legacy preference", () => {
     window.localStorage.setItem("atom:preferences:v1:complexity", "beginner");
     render(<MythViewer />);
 
     expect(
-      screen.getByText(
-        /Bombs require super-concentrated weapons-grade uranium/i,
-      ),
+      screen.getByText(/A reactor accident can still involve destructive/i),
     ).toBeVisible();
 
     // Click card to collapse
@@ -100,9 +98,7 @@ describe("MythViewer", () => {
     fireEvent.click(cardHeader);
 
     expect(
-      screen.queryByText(
-        /Bombs require super-concentrated weapons-grade uranium/i,
-      ),
+      screen.queryByText(/A reactor accident can still involve destructive/i),
     ).not.toBeInTheDocument();
   });
 });

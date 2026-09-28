@@ -21,9 +21,9 @@ describe("AppShell", () => {
       "href",
       "/",
     );
-    expect(screen.getByRole("combobox", { name: "Reading depth" })).toHaveValue(
-      "curious",
-    );
+    expect(
+      screen.queryByRole("combobox", { name: "Reading depth" }),
+    ).not.toBeInTheDocument();
     expect(screen.getByRole("group", { name: "Theme" })).toBeVisible();
     expect(screen.getByRole("main")).toHaveAttribute("id", "main-content");
     expect(screen.getByRole("contentinfo")).toHaveTextContent(/verify atom/i);

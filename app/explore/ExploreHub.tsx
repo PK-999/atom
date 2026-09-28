@@ -1,80 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
-import {
-  COMPLEXITY_LABELS,
-  COMPLEXITY_DESCRIPTIONS,
-  type ComplexityLevel,
-} from "@/lib/preferences/complexity-preference";
 import styles from "./ExploreHub.module.css";
 
-interface LevelHighlight {
-  title: string;
-  description: string;
-  ctaText: string;
-  ctaHref: string;
-}
-
-const LEVEL_HIGHLIGHTS: Record<ComplexityLevel, LevelHighlight> = {
-  beginner: {
-    title: "Beginner Track: Fun Analogies & Visual Wonders",
-    description:
-      "Start with simple visual models! Learn how tiny atoms hold giant energy, bust spooky myths, and see why eating a banana gives you natural radiation.",
-    ctaText: "Start with Atomic Basics",
-    ctaHref: "/how-it-works",
-  },
-  explorer: {
-    title: "Explorer Track: Everyday Nuclear Literacy",
-    description:
-      "Explore the step-by-step nuclear fuel cycle, examine real incident timelines like Chernobyl and Fukushima, and compare clean energy options.",
-    ctaText: "Explore How Reactors Work",
-    ctaHref: "/how-it-works",
-  },
-  curious: {
-    title: "Curious Citizen Track: Deep Evidence & Real Trade-Offs",
-    description:
-      "Examine lifecycle emissions, capital costs, radiotoxic waste containment, and systemic grid reliability through peer-reviewed data.",
-    ctaText: "Open Energy Comparison Lab",
-    ctaHref: "/compare",
-  },
-  "deep-dive": {
-    title: "Deep-Dive Track: Engineering & Thermal-Hydraulics",
-    description:
-      "Examine PWR vs BWR primary coolant loops, CANDU heavy water moderation, delayed neutron fractions, and loss-of-coolant accident (LOCA) mitigations.",
-    ctaText: "Inspect Reactor Architectures",
-    ctaHref: "/reactors",
-  },
-  geeky: {
-    title: "Geeky Track: Raw Physics, Cross-Sections & Uncertainty",
-    description:
-      "Analyze ENDF/B-VIII cross section resonance integrals, Doppler broadening, point kinetics equations, and peer-reviewed econometric synthesis models.",
-    ctaText: "Analyze Raw Comparison Data",
-    ctaHref: "/compare?level=geeky",
-  },
-};
-
 export function ExploreHub() {
-  const [level, setLevel] = useComplexityPreference("curious");
-  const highlight = LEVEL_HIGHLIGHTS[level];
+  const highlight = {
+    title: "Start with a question. Try an experiment.",
+    description:
+      "Explore atoms, follow energy through a reactor, and inspect the evidence behind common claims.",
+    ctaText: "Explore the experiments",
+    ctaHref: "/simulations",
+  };
 
   return (
     <div className={styles.hubContainer}>
-      {/* Header with Level Switcher */}
+      {/* Introduction */}
       <header className={styles.hubHeader}>
         <div className={styles.headerText}>
           <span className={styles.eyebrow}>Interactive Learning Hub</span>
-          <h1 className={styles.hubTitle}>
-            Explore ATOM:{" "}
-            <span style={{ color: "var(--atom-accent)" }}>
-              {COMPLEXITY_LABELS[level]}
-            </span>
-          </h1>
-          <p className={styles.hubSubtitle}>{COMPLEXITY_DESCRIPTIONS[level]}</p>
+          <h1 className={styles.hubTitle}>Explore ATOM</h1>
+          <p className={styles.hubSubtitle}>
+            A hands-on guide to nuclear energy, from atoms to electricity.
+          </p>
         </div>
       </header>
 
-      {/* Recommended Highlight Banner for Current Level */}
+      {/* Featured starting point */}
       <div className={styles.recommendedTrack}>
         <div className={styles.trackInfo}>
           <h2>{highlight.title}</h2>

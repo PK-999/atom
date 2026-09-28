@@ -87,14 +87,12 @@ describe("HowItWorksViewer", () => {
     ).toBeVisible();
   });
 
-  it("adapts explanation depth based on stored complexity level", () => {
+  it("shows one explanation despite a legacy preference", () => {
     window.localStorage.setItem("atom:preferences:v1:complexity", "beginner");
     render(<HowItWorksViewer />);
 
     expect(
-      screen.getByText(
-        /Everything around us is made of tiny LEGO blocks called atoms/i,
-      ),
+      screen.getByText(/A lamp transfers electrical energy/i),
     ).toBeVisible();
   });
 });

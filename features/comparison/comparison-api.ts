@@ -132,7 +132,6 @@ function mapResultToPreviewComparison(
     metricShortName,
     geography,
     unit,
-    defaultComplexity: state.level,
     defaultMode: state.mode,
     observations,
     datasetVersionIds: result.datasetVersionIds,

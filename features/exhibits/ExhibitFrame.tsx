@@ -1,6 +1,6 @@
 "use client";
 import type { ReactNode } from "react";
-import { useComplexityPreference } from "@/components/settings/ComplexitySelector";
+import { Explanation } from "@/components/education/Explanation";
 import { EXHIBIT_EXPLANATIONS } from "./exhibit-explanations";
 import Link from "next/link";
 import { useSound, enableSound, muteSound } from "@/lib/audio/sound-controller";
@@ -17,7 +17,6 @@ export function ExhibitFrame({
   exhibit?: keyof typeof EXHIBIT_EXPLANATIONS;
 }) {
   const sound = useSound();
-  const [level] = useComplexityPreference("curious");
   return (
     <section className={styles.frame} aria-label={title}>
       <header className={styles.header}>
@@ -35,9 +34,9 @@ export function ExhibitFrame({
       </header>
       {children}
       {exhibit && (
-        <aside aria-label="Explanation at your reading depth">
+        <aside aria-label="About this experiment">
           <h3>Look a little closer</h3>
-          <p>{EXHIBIT_EXPLANATIONS[exhibit][level]}</p>
+          <Explanation content={EXHIBIT_EXPLANATIONS[exhibit]} />
         </aside>
       )}
       <details className={styles.limit}>

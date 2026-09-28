@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import { ExploreHub } from "./ExploreHub";
 
@@ -21,20 +21,18 @@ beforeEach(() => {
 });
 
 describe("ExploreHub", () => {
-  it("renders the hub header, complexity selector, and 4 major educational sections", () => {
+  it("renders the hub header, 4 major educational sections", () => {
     render(<ExploreHub />);
 
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /Explore ATOM: Curious/i,
+        name: /Explore ATOM/i,
       }),
     ).toBeVisible();
 
     expect(
-      screen.getByText(
-        "Curious Citizen Track: Deep Evidence & Real Trade-Offs",
-      ),
+      screen.getByText("Start with a question. Try an experiment."),
     ).toBeVisible();
     expect(
       screen.getByRole("heading", {
@@ -62,15 +60,15 @@ describe("ExploreHub", () => {
     ).toBeVisible();
   });
 
-  it("renders highlight track according to stored complexity preference", () => {
+  it("keeps the same starting point with a legacy preference", () => {
     window.localStorage.setItem("atom:preferences:v1:complexity", "beginner");
     render(<ExploreHub />);
 
     expect(
-      screen.getByText("Beginner Track: Fun Analogies & Visual Wonders"),
+      screen.getByText("Start with a question. Try an experiment."),
     ).toBeVisible();
     expect(
-      screen.getByRole("link", { name: /Start with Atomic Basics/i }),
+      screen.getByRole("link", { name: /Explore the experiments/i }),
     ).toBeVisible();
   });
 });

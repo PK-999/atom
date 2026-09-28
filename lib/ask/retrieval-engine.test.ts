@@ -4,19 +4,15 @@ import {
   INSUFFICIENT_EVIDENCE_ANSWER,
   sanitizeText,
 } from "./retrieval-engine";
+import { explanationText } from "@/lib/education/explanation";
 import type { AskQuery } from "./schemas";
 
 describe("Ask ATOM Retrieval Engine & Evaluation Suite (R18)", () => {
-  function makeQuery(
-    prompt: string,
-    level: "explorer" | "standard" | "deep-dive" = "standard",
-    id = "eval-q",
-  ): AskQuery {
+  function makeQuery(prompt: string, id = "eval-q"): AskQuery {
     return {
       id,
       prompt,
       timestamp: new Date().toISOString(),
-      level,
     };
   }
 
@@ -37,9 +33,9 @@ describe("Ask ATOM Retrieval Engine & Evaluation Suite (R18)", () => {
 
     carbonPrompts.forEach((prompt, idx) => {
       it(`evaluates carbon query ${idx + 1}: "${prompt.slice(0, 30)}..."`, () => {
-        const res = askAtom(makeQuery(prompt, "standard", `q-carbon-${idx}`));
+        const res = askAtom(makeQuery(prompt, `q-carbon-${idx}`));
         expect(res.state).toBe("answered");
-        expect(res.answerText).toContain("12 gCO2eq/kWh");
+        expect(explanationText(res.explanation)).toContain("lifecycle");
         expect(res.citations.length).toBeGreaterThanOrEqual(1);
         expect(res.citations[0].publisher).toBeDefined();
         expect(res.queryId).toBe(`q-carbon-${idx}`);
@@ -64,9 +60,9 @@ describe("Ask ATOM Retrieval Engine & Evaluation Suite (R18)", () => {
 
     safetyPrompts.forEach((prompt, idx) => {
       it(`evaluates safety query ${idx + 1}: "${prompt.slice(0, 30)}..."`, () => {
-        const res = askAtom(makeQuery(prompt, "standard", `q-safety-${idx}`));
+        const res = askAtom(makeQuery(prompt, `q-safety-${idx}`));
         expect(res.state).toBe("answered");
-        expect(res.answerText).toContain("0.03 deaths per TWh");
+        expect(explanationText(res.explanation)).toContain("harm");
         expect(res.citations.length).toBeGreaterThanOrEqual(1);
       });
     });
@@ -87,9 +83,9 @@ describe("Ask ATOM Retrieval Engine & Evaluation Suite (R18)", () => {
 
     radiationPrompts.forEach((prompt, idx) => {
       it(`evaluates radiation query ${idx + 1}: "${prompt.slice(0, 30)}..."`, () => {
-        const res = askAtom(makeQuery(prompt, "standard", `q-rad-${idx}`));
+        const res = askAtom(makeQuery(prompt, `q-rad-${idx}`));
         expect(res.state).toBe("answered");
-        expect(res.answerText).toContain("2.4 millisieverts");
+        expect(explanationText(res.explanation)).toContain("dose");
         expect(res.citations.some((c) => c.id === "unscear-2020")).toBe(true);
       });
     });
@@ -110,9 +106,9 @@ describe("Ask ATOM Retrieval Engine & Evaluation Suite (R18)", () => {
 
     wastePrompts.forEach((prompt, idx) => {
       it(`evaluates waste query ${idx + 1}: "${prompt.slice(0, 30)}..."`, () => {
-        const res = askAtom(makeQuery(prompt, "standard", `q-waste-${idx}`));
+        const res = askAtom(makeQuery(prompt, `q-waste-${idx}`));
         expect(res.state).toBe("answered");
-        expect(res.answerText).toContain("spent fuel");
+        expect(explanationText(res.explanation)).toContain("spent fuel");
         expect(res.citations.some((c) => c.id === "iaea-waste-2022")).toBe(
           true,
         );
@@ -132,9 +128,9 @@ describe("Ask ATOM Retrieval Engine & Evaluation Suite (R18)", () => {
 
     landPrompts.forEach((prompt, idx) => {
       it(`evaluates land query ${idx + 1}: "${prompt.slice(0, 30)}..."`, () => {
-        const res = askAtom(makeQuery(prompt, "standard", `q-land-${idx}`));
+        const res = askAtom(makeQuery(prompt, `q-land-${idx}`));
         expect(res.state).toBe("answered");
-        expect(res.answerText).toContain("land use intensity");
+        expect(explanationText(res.explanation)).toContain("land");
         expect(res.citations.some((c) => c.id === "unece-2021")).toBe(true);
       });
     });
@@ -152,9 +148,9 @@ describe("Ask ATOM Retrieval Engine & Evaluation Suite (R18)", () => {
 
     indiaPrompts.forEach((prompt, idx) => {
       it(`evaluates India query ${idx + 1}: "${prompt.slice(0, 30)}..."`, () => {
-        const res = askAtom(makeQuery(prompt, "standard", `q-india-${idx}`));
+        const res = askAtom(makeQuery(prompt, `q-india-${idx}`));
         expect(res.state).toBe("answered");
-        expect(res.answerText).toContain("Bhabha");
+        expect(explanationText(res.explanation)).toContain("India");
         expect(res.citations.some((c) => c.id === "dae-bhabha-program")).toBe(
           true,
         );
@@ -162,37 +158,13 @@ describe("Ask ATOM Retrieval Engine & Evaluation Suite (R18)", () => {
     });
   });
 
-  // Group 7: Multi-Level Explanations (3 tests)
-  describe("Multi-Tier Explanation Support", () => {
-    it("returns simplified language for level: simple", () => {
-      const res = askAtom(
-        makeQuery("What is the carbon footprint of nuclear power?", "explorer"),
-      );
-      expect(res.state).toBe("answered");
-      expect(res.answerText).toContain("does not burn anything");
-      expect(res.explanationLevel).toBe("explorer");
-    });
-
-    it("returns technical engineering language for level: technical", () => {
-      const res = askAtom(
-        makeQuery(
-          "What is the carbon footprint of nuclear power?",
-          "deep-dive",
-        ),
-      );
-      expect(res.state).toBe("answered");
-      expect(res.answerText).toContain("Harmonized LCA methods");
-      expect(res.explanationLevel).toBe("deep-dive");
-    });
-
-    it("returns balanced standard explanation for level: standard", () => {
-      const res = askAtom(
-        makeQuery("What is the carbon footprint of nuclear power?", "standard"),
-      );
-      expect(res.state).toBe("answered");
-      expect(res.answerText).toContain("median of 12 gCO2eq/kWh");
-      expect(res.explanationLevel).toBe("standard");
-    });
+  it("returns one explanation with the same citation IDs as its source records", () => {
+    const res = askAtom(
+      makeQuery("What is the carbon footprint of nuclear power?"),
+    );
+    expect(res.explanation.citationIds).toEqual(["ipcc-2014", "unece-2021"]);
+    expect(res.explanation.body.length).toBeGreaterThan(0);
+    expect(res).not.toHaveProperty("explanationLevel");
   });
 
   // Group 8: Explicit Abstention Cases (8 queries)
@@ -210,11 +182,11 @@ describe("Ask ATOM Retrieval Engine & Evaluation Suite (R18)", () => {
 
     unsupportedPrompts.forEach((prompt, idx) => {
       it(`abstains on unsupported query ${idx + 1}: "${prompt.slice(0, 30)}..."`, () => {
-        const res = askAtom(
-          makeQuery(prompt, "standard", `q-unsupported-${idx}`),
-        );
+        const res = askAtom(makeQuery(prompt, `q-unsupported-${idx}`));
         expect(res.state).toBe("insufficient-evidence");
-        expect(res.answerText).toBe(INSUFFICIENT_EVIDENCE_ANSWER);
+        expect(explanationText(res.explanation)).toBe(
+          INSUFFICIENT_EVIDENCE_ANSWER,
+        );
         expect(res.citations).toEqual([]);
         expect(res.evidenceIds).toEqual([]);
       });
@@ -233,9 +205,11 @@ describe("Ask ATOM Retrieval Engine & Evaluation Suite (R18)", () => {
 
     injectionPrompts.forEach((prompt, idx) => {
       it(`defends against injection ${idx + 1}: "${prompt.slice(0, 30)}..."`, () => {
-        const res = askAtom(makeQuery(prompt, "standard", `q-inject-${idx}`));
+        const res = askAtom(makeQuery(prompt, `q-inject-${idx}`));
         expect(res.state).toBe("insufficient-evidence");
-        expect(res.answerText).toBe(INSUFFICIENT_EVIDENCE_ANSWER);
+        expect(explanationText(res.explanation)).toBe(
+          INSUFFICIENT_EVIDENCE_ANSWER,
+        );
         expect(res.citations).toEqual([]);
       });
     });

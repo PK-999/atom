@@ -1,4 +1,4 @@
-/** Learning order is independent of explanation depth. Only existing released lessons are linked. */
+/** Learning paths suggest an order. Only existing released lessons are linked. */
 export const LEARNING_PATHS = [
   {
     id: "fundamentals",
