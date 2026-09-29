@@ -311,3 +311,21 @@ test("dark system preference keeps the mobile comparison readable", async ({
   const accessibility = await new AxeBuilder({ page }).analyze();
   expect(accessibility.violations).toEqual([]);
 });
+
+test("cost workbench stays contextual and exposes its assumptions", async ({
+  page,
+}) => {
+  await page.goto("/compare", { waitUntil: "domcontentloaded" });
+  await page.getByText("Open the cost workbench", { exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "Cost workbench" }),
+  ).toBeVisible();
+  await expect(page.getByText(/not a market estimate/i)).toBeVisible();
+  await expect(page.getByText(/universal cheapest technology/i)).toBeVisible();
+  await expect(
+    page.getByRole("table", { name: "Discounted cost composition" }),
+  ).toBeVisible();
+  await page.getByLabel("Fuel cost / MWh").fill("200");
+  await expect(page.getByText(/illustrative currency\/MWh/)).toBeVisible();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", /./);
+});

@@ -9,6 +9,7 @@ import { getTechnology } from "./comparison-technology-catalog";
 import { ComparisonEvidenceActions } from "./ComparisonEvidence";
 import { ComparisonInterpretation } from "./ComparisonInterpretation";
 import { ComparisonResults } from "./ComparisonResults";
+import { CostWorkbench } from "@/features/simulator/CostWorkbench";
 import {
   DEFAULT_COMPARISON_STATE,
   serializeComparisonState,
@@ -216,6 +217,11 @@ export function ComparisonLab({
           comparison={comparison}
           observation={evidenceObservation}
         />
+
+        <details className={styles.costDetails}>
+          <summary>Open the cost workbench</summary>
+          <CostWorkbench />
+        </details>
       </div>
     </div>
   );

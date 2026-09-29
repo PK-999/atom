@@ -1,0 +1,175 @@
+.workbench {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-lg);
+  background: var(--atom-surface-panel);
+}
+
+.header {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.eyebrow {
+  color: var(--atom-accent);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--atom-text-primary);
+  font-size: 1.35rem;
+}
+
+.lead,
+.note {
+  margin: 0;
+  color: var(--atom-text-secondary);
+  line-height: 1.55;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: 0.9rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.field label {
+  color: var(--atom-text-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.field input {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--atom-border-default);
+  border-radius: var(--atom-radius-sm);
+  background: var(--atom-surface-canvas);
+  color: var(--atom-text-primary);
+  padding: 0.55rem 0.65rem;
+  font: inherit;
+}
+
+.field small {
+  color: var(--atom-text-muted);
+  line-height: 1.4;
+}
+
+.result {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1rem;
+  border: 1px solid color-mix(in srgb, var(--atom-accent) 35%, transparent);
+  border-radius: var(--atom-radius-md);
+  background: color-mix(in srgb, var(--atom-accent) 7%, transparent);
+}
+
+.result h3 {
+  margin: 0;
+  color: var(--atom-text-primary);
+  font-size: 1rem;
+}
+
+.lcoe {
+  color: var(--atom-accent);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.resultGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: 0.75rem;
+}
+
+.resultCell {
+  padding: 0.7rem;
+  border: 1px solid var(--atom-border-subtle);
+  border-radius: var(--atom-radius-sm);
+  background: var(--atom-surface-panel);
+}
+
+.resultCell strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--atom-text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.resultCell span {
+  color: var(--atom-text-primary);
+  font-weight: 700;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--atom-text-secondary);
+  font-size: 0.875rem;
+}
+
+.table caption {
+  margin-bottom: 0.45rem;
+  color: var(--atom-text-primary);
+  font-weight: 700;
+  text-align: left;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--atom-border-subtle);
+  padding: 0.55rem 0.35rem;
+  text-align: left;
+}
+
+.table thead th {
+  color: var(--atom-text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.table tbody th {
+  color: var(--atom-text-primary);
+  font-weight: 600;
+}
+
+.assumptions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.assumptions dt {
+  margin-bottom: 0.35rem;
+  color: var(--atom-text-primary);
+  font-weight: 700;
+}
+
+.assumptions dd {
+  margin: 0;
+  color: var(--atom-text-secondary);
+  line-height: 1.5;
+}
+
+.unavailable {
+  padding: 0.8rem;
+  border: 1px solid var(--atom-border-default);
+  border-radius: var(--atom-radius-sm);
+  color: var(--atom-text-secondary);
+}
