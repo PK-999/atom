@@ -176,7 +176,7 @@ export default function MethodologyPage() {
           }}
         >
           <Link
-            href="/sources"
+            href="/evidence"
             style={{
               display: "inline-flex",
               alignItems: "center",

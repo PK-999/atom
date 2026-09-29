@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { AppShell } from "@/components/layout/AppShell";
-import { SourcesViewer } from "@/features/sources/SourcesViewer";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Scientific Sources & Evidence Library | ATOM",
@@ -9,9 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function SourcesPage() {
-  return (
-    <AppShell>
-      <SourcesViewer />
-    </AppShell>
-  );
+  redirect("/evidence");
 }

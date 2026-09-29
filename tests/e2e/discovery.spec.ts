@@ -165,5 +165,29 @@ test.describe("R12 Discovery, Search, Topics, Glossary, & Trust Routes", () => {
     await expect(
       page.getByRole("heading", { name: "Evidence Directory", level: 1 }),
     ).toBeVisible();
+    await page.goto("/sources");
+    await expect(page).toHaveURL(/\/evidence$/);
+    await expect(
+      page.getByRole("heading", {
+        name: "Scientific Sources & Bibliography",
+        level: 2,
+      }),
+    ).toBeVisible();
+    for (const path of [
+      "/evidence/sources/missing-source",
+      "/evidence/studies/missing-study",
+      "/evidence/datasets/missing-dataset",
+    ]) {
+      await page.goto(path);
+      await expect(
+        page.getByRole("heading", {
+          name: "Evidence is not currently available",
+          level: 1,
+        }),
+      ).toBeVisible();
+      await expect(
+        page.getByText(/Draft, restricted, withdrawn/),
+      ).toBeVisible();
+    }
   });
 });

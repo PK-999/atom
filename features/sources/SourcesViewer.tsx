@@ -16,7 +16,9 @@ const CATEGORIES = [
   { id: "global-fleet", label: "Global Fleet Operations" },
 ];
 
-export function SourcesViewer() {
+export function SourcesViewer({
+  embedded = false,
+}: { embedded?: boolean } = {}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
@@ -58,9 +60,15 @@ export function SourcesViewer() {
         <div className={styles.badge}>
           <span>📚</span> Open Evidence & Literature Registry
         </div>
-        <h1 id="sources-heading" className={styles.title}>
-          Scientific Sources & Bibliography
-        </h1>
+        {embedded ? (
+          <h2 id="sources-heading" className={styles.title}>
+            Scientific Sources & Bibliography
+          </h2>
+        ) : (
+          <h1 id="sources-heading" className={styles.title}>
+            Scientific Sources & Bibliography
+          </h1>
+        )}
         <p className={styles.subtitle}>
           ATOM is built on peer-reviewed consensus and official records from
           authoritative international bodies. Every quantitative claim,

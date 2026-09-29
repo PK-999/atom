@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
+import { SourcesViewer } from "@/features/sources/SourcesViewer";
 
 export const metadata: Metadata = {
   title: "Evidence Directory",
@@ -192,6 +193,13 @@ export default function EvidenceDirectoryPage() {
               (LCOE) Version 16/17 benchmark ranges and capital expenditures.
             </li>
           </ul>
+        </section>
+
+        <section
+          aria-labelledby="sources-heading"
+          style={{ marginTop: "3rem" }}
+        >
+          <SourcesViewer embedded />
         </section>
       </div>
     </AppShell>

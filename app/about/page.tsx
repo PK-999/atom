@@ -204,7 +204,7 @@ export default function AboutPage() {
           </h2>
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
             <Link
-              href="/sources"
+              href="/evidence"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
