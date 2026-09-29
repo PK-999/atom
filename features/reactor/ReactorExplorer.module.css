@@ -190,24 +190,21 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: #ef4444;
-  box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+  background: #d9ac7d;
 }
 
 .legendDotSecondary {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: var(--atom-accent);
-  box-shadow: 0 0 6px rgba(2, 132, 199, 0.5);
+  background: #8cbcd0;
 }
 
 .legendDotTertiary {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
+  background: #8ebfa7;
 }
 
 /* SVG Schematic Canvas */
@@ -255,7 +252,8 @@
     filter var(--atom-motion-fast) var(--atom-ease-out);
 }
 .svgPartButton:hover {
-  transform: scale(1.02);
+  /* Equipment stays connected to its pipework during inspection. */
+  transform: none;
 }
 
 .svgPartButton:hover {
@@ -344,7 +342,7 @@
 
 .highlightedCircuit {
   opacity: 1 !important;
-  filter: drop-shadow(0 0 5px rgba(2, 132, 199, 0.4));
+  filter: none;
   transition: opacity 0.3s ease;
 }
 
@@ -671,8 +669,11 @@
   .fissionGlow100,
   .fissionGlow50,
   .steamBubble,
+  .steamBubbleD2,
+  .steamBubbleD3,
   .generatorSpark,
   .vaporPlume,
+  .vaporPlumeDelay,
   .selectionRing {
     animation: none !important;
   }

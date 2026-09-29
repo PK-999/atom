@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useId } from "react";
 import { useMotionPreferences } from "@/lib/accessibility/motion";
 import {
   calculateReactorCoreState,
@@ -10,6 +10,7 @@ import {
 import styles from "./ReactorControlSimulator.module.css";
 
 export function ReactorControlSimulator() {
+  const svgId = useId();
   const { shouldAnimate } = useMotionPreferences();
 
   const [input, setInput] = useState<ReactorControlInput>({
@@ -149,22 +150,23 @@ export function ReactorControlSimulator() {
               <defs>
                 {/* Metallic Forged Steel Vessel Wall Gradient */}
                 <linearGradient
-                  id="vesselWallGrad"
+                  id={`${svgId}-vesselWallGrad`}
                   x1="0%"
                   y1="0%"
                   x2="100%"
                   y2="0%"
                 >
                   <stop offset="0%" stopColor="#1e293b" />
-                  <stop offset="20%" stopColor="#475569" />
-                  <stop offset="50%" stopColor="#94a3b8" />
+                  <stop offset="20%" stopColor="#8da3b0" />
+                  <stop offset="38%" stopColor="#dbe3e5" />
+                  <stop offset="58%" stopColor="#9aafb9" />
                   <stop offset="80%" stopColor="#475569" />
                   <stop offset="100%" stopColor="#0f172a" />
                 </linearGradient>
 
                 {/* Inner Stainless Steel Cladding Layer */}
                 <linearGradient
-                  id="innerCladGrad"
+                  id={`${svgId}-innerCladGrad`}
                   x1="0%"
                   y1="0%"
                   x2="100%"
@@ -177,7 +179,7 @@ export function ReactorControlSimulator() {
 
                 {/* Cherenkov Radiation Blue Optical Glow */}
                 <radialGradient
-                  id="cherenkovCorePool"
+                  id={`${svgId}-cherenkovCorePool`}
                   cx="50%"
                   cy="55%"
                   r="60%"
@@ -202,7 +204,7 @@ export function ReactorControlSimulator() {
 
                 {/* Cold Leg Inlet Fluid Stream */}
                 <linearGradient
-                  id="coldLegGrad"
+                  id={`${svgId}-coldLegGrad`}
                   x1="0%"
                   y1="0%"
                   x2="100%"
@@ -214,7 +216,7 @@ export function ReactorControlSimulator() {
 
                 {/* Hot Leg Outlet Fluid Stream */}
                 <linearGradient
-                  id="hotLegGrad"
+                  id={`${svgId}-hotLegGrad`}
                   x1="0%"
                   y1="0%"
                   x2="100%"
@@ -251,7 +253,7 @@ export function ReactorControlSimulator() {
               {/* Reactor Pressure Vessel (RPV) Outer Shell with Hemispherical Heads */}
               <path
                 d="M 140 50 C 140 28, 320 28, 320 50 L 320 250 C 320 290, 140 290, 140 250 Z"
-                fill="url(#vesselWallGrad)"
+                fill={`url(#${svgId}-vesselWallGrad)`}
                 stroke="#64748b"
                 strokeWidth="2.5"
               />
@@ -274,7 +276,7 @@ export function ReactorControlSimulator() {
               <path
                 d="M 152 52 C 152 38, 308 38, 308 52 L 308 248 C 308 280, 152 280, 152 248 Z"
                 fill="#051020"
-                stroke="url(#innerCladGrad)"
+                stroke={`url(#${svgId}-innerCladGrad)`}
                 strokeWidth="2"
               />
 
@@ -313,7 +315,7 @@ export function ReactorControlSimulator() {
                 width="120"
                 height="150"
                 rx="4"
-                fill="url(#cherenkovCorePool)"
+                fill={`url(#${svgId}-cherenkovCorePool)`}
               />
 
               {/* Fuel Assemblies (Zircaloy Pin Bundles) */}
@@ -377,7 +379,7 @@ export function ReactorControlSimulator() {
               <g>
                 <path
                   d="M 60 62 L 142 62 L 142 84 L 60 84 Z"
-                  fill="url(#coldLegGrad)"
+                  fill={`url(#${svgId}-coldLegGrad)`}
                   stroke="#334155"
                   strokeWidth="2"
                 />
@@ -404,7 +406,7 @@ export function ReactorControlSimulator() {
               <g>
                 <path
                   d="M 318 62 L 400 62 L 400 84 L 318 84 Z"
-                  fill="url(#hotLegGrad)"
+                  fill={`url(#${svgId}-hotLegGrad)`}
                   stroke="#334155"
                   strokeWidth="2"
                 />

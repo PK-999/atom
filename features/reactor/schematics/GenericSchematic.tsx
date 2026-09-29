@@ -2,6 +2,7 @@ import type { SchematicParts } from "./types";
 import styles from "../ReactorExplorer.module.css";
 export function GenericSchematic({
   system,
+  svgId,
   renderDefs,
   renderComponentButton,
 }: SchematicParts) {
@@ -35,7 +36,7 @@ export function GenericSchematic({
           fill="#64748b"
           letterSpacing="0.06em"
         >
-          {system.name.toUpperCase()} SCHEMATIC
+          {system.name.toUpperCase()} · COMPONENT INVENTORY
         </text>
 
         {system.components.map((comp) => {
@@ -55,21 +56,46 @@ export function GenericSchematic({
                 rx="8"
                 fill={
                   comp.type === "fuel"
-                    ? "url(#fissionThermalGlow)"
+                    ? `url(#${svgId}-fuelMetalGrad)`
                     : comp.type === "vessel"
-                      ? "url(#vesselSteelGrad)"
-                      : "rgba(30, 41, 59, 0.85)"
+                      ? `url(#${svgId}-vesselSteelGrad)`
+                      : `url(#${svgId}-vesselDarkSteelGrad)`
                 }
                 stroke={isSelected ? "#38bdf8" : "#64748b"}
                 strokeWidth={isSelected ? 3 : 1.5}
               />
+              <path
+                d={`M${coords.x + 7} ${coords.y + 5}H${coords.x + coords.width - 7}`}
+                stroke="#b3c4cf"
+                strokeOpacity=".5"
+              />
+              {[7, coords.width - 7].map((x) => (
+                <g key={x}>
+                  <circle
+                    cx={coords.x + x}
+                    cy={coords.y + 8}
+                    r="2"
+                    fill="#9bafba"
+                  />
+                  <circle
+                    cx={coords.x + x}
+                    cy={coords.y + coords.height - 8}
+                    r="2"
+                    fill="#9bafba"
+                  />
+                </g>
+              ))}
               <text
                 x={coords.x + coords.width / 2}
                 y={coords.y + coords.height / 2 + 4}
                 textAnchor="middle"
                 fontSize="9"
                 fontWeight="600"
-                fill={comp.type === "vessel" ? "#0f172a" : "#f8fafc"}
+                fill={
+                  comp.type === "vessel" || comp.type === "fuel"
+                    ? "#0f172a"
+                    : "#f8fafc"
+                }
               >
                 {comp.name.length > 20
                   ? comp.name.substring(0, 18) + "…"

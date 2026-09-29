@@ -1,4 +1,43 @@
+import { useId } from "react";
+import { MaterialDefs } from "@/components/education/schematic/MechanicalParts";
 import type { ExhibitKind } from "./spatial-model";
+
+/** Nucleons are illustrative samples, not an isotope's proton/neutron inventory. */
+function NucleonCluster({
+  id,
+  x,
+  y,
+  stretch = 1,
+  radius = 43,
+  count = 31,
+}: {
+  id: string;
+  x: number;
+  y: number;
+  stretch?: number;
+  radius?: number;
+  count?: number;
+}) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${stretch} ${1 / stretch})`}>
+      {Array.from({ length: count }, (_, i) => {
+        const a = i * 2.39996,
+          r = radius * Math.sqrt(i / count);
+        return (
+          <circle
+            key={i}
+            cx={Math.cos(a) * r}
+            cy={Math.sin(a) * r}
+            r={radius * 0.24}
+            fill={`url(#${id}-${i % 2 ? "neutron" : "proton"})`}
+            stroke="#1b3547"
+            strokeWidth=".5"
+          />
+        );
+      })}
+    </g>
+  );
+}
 export function SpatialDiagram({
   kind,
   stage = 0,
@@ -8,141 +47,237 @@ export function SpatialDiagram({
   stage?: number;
   selected: string;
 }) {
-  const violet = "var(--atom-energy-nuclear)",
-    teal = "var(--atom-accent)",
-    amber = "var(--atom-warning)";
+  const id = useId();
+  const focus = (part: string) => (selected === part ? "#a7e3d8" : "#7894a1");
   return (
     <svg
-      viewBox="0 0 560 300"
+      viewBox="0 0 560 320"
       role="img"
       aria-label={`${kind} schematic; selected component: ${selected}`}
+      style={{ background: "#14212c", color: "#dae7ea" }}
     >
+      <MaterialDefs id={id} />
+      <defs>
+        <radialGradient id={`${id}-cloud`}>
+          <stop stopColor="#73c6cf" stopOpacity=".03" />
+          <stop offset=".45" stopColor="#73c6cf" stopOpacity=".32" />
+          <stop offset="1" stopColor="#73c6cf" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id={`${id}-proton`} cx=".3" cy=".25">
+          <stop stopColor="#f4dac0" />
+          <stop offset=".4" stopColor="#bb896c" />
+          <stop offset="1" stopColor="#533e43" />
+        </radialGradient>
+        <radialGradient id={`${id}-neutron`} cx=".3" cy=".25">
+          <stop stopColor="#d2edf0" />
+          <stop offset=".4" stopColor="#76aab4" />
+          <stop offset="1" stopColor="#28465c" />
+        </radialGradient>
+      </defs>
+      <text x="24" y="28" fill="#b0c6d0" fontSize="11" letterSpacing="2">
+        {kind === "fuel"
+          ? "FUEL ASSEMBLY · CUTAWAY"
+          : kind === "atom"
+            ? "ATOMIC STRUCTURE · CONCEPTUAL"
+            : "ONE FISSION EVENT · STORYBOARD"}
+      </text>
       {kind === "atom" ? (
         <>
-          <ellipse
-            cx="280"
-            cy="150"
-            rx="150"
-            ry="85"
-            fill="none"
-            stroke={teal}
-            strokeWidth="2"
-            strokeDasharray="4 7"
-          />
-          <ellipse
-            cx="280"
-            cy="150"
-            rx="115"
-            ry="115"
-            fill={teal}
-            opacity=".07"
-          />
-          {[
-            [-16, -8],
-            [10, -15],
-            [-8, 16],
-            [18, 12],
-          ].map(([x, y], i) => (
-            <circle
-              key={i}
-              cx={280 + x}
-              cy={150 + y}
-              r="18"
-              fill={i % 2 ? teal : violet}
-              stroke="var(--atom-surface-panel)"
-              strokeWidth="2"
-            />
-          ))}
-          <circle cx="415" cy="110" r="7" fill={amber} />
+          <circle cx="265" cy="165" r="126" fill={`url(#${id}-cloud)`} />
+          {Array.from({ length: 180 }, (_, i) => {
+            const a = i * 2.39996,
+              r = 20 + 105 * Math.sqrt(i / 180);
+            return (
+              <circle
+                key={i}
+                cx={265 + Math.cos(a) * r}
+                cy={165 + Math.sin(a) * r * 0.9}
+                r={i % 3 ? 1 : 1.8}
+                fill="#91d0d4"
+                opacity={selected === "electrons" ? 0.65 : 0.28}
+              />
+            );
+          })}
+          <NucleonCluster id={id} x={265} y={165} radius={35} />
           <path
-            d="M292 128L350 65H420M407 115L435 200H475"
+            d="M292 143L360 91H449M365 211L399 250H496"
             fill="none"
-            stroke="currentColor"
+            stroke={focus("nucleus")}
           />
-          <text x="353" y="55" fill="currentColor" fontSize="15">
+          <text x="360" y="80" fontSize="15" fill={focus("nucleus")}>
             Nucleus
           </text>
-          <text x="425" y="222" fill="currentColor" fontSize="15">
+          <text x="394" y="271" fontSize="15" fill={focus("electrons")}>
             Electron cloud
+          </text>
+          <text x="24" y="303" fontSize="12" fill="#acc3ce">
+            Cloud shows probability, not fixed electron paths.
           </text>
         </>
       ) : kind === "fuel" ? (
         <>
-          {Array.from({ length: 7 }, (_, i) => (
-            <g
-              key={i}
-              transform={`translate(${165 + i * 32 + (i - 3) * stage * 7},0)`}
-            >
-              <rect
-                x="0"
-                y={65 - stage * 10}
-                width="15"
-                height="170"
-                rx="7"
-                fill={i === 3 ? violet : teal}
-                opacity={i === 3 ? 1 : 0.55}
+          <ellipse
+            cx="266"
+            cy="280"
+            rx="135"
+            ry="13"
+            fill="#000"
+            opacity=".18"
+          />
+          {Array.from({ length: 11 }, (_, i) => {
+            const x = 167 + i * 19 + (i - 5) * stage * 4,
+              y = 65 - stage * 5;
+            return (
+              <g key={i}>
+                <rect
+                  x={x}
+                  y={y}
+                  width="12"
+                  height="190"
+                  rx="5"
+                  fill={`url(#${id}-steel)`}
+                  stroke={focus("rods")}
+                  strokeWidth={selected === "rods" ? 1.5 : 0.4}
+                />
+                <ellipse cx={x + 6} cy={y + 2} rx="5" ry="2" fill="#c8d6da" />
+                {i === 5 && (
+                  <>
+                    <rect
+                      x={x + 1}
+                      y={y + 41}
+                      width="10"
+                      height="126"
+                      fill="#1b2c37"
+                    />
+                    {Array.from({ length: 8 }, (_, j) => (
+                      <g key={j}>
+                        <rect
+                          x={x + 2}
+                          y={y + 43 + j * 15}
+                          width="8"
+                          height="12"
+                          rx="1"
+                          fill={`url(#${id}-pellet)`}
+                          stroke={
+                            selected === "pellets" ? "#f0c994" : "#9faeba"
+                          }
+                          strokeWidth=".7"
+                        />
+                        <ellipse
+                          cx={x + 6}
+                          cy={y + 44 + j * 15}
+                          rx="4"
+                          ry="1.5"
+                          fill="#bdc5c7"
+                        />
+                      </g>
+                    ))}
+                  </>
+                )}
+              </g>
+            );
+          })}
+          {[108, 220].map((y) => (
+            <g key={y} transform={`translate(0 ${stage * 12})`}>
+              <path
+                d={`M151 ${y}L170 ${y - 8}H374L386 ${y}V${y + 13}H151Z`}
+                fill={`url(#${id}-steel)`}
+                stroke={focus("spacers")}
+                strokeWidth={selected === "spacers" ? 2.5 : 1}
               />
-              {i === 3 &&
-                Array.from({ length: 8 }, (_, j) => (
-                  <rect
-                    key={j}
-                    x="2"
-                    y={75 + j * 18 - stage * 10}
-                    width="11"
-                    height="13"
-                    rx="2"
-                    fill={amber}
-                  />
-                ))}
+              {Array.from({ length: 13 }, (_, i) => (
+                <path
+                  key={i}
+                  d={`M${157 + i * 17} ${y + 3}v8`}
+                  stroke="#4a6271"
+                  strokeWidth="4"
+                />
+              ))}
             </g>
           ))}
           <path
-            d={`M150 ${100 + stage * 13}H390M150 ${205 + stage * 13}H390`}
-            stroke={violet}
-            strokeWidth="12"
+            d="M269 179H419M182 87H83M371 233H422"
+            fill="none"
+            stroke="#9bb3bf"
           />
-          <text x="26" y="36" fill="currentColor" fontSize="15">
-            Fuel pellets → rods → assembly
+          <g fontSize="13" fill="#dce8eb">
+            <text x="423" y="182">
+              Pellets
+            </text>
+            <text x="31" y="83">
+              Cladding
+            </text>
+            <text x="421" y="254">
+              Spacer grid
+            </text>
+          </g>
+          <text x="24" y="303" fontSize="12" fill="#acc3ce">
+            Illustrative rod count · central rod opened for inspection
           </text>
         </>
       ) : (
         <>
           <path
-            d="M55 150H205"
-            stroke={teal}
-            strokeDasharray="5 7"
+            d="M48 159H214"
             fill="none"
+            stroke={focus("neutrons")}
+            strokeDasharray="3 7"
           />
-          <circle
-            cx={stage === 0 ? 95 : 245}
-            cy="150"
-            r="8"
-            fill={teal}
-            opacity={stage < 2 ? 1 : 0}
-          />
+          {stage < 2 && (
+            <circle
+              cx={stage === 0 ? 97 : 246}
+              cy="159"
+              r="8"
+              fill={`url(#${id}-neutron)`}
+              stroke={focus("neutrons")}
+            />
+          )}
           {stage < 3 ? (
-            <ellipse
-              cx="285"
-              cy="150"
-              rx={stage === 2 ? 66 : 44}
-              ry={stage === 2 ? 26 : 44}
-              fill={violet}
+            <NucleonCluster
+              id={id}
+              x={283}
+              y={159}
+              stretch={stage === 2 ? 1.45 : 1}
+              count={stage >= 2 ? 32 : 31}
             />
           ) : (
             <>
-              <circle cx="220" cy="125" r="32" fill={violet} />
-              <circle cx="355" cy="175" r="27" fill={amber} />
-              {[70, 140, 220].map((y, i) => (
-                <circle key={y} cx={410 + i * 20} cy={y} r="7" fill={teal} />
+              <path
+                d="M284 159L198 112M284 159L363 206M284 159L447 86M284 159L465 162M284 159L431 253"
+                fill="none"
+                stroke="#8aaebc"
+                strokeDasharray="3 7"
+                opacity=".6"
+              />
+              <NucleonCluster id={id} x={212} y={117} radius={32} count={17} />
+              <NucleonCluster id={id} x={354} y={199} radius={27} count={12} />
+              {[
+                [447, 86],
+                [465, 162],
+                [431, 253],
+              ].map(([x, y]) => (
+                <circle
+                  key={y}
+                  cx={x}
+                  cy={y}
+                  r="7"
+                  fill={`url(#${id}-neutron)`}
+                  stroke={focus("neutrons")}
+                />
               ))}
             </>
           )}
-          <text x="45" y="255" fill="currentColor" fontSize="15">
-            {stage === 3
-              ? "Fragments + released neutrons"
+          <text x="24" y="284" fontSize="15" fill={focus("nucleus")}>
+            {stage >= 3
+              ? "Fragments and released neutrons"
               : stage === 0
-                ? "Incoming neutron → uranium nucleus"
-                : "Excited nucleus (conceptual shape)"}
+                ? "A neutron approaches the nucleus"
+                : stage === 1
+                  ? "The nucleus absorbs the neutron"
+                  : "The excited nucleus deforms"}
+          </text>
+          <text x="24" y="305" fontSize="12" fill="#acc3ce">
+            Illustrative nucleons · fragment sizes and neutron yields vary
           </text>
         </>
       )}

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import type React from "react";
 import type { ReactorSystem } from "@/lib/reactor/schemas";
 import { useMotionPreferences } from "@/lib/accessibility/motion";
@@ -27,6 +27,7 @@ export function ReactorSchematic({
   setHoveredPartId: (id: string | null) => void;
   playing: boolean;
 }) {
+  const svgId = useId();
   const [element, setElement] = useState<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(true);
   const { shouldAnimate } = useMotionPreferences();
@@ -77,39 +78,82 @@ export function ReactorSchematic({
   const renderDefs = () => (
     <defs>
       {/* Primary Coolant Gradient */}
-      <linearGradient id="pwrHotGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#ef4444" />
-        <stop offset="100%" stopColor="#dc2626" />
+      <linearGradient
+        id={`${svgId}-pwrHotGrad`}
+        x1="0%"
+        y1="0%"
+        x2="100%"
+        y2="0%"
+      >
+        <stop offset="0%" stopColor="#e9ba85" />
+        <stop offset="100%" stopColor="#bb8158" />
       </linearGradient>
-      <linearGradient id="pwrColdGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#f87171" />
-        <stop offset="100%" stopColor="#ef4444" />
+      <linearGradient
+        id={`${svgId}-pwrColdGrad`}
+        x1="0%"
+        y1="0%"
+        x2="100%"
+        y2="0%"
+      >
+        <stop offset="0%" stopColor="#d9baa1" />
+        <stop offset="100%" stopColor="#ba9577" />
       </linearGradient>
 
       {/* Secondary Steam / Water Gradient */}
-      <linearGradient id="secSteamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#38bdf8" />
-        <stop offset="100%" stopColor="#0284c7" />
+      <linearGradient
+        id={`${svgId}-secSteamGrad`}
+        x1="0%"
+        y1="0%"
+        x2="100%"
+        y2="0%"
+      >
+        <stop offset="0%" stopColor="#a1d3e1" />
+        <stop offset="100%" stopColor="#649db6" />
       </linearGradient>
-      <linearGradient id="secCondensateGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <linearGradient
+        id={`${svgId}-secCondensateGrad`}
+        x1="0%"
+        y1="0%"
+        x2="100%"
+        y2="0%"
+      >
         <stop offset="0%" stopColor="#60a5fa" />
         <stop offset="100%" stopColor="#2563eb" />
       </linearGradient>
 
       {/* Tertiary Cooling Water Gradient */}
-      <linearGradient id="tertiaryCoolGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#34d399" />
-        <stop offset="100%" stopColor="#059669" />
+      <linearGradient
+        id={`${svgId}-tertiaryCoolGrad`}
+        x1="0%"
+        y1="0%"
+        x2="100%"
+        y2="0%"
+      >
+        <stop offset="0%" stopColor="#a4cebb" />
+        <stop offset="100%" stopColor="#6a9e8b" />
       </linearGradient>
 
       {/* Vessel Metal Gradients */}
-      <linearGradient id="vesselSteelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#f8fafc" />
-        <stop offset="50%" stopColor="#e2e8f0" />
-        <stop offset="100%" stopColor="#cbd5e1" />
+      <linearGradient id={`${svgId}-fuelMetalGrad`}>
+        <stop stopColor="#957953" />
+        <stop offset=".4" stopColor="#ead2a4" />
+        <stop offset="1" stopColor="#a38961" />
       </linearGradient>
       <linearGradient
-        id="vesselDarkSteelGrad"
+        id={`${svgId}-vesselSteelGrad`}
+        x1="0%"
+        y1="0%"
+        x2="100%"
+        y2="0%"
+      >
+        <stop offset="0%" stopColor="#8294a1" />
+        <stop offset="18%" stopColor="#c1cdd2" />
+        <stop offset="38%" stopColor="#edf0ed" />
+        <stop offset="65%" stopColor="#b4c3ca" />
+        <stop offset="100%" stopColor="#78909c" />
+      </linearGradient>
+      <linearGradient
+        id={`${svgId}-vesselDarkSteelGrad`}
         x1="0%"
         y1="0%"
         x2="100%"
@@ -120,7 +164,12 @@ export function ReactorSchematic({
       </linearGradient>
 
       {/* Fission Thermal Core Radial Glow */}
-      <radialGradient id="fissionThermalGlow" cx="50%" cy="50%" r="50%">
+      <radialGradient
+        id={`${svgId}-fissionThermalGlow`}
+        cx="50%"
+        cy="50%"
+        r="50%"
+      >
         <stop offset="0%" stopColor="#fef08a" stopOpacity="0.95" />
         <stop offset="45%" stopColor="#f59e0b" stopOpacity="0.8" />
         <stop offset="85%" stopColor="#ea580c" stopOpacity="0.4" />
@@ -128,21 +177,27 @@ export function ReactorSchematic({
       </radialGradient>
 
       {/* Cherenkov Blue Radiation Radial Glow */}
-      <radialGradient id="cherenkovGlow" cx="50%" cy="50%" r="50%">
+      <radialGradient id={`${svgId}-cherenkovGlow`} cx="50%" cy="50%" r="50%">
         <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.8" />
         <stop offset="60%" stopColor="#0284c7" stopOpacity="0.4" />
         <stop offset="100%" stopColor="#0369a1" stopOpacity="0" />
       </radialGradient>
 
       {/* Heavy Water (D2O) Moderator Tint */}
-      <linearGradient id="heavyWaterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <linearGradient
+        id={`${svgId}-heavyWaterGrad`}
+        x1="0%"
+        y1="0%"
+        x2="0%"
+        y2="100%"
+      >
         <stop offset="0%" stopColor="#cffafe" stopOpacity="0.7" />
         <stop offset="100%" stopColor="#a5f3fc" stopOpacity="0.85" />
       </linearGradient>
 
       {/* Directional Flow Arrow Markers */}
       <marker
-        id="arrowPrimary"
+        id={`${svgId}-arrowPrimary`}
         viewBox="0 0 10 10"
         refX="6"
         refY="5"
@@ -150,10 +205,10 @@ export function ReactorSchematic({
         markerHeight="6"
         orient="auto-start-reverse"
       >
-        <path d="M 0 1 L 8 5 L 0 9 z" fill="#ef4444" />
+        <path d="M 0 1 L 8 5 L 0 9 z" fill="#d9ac7d" />
       </marker>
       <marker
-        id="arrowSecondary"
+        id={`${svgId}-arrowSecondary`}
         viewBox="0 0 10 10"
         refX="6"
         refY="5"
@@ -161,10 +216,10 @@ export function ReactorSchematic({
         markerHeight="6"
         orient="auto-start-reverse"
       >
-        <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284c7" />
+        <path d="M 0 1 L 8 5 L 0 9 z" fill="#8cbcd0" />
       </marker>
       <marker
-        id="arrowTertiary"
+        id={`${svgId}-arrowTertiary`}
         viewBox="0 0 10 10"
         refX="6"
         refY="5"
@@ -172,11 +227,17 @@ export function ReactorSchematic({
         markerHeight="6"
         orient="auto-start-reverse"
       >
-        <path d="M 0 1 L 8 5 L 0 9 z" fill="#10b981" />
+        <path d="M 0 1 L 8 5 L 0 9 z" fill="#8ebfa7" />
       </marker>
 
       {/* Drop Shadows */}
-      <filter id="partDropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <filter
+        id={`${svgId}-partDropShadow`}
+        x="-10%"
+        y="-10%"
+        width="120%"
+        height="120%"
+      >
         <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.15" />
       </filter>
     </defs>
@@ -219,6 +280,7 @@ export function ReactorSchematic({
   };
 
   const parts = {
+    svgId,
     system,
     powerLevel,
     renderDefs,

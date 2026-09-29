@@ -1,139 +1,253 @@
 import { useId } from "react";
-/** Conceptual PWR energy pathway; no plant geometry or performance calculation. */
-export function EnergyConversionDiagram({ stage }: { stage: number }) {
-  const marker = useId();
-  const text = "var(--atom-text-primary)",
-    muted = "var(--atom-text-secondary)";
-  const active = (step: number) =>
-    stage >= step ? "var(--atom-accent)" : "var(--atom-border-strong)";
+import {
+  PressureVessel,
+  SteamGenerator,
+  TurbineCutaway,
+  GeneratorCutaway,
+  CoolantPump,
+  CondenserCutaway,
+} from "@/components/education/schematic/MechanicalParts";
+import styles from "./SchematicPlate.module.css";
+
+/** Conceptual PWR process plate. Stage changes emphasis, never circuit topology. */
+export function EnergyConversionDiagram({
+  stage,
+  playing = false,
+}: {
+  stage: number;
+  playing?: boolean;
+}) {
+  const id = useId();
+  const hot = "#e4ac70",
+    steam = "#88c5dc",
+    cooling = "#86bca8";
+  const pipe = (d: string, color: string, active: boolean) => (
+    <g opacity={active ? 1 : 0.45}>
+      <path
+        d={d}
+        fill="none"
+        stroke="#344953"
+        strokeWidth="10"
+        strokeLinejoin="round"
+      />
+      <path
+        d={d}
+        fill="none"
+        stroke={color}
+        strokeWidth="5"
+        strokeLinejoin="round"
+      />
+      <path
+        d={d}
+        className={styles.flow}
+        fill="none"
+        stroke="#f4f0e6"
+        strokeWidth="1.8"
+        strokeDasharray="3 17"
+        strokeLinejoin="round"
+      />
+    </g>
+  );
   return (
-    <svg
-      viewBox="0 0 600 400"
-      role="img"
-      aria-label={`Energy conversion schematic, stage ${stage + 1}: reactor heat, steam, turbine motion, generator electricity`}
-      style={{
-        width: "100%",
-        display: "block",
-        background: "var(--atom-surface-elevated)",
-      }}
-    >
-      <defs>
-        <marker
-          id={marker}
-          viewBox="0 0 10 10"
-          refX="8"
-          refY="5"
-          markerWidth="6"
-          markerHeight="6"
-          orient="auto-start-reverse"
+    <figure className={styles.plate} data-playing={playing}>
+      <div className={styles.heading}>
+        <span>PWR · inside the energy cycle</span>
+        <span>Cutaway study</span>
+      </div>
+      <svg
+        viewBox="0 0 760 455"
+        role="img"
+        aria-label={`Energy conversion schematic, stage ${stage + 1}: reactor heat, steam, turbine motion, generator electricity`}
+      >
+        <desc>
+          Primary coolant carries reactor heat through steam-generator tubes.
+          Separate secondary water becomes steam, drives the turbine, condenses
+          and returns. A third cooling circuit removes heat from the condenser.
+        </desc>
+        <defs>
+          <pattern
+            id={`${id}-grid`}
+            width="24"
+            height="24"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M24 0H0V24"
+              fill="none"
+              stroke="#aec6d4"
+              strokeWidth=".4"
+              opacity=".1"
+            />
+          </pattern>
+        </defs>
+        <g id={`${id}-equipment`}>
+          <rect width="760" height="455" fill={`url(#${id}-grid)`} />
+          <path
+            d="M25 357V151Q25 49 163 49T302 151V357Z"
+            fill="#526b7c"
+            fillOpacity=".08"
+            stroke="#849aa5"
+            strokeOpacity=".4"
+            strokeDasharray="5 5"
+          />
+          <text
+            x="163"
+            y="38"
+            className={styles.annotation}
+            textAnchor="middle"
+          >
+            CONTAINMENT · SECTION VIEW
+          </text>
+          <path d="M25 359H738" stroke="#596e7b" />
+          {pipe("M146 197H176V294H222", hot, true)}
+          {pipe("M288 294V340H195V262H146", hot, true)}
+          {pipe("M255 130V91H373V187", steam, stage >= 1)}
+          {pipe("M407 243V272", steam, stage >= 2)}
+          {pipe("M387 330V372H329V243H290", steam, stage >= 1)}
+          {pipe("M499 289H672V252", cooling, stage >= 2)}
+          {pipe("M692 325V347H499V312", cooling, stage >= 2)}
+          <g id={`${id}-vessel`} transform="translate(52 130)">
+            <PressureVessel />
+          </g>
+          <g id={`${id}-steam`} transform="translate(210 130)">
+            <SteamGenerator />
+          </g>
+          <g transform="translate(169 303) scale(.75)">
+            <CoolantPump />
+          </g>
+          <g transform="translate(310 345) scale(.65)">
+            <CoolantPump />
+          </g>
+          <g id={`${id}-turbine`} transform="translate(351 163) scale(.85)">
+            <TurbineCutaway selected={stage === 2} />
+          </g>
+          <path d="M486 211H521" stroke="#849fa9" strokeWidth="7" />
+          <g id={`${id}-generator`} transform="translate(510 171) scale(.85)">
+            <GeneratorCutaway selected={stage === 3} />
+          </g>
+          <g transform="translate(380 272)">
+            <CondenserCutaway />
+          </g>
+          <path
+            d="M604 211H618V158H723"
+            fill="none"
+            stroke={stage >= 3 ? "#ead6a1" : "#5c7482"}
+            strokeWidth="3"
+          />
+          <path
+            d="M665 180L692 83L719 180M674 148H710M678 128H705M683 108H700M666 100H718M673 86H710"
+            fill="none"
+            stroke="#95aab3"
+            strokeWidth="2"
+          />
+          <path
+            d="M642 272Q659 223 654 205H702Q698 233 718 325H634Z"
+            fill="#819b9d"
+            fillOpacity=".25"
+            stroke="#a2b8b7"
+            strokeWidth="2"
+          />
+          <ellipse
+            cx="678"
+            cy="205"
+            rx="24"
+            ry="5"
+            fill="#203540"
+            stroke="#9bb5b7"
+          />
+          <path
+            d="M648 325L647 337M662 325V337M681 325V337M702 325L707 337"
+            stroke="#91a8ab"
+            strokeWidth="3"
+          />
+          <path d="M638 339H716" stroke={cooling} strokeWidth="5" />
+          <g className={styles.labels} textAnchor="middle">
+            <text x="102" y="111">
+              Reactor vessel
+            </text>
+            <text x="255" y="113">
+              Steam generator
+            </text>
+            <text x="416" y="144">
+              Turbine stages
+            </text>
+            <text x="554" y="144">
+              Generator
+            </text>
+            <text x="439" y="350">
+              Condenser
+            </text>
+            <text x="688" y="65">
+              To the grid
+            </text>
+            <text x="676" y="365">
+              Cooling tower
+            </text>
+          </g>
+          <g className={styles.annotation}>
+            <text x="48" y="329">
+              Fuel inside steel vessel
+            </text>
+            <text x="200" y="396">
+              Pumps return water
+            </text>
+          </g>
+          <g transform={`translate(${[101, 255, 417, 552][stage] ?? 101} 422)`}>
+            <circle r="12" fill="#132d37" stroke="#80cbc6" />
+            <text y="5" textAnchor="middle" fill="#b8eeea" fontSize="14">
+              {stage + 1}
+            </text>
+          </g>
+        </g>
+      </svg>
+      <details className={styles.inspector}>
+        <summary>Inspect selected equipment</summary>
+        <svg
+          viewBox={
+            [
+              "-15 -10 130 195",
+              "-15 -10 120 195",
+              "-10 0 180 120",
+              "-10 0 120 105",
+            ][stage] ?? "-15 -10 130 195"
+          }
+          role="img"
+          aria-label={`Enlarged ${["reactor vessel", "steam generator", "turbine stages", "generator"][stage] ?? "reactor vessel"} cutaway`}
         >
-          <path d="M0 0L10 5L0 10Z" fill="context-stroke" />
-        </marker>
-      </defs>
-      <g fill="none" strokeWidth="4" markerEnd={`url(#${marker})`}>
-        <path d="M115 165H202" stroke="var(--atom-warning)" />
-        <path d="M240 165H335" stroke={active(1)} strokeDasharray="8 6" />
-        <path d="M385 200H430" stroke={active(2)} />
-        <path d="M490 200H560" stroke={active(3)} />
-      </g>
-      <rect
-        x="58"
-        y="125"
-        width="64"
-        height="132"
-        rx="28"
-        fill="var(--atom-energy-nuclear)"
-        opacity=".2"
-        stroke="var(--atom-energy-nuclear)"
-        strokeWidth="3"
-      />
-      {[75, 89, 103].map((x) => (
-        <rect
-          key={x}
-          x={x}
-          y="165"
-          width="8"
-          height="68"
-          rx="4"
-          fill="var(--atom-warning)"
-        />
-      ))}
-      <rect
-        x="200"
-        y="130"
-        width="48"
-        height="130"
-        rx="22"
-        fill="var(--atom-surface-panel)"
-        stroke={active(1)}
-        strokeWidth="3"
-      />
-      <path
-        d="M210 220Q238 220 238 205T210 190T238 175"
-        fill="none"
-        stroke="var(--atom-warning)"
-        strokeWidth="4"
-      />
-      <circle
-        cx="360"
-        cy="200"
-        r="31"
-        fill="var(--atom-surface-panel)"
-        stroke={active(2)}
-        strokeWidth="3"
-      />
-      {[0, 120, 240].map((angle) => (
-        <path
-          key={angle}
-          transform={`rotate(${angle + stage * 25} 360 200)`}
-          d="M360 200L354 174Q376 174 367 196Z"
-          fill={active(2)}
-        />
-      ))}
-      <rect
-        x="430"
-        y="174"
-        width="60"
-        height="52"
-        rx="12"
-        fill="var(--atom-surface-panel)"
-        stroke={active(3)}
-        strokeWidth="3"
-      />
-      <path
-        d="M466 182L452 201H467L453 218"
-        fill="none"
-        stroke={active(3)}
-        strokeWidth="3"
-      />
-      <g fontSize="16" fill={text} textAnchor="middle">
-        <text x="90" y="105">
-          Reactor heat
-        </text>
-        <text x="224" y="105">
-          Steam generator
-        </text>
-        <text x="360" y="260">
-          Turbine
-        </text>
-        <text x="460" y="260">
-          Generator
-        </text>
-        <text x="540" y="168">
-          Electricity
-        </text>
-      </g>
-      <g fill={muted} fontSize="14" textAnchor="middle">
-        <text x="300" y="320">
-          Heat → steam → motion → electricity
-        </text>
-        <text x="300" y="349">
-          Primary coolant and steam stay in separate circuits.
-        </text>
-        <text x="300" y="373">
-          Cooling, return flows and losses are omitted from this pathway.
-        </text>
-      </g>
-    </svg>
+          {stage === 0 ? (
+            <PressureVessel />
+          ) : stage === 1 ? (
+            <SteamGenerator />
+          ) : stage === 2 ? (
+            <TurbineCutaway selected />
+          ) : (
+            <GeneratorCutaway selected />
+          )}
+        </svg>
+      </details>
+      <figcaption className={styles.caption}>
+        <ul className={styles.legend} aria-label="Circuits">
+          <li>
+            <i style={{ background: hot }} />
+            Primary coolant
+          </li>
+          <li>
+            <i style={{ background: steam }} />
+            Steam &amp; feedwater
+          </li>
+          <li>
+            <i style={{ background: cooling }} />
+            Cooling water
+          </li>
+        </ul>
+        <p>
+          Separate circuits exchange heat through metal walls. Water returns
+          through pumps; the cooling circuit carries away unused heat.
+        </p>
+        <small>
+          Conceptual PWR cutaway · not to scale · supporting systems omitted
+        </small>
+      </figcaption>
+    </figure>
   );
 }

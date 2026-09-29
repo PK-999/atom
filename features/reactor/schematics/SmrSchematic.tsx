@@ -1,13 +1,17 @@
+import {
+  TurbineCutaway,
+  GeneratorCutaway,
+} from "@/components/education/schematic/MechanicalParts";
 import type { SchematicParts } from "./types";
 import styles from "../ReactorExplorer.module.css";
 export function SmrSchematic({
   system,
+  svgId,
   powerLevel,
   renderDefs,
   renderComponentButton,
   getLoopClass,
   getFlowSpeedClass,
-  getTurbineClass,
   getFissionGlowClass,
 }: SchematicParts) {
   const rodTranslateY = powerLevel === 100 ? 0 : powerLevel === 50 ? 20 : 45;
@@ -85,7 +89,7 @@ export function SmrSchematic({
               width="140"
               height="240"
               rx="20"
-              fill="url(#vesselSteelGrad)"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
               stroke="#475569"
               strokeWidth={isSelected ? 3.5 : 2}
             />
@@ -111,7 +115,7 @@ export function SmrSchematic({
               width="100"
               height="65"
               rx="6"
-              fill="url(#fissionThermalGlow)"
+              fill={`url(#${svgId}-fissionThermalGlow)`}
               stroke="#ea580c"
               strokeWidth={isSelected ? 3 : 1.5}
               className={getFissionGlowClass()}
@@ -189,7 +193,7 @@ export function SmrSchematic({
               height="65"
               rx="6"
               fill="rgba(56, 189, 248, 0.15)"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth={isSelected ? 3 : 1.5}
             />
             <path
@@ -214,42 +218,30 @@ export function SmrSchematic({
         {/* Modular Steam Turbine & Generator */}
         {renderComponentButton("smr-turbine", (isSelected) => (
           <g>
-            <path
-              d="M 500 150 L 590 120 L 590 220 L 500 190 Z"
-              fill="#334155"
-              stroke="#0284c7"
-              strokeWidth={isSelected ? 3 : 1.5}
-              className={getTurbineClass()}
-            />
-            <rect
-              x="610"
-              y="140"
-              width="60"
-              height="60"
-              rx="6"
-              fill="#1e293b"
-              stroke="#10b981"
-              strokeWidth="1.5"
-            />
+            <g transform="translate(500 117) scale(.61 .9)">
+              <TurbineCutaway selected={isSelected} />
+            </g>
+            <path d="M590 168H612" stroke="#9faeb5" strokeWidth="5" />
+            <g transform="translate(610 135) scale(.6 .75)">
+              <GeneratorCutaway selected={isSelected} />
+            </g>
             <text
               x="640"
-              y="175"
+              y="237"
               textAnchor="middle"
-              fontSize="9"
-              fontWeight="700"
-              fill="#34d399"
+              fontSize="11"
+              fill="var(--atom-text-primary)"
             >
               GEN
             </text>
             <text
               x="545"
-              y="173"
+              y="237"
               textAnchor="middle"
-              fontSize="10"
-              fontWeight="700"
-              fill="#ffffff"
+              fontSize="11"
+              fill="var(--atom-text-primary)"
             >
-              TURBINE
+              STEAM TURBINE
             </text>
           </g>
         ))}

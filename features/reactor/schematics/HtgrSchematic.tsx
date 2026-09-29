@@ -1,13 +1,14 @@
+import { TurbineCutaway } from "@/components/education/schematic/MechanicalParts";
 import type { SchematicParts } from "./types";
 import styles from "../ReactorExplorer.module.css";
 export function HtgrSchematic({
   system,
+  svgId,
   powerLevel,
   renderDefs,
   renderComponentButton,
   getLoopClass,
   getFlowSpeedClass,
-  getTurbineClass,
   getPumpClass,
   getFissionGlowClass,
 }: SchematicParts) {
@@ -32,7 +33,7 @@ export function HtgrSchematic({
               width="200"
               height="300"
               rx="24"
-              fill="url(#vesselDarkSteelGrad)"
+              fill={`url(#${svgId}-vesselDarkSteelGrad)`}
               stroke="#94a3b8"
               strokeWidth={isSelected ? 3.5 : 2}
             />
@@ -42,7 +43,7 @@ export function HtgrSchematic({
               textAnchor="middle"
               fontSize="11"
               fontWeight="700"
-              fill="#e2e8f0"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
             >
               HTGR PRESSURE VESSEL (7 MPa He)
             </text>
@@ -84,7 +85,7 @@ export function HtgrSchematic({
               width="110"
               height="150"
               rx="8"
-              fill="url(#fissionThermalGlow)"
+              fill={`url(#${svgId}-fissionThermalGlow)`}
               stroke="#ea580c"
               strokeWidth={isSelected ? 3 : 1.5}
               className={getFissionGlowClass()}
@@ -155,8 +156,8 @@ export function HtgrSchematic({
               width="130"
               height="260"
               rx="18"
-              fill="url(#vesselSteelGrad)"
-              stroke="#0284c7"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
+              stroke="#6daabe"
               strokeWidth={isSelected ? 3.5 : 2}
             />
             <text
@@ -200,22 +201,17 @@ export function HtgrSchematic({
         {/* High-Efficiency Steam Turbine */}
         {renderComponentButton("htgr-turbine", (isSelected) => (
           <g>
-            <path
-              d="M 580 150 L 670 120 L 670 220 L 580 190 Z"
-              fill="#334155"
-              stroke="#0284c7"
-              strokeWidth={isSelected ? 3 : 1.5}
-              className={getTurbineClass()}
-            />
+            <g transform="translate(580 117) scale(.61 .9)">
+              <TurbineCutaway selected={isSelected} />
+            </g>
             <text
               x="625"
-              y="173"
+              y="237"
               textAnchor="middle"
-              fontSize="10"
-              fontWeight="700"
-              fill="#ffffff"
+              fontSize="11"
+              fill="var(--atom-text-primary)"
             >
-              TURBINE (44% η)
+              STEAM TURBINE
             </text>
           </g>
         ))}

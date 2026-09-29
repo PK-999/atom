@@ -1,0 +1,102 @@
+.plate {
+  margin: 0;
+  background: #14212c;
+  color: #dce8eb;
+}
+.plate svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px 18px 8px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #adc3ce;
+}
+.labels {
+  fill: #e3edef;
+  font-size: 15px;
+  font-weight: 500;
+}
+.annotation {
+  fill: #adbec7;
+  font-size: 12px;
+}
+.caption {
+  padding: 12px 18px 16px;
+  border-top: 1px solid #354651;
+}
+.caption p {
+  color: #c3d0d7;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  margin: 10px 0 6px;
+}
+.caption small {
+  color: #a8bcc6;
+  font-size: 0.7rem;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.73rem;
+  color: #dfebed;
+}
+.legend li {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.legend i {
+  display: inline-block;
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+}
+.flow {
+  animation: travel 2.4s linear infinite;
+  animation-play-state: paused;
+}
+.inspector {
+  border-top: 1px solid #354651;
+  padding: 0 18px;
+}
+.inspector summary {
+  cursor: pointer;
+  padding: 14px 0;
+  min-height: 44px;
+  font-size: 0.8rem;
+  color: #dce8eb;
+}
+.inspector summary:focus-visible {
+  outline: 2px solid #99ddd8;
+  outline-offset: 2px;
+}
+.inspector svg {
+  height: 230px;
+  margin: 12px 0 20px;
+}
+.plate[data-playing="true"] .flow {
+  animation-play-state: running;
+}
+@keyframes travel {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow {
+    animation: none;
+  }
+}

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { ReactorSystem } from "@/lib/reactor/schemas";
 export interface SchematicParts {
+  svgId: string;
   system: ReactorSystem;
   powerLevel: 100 | 50 | 0;
   renderDefs: () => ReactNode;

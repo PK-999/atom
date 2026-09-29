@@ -36,10 +36,8 @@ export function EnergyJourney() {
   const [stage, setStage] = useState(0),
     [started, setStarted] = useState(false);
   const step = useCallback(() => setStage((s) => Math.min(3, s + 1)), []);
-  const { target, playing, setPlaying, prefersReducedMotion } = usePlayback(
-    step,
-    stage === 3,
-  );
+  const { target, playing, setPlaying, prefersReducedMotion, suspended } =
+    usePlayback(step, stage === 3);
   return (
     <div
       className={styles.journey}
@@ -52,7 +50,10 @@ export function EnergyJourney() {
       </div>
       <div className={styles.poster}>
         {started ? (
-          <EnergyConversionDiagram stage={stage} />
+          <EnergyConversionDiagram
+            stage={stage}
+            playing={playing && !suspended && stage < 3}
+          />
         ) : (
           <Image
             src="/images/exhibits/conversion-museum-v1.webp"

@@ -1,13 +1,18 @@
+import {
+  TurbineCutaway,
+  GeneratorCutaway,
+  CondenserCutaway,
+} from "@/components/education/schematic/MechanicalParts";
 import type { SchematicParts } from "./types";
 import styles from "../ReactorExplorer.module.css";
 export function BwrSchematic({
   system,
+  svgId,
   powerLevel,
   renderDefs,
   renderComponentButton,
   getLoopClass,
   getFlowSpeedClass,
-  getTurbineClass,
   getFissionGlowClass,
 }: SchematicParts) {
   // Bottom-entry rods translate upward in SCRAM
@@ -51,7 +56,7 @@ export function BwrSchematic({
           rx="110"
           ry="15"
           fill="#bae6fd"
-          stroke="#0284c7"
+          stroke="#6daabe"
           strokeWidth="2"
         />
         <text
@@ -72,7 +77,7 @@ export function BwrSchematic({
           width="210"
           height="290"
           rx="8"
-          fill="rgba(241, 245, 249, 0.4)"
+          fill="rgba(148, 163, 184, 0.08)"
           stroke="#cbd5e1"
           strokeWidth="1.5"
           strokeDasharray="6 4"
@@ -107,15 +112,15 @@ export function BwrSchematic({
           <path
             d="M 190 95 V 75 H 410 V 135"
             className={styles.pipeBase}
-            stroke="#0369a1"
+            stroke="#446675"
             strokeWidth="12"
           />
           <path
             d="M 190 95 V 75 H 410 V 135"
             className={`${styles.pipeFluid} ${getFlowSpeedClass()}`}
-            stroke="url(#secSteamGrad)"
+            stroke={`url(#${svgId}-secSteamGrad)`}
             strokeWidth="8"
-            markerEnd="url(#arrowSecondary)"
+            markerEnd={`url(#${svgId}-arrowSecondary)`}
           />
 
           {/* Feedwater Return Line (Condenser to RPV) */}
@@ -128,9 +133,9 @@ export function BwrSchematic({
           <path
             d="M 420 300 H 260 V 225 H 235"
             className={`${styles.pipeFluid} ${getFlowSpeedClass()}`}
-            stroke="url(#secCondensateGrad)"
+            stroke={`url(#${svgId}-secCondensateGrad)`}
             strokeWidth="6"
-            markerEnd="url(#arrowSecondary)"
+            markerEnd={`url(#${svgId}-arrowSecondary)`}
           />
         </g>
 
@@ -139,28 +144,28 @@ export function BwrSchematic({
           <path
             d="M 515 270 H 640"
             className={styles.pipeBase}
-            stroke="#047857"
+            stroke="#426c60"
             strokeWidth="8"
           />
           <path
             d="M 515 270 H 640"
             className={`${styles.pipeFluid} ${getFlowSpeedClass()}`}
-            stroke="url(#tertiaryCoolGrad)"
+            stroke={`url(#${svgId}-tertiaryCoolGrad)`}
             strokeWidth="5"
-            markerEnd="url(#arrowTertiary)"
+            markerEnd={`url(#${svgId}-arrowTertiary)`}
           />
           <path
             d="M 640 305 H 515"
             className={styles.pipeBase}
-            stroke="#047857"
+            stroke="#426c60"
             strokeWidth="8"
           />
           <path
             d="M 640 305 H 515"
             className={`${styles.pipeFluid} ${getFlowSpeedClass()}`}
-            stroke="url(#tertiaryCoolGrad)"
+            stroke={`url(#${svgId}-tertiaryCoolGrad)`}
             strokeWidth="5"
-            markerEnd="url(#arrowTertiary)"
+            markerEnd={`url(#${svgId}-arrowTertiary)`}
           />
         </g>
 
@@ -169,11 +174,11 @@ export function BwrSchematic({
         {/* ---------------------------------------------------------------- */}
         {/* BWR Reactor Pressure Vessel (RPV) */}
         {renderComponentButton("bwr-vessel", (isSelected) => (
-          <g filter="url(#partDropShadow)">
+          <g filter={`url(#${svgId}-partDropShadow)`}>
             {/* Tall cylindrical pressure vessel with domed heads */}
             <path
               d="M 135 125 C 135 95, 245 95, 245 125 V 295 C 245 325, 135 325, 135 295 Z"
-              fill="url(#vesselSteelGrad)"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
               stroke={isSelected ? "#2563eb" : "#475569"}
               strokeWidth={isSelected ? 3 : 2}
             />
@@ -186,7 +191,7 @@ export function BwrSchematic({
               height="22"
               rx="2"
               fill="#bae6fd"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="1.5"
             />
             <line
@@ -194,7 +199,7 @@ export function BwrSchematic({
               y1="125"
               x2="168"
               y2="135"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="2"
             />
             <line
@@ -202,7 +207,7 @@ export function BwrSchematic({
               y1="125"
               x2="182"
               y2="135"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="2"
             />
             <line
@@ -210,7 +215,7 @@ export function BwrSchematic({
               y1="125"
               x2="196"
               y2="135"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="2"
             />
             <line
@@ -218,7 +223,7 @@ export function BwrSchematic({
               y1="125"
               x2="210"
               y2="135"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="2"
             />
             <text
@@ -239,7 +244,7 @@ export function BwrSchematic({
               width="80"
               height="25"
               rx="3"
-              fill="#e2e8f0"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
               stroke="#64748b"
               strokeWidth="1.5"
             />
@@ -248,7 +253,7 @@ export function BwrSchematic({
               y1="152"
               x2="160"
               y2="170"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="2"
             />
             <line
@@ -256,7 +261,7 @@ export function BwrSchematic({
               y1="152"
               x2="175"
               y2="170"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="2"
             />
             <line
@@ -264,7 +269,7 @@ export function BwrSchematic({
               y1="152"
               x2="190"
               y2="170"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="2"
             />
             <line
@@ -272,7 +277,7 @@ export function BwrSchematic({
               y1="152"
               x2="205"
               y2="170"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="2"
             />
             <line
@@ -280,7 +285,7 @@ export function BwrSchematic({
               y1="152"
               x2="220"
               y2="170"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="2"
             />
 
@@ -317,7 +322,7 @@ export function BwrSchematic({
               cy="235"
               rx="38"
               ry="45"
-              fill="url(#fissionThermalGlow)"
+              fill={`url(#${svgId}-fissionThermalGlow)`}
               className={getFissionGlowClass()}
             />
 
@@ -328,7 +333,7 @@ export function BwrSchematic({
               width="70"
               height="80"
               rx="4"
-              fill="#fef08a"
+              fill={`url(#${svgId}-fuelMetalGrad)`}
               stroke={isSelected ? "#2563eb" : "#ca8a04"}
               strokeWidth={isSelected ? 2.5 : 1.5}
             />
@@ -415,7 +420,7 @@ export function BwrSchematic({
               width="50"
               height="30"
               rx="3"
-              fill="#e2e8f0"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
               stroke={isSelected ? "#2563eb" : "#334155"}
               strokeWidth={isSelected ? 2.5 : 1.5}
             />
@@ -425,7 +430,7 @@ export function BwrSchematic({
               y1="330"
               x2="175"
               y2="350"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="3"
             />
             <line
@@ -433,7 +438,7 @@ export function BwrSchematic({
               y1="330"
               x2="190"
               y2="350"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="3"
             />
             <line
@@ -441,7 +446,7 @@ export function BwrSchematic({
               y1="330"
               x2="205"
               y2="350"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="3"
             />
 
@@ -488,126 +493,35 @@ export function BwrSchematic({
 
         {/* Direct Steam Turbine & Synchronous Generator */}
         {renderComponentButton("bwr-turbine", (isSelected) => (
-          <g filter="url(#partDropShadow)">
-            {/* Multi-stage direct steam turbine casing */}
-            <polygon
-              points="400,135 450,120 450,180 400,165"
-              fill="#e0e7ff"
-              stroke={isSelected ? "#2563eb" : "#4f46e5"}
-              strokeWidth={isSelected ? 3 : 2}
-            />
-
-            {/* Spinning multi-blade turbine rotor */}
-            <g
-              className={`${styles.turbineRotor} ${getTurbineClass()}`}
-              style={{ transformOrigin: "425px 150px" }}
-            >
-              <circle
-                cx="425"
-                cy="150"
-                r="16"
-                fill="rgba(99, 102, 241, 0.15)"
-              />
-              <line
-                x1="425"
-                y1="134"
-                x2="425"
-                y2="166"
-                stroke="#4f46e5"
-                strokeWidth="2.5"
-              />
-              <line
-                x1="409"
-                y1="150"
-                x2="441"
-                y2="150"
-                stroke="#4f46e5"
-                strokeWidth="2.5"
-              />
-              <line
-                x1="413"
-                y1="138"
-                x2="437"
-                y2="162"
-                stroke="#4f46e5"
-                strokeWidth="2"
-              />
-              <line
-                x1="413"
-                y1="162"
-                x2="437"
-                y2="138"
-                stroke="#4f46e5"
-                strokeWidth="2"
-              />
-              <circle cx="425" cy="150" r="4" fill="#312e81" />
+          <g>
+            <g transform="translate(400 118) scale(.34 .56)">
+              <TurbineCutaway selected={isSelected} />
             </g>
-
-            {/* Coupling shaft */}
-            <rect x="450" y="146" width="12" height="8" fill="#475569" />
-
-            {/* Synchronous Generator */}
-            <rect
-              x="462"
-              y="125"
-              width="55"
-              height="50"
-              rx="5"
-              fill="#f1f5f9"
-              stroke={isSelected ? "#2563eb" : "#4338ca"}
-              strokeWidth={isSelected ? 3 : 2}
-            />
-            <line
-              x1="470"
-              y1="135"
-              x2="510"
-              y2="135"
-              stroke="#6366f1"
-              strokeWidth="2"
-            />
-            <line
-              x1="470"
-              y1="165"
-              x2="510"
-              y2="165"
-              stroke="#6366f1"
-              strokeWidth="2"
-            />
-
-            {/* Electrical Power Grid Lines & Animated Sparks */}
+            <path d="M449 150H463" stroke="#9faeb5" strokeWidth="5" />
+            <g transform="translate(462 124) scale(.55 .56)">
+              <GeneratorCutaway selected={isSelected} />
+            </g>
             <path
-              d="M 517 145 H 550 V 130"
+              d="M517 150H550V130"
               fill="none"
-              stroke="#6366f1"
-              strokeWidth="3"
+              stroke="#bba479"
+              strokeWidth="2"
             />
-            {powerLevel > 0 && (
-              <path
-                d="M 520 145 L 530 141 L 540 149 L 550 130"
-                fill="none"
-                stroke="#fbbf24"
-                strokeWidth="2.5"
-                className={styles.generatorSpark}
-              />
-            )}
-
             <text
               x="425"
-              y="195"
+              y="196"
               textAnchor="middle"
               fontSize="8.5"
-              fontWeight="700"
-              fill="#3730a3"
+              fill="var(--atom-text-primary)"
             >
-              DIRECT TURBINE
+              STEAM TURBINE
             </text>
             <text
               x="490"
-              y="154"
+              y="189"
               textAnchor="middle"
               fontSize="8.5"
-              fontWeight="800"
-              fill="#4338ca"
+              fill="var(--atom-text-primary)"
             >
               GEN
             </text>
@@ -616,7 +530,7 @@ export function BwrSchematic({
 
         {/* Main Condenser & Feedwater Pumps */}
         {renderComponentButton("bwr-condenser", (isSelected) => (
-          <g filter="url(#partDropShadow)">
+          <g filter={`url(#${svgId}-partDropShadow)`}>
             {/* Turbine exhaust steam hood */}
             <polygon
               points="420,180 445,180 470,240 400,240"
@@ -626,62 +540,15 @@ export function BwrSchematic({
               strokeDasharray="3 3"
             />
 
-            {/* Deep vacuum condenser shell */}
-            <rect
-              x="405"
-              y="240"
-              width="105"
-              height="65"
-              rx="6"
-              fill="#ccfbf1"
-              stroke={isSelected ? "#2563eb" : "#0d9488"}
-              strokeWidth={isSelected ? 3 : 2}
-            />
-
-            {/* Internal cooling tubes */}
-            <line
-              x1="415"
-              y1="255"
-              x2="500"
-              y2="255"
-              stroke="#0d9488"
-              strokeWidth="2.5"
-            />
-            <line
-              x1="415"
-              y1="267"
-              x2="500"
-              y2="267"
-              stroke="#0d9488"
-              strokeWidth="2.5"
-            />
-            <line
-              x1="415"
-              y1="279"
-              x2="500"
-              y2="279"
-              stroke="#0d9488"
-              strokeWidth="2.5"
-            />
-
-            {/* Hotwell condensate */}
-            <rect
-              x="407"
-              y="290"
-              width="101"
-              height="13"
-              rx="2"
-              fill="#38bdf8"
-              opacity="0.8"
-            />
-
+            <g transform="translate(405 240) scale(.875 1.12)">
+              <CondenserCutaway selected={isSelected} />
+            </g>
             <text
               x="457"
-              y="250"
+              y="320"
               textAnchor="middle"
-              fontSize="8.5"
-              fontWeight="800"
-              fill="#0f766e"
+              fontSize="9"
+              fill="var(--atom-text-primary)"
             >
               CONDENSER & FEEDWATER
             </text>
@@ -689,7 +556,7 @@ export function BwrSchematic({
         ))}
 
         {/* Cooling Tower / Heat Sink */}
-        <g filter="url(#partDropShadow)">
+        <g filter={`url(#${svgId}-partDropShadow)`}>
           {powerLevel > 0 && (
             <ellipse
               cx="675"
@@ -702,8 +569,8 @@ export function BwrSchematic({
           )}
           <path
             d="M 638 350 C 658 240, 660 180, 652 125 H 703 C 695 180, 697 240, 717 350 Z"
-            fill="#f1f5f9"
-            stroke="#059669"
+            fill={`url(#${svgId}-vesselSteelGrad)`}
+            stroke="#679d88"
             strokeWidth="2"
           />
           <text

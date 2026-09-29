@@ -1,13 +1,18 @@
+import {
+  TurbineCutaway,
+  GeneratorCutaway,
+  CondenserCutaway,
+} from "@/components/education/schematic/MechanicalParts";
 import type { SchematicParts } from "./types";
 import styles from "../ReactorExplorer.module.css";
 export function PwrSchematic({
   system,
+  svgId,
   powerLevel,
   renderDefs,
   renderComponentButton,
   getLoopClass,
   getFlowSpeedClass,
-  getTurbineClass,
   getPumpClass,
   getFissionGlowClass,
 }: SchematicParts) {
@@ -64,7 +69,7 @@ export function PwrSchematic({
               width="16"
               height="30"
               rx="3"
-              fill="#cbd5e1"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
               stroke="#475569"
               strokeWidth="1.5"
             />
@@ -78,7 +83,7 @@ export function PwrSchematic({
           width="200"
           height="290"
           rx="8"
-          fill="rgba(241, 245, 249, 0.4)"
+          fill="rgba(148, 163, 184, 0.08)"
           stroke="#cbd5e1"
           strokeWidth="1.5"
           strokeDasharray="6 4"
@@ -114,16 +119,16 @@ export function PwrSchematic({
           <path
             d="M 180 190 H 230 V 215 H 275"
             className={styles.pipeBase}
-            stroke="#b91c1c"
+            stroke="#775345"
             strokeWidth="12"
           />
           {/* Inner animated hot water */}
           <path
             d="M 180 190 H 230 V 215 H 275"
             className={`${styles.pipeFluid} ${getFlowSpeedClass()}`}
-            stroke="url(#pwrHotGrad)"
+            stroke={`url(#${svgId}-pwrHotGrad)`}
             strokeWidth="8"
-            markerEnd="url(#arrowPrimary)"
+            markerEnd={`url(#${svgId}-arrowPrimary)`}
           />
         </g>
 
@@ -133,29 +138,29 @@ export function PwrSchematic({
           <path
             d="M 275 285 H 245"
             className={styles.pipeBase}
-            stroke="#b91c1c"
+            stroke="#775345"
             strokeWidth="12"
           />
           <path
             d="M 275 285 H 245"
             className={`${styles.pipeFluid} ${getFlowSpeedClass()}`}
-            stroke="url(#pwrColdGrad)"
+            stroke={`url(#${svgId}-pwrColdGrad)`}
             strokeWidth="8"
-            markerEnd="url(#arrowPrimary)"
+            markerEnd={`url(#${svgId}-arrowPrimary)`}
           />
           {/* RCP to RPV */}
           <path
             d="M 215 285 H 180"
             className={styles.pipeBase}
-            stroke="#b91c1c"
+            stroke="#775345"
             strokeWidth="12"
           />
           <path
             d="M 215 285 H 180"
             className={`${styles.pipeFluid} ${getFlowSpeedClass()}`}
-            stroke="url(#pwrColdGrad)"
+            stroke={`url(#${svgId}-pwrColdGrad)`}
             strokeWidth="8"
-            markerEnd="url(#arrowPrimary)"
+            markerEnd={`url(#${svgId}-arrowPrimary)`}
           />
         </g>
 
@@ -163,7 +168,7 @@ export function PwrSchematic({
         <path
           d="M 225 185 V 215"
           className={styles.pipeBase}
-          stroke="#dc2626"
+          stroke="#b9815b"
           strokeWidth="6"
         />
 
@@ -172,15 +177,15 @@ export function PwrSchematic({
           <path
             d="M 315 110 V 85 H 450 V 135"
             className={styles.pipeBase}
-            stroke="#0369a1"
+            stroke="#446675"
             strokeWidth="10"
           />
           <path
             d="M 315 110 V 85 H 450 V 135"
             className={`${styles.pipeFluid} ${getFlowSpeedClass()}`}
-            stroke="url(#secSteamGrad)"
+            stroke={`url(#${svgId}-secSteamGrad)`}
             strokeWidth="6"
-            markerEnd="url(#arrowSecondary)"
+            markerEnd={`url(#${svgId}-arrowSecondary)`}
           />
         </g>
 
@@ -195,9 +200,9 @@ export function PwrSchematic({
           <path
             d="M 450 295 H 380 V 240 H 355"
             className={`${styles.pipeFluid} ${getFlowSpeedClass()}`}
-            stroke="url(#secCondensateGrad)"
+            stroke={`url(#${svgId}-secCondensateGrad)`}
             strokeWidth="5"
-            markerEnd="url(#arrowSecondary)"
+            markerEnd={`url(#${svgId}-arrowSecondary)`}
           />
         </g>
 
@@ -207,29 +212,29 @@ export function PwrSchematic({
           <path
             d="M 545 260 H 645"
             className={styles.pipeBase}
-            stroke="#047857"
+            stroke="#426c60"
             strokeWidth="8"
           />
           <path
             d="M 545 260 H 645"
             className={`${styles.pipeFluid} ${getFlowSpeedClass()}`}
-            stroke="url(#tertiaryCoolGrad)"
+            stroke={`url(#${svgId}-tertiaryCoolGrad)`}
             strokeWidth="5"
-            markerEnd="url(#arrowTertiary)"
+            markerEnd={`url(#${svgId}-arrowTertiary)`}
           />
           {/* Cooled water return from tower basin */}
           <path
             d="M 645 295 H 545"
             className={styles.pipeBase}
-            stroke="#047857"
+            stroke="#426c60"
             strokeWidth="8"
           />
           <path
             d="M 645 295 H 545"
             className={`${styles.pipeFluid} ${getFlowSpeedClass()}`}
-            stroke="url(#tertiaryCoolGrad)"
+            stroke={`url(#${svgId}-tertiaryCoolGrad)`}
             strokeWidth="5"
-            markerEnd="url(#arrowTertiary)"
+            markerEnd={`url(#${svgId}-arrowTertiary)`}
           />
         </g>
 
@@ -238,18 +243,18 @@ export function PwrSchematic({
         {/* ---------------------------------------------------------------- */}
         {/* Reactor Pressure Vessel (RPV) */}
         {renderComponentButton("pwr-vessel", (isSelected) => (
-          <g filter="url(#partDropShadow)">
+          <g filter={`url(#${svgId}-partDropShadow)`}>
             {/* Outer thick carbon-steel vessel body with rounded bottom */}
             <path
               d="M 95 145 H 185 V 285 C 185 315, 95 315, 95 285 Z"
-              fill="url(#vesselSteelGrad)"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
               stroke={isSelected ? "#2563eb" : "#475569"}
               strokeWidth={isSelected ? 3 : 2}
             />
             {/* Domed upper vessel head with flange */}
             <path
               d="M 90 145 C 90 125, 190 125, 190 145 Z"
-              fill="#cbd5e1"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
               stroke="#334155"
               strokeWidth="2"
             />
@@ -300,7 +305,7 @@ export function PwrSchematic({
               cy="235"
               rx="34"
               ry="44"
-              fill="url(#fissionThermalGlow)"
+              fill={`url(#${svgId}-fissionThermalGlow)`}
               className={getFissionGlowClass()}
             />
             {/* Fuel assembly boundary box */}
@@ -310,7 +315,7 @@ export function PwrSchematic({
               width="56"
               height="75"
               rx="4"
-              fill="#fef08a"
+              fill={`url(#${svgId}-fuelMetalGrad)`}
               stroke={isSelected ? "#2563eb" : "#ca8a04"}
               strokeWidth={isSelected ? 2.5 : 1.5}
             />
@@ -382,7 +387,7 @@ export function PwrSchematic({
               width="40"
               height="28"
               rx="3"
-              fill="#e2e8f0"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
               stroke={isSelected ? "#2563eb" : "#334155"}
               strokeWidth={isSelected ? 2.5 : 1.5}
             />
@@ -448,11 +453,11 @@ export function PwrSchematic({
 
         {/* Pressurizer */}
         {renderComponentButton("pwr-pressurizer", (isSelected) => (
-          <g filter="url(#partDropShadow)">
+          <g filter={`url(#${svgId}-partDropShadow)`}>
             {/* Pressurizer vertical vessel with hemispherical heads */}
             <path
               d="M 210 90 C 210 75, 245 75, 245 90 V 165 C 245 180, 210 180, 210 165 Z"
-              fill="url(#vesselSteelGrad)"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
               stroke={isSelected ? "#2563eb" : "#dc2626"}
               strokeWidth={isSelected ? 3 : 2}
             />
@@ -465,7 +470,7 @@ export function PwrSchematic({
             <path
               d="M 218 160 L 222 152 L 226 160 L 230 152 L 234 160 L 238 152"
               fill="none"
-              stroke="#ef4444"
+              stroke="#d1a170"
               strokeWidth="2"
             />
             {/* Top spray nozzle */}
@@ -489,11 +494,11 @@ export function PwrSchematic({
 
         {/* Steam Generator (U-Tube Heat Exchanger) */}
         {renderComponentButton("pwr-steam-gen", (isSelected) => (
-          <g filter="url(#partDropShadow)">
+          <g filter={`url(#${svgId}-partDropShadow)`}>
             {/* Steam generator tall cylindrical shell with wide upper steam dome */}
             <path
               d="M 275 305 V 170 L 265 155 V 125 C 265 110, 345 110, 345 125 V 155 L 335 170 V 305 Z"
-              fill="url(#vesselSteelGrad)"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
               stroke={isSelected ? "#2563eb" : "#0284c7"}
               strokeWidth={isSelected ? 3 : 2}
             />
@@ -502,14 +507,14 @@ export function PwrSchematic({
             <path
               d="M 288 295 V 205 C 288 185, 304 185, 304 205 V 295"
               fill="none"
-              stroke="#ef4444"
+              stroke="#d1a170"
               strokeWidth="3.5"
               opacity="0.85"
             />
             <path
               d="M 306 295 V 215 C 306 195, 322 195, 322 215 V 295"
               fill="none"
-              stroke="#ef4444"
+              stroke="#d1a170"
               strokeWidth="3.5"
               opacity="0.85"
             />
@@ -528,7 +533,7 @@ export function PwrSchematic({
             <path
               d="M 280 145 L 290 140 L 300 145 L 310 140 L 320 145 L 330 140"
               fill="none"
-              stroke="#0284c7"
+              stroke="#6daabe"
               strokeWidth="2"
             />
 
@@ -570,13 +575,13 @@ export function PwrSchematic({
 
         {/* Reactor Coolant Pump (RCP) */}
         {renderComponentButton("pwr-coolant-pump", (isSelected) => (
-          <g filter="url(#partDropShadow)">
+          <g filter={`url(#${svgId}-partDropShadow)`}>
             {/* Centrifugal pump volute casing */}
             <circle
               cx="230"
               cy="285"
               r="22"
-              fill="#e2e8f0"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
               stroke={isSelected ? "#2563eb" : "#475569"}
               strokeWidth={isSelected ? 3 : 2}
             />
@@ -599,25 +604,25 @@ export function PwrSchematic({
               <path
                 d="M 230 285 C 230 273, 237 270, 240 270"
                 fill="none"
-                stroke="#dc2626"
+                stroke="#b9815b"
                 strokeWidth="2.5"
               />
               <path
                 d="M 230 285 C 242 285, 245 292, 245 295"
                 fill="none"
-                stroke="#dc2626"
+                stroke="#b9815b"
                 strokeWidth="2.5"
               />
               <path
                 d="M 230 285 C 230 297, 223 300, 220 300"
                 fill="none"
-                stroke="#dc2626"
+                stroke="#b9815b"
                 strokeWidth="2.5"
               />
               <path
                 d="M 230 285 C 218 285, 215 278, 215 275"
                 fill="none"
-                stroke="#dc2626"
+                stroke="#b9815b"
                 strokeWidth="2.5"
               />
               <circle cx="230" cy="285" r="4" fill="#0f172a" />
@@ -637,127 +642,35 @@ export function PwrSchematic({
 
         {/* Steam Turbine & Synchronous Generator */}
         {renderComponentButton("pwr-turbine", (isSelected) => (
-          <g filter="url(#partDropShadow)">
-            {/* Multi-stage High/Low Pressure Turbine Casing */}
-            <polygon
-              points="435,135 485,120 485,180 435,165"
-              fill="#e0e7ff"
-              stroke={isSelected ? "#2563eb" : "#4f46e5"}
-              strokeWidth={isSelected ? 3 : 2}
-            />
-
-            {/* Spinning multi-blade turbine rotor */}
-            <g
-              className={`${styles.turbineRotor} ${getTurbineClass()}`}
-              style={{ transformOrigin: "460px 150px" }}
-            >
-              <circle
-                cx="460"
-                cy="150"
-                r="16"
-                fill="rgba(99, 102, 241, 0.15)"
-              />
-              <line
-                x1="460"
-                y1="134"
-                x2="460"
-                y2="166"
-                stroke="#4f46e5"
-                strokeWidth="2.5"
-              />
-              <line
-                x1="444"
-                y1="150"
-                x2="476"
-                y2="150"
-                stroke="#4f46e5"
-                strokeWidth="2.5"
-              />
-              <line
-                x1="448"
-                y1="138"
-                x2="472"
-                y2="162"
-                stroke="#4f46e5"
-                strokeWidth="2"
-              />
-              <line
-                x1="448"
-                y1="162"
-                x2="472"
-                y2="138"
-                stroke="#4f46e5"
-                strokeWidth="2"
-              />
-              <circle cx="460" cy="150" r="4" fill="#312e81" />
+          <g>
+            <g transform="translate(435 118) scale(.34 .56)">
+              <TurbineCutaway selected={isSelected} />
             </g>
-
-            {/* Shaft coupling to synchronous generator */}
-            <rect x="485" y="146" width="12" height="8" fill="#475569" />
-
-            {/* Synchronous Generator Housing */}
-            <rect
-              x="497"
-              y="125"
-              width="55"
-              height="50"
-              rx="5"
-              fill="#f1f5f9"
-              stroke={isSelected ? "#2563eb" : "#4338ca"}
-              strokeWidth={isSelected ? 3 : 2}
-            />
-            {/* Stator coils detail */}
-            <line
-              x1="504"
-              y1="135"
-              x2="545"
-              y2="135"
-              stroke="#6366f1"
-              strokeWidth="2"
-            />
-            <line
-              x1="504"
-              y1="165"
-              x2="545"
-              y2="165"
-              stroke="#6366f1"
-              strokeWidth="2"
-            />
-
-            {/* Electrical Power Grid Lines & Animated Sparks */}
+            <path d="M484 150H498" stroke="#9faeb5" strokeWidth="5" />
+            <g transform="translate(497 124) scale(.55 .56)">
+              <GeneratorCutaway selected={isSelected} />
+            </g>
             <path
-              d="M 552 145 H 585 V 130"
+              d="M552 150H585V130"
               fill="none"
-              stroke="#6366f1"
-              strokeWidth="3"
+              stroke="#bba479"
+              strokeWidth="2"
             />
-            {powerLevel > 0 && (
-              <path
-                d="M 555 145 L 565 141 L 575 149 L 585 130"
-                fill="none"
-                stroke="#fbbf24"
-                strokeWidth="2.5"
-                className={styles.generatorSpark}
-              />
-            )}
-
             <text
               x="460"
-              y="195"
+              y="196"
               textAnchor="middle"
               fontSize="8.5"
-              fontWeight="700"
-              fill="#3730a3"
+              fill="var(--atom-text-primary)"
             >
               STEAM TURBINE
             </text>
             <text
               x="525"
-              y="154"
+              y="189"
               textAnchor="middle"
               fontSize="8.5"
-              fontWeight="800"
-              fill="#4338ca"
+              fill="var(--atom-text-primary)"
             >
               GEN
             </text>
@@ -766,7 +679,7 @@ export function PwrSchematic({
 
         {/* Surface Condenser (Below Turbine) */}
         {renderComponentButton("pwr-condenser", (isSelected) => (
-          <g filter="url(#partDropShadow)">
+          <g filter={`url(#${svgId}-partDropShadow)`}>
             {/* Exhaust steam steam-hood from turbine to condenser */}
             <polygon
               points="455,180 480,180 505,235 435,235"
@@ -776,62 +689,15 @@ export function PwrSchematic({
               strokeDasharray="3 3"
             />
 
-            {/* Condenser shell with internal vacuum */}
-            <rect
-              x="440"
-              y="235"
-              width="105"
-              height="65"
-              rx="6"
-              fill="#ccfbf1"
-              stroke={isSelected ? "#2563eb" : "#0d9488"}
-              strokeWidth={isSelected ? 3 : 2}
-            />
-
-            {/* Shell-and-tube internal cooling tube bank */}
-            <line
-              x1="448"
-              y1="250"
-              x2="537"
-              y2="250"
-              stroke="#0d9488"
-              strokeWidth="2.5"
-            />
-            <line
-              x1="448"
-              y1="262"
-              x2="537"
-              y2="262"
-              stroke="#0d9488"
-              strokeWidth="2.5"
-            />
-            <line
-              x1="448"
-              y1="274"
-              x2="537"
-              y2="274"
-              stroke="#0d9488"
-              strokeWidth="2.5"
-            />
-
-            {/* Hotwell liquid condensate level */}
-            <rect
-              x="442"
-              y="285"
-              width="101"
-              height="13"
-              rx="2"
-              fill="#38bdf8"
-              opacity="0.8"
-            />
-
+            <g transform="translate(440 235) scale(.875 1.12)">
+              <CondenserCutaway selected={isSelected} />
+            </g>
             <text
               x="492"
-              y="245"
+              y="315"
               textAnchor="middle"
-              fontSize="8.5"
-              fontWeight="800"
-              fill="#0f766e"
+              fontSize="9"
+              fill="var(--atom-text-primary)"
             >
               SURFACE CONDENSER
             </text>
@@ -840,7 +706,7 @@ export function PwrSchematic({
 
         {/* Hyperbolic Natural Draft Cooling Tower */}
         {renderComponentButton("pwr-cooling-tower", (isSelected) => (
-          <g filter="url(#partDropShadow)">
+          <g filter={`url(#${svgId}-partDropShadow)`}>
             {/* Animated Evaporative Clean Water Vapor Plumes */}
             {powerLevel > 0 && (
               <g>
@@ -866,7 +732,7 @@ export function PwrSchematic({
             {/* Hyperboloid tower shell geometry */}
             <path
               d="M 628 350 C 648 240, 650 180, 642 125 H 693 C 685 180, 687 240, 707 350 Z"
-              fill="#f1f5f9"
+              fill={`url(#${svgId}-vesselSteelGrad)`}
               stroke={isSelected ? "#2563eb" : "#059669"}
               strokeWidth={isSelected ? 3 : 2}
             />
