@@ -27,6 +27,8 @@ function getTypeBadge(type: SearchDocumentType): {
       return { label: "Glossary", color: "#047857", bg: "#d1fae5" };
     case "metric":
       return { label: "Metric", color: "#b45309", bg: "#fef3c7" };
+    case "experiment":
+      return { label: "Experiment", color: "#0f766e", bg: "#ccfbf1" };
   }
 }
 

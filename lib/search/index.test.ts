@@ -17,8 +17,22 @@ describe("Search Engine (R12)", () => {
     // No doc should have empty title or href
     for (const doc of index) {
       expect(doc.title).toBeTruthy();
-      expect(doc.href).toMatch(/^\/(learn|topics|glossary|compare|radiation)/);
+      expect(doc.href).toMatch(
+        /^\/(learn|topics|glossary|compare|radiation|simulations)/,
+      );
     }
+  });
+
+  it("indexes released experiments at their canonical workbench URLs", () => {
+    const experiments = buildSearchIndex().filter(
+      (document) => document.type === "experiment",
+    );
+    expect(experiments).toHaveLength(6);
+    expect(
+      searchCatalog("fission").some((item) =>
+        item.href.includes("experiment=fission"),
+      ),
+    ).toBe(true);
   });
 
   it("handles empty, whitespace, and capped queries safely", () => {

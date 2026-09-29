@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { ThemeControl } from "@/components/settings/ThemeControl";
+import { getPrimaryNavigation } from "@/lib/navigation/catalog";
 
 import { MobileMenu } from "./MobileMenu";
 import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
@@ -22,10 +23,11 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className={styles.brandName}>ATOM</span>
           </Link>
           <nav aria-label="Primary navigation" className={styles.navigation}>
-            <Link href="/learn">Learn</Link>
-            <Link href="/explore">Explore</Link>
-            <Link href="/compare">Compare</Link>
-            <Link href="/evidence">Evidence</Link>
+            {getPrimaryNavigation().map((item) => (
+              <Link href={item.href} key={item.id}>
+                {item.label}
+              </Link>
+            ))}
           </nav>
           <MobileMenu />
           <div className={styles.preferences}>
@@ -59,7 +61,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <div>
               <span className={styles.footerHeading}>Learn & Explore</span>
               <nav aria-label="Footer learning navigation">
-                <Link href="/explore">Explore Hub</Link>
+                <Link href="/explore">Playground</Link>
                 <Link href="/how-it-works">How It Works</Link>
                 <Link href="/learn">Curriculum</Link>
                 <Link href="/myths">Myth Busting</Link>
@@ -71,7 +73,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <nav aria-label="Footer tools navigation">
                 <Link href="/compare">Comparison Lab</Link>
                 <Link href="/reactors">Reactor Directory</Link>
-                <Link href="/simulations">Simulators</Link>
+                <Link href="/explore">Playground</Link>
                 <Link href="/radiation">Radiation Dose</Link>
                 <Link href="/debates">Debate Engine</Link>
               </nav>
@@ -80,6 +82,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <span className={styles.footerHeading}>Integrity</span>
               <nav aria-label="Footer navigation">
                 <Link href="/methodology">Evidence Policy</Link>
+                <Link href="/evidence">Evidence Directory</Link>
                 <Link href="/glossary">Glossary</Link>
                 <Link href="/about">About & Sources</Link>
               </nav>

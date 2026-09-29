@@ -21,13 +21,13 @@ beforeEach(() => {
 });
 
 describe("ExploreHub", () => {
-  it("renders the hub header, 4 major educational sections", () => {
+  it("renders one experiment catalog with a clear starting point", () => {
     render(<ExploreHub />);
 
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /Explore ATOM/i,
+        name: /Play with the science/i,
       }),
     ).toBeVisible();
 
@@ -35,29 +35,14 @@ describe("ExploreHub", () => {
       screen.getByText("Start with a question. Try an experiment."),
     ).toBeVisible();
     expect(
-      screen.getByRole("heading", {
-        level: 3,
-        name: /How Nuclear Energy Works/i,
-      }),
+      screen.getByRole("heading", { level: 2, name: "Choose an experiment" }),
     ).toBeVisible();
     expect(
-      screen.getByRole("heading", {
-        level: 3,
-        name: /Global Reactor Fleet & Grid Systems/i,
-      }),
-    ).toBeVisible();
+      screen.getByRole("link", { name: /Follow one fission/i }),
+    ).toHaveAttribute("href", "/simulations?experiment=fission");
     expect(
-      screen.getByRole("heading", {
-        level: 3,
-        name: /Myths, Incidents & Safety Evidence/i,
-      }),
-    ).toBeVisible();
-    expect(
-      screen.getByRole("heading", {
-        level: 3,
-        name: /Scientific Comparison & Debate/i,
-      }),
-    ).toBeVisible();
+      screen.getByRole("link", { name: /Balance a town's annual grid/i }),
+    ).toHaveAttribute("href", "/simulations?experiment=grid");
   });
 
   it("keeps the same starting point with a legacy preference", () => {
@@ -68,7 +53,7 @@ describe("ExploreHub", () => {
       screen.getByText("Start with a question. Try an experiment."),
     ).toBeVisible();
     expect(
-      screen.getByRole("link", { name: /Explore the experiments/i }),
+      screen.getByRole("link", { name: /Start with fission/i }),
     ).toBeVisible();
   });
 });

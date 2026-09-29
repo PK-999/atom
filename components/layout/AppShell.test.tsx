@@ -17,6 +17,21 @@ describe("AppShell", () => {
     expect(
       screen.getByRole("navigation", { name: "Primary navigation" }),
     ).toBeVisible();
+    expect(screen.getByRole("link", { name: "Learn" })).toHaveAttribute(
+      "href",
+      "/learn",
+    );
+    expect(screen.getByRole("link", { name: "Play" })).toHaveAttribute(
+      "href",
+      "/explore",
+    );
+    expect(screen.getByRole("link", { name: "Myths" })).toHaveAttribute(
+      "href",
+      "/myths",
+    );
+    expect(
+      screen.queryByRole("link", { name: "India" }),
+    ).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "ATOM home" })).toHaveAttribute(
       "href",
       "/",

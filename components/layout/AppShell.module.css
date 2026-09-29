@@ -309,6 +309,14 @@
   min-height: 44px;
   border-bottom: 1px solid var(--atom-border-default);
 }
+.drawerSectionLabel {
+  padding: 12px 12px 4px;
+  color: var(--atom-text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 .searchUtility {
   display: grid;
   place-items: center;

@@ -4,8 +4,10 @@ import {
   listGlossaryTerms,
 } from "@/lib/education/catalog";
 import { METRICS } from "@/lib/evidence/metrics";
+import { EXPERIMENTS, toExperimentHref } from "@/lib/navigation/catalog";
 
-export type SearchDocumentType = "lesson" | "topic" | "glossary" | "metric";
+export type SearchDocumentType =
+  "lesson" | "topic" | "glossary" | "metric" | "experiment";
 
 export interface SearchDocument {
   id: string;
@@ -73,6 +75,16 @@ export function buildSearchIndex(): SearchDocument[] {
     };
   });
 
+  const experiments: SearchDocument[] = EXPERIMENTS.map((experiment) => ({
+    id: `experiment-${experiment.id}`,
+    type: "experiment" as const,
+    title: experiment.title,
+    summary: `${experiment.description} ${experiment.outcome}`,
+    href: toExperimentHref(experiment.id),
+    topicIds: ["interactive-exhibits"],
+    keywords: [experiment.id, experiment.shortTitle, experiment.kicker],
+  }));
+
   const tools: SearchDocument[] = [
     {
       id: "tool-radiation-explorer",
@@ -100,6 +112,7 @@ export function buildSearchIndex(): SearchDocument[] {
     ...publishedTopics,
     ...glossaryTerms,
     ...metrics,
+    ...experiments,
     ...tools,
   ];
 }

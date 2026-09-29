@@ -1,6 +1,45 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("R12 Discovery, Search, Topics, Glossary, & Trust Routes", () => {
+  test("keeps primary navigation small and makes experiments addressable", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    const primary = page.getByRole("navigation", {
+      name: "Primary navigation",
+    });
+    await expect(primary.getByRole("link", { name: "Learn" })).toHaveAttribute(
+      "href",
+      "/learn",
+    );
+    await expect(primary.getByRole("link", { name: "Play" })).toHaveAttribute(
+      "href",
+      "/explore",
+    );
+    await expect(primary.getByRole("link", { name: "Myths" })).toHaveAttribute(
+      "href",
+      "/myths",
+    );
+    await expect(primary.getByRole("link", { name: "India" })).toHaveCount(0);
+
+    await page.goto("/simulations?experiment=reactor");
+    await expect(
+      page.getByRole("tab", { name: "Reactor Controls", exact: true }),
+    ).toHaveAttribute("aria-selected", "true");
+    await page.getByRole("tab", { name: "Fission", exact: true }).click();
+    await expect(page).toHaveURL(/\/simulations\?experiment=fission$/);
+    await page.goBack();
+    await expect(
+      page.getByRole("tab", { name: "Reactor Controls", exact: true }),
+    ).toHaveAttribute("aria-selected", "true");
+
+    await page.goto("/simulations?experiment=not-real");
+    await expect(page.getByRole("status")).toContainText(/not available yet/i);
+    await expect(
+      page.getByRole("tab", { name: "Fission", exact: true }),
+    ).toHaveAttribute("aria-selected", "true");
+  });
+
   test("homepage renders hero, three questions, featured exhibit, and topics", async ({
     page,
   }) => {

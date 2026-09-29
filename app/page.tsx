@@ -81,7 +81,7 @@ export default function HomePage() {
           Inspect a fuel assembly in 3D, replay a fission, or experiment with an
           annual electricity mix.
         </p>
-        <Link href="/simulations">Visit the interactive collection →</Link>
+        <Link href="/explore">Visit the interactive collection →</Link>
       </section>
     </AppShell>
   );

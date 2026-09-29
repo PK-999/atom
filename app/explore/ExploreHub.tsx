@@ -1,281 +1,131 @@
-"use client";
-
 import Link from "next/link";
+
+import { EXPERIMENTS, toExperimentHref } from "@/lib/navigation/catalog";
+
 import styles from "./ExploreHub.module.css";
 
 export function ExploreHub() {
-  const highlight = {
-    title: "Start with a question. Try an experiment.",
-    description:
-      "Explore atoms, follow energy through a reactor, and inspect the evidence behind common claims.",
-    ctaText: "Explore the experiments",
-    ctaHref: "/simulations",
-  };
-
   return (
     <div className={styles.hubContainer}>
-      {/* Introduction */}
       <header className={styles.hubHeader}>
         <div className={styles.headerText}>
-          <span className={styles.eyebrow}>Interactive Learning Hub</span>
-          <h1 className={styles.hubTitle}>Explore ATOM</h1>
+          <span className={styles.eyebrow}>The ATOM playground</span>
+          <h1 className={styles.hubTitle}>Play with the science</h1>
           <p className={styles.hubSubtitle}>
-            A hands-on guide to nuclear energy, from atoms to electricity.
+            Six small experiments take you from a nucleus to an electricity
+            system. Each one gives you a prediction, a model to inspect, and a
+            next question to carry forward.
           </p>
         </div>
       </header>
 
-      {/* Featured starting point */}
-      <div className={styles.recommendedTrack}>
+      <section
+        className={styles.recommendedTrack}
+        aria-labelledby="start-heading"
+      >
         <div className={styles.trackInfo}>
-          <h2>{highlight.title}</h2>
-          <p>{highlight.description}</p>
+          <h2 id="start-heading">Start with a question. Try an experiment.</h2>
+          <p>
+            Begin with one fission, then follow the heat through a reactor and
+            out to the grid.
+          </p>
         </div>
-        <Link href={highlight.ctaHref} className={styles.trackCta}>
-          <span>{highlight.ctaText}</span>
+        <Link href={toExperimentHref("fission")} className={styles.trackCta}>
+          <span>Start with fission</span>
           <span aria-hidden="true">→</span>
         </Link>
-      </div>
+      </section>
 
-      {/* Section 1: Physics & How It Works */}
       <section
         className={styles.sectionBlock}
-        aria-labelledby="physics-heading"
+        aria-labelledby="experiments-heading"
       >
         <div className={styles.sectionHeading}>
-          <h3 id="physics-heading">1. How Nuclear Energy Works</h3>
-          <span>Core Science & Mechanics</span>
+          <h2 id="experiments-heading">Choose an experiment</h2>
+          <span>{EXPERIMENTS.length} playable exhibits</span>
         </div>
         <div className={styles.grid3}>
-          <Link href="/how-it-works" className={styles.hubCard}>
-            <div className={styles.cardHeader}>
-              <span className={styles.cardIcon} aria-hidden="true">
-                ⚛️
-              </span>
-              <span className={styles.cardBadge}>Foundational</span>
-            </div>
-            <h4 className={styles.cardTitle}>Reactor Working & Physics</h4>
-            <p className={styles.cardDesc}>
-              Follow the journey from atomic nucleus to electricity: uranium
-              fuel pellets, fission reactions, heat exchangers, and steam
-              turbines.
-            </p>
-            <div className={styles.cardFooter}>
-              <span>Explore physics</span>
-              <span className={styles.cardMeta}>Step-by-step</span>
-            </div>
-          </Link>
-
-          <Link href="/simulations" className={styles.hubCard}>
-            <div className={styles.cardHeader}>
-              <span className={styles.cardIcon} aria-hidden="true">
-                🎮
-              </span>
-              <span className={styles.cardBadge}>Interactive</span>
-            </div>
-            <h4 className={styles.cardTitle}>Fission & Decay Simulators</h4>
-            <p className={styles.cardDesc}>
-              Fire neutrons to trigger chain reactions, adjust control rods, and
-              watch radioactive half-life decay curves unfold in real time.
-            </p>
-            <div className={styles.cardFooter}>
-              <span>Launch simulations</span>
-              <span className={styles.cardMeta}>4 Simulators</span>
-            </div>
-          </Link>
-
-          <Link href="/radiation" className={styles.hubCard}>
-            <div className={styles.cardHeader}>
-              <span className={styles.cardIcon} aria-hidden="true">
-                ☢️
-              </span>
-              <span className={styles.cardBadge}>Dose Spectrum</span>
-            </div>
-            <h4 className={styles.cardTitle}>Radiation Around Us</h4>
-            <p className={styles.cardDesc}>
-              Compare natural background radiation, bananas, airline flights,
-              and medical imaging against nuclear facility worker limits.
-            </p>
-            <div className={styles.cardFooter}>
-              <span>Inspect doses</span>
-              <span className={styles.cardMeta}>Log scale</span>
-            </div>
-          </Link>
+          {EXPERIMENTS.map((experiment) => (
+            <Link
+              href={toExperimentHref(experiment.id)}
+              className={styles.hubCard}
+              key={experiment.id}
+            >
+              <div className={styles.cardHeader}>
+                <span className={styles.cardIcon} aria-hidden="true">
+                  {experiment.icon}
+                </span>
+                <span className={styles.cardBadge}>{experiment.kicker}</span>
+              </div>
+              <h3 className={styles.cardTitle}>{experiment.title}</h3>
+              <p className={styles.cardDesc}>{experiment.description}</p>
+              <div className={styles.cardFooter}>
+                <span>{experiment.outcome}</span>
+                <span aria-hidden="true">↗</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
-      {/* Section 2: Real-World Systems & Fleets */}
-      <section className={styles.sectionBlock} aria-labelledby="fleet-heading">
+      <section
+        className={styles.sectionBlock}
+        aria-labelledby="continue-heading"
+      >
         <div className={styles.sectionHeading}>
-          <h3 id="fleet-heading">2. Global Reactor Fleet & Grid Systems</h3>
-          <span>Engineering & Data</span>
+          <h2 id="continue-heading">Continue with the evidence</h2>
+          <span>Keep your question in view</span>
         </div>
         <div className={styles.grid3}>
-          <Link href="/reactors" className={styles.hubCard}>
+          <Link href="/learn" className={styles.hubCard}>
             <div className={styles.cardHeader}>
               <span className={styles.cardIcon} aria-hidden="true">
-                ⚙️
+                ◎
               </span>
-              <span className={styles.cardBadge}>Schematics</span>
+              <span className={styles.cardBadge}>Learn</span>
             </div>
-            <h4 className={styles.cardTitle}>Commercial Reactor Designs</h4>
+            <h3 className={styles.cardTitle}>Build the full picture</h3>
             <p className={styles.cardDesc}>
-              Understand PWR, BWR, and PHWR/CANDU architectures: coolant
-              pressurization, moderator choices, and safety containment
-              barriers.
+              Follow the guided lessons from energy and atoms to safety, waste,
+              and electricity systems.
             </p>
             <div className={styles.cardFooter}>
-              <span>View architectures</span>
-              <span className={styles.cardMeta}>Technical Schematics</span>
+              <span>Open the learning path</span>
+              <span aria-hidden="true">↗</span>
             </div>
           </Link>
-
-          <Link href="/globe" className={styles.hubCard}>
-            <div className={styles.cardHeader}>
-              <span className={styles.cardIcon} aria-hidden="true">
-                🗺️
-              </span>
-              <span className={styles.cardBadge}>IAEA PRIS</span>
-            </div>
-            <h4 className={styles.cardTitle}>Global Reactor Map</h4>
-            <p className={styles.cardDesc}>
-              Browse over 400 operational nuclear power reactors across the
-              planet with real operational history, capacity, and age data.
-            </p>
-            <div className={styles.cardFooter}>
-              <span>Open global fleet</span>
-              <span className={styles.cardMeta}>Interactive Globe</span>
-            </div>
-          </Link>
-
-          <Link href="/grid" className={styles.hubCard}>
-            <div className={styles.cardHeader}>
-              <span className={styles.cardIcon} aria-hidden="true">
-                ⚡
-              </span>
-              <span className={styles.cardBadge}>Systems Lab</span>
-            </div>
-            <h4 className={styles.cardTitle}>Annual Grid Simulator</h4>
-            <p className={styles.cardDesc}>
-              Simulate an 8,760-hour electricity grid. Mix nuclear baseload with
-              solar, wind, and storage to test real-time reliability.
-            </p>
-            <div className={styles.cardFooter}>
-              <span>Balance the grid</span>
-              <span className={styles.cardMeta}>8,760 Hours</span>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      {/* Section 3: Myths, Incidents & Safety */}
-      <section className={styles.sectionBlock} aria-labelledby="myths-heading">
-        <div className={styles.sectionHeading}>
-          <h3 id="myths-heading">3. Myths, Incidents & Safety Evidence</h3>
-          <span>Historical Post-Mortems</span>
-        </div>
-        <div className={styles.grid2}>
           <Link href="/myths" className={styles.hubCard}>
             <div className={styles.cardHeader}>
               <span className={styles.cardIcon} aria-hidden="true">
-                🛡️
+                ◇
               </span>
-              <span className={styles.cardBadge}>Fact Checks</span>
+              <span className={styles.cardBadge}>Claims</span>
             </div>
-            <h4 className={styles.cardTitle}>Nuclear Myth Busting</h4>
+            <h3 className={styles.cardTitle}>Test a claim</h3>
             <p className={styles.cardDesc}>
-              We dissect 10 common claims about nuclear waste, catastrophic
-              explosions, radiation health effects, and mining footprints using
-              peer-reviewed scientific studies.
+              Make a prediction, reveal the strongest available evidence, and
+              read the limits before deciding what you think.
             </p>
             <div className={styles.cardFooter}>
-              <span>Explore myth busters</span>
-              <span className={styles.cardMeta}>10 Verified Topics</span>
+              <span>Open myth investigations</span>
+              <span aria-hidden="true">↗</span>
             </div>
           </Link>
-
-          <Link href="/incidents" className={styles.hubCard}>
-            <div className={styles.cardHeader}>
-              <span className={styles.cardIcon} aria-hidden="true">
-                ⚠️
-              </span>
-              <span className={styles.cardBadge}>Historical Audits</span>
-            </div>
-            <h4 className={styles.cardTitle}>Nuclear Incidents & FAQs</h4>
-            <p className={styles.cardDesc}>
-              In-depth engineering timelines, root causes, radiological release
-              measurements, and WHO/UNSCEAR health casualty records for
-              Chernobyl, Fukushima, and TMI.
-            </p>
-            <div className={styles.cardFooter}>
-              <span>Inspect incident reports</span>
-              <span className={styles.cardMeta}>INES 1–7 Case Studies</span>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      {/* Section 4: Debate & Comparisons */}
-      <section className={styles.sectionBlock} aria-labelledby="debate-heading">
-        <div className={styles.sectionHeading}>
-          <h3 id="debate-heading">4. Scientific Comparison & Debate</h3>
-          <span>Discourse & Analysis</span>
-        </div>
-        <div className={styles.grid3}>
           <Link href="/compare" className={styles.hubCard}>
             <div className={styles.cardHeader}>
               <span className={styles.cardIcon} aria-hidden="true">
-                📊
+                ▤
               </span>
-              <span className={styles.cardBadge}>Quantitative</span>
+              <span className={styles.cardBadge}>Evidence</span>
             </div>
-            <h4 className={styles.cardTitle}>Comparison Lab</h4>
+            <h3 className={styles.cardTitle}>Compare what is known</h3>
             <p className={styles.cardDesc}>
-              Multi-technology comparison across lifecycle GHG emissions, land
-              footprint, mortality rates, and capacity factors with full source
-              provenance.
+              Inspect units, ranges, boundaries, and missing observations in the
+              Comparison Lab.
             </p>
             <div className={styles.cardFooter}>
-              <span>Compare sources</span>
-              <span className={styles.cardMeta}>6 Technologies</span>
-            </div>
-          </Link>
-
-          <Link href="/debates" className={styles.hubCard}>
-            <div className={styles.cardHeader}>
-              <span className={styles.cardIcon} aria-hidden="true">
-                💬
-              </span>
-              <span className={styles.cardBadge}>Multi-Perspective</span>
-            </div>
-            <h4 className={styles.cardTitle}>Core Nuclear Debates</h4>
-            <p className={styles.cardDesc}>
-              Structured pro/con arguments on capital intensity, long-term waste
-              isolation, proliferation risk, and rapid decarbonization
-              trade-offs.
-            </p>
-            <div className={styles.cardFooter}>
-              <span>View structured debates</span>
-              <span className={styles.cardMeta}>Curated Arguments</span>
-            </div>
-          </Link>
-
-          <Link href="/ask" className={styles.hubCard}>
-            <div className={styles.cardHeader}>
-              <span className={styles.cardIcon} aria-hidden="true">
-                🤖
-              </span>
-              <span className={styles.cardBadge}>Evidence Q&A</span>
-            </div>
-            <h4 className={styles.cardTitle}>Ask ATOM Chat</h4>
-            <p className={styles.cardDesc}>
-              Direct Q&A interface grounded strictly in IPCC, IAEA, and
-              peer-reviewed scientific papers. Answers cite sources with zero
-              hallucination.
-            </p>
-            <div className={styles.cardFooter}>
-              <span>Ask a question</span>
-              <span className={styles.cardMeta}>Literature Grounded</span>
+              <span>Open the Comparison Lab</span>
+              <span aria-hidden="true">↗</span>
             </div>
           </Link>
         </div>

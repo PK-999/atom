@@ -13,6 +13,16 @@
   gap: 0.75rem;
 }
 
+.routeNotice {
+  margin: -18px 0 24px;
+  padding: 12px 16px;
+  border: 1px solid color-mix(in srgb, var(--atom-accent) 45%, transparent);
+  border-radius: var(--atom-radius-md);
+  background: color-mix(in srgb, var(--atom-accent) 9%, transparent);
+  color: var(--atom-text-secondary);
+  font-size: 0.875rem;
+}
+
 .badge {
   display: inline-flex;
   align-items: center;

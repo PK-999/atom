@@ -1,7 +1,12 @@
 "use client";
-import { Activity, useState } from "react";
+import { Activity, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import {
+  EXPERIMENTS,
+  parseExperimentId,
+  type ExperimentId,
+} from "@/lib/navigation/catalog";
 import styles from "./SimulationsHub.module.css";
 const Grid = dynamic(() =>
   import("@/features/simulator/GridSimulator").then((m) => m.GridSimulator),
@@ -23,21 +28,64 @@ const Atom = dynamic(() =>
 const Fuel = dynamic(() =>
   import("@/features/exhibits/AtomFuelExhibits").then((m) => m.FuelExhibit),
 );
-const tabs = [
-  { id: "grid", label: "Annual Grid Balance" },
-  { id: "fission", label: "Fission" },
-  { id: "atom", label: "Inside the Atom" },
-  { id: "fuel", label: "Fuel Assembly" },
-  { id: "decay", label: "Radioactive Decay" },
-  { id: "reactor", label: "Reactor Controls" },
-] as const;
-type Tab = (typeof tabs)[number]["id"];
-export function SimulationsHubClient() {
-  const [active, setActive] = useState<Tab>("grid");
-  const [visited, setVisited] = useState<Tab[]>(["grid"]);
+const tabs = EXPERIMENTS.map((experiment) => ({
+  id: experiment.id,
+  label:
+    experiment.id === "atom"
+      ? "Inside the Atom"
+      : experiment.id === "fuel"
+        ? "Fuel Assembly"
+        : experiment.id === "decay"
+          ? "Radioactive Decay"
+          : experiment.id === "reactor"
+            ? "Reactor Controls"
+            : experiment.id === "grid"
+              ? "Annual Grid Balance"
+              : "Fission",
+})) as readonly { id: ExperimentId; label: string }[];
+type Tab = ExperimentId;
+
+interface SimulationsHubClientProps {
+  initialExperiment?: string | null;
+}
+
+function readExperimentFromLocation() {
+  if (typeof window === "undefined") return null;
+  return new URLSearchParams(window.location.search).get("experiment");
+}
+
+export function SimulationsHubClient({
+  initialExperiment,
+}: SimulationsHubClientProps = {}) {
+  const initialSelection = parseExperimentId(
+    initialExperiment ?? readExperimentFromLocation(),
+  );
+  const [active, setActive] = useState<Tab>(initialSelection.id);
+  const [notice, setNotice] = useState<string | null>(
+    "fallback" in initialSelection ? initialSelection.message : null,
+  );
+  const [visited, setVisited] = useState<Tab[]>([initialSelection.id]);
+
+  useEffect(() => {
+    const handleHistory = () => {
+      const selection = parseExperimentId(readExperimentFromLocation());
+      setActive(selection.id);
+      setNotice("fallback" in selection ? selection.message : null);
+      setVisited((current) =>
+        current.includes(selection.id) ? current : [...current, selection.id],
+      );
+    };
+    window.addEventListener("popstate", handleHistory);
+    return () => window.removeEventListener("popstate", handleHistory);
+  }, []);
+
   const select = (id: Tab) => {
     setActive(id);
+    setNotice(null);
     setVisited((v) => (v.includes(id) ? v : [...v, id]));
+    const url = new URL(window.location.href);
+    url.searchParams.set("experiment", id);
+    window.history.pushState({ experiment: id }, "", url);
   };
   return (
     <div className={styles.pageContainer}>
@@ -49,6 +97,11 @@ export function SimulationsHubClient() {
           Try a prediction, change one thing, and explore what happens.
         </p>
       </header>
+      {notice ? (
+        <p className={styles.routeNotice} role="status" aria-live="polite">
+          {notice}
+        </p>
+      ) : null}
       <div
         className={styles.tabsBar}
         role="tablist"

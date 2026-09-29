@@ -5,13 +5,20 @@ import { SimulationsHubClient } from "./SimulationsHubClient";
 export const metadata: Metadata = {
   title: "Interactive Nuclear & Energy Simulators | ATOM",
   description:
-    "Explore four interactive nuclear physics and energy engineering simulators: annual electricity balance, uranium-235 fission chain reactions, radioisotope half-life decay, and commercial reactor core control with emergency SCRAM.",
+    "Explore six interactive nuclear physics and energy systems experiments: fission, atoms, fuel, radioactive decay, reactor controls, and annual grid balance.",
 };
 
-export default function SimulationsPage() {
+interface SimulationsPageProps {
+  searchParams: Promise<{ experiment?: string }>;
+}
+
+export default async function SimulationsPage({
+  searchParams,
+}: SimulationsPageProps) {
+  const { experiment } = await searchParams;
   return (
     <AppShell>
-      <SimulationsHubClient />
+      <SimulationsHubClient initialExperiment={experiment} />
     </AppShell>
   );
 }
