@@ -1,6 +1,6 @@
 # ATOM delivery tracker
 
-Last updated: 2026-09-29. This is the current status and verification authority. Current activity: N03 navigation and experiment-orientation slice on `codex/single-reading-experience`. N01–N03 software slices are verified locally; scientific/editorial/licensing review and deployment remain open. E02 remains the next evidence task.
+Last updated: 2026-09-29. This is the current status and verification authority. Current activity: N03 route transfer plus bounded N04/N08/N09 software slices on `codex/single-reading-experience`. N01–N03 and these follow-on software slices are verified locally; scientific/editorial/licensing review, evidence artifact acquisition and deployment remain open. E02 remains the next evidence task.
 
 ## Current entry point
 
@@ -16,7 +16,7 @@ Read in order:
 
 The user explicitly requested a simple, modern, nuclear-themed learning website with enjoyable simulations, visual graphics, animations, optional sound, an India focus, removal of reading levels and redundant architecture, and a repository-grounded step-by-step plan. **Remove all reading/explanation levels** supersedes earlier five-level requirements, including those in AGENTS.md and historical records below. Preserve scientific classifications and optional contextual detail.
 
-The N-plan is the current proposed redesign execution sequence. **N01 reading-level migration, N02 visual target selection, and the first N03 navigation slice are complete in software.** On a subsequent implementation request, continue the remaining N03 route-transfer work or begin the next bounded evidence task. **E02 remains the next numerical evidence task**; N04 maps that work into the redesign. New lesson/exhibit publication still depends on the Comparison Lab and real review gates. Existing accepted software is reused, not rebuilt or marked complete again.
+The N-plan is the current proposed redesign execution sequence. **N01 reading-level migration, N02 visual target selection, N03 navigation/route transfer, and the bounded N04/N08/N09 software slices are complete locally.** The next numerical task remains E02: acquire and review a real lifecycle-emissions artifact. New lesson/exhibit publication still depends on the Comparison Lab and real review gates. Existing accepted software is reused, not rebuilt or marked complete again.
 
 The planning delivery changes documentation only. It does not remove controls from the running application, activate numerical releases, approve content, install skills, or authorize a new deployment. All N implementation tasks are planned, not completed. Historical deployment authorization statements below describe earlier work and are not a substitute for current-session authorization.
 
@@ -42,7 +42,7 @@ These historical claims are not current acceptance evidence. The restored 2026-0
 | Visual, learning-path, simulator, sound and architecture proposal | Written; proposed design          | Design specification                                                                |
 | Ordered task plan and verification criteria                       | Written; proposed plan            | E00–E18 plan                                                                        |
 | Historical audit and R-plan recovery                              | Restored as historical references | Read from `522550a`, no current completion inferred                                 |
-| Product implementation and new evidence publication               | N02 software slice verified       | Single-reading migration and selected dark visual target verified locally; no new scientific evidence published |
+| Product implementation and new evidence publication               | N03/N04/N08/N09 software slices verified | Navigation, evidence metadata, explicit grid inputs and contextual cost workbench verified locally; no new scientific evidence published |
 
 ## Implementation queue
 
@@ -54,7 +54,7 @@ Rows describe the broader roadmap, not a claim that implemented software has edi
 | E01    | Auditable evidence publication and release serving          | E00                          | Software accepted/deployed at `c6bbc58`; zero numerical releases              |
 | E02    | Reviewed comparison sources/category releases               | E01                          | Planned; real review required                                                 |
 | E03    | Lossless Comparison Lab and shared evidence/charts          | E00; release E02             | Core URL/missing-data/evidence UI repaired; E01/E02 release gates open        |
-| E04    | Evidence metadata routes, public filters and Lab acceptance | E01–E03                      | Planned; public lesson gate                                                   |
+| E04    | Evidence metadata routes, public filters and Lab acceptance | E01–E03                      | Software metadata projections/routes implemented; public release and lesson gates remain open |
 | E05    | Selected home/lesson/comparison/India visual targets        | Audit                        | Restrained dark exhibit-room target selected and homepage slice implemented; remaining surfaces partial |
 | E06    | Compact shell, consistent themes and mobile navigation      | E05                          | Software deployed and browser-verified; manual zoom/AT review open            |
 | E07    | Content/path graph, real claims and review contracts        | E01; release E04             | Planned                                                                       |
@@ -65,8 +65,8 @@ Rows describe the broader roadmap, not a claim that implemented software has edi
 | E12a–f | Remaining six fundamentals lessons; fission is E09          | E09                          | Shared experiments integrated; lesson-by-lesson source/depth review open      |
 | E13    | Thematic paths, resume and versioned local progress         | E07/E12                      | Paths/progress/resume deployed; path-context refinement and review open       |
 | E14a–c | Claim investigations, radiation, incidents                  | E04/E09; relevant E12 blocks | Planned per surface                                                           |
-| E15a   | Honest annual grid and impact inputs                        | E01/E02/E09                  | Annual-only software slice deployed; reviewed input release open              |
-| E15b   | Contextual cost sensitivity model and workbench             | E01/E02/E09                  | Planned                                                                       |
+| E15a   | Honest annual grid and impact inputs                        | E01/E02/E09                  | Annual-only model now requires explicit factors; illustrative inputs remain unreleased |
+| E15b   | Contextual cost sensitivity model and workbench             | E01/E02/E09                  | Software workbench implemented with explicit assumptions; reviewed economic inputs remain open |
 | E15c   | Hourly grid model                                           | Separate model/data review   | Optional later scope                                                          |
 | E16a   | Reviewed India baseline and programme story                 | E13/E15a–b                   | Planned                                                                       |
 | E16b   | India portfolio scenarios                                   | E16a/E15a–b                  | Planned                                                                       |
@@ -315,3 +315,53 @@ Ruling: retain one Next.js application and one Vercel deployment. Reuse shared c
 - **Review findings and resolutions:** search’s document type contract was extended for experiments, and the existing search test was broadened to accept canonical simulator URLs. India remains absent from navigation by explicit release state. Route retirement is intentionally deferred where transfer would currently discard distinct content.
 - **Unverified gates / reason / next concrete action:** remaining N03 work is to transfer or explicitly retire How It Works, Sources, Debates and Ask destinations only after replacement content and route tests exist. Manual screen-reader/200% zoom review, full responsive visual comparison, scientific/editorial/licensing review and deployment remain open. Next concrete action is the E02/N04 evidence artifact and release-preparation slice, unless the user prioritizes completing those route transfers first.
 - **Commit (if made), deployment (if authorized), next bounded task:** local implementation commit `487e1bc` (`feat: simplify navigation around released experiments`); no deployment. Continue with N03 route-transfer or E02 evidence preparation as a separate bounded task.
+
+## N03 route-transfer implementation handoff — 2026-09-29
+
+- **Task ID / mapped E task:** N03 route transfer / E04 and E06. Consolidate source discovery without removing the existing evidence content before replacement pages are ready.
+- **Branch / base / worktree:** `codex/single-reading-experience`, base `c4c9ce5`, one worktree checked before editing. No unrelated changes were reset.
+- **Files changed and learner-visible behavior:** `/evidence` now embeds the source viewer; `/sources` redirects to `/evidence`; About and Methodology point to the canonical evidence route. The source viewer keeps its full heading when embedded and the redirect is covered by discovery tests.
+- **Verification:** `npm test -- --reporter=dot` (later full run) passed 85 files / 555 tests; `npm run typecheck` passed; `npm run lint` passed with 4 existing warnings and no errors; `npm run build` passed with evidence check and 56 routes; the discovery/comparison/experience/reactor/schematic production-browser run passed 104/105 initially, with the single Firefox glossary navigation timeout passing on an isolated retry (105/105 effective); `git diff --check` passed.
+- **Evidence/review state:** no source observation, publication decision, reviewer identity or deployment was added. Public source metadata remains governed by the release ledger and can be unavailable until reviewed.
+- **Open gates / next action:** manual screen-reader/200% zoom review, scientific/editorial/licensing review and deployment remain open. E02 remains the next numerical evidence task.
+- **Commit:** `24de081` (`feat: consolidate source discovery in evidence`).
+
+## N04 public evidence metadata implementation handoff — 2026-09-29
+
+- **Task ID / mapped E task:** N04 software contract / E04. Add safe public metadata projections and canonical source, study and dataset-version routes while keeping unpublished material unavailable.
+- **Branch / base / worktree:** `codex/single-reading-experience`, base `24de081`, one worktree checked before editing. No external database or ingestion command was run.
+- **Files changed and learner-visible behavior:** `lib/evidence/public-records.ts` filters to published, reusable records and projects only public fields; `features/evidence/EvidenceRecordPage.tsx` renders available and honest unavailable states; `/evidence/sources/[sourceId]`, `/evidence/studies/[studyId]` and `/evidence/datasets/[datasetVersionId]` are dynamic metadata routes. Review identities and private metadata never enter the public projection. Synthetic fixtures are test-only.
+- **Verification:** public-record tests passed 2/2; SourcesViewer tests passed 4/4; full unit run passed 555/555; typecheck, build and browser route verification passed as recorded above. The build release check reported 0 active numerical releases.
+- **Evidence/review state:** this is serving infrastructure, not scientific approval. The current production snapshot has no active records; E02 still requires a real artifact, extraction record and qualified review.
+- **Open gates / next action:** acquire and prepare the E02 lifecycle-emissions artifact; retain unavailable states until publication decisions exist. Manual assistive-technology and deployment gates remain open.
+- **Commit:** `dd1314d` (`feat: add safe evidence metadata routes`).
+
+## N08 explicit grid-input implementation handoff — 2026-09-29
+
+- **Task ID / mapped E task:** N08 / E15a. Make annual grid emissions inputs explicit at the model boundary so missing observations cannot become zero or a hidden fallback.
+- **Branch / base / worktree:** `codex/single-reading-experience`, base `dd1314d`, one worktree checked before editing.
+- **Files changed and learner-visible behavior:** `simulateAnnualGrid` now requires a `GridEmissionFactors` argument; the model no longer owns a hidden factor table. Educational-only factors live in `data/simulator/illustrative-factors.ts` and are passed explicitly by the simulator UI. Missing factors remain unavailable, and changing a factor changes the result.
+- **Verification:** grid model and simulator tests passed 17/17; full unit run passed 555/555; typecheck and production build passed; browser matrix passed the updated simulator journey. No external data source was modified.
+- **Evidence/review state:** illustrative factors are clearly labeled and are not a reviewed release. No numerical publication or India scenario was activated.
+- **Open gates / next action:** replace illustrative inputs only after E02/E15a source review and publication; retain annual-only scope. Manual accessibility and deployment gates remain open.
+- **Commit:** `db6b70f` (`fix: require explicit grid emission factors`).
+
+## N09 contextual cost-workbench implementation handoff — 2026-09-29
+
+- **Task ID / mapped E task:** N09 / E15b. Provide a small, inspectable discounted generation-cost workbench without presenting illustrative assumptions as market evidence.
+- **Branch / base / worktree:** `codex/single-reading-experience`, base `db6b70f`, one worktree checked before editing.
+- **Files changed and learner-visible behavior:** `lib/simulator/cost-schema.ts` validates scenario inputs; `lib/simulator/cost-model.ts` computes discounted construction, O&M, fuel and decommissioning costs against discounted generation; `features/simulator/CostWorkbench.tsx` exposes inputs, result status, cost composition and explicit assumptions under Comparison Lab. Zero generation returns `unavailable`, never zero cost. The workbench is collapsed by default to keep comparison context focused.
+- **Verification:** cost model, component and Comparison Lab tests passed 17/17; full unit run passed 555/555; typecheck passed; production build passed; the production-browser comparison journey passed the cost-workbench scenario in Chromium, Firefox and WebKit. The latest combined run had one transient Firefox glossary timeout; the isolated retry passed.
+- **Evidence/review state:** all displayed inputs are illustrative and labeled. The model is not a tariff, LCOE publication or India economic forecast; no economic evidence release was created.
+- **Open gates / next action:** source-review actual cost inputs and methodology before publication; keep excluded system costs and uncertainty visible. E02 remains the next numerical evidence task, followed by reviewed E15b/E16 work.
+- **Commit:** `6cd6fe4` (`feat: add contextual generation cost workbench`).
+
+## Verification record — 2026-09-29 final regression
+
+- `npm test -- --reporter=dot` → exit 0, **85 files / 555 tests passed**.
+- `npm run typecheck` → exit 0.
+- `npm run lint` → exit 0, **4 existing warnings**, no errors.
+- `npm run build` → exit 0; evidence check passed with **0 active numerical releases** and 56 generated routes including the three evidence metadata routes.
+- `PLAYWRIGHT_PORT=3112 REUSE_E2E_SERVER=true npx playwright test tests/e2e/discovery.spec.ts tests/e2e/comparison-lab.spec.ts tests/e2e/schematics.spec.ts tests/e2e/experience.spec.ts tests/e2e/reactor.spec.ts --workers=3` → **104/105 passed** on the first matrix run; the single Firefox `/glossary` timeout passed in an isolated retry, so the affected contract is **105/105 effective**. The matrix covered Chromium, Firefox and WebKit, responsive/theme/reduced-motion states, source redirect, direct experiment URLs, cost workbench, schematic interactions and reactor journeys.
+- `git diff --check` → exit 0. No production deployment was made in this continuation.
+- **Remaining gates:** E02 real artifact acquisition and qualified scientific/editorial/licensing review; reviewed cost/grid/India inputs; manual screen-reader and 200% zoom checks; sustained GPU/field-performance checks; and deployment authorization/verification. These remain explicitly open rather than inferred from green software tests.
