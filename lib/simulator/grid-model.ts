@@ -27,26 +27,14 @@ export interface GridSimulationResult {
   totalAnnualCarbonEmissionsTonnes: number | null;
 }
 
+export type GridEmissionFactors = Readonly<Record<string, number | null>>;
+
 export const HOURLY_ADEQUACY_DISCLAIMER =
   "Annual Energy Coverage measures gross energy equality over a full calendar year. It does NOT represent real-time hourly reliability, instantaneous supply-demand matching, dispatch flexibility, or transmission/inertia stability.";
 
-/**
- * Harmonized Life-Cycle Greenhouse Gas Emissions Factors (IPCC AR5 / UNECE 2021) in gCO2e/kWh.
- */
-export const LIFECYCLE_CARBON_INTENSITY_FACTORS: Record<string, number> = {
-  nuclear: 12,
-  wind: 12,
-  solar: 45,
-  hydro: 24,
-  geothermal: 38,
-  gas: 490,
-  coal: 820,
-  oil: 720,
-  biomass: 230,
-};
-
 export function simulateAnnualGrid(
   scenario: GridScenario,
+  emissionFactors: GridEmissionFactors,
 ): GridSimulationResult {
   const validatedScenario = GridScenarioSchema.parse(scenario);
   const hours = validatedScenario.hoursPerYear;
@@ -68,8 +56,7 @@ export function simulateAnnualGrid(
       variableGenerationMwh += annualGen;
     }
 
-    const intensity =
-      LIFECYCLE_CARBON_INTENSITY_FACTORS[source.id.toLowerCase()] ?? null;
+    const intensity = emissionFactors[source.id.toLowerCase()] ?? null;
     // 1 MWh * (intensity gCO2e / kWh) * (1 kg / 1000 g) = kgCO2e. / 1000 = tonnes CO2e.
     const sourceCarbonTonnes =
       intensity === null ? null : (annualGen * intensity) / 1000;

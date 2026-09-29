@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import { ILLUSTRATIVE_LIFECYCLE_FACTORS } from "@/data/simulator/illustrative-factors";
 import type { GridScenario } from "../../lib/simulator/schemas";
 import {
   simulateAnnualGrid,
@@ -23,7 +24,7 @@ export function GridSimulator({
 
   const simulationResult = useMemo(() => {
     try {
-      return simulateAnnualGrid(scenario);
+      return simulateAnnualGrid(scenario, ILLUSTRATIVE_LIFECYCLE_FACTORS);
     } catch {
       return null;
     }

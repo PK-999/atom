@@ -23,7 +23,6 @@ export const GenerationSourceSchema = z
     capacityFactor: z.number().finite().min(0).max(1),
     isDispatchable: z.boolean(),
     color: z.string().optional(),
-    lifecycleCo2PerKwh: z.number().finite().nonnegative().optional(),
   })
   .strict()
   .readonly();

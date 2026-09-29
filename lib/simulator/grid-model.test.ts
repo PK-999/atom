@@ -6,6 +6,8 @@ import {
 } from "./grid-model";
 import type { GridScenario } from "./schemas";
 
+const NO_EMISSION_FACTORS = {};
+
 describe("Annual Grid Model Arithmetic (R17)", () => {
   it("computes exact canonical case: 1000 MW * 0.9 * 8760 = 7,884,000 MWh", () => {
     const scenario: GridScenario = {
@@ -25,7 +27,7 @@ describe("Annual Grid Model Arithmetic (R17)", () => {
       ],
     };
 
-    const result = simulateAnnualGrid(scenario);
+    const result = simulateAnnualGrid(scenario, NO_EMISSION_FACTORS);
     expect(result.totalGenerationMwh).toBe(7884000);
     expect(result.dispatchableGenerationMwh).toBe(7884000);
     expect(result.variableGenerationMwh).toBe(0);
@@ -53,7 +55,7 @@ describe("Annual Grid Model Arithmetic (R17)", () => {
       ],
     };
 
-    const result = simulateAnnualGrid(scenario);
+    const result = simulateAnnualGrid(scenario, NO_EMISSION_FACTORS);
     expect(result.totalGenerationMwh).toBe(7905600);
   });
 
@@ -75,7 +77,7 @@ describe("Annual Grid Model Arithmetic (R17)", () => {
       ],
     };
 
-    const result = simulateAnnualGrid(scenario);
+    const result = simulateAnnualGrid(scenario, NO_EMISSION_FACTORS);
     expect(result.totalGenerationMwh).toBe(0);
     expect(result.totalDemandMwh).toBe(0);
     expect(result.shortfallMwh).toBe(0);
@@ -108,7 +110,7 @@ describe("Annual Grid Model Arithmetic (R17)", () => {
       ],
     };
 
-    const result = simulateAnnualGrid(scenario);
+    const result = simulateAnnualGrid(scenario, NO_EMISSION_FACTORS);
     expect(result.totalGenerationMwh).toBe(500 * 1 * 8760); // 4,380,000 MWh
     expect(result.sourcesBreakdown[0].annualGenerationMwh).toBe(0);
     expect(result.sourcesBreakdown[1].annualGenerationMwh).toBe(4380000);
@@ -132,7 +134,7 @@ describe("Annual Grid Model Arithmetic (R17)", () => {
       ],
     };
 
-    const result = simulateAnnualGrid(scenario);
+    const result = simulateAnnualGrid(scenario, NO_EMISSION_FACTORS);
     const expected = 123.45 * 0.345 * 8760;
     expect(result.totalGenerationMwh).toBeCloseTo(expected, 3);
   });
@@ -155,7 +157,7 @@ describe("Annual Grid Model Arithmetic (R17)", () => {
       ],
     };
 
-    const result = simulateAnnualGrid(scenario);
+    const result = simulateAnnualGrid(scenario, NO_EMISSION_FACTORS);
     expect(result.totalGenerationMwh).toBe(7884000);
     expect(result.shortfallMwh).toBe(0);
     expect(result.surplusMwh).toBe(7884000 - 5000000); // 2,884,000
@@ -164,7 +166,12 @@ describe("Annual Grid Model Arithmetic (R17)", () => {
 
   it("provides explicit hourly adequacy disclaimer", () => {
     const scenario = getDefaultScenario();
-    const result = simulateAnnualGrid(scenario);
+    const result = simulateAnnualGrid(scenario, {
+      nuclear: 12,
+      solar: 45,
+      wind: 12,
+      hydro: 24,
+    });
 
     expect(result.hourlyAdequacyDisclaimer).toBe(HOURLY_ADEQUACY_DISCLAIMER);
     expect(result.hourlyAdequacyDisclaimer).toContain(
@@ -174,7 +181,12 @@ describe("Annual Grid Model Arithmetic (R17)", () => {
 
   it("calculates weighted lifecycle carbon intensity and annual emissions", () => {
     const scenario = getDefaultScenario();
-    const result = simulateAnnualGrid(scenario);
+    const result = simulateAnnualGrid(scenario, {
+      nuclear: 12,
+      solar: 45,
+      wind: 12,
+      hydro: 24,
+    });
 
     // Balanced clean scenario consists of low-carbon sources (nuclear, solar, wind, hydro)
     // Weighted carbon intensity should be well below 50 gCO2e/kWh
@@ -189,21 +201,51 @@ describe("Annual Grid Model Arithmetic (R17)", () => {
     expect(nuclearSource?.carbonIntensityGPerKwh).toBe(12);
     expect(nuclearSource?.annualCarbonEmissionsTonnes).toBeGreaterThan(0);
   });
+
+  it("uses explicit factor inputs and leaves missing factors unavailable", () => {
+    const scenario: GridScenario = {
+      id: "factor-input",
+      name: "Factor Input",
+      year: 2025,
+      hoursPerYear: 8760,
+      annualDemandMwh: 1000,
+      sources: [
+        {
+          id: "nuclear",
+          name: "Nuclear",
+          capacityMw: 1,
+          capacityFactor: 1,
+          isDispatchable: true,
+        },
+      ],
+    };
+    const withFactor = simulateAnnualGrid(scenario, { nuclear: 50 });
+    const changed = simulateAnnualGrid(scenario, { nuclear: 100 });
+    const missing = simulateAnnualGrid(scenario, { nuclear: null });
+
+    expect(withFactor.weightedCarbonIntensityGPerKwh).toBe(50);
+    expect(changed.weightedCarbonIntensityGPerKwh).toBe(100);
+    expect(missing.weightedCarbonIntensityGPerKwh).toBeNull();
+    expect(missing.totalAnnualCarbonEmissionsTonnes).toBeNull();
+  });
 });
 
 it("does not invent an emissions factor for an unknown technology", () => {
-  const result = simulateAnnualGrid({
-    ...getDefaultScenario(),
-    sources: [
-      {
-        id: "unknown",
-        name: "Unknown",
-        capacityMw: 1000,
-        capacityFactor: 0.9,
-        isDispatchable: false,
-      },
-    ],
-  });
+  const result = simulateAnnualGrid(
+    {
+      ...getDefaultScenario(),
+      sources: [
+        {
+          id: "unknown",
+          name: "Unknown",
+          capacityMw: 1000,
+          capacityFactor: 0.9,
+          isDispatchable: false,
+        },
+      ],
+    },
+    NO_EMISSION_FACTORS,
+  );
   expect(result.totalGenerationMwh).toBe(7884000);
   expect(result.weightedCarbonIntensityGPerKwh).toBeNull();
   expect(result.sourcesBreakdown[0].carbonIntensityGPerKwh).toBeNull();
