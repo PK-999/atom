@@ -22,7 +22,28 @@ if (base && !/^0+$/.test(base)) {
       stdio: "pipe",
     });
   } catch {
-    execFileSync("git", ["fetch", "--no-tags", "origin", base], {
+    const remote = (() => {
+      try {
+        return execFileSync("git", ["remote", "get-url", "origin"], {
+          encoding: "utf8",
+        }).trim();
+      } catch {
+        const owner = process.env.VERCEL_GIT_REPO_OWNER;
+        const repository = process.env.VERCEL_GIT_REPO_SLUG;
+        if (
+          !owner ||
+          !repository ||
+          !/^[A-Za-z0-9_.-]+$/.test(owner) ||
+          !/^[A-Za-z0-9_.-]+$/.test(repository)
+        ) {
+          throw new Error(
+            "Evidence history baseline is unavailable and no repository remote is configured.",
+          );
+        }
+        return `https://github.com/${owner}/${repository}.git`;
+      }
+    })();
+    execFileSync("git", ["fetch", "--no-tags", remote, base], {
       stdio: "pipe",
     });
     execFileSync("git", ["rev-parse", "--verify", `${base}^{commit}`], {
