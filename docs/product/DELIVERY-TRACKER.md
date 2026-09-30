@@ -1,6 +1,6 @@
 # ATOM delivery tracker
 
-Last updated: 2026-09-30. This is the current status and verification authority. Current activity: automated release verification and production promotion on `codex/single-reading-experience`. N01–N03 and the bounded N04/N08/N09 software slices are verified locally; scientific/editorial/licensing review and evidence artifact acquisition remain open. Manual screen-reader/200% zoom review is intentionally deferred per user direction. E02 remains the next evidence task.
+Last updated: 2026-09-30. This is the current status and verification authority. Current activity: automated release verification and production promotion on `codex/single-reading-experience`. N01–N03 and the bounded N04/N08/N09 software slices are verified locally and deployed; scientific/editorial/licensing review and evidence artifact acquisition remain open. Manual screen-reader/200% zoom review is intentionally deferred per user direction. E02 remains the next evidence task.
 
 ## Current entry point
 
@@ -376,3 +376,11 @@ Ruling: retain one Next.js application and one Vercel deployment. Reuse shared c
 - `ATOM_QA_URL=http://127.0.0.1:3114 node scripts/qa-performance.mjs` → exit 0: three cold-cache mobile runs at 150ms latency, 1.6Mbps down and 4× CPU throttle; LCP 896–912ms, CLS 0, ~436KB transferred. These are local lab measurements, not field percentiles.
 - Manual screen-reader and 200% zoom review is intentionally unrun. Scientific/editorial/licensing review and E02 artifact acquisition remain separate gates.
 - **Deployment path:** direct local CLI deploy remained unauthorized; production promotion is being attempted through the fast-forwarded Vercel Git integration rather than treating CLI failure as a successful deploy.
+
+## Production deployment and smoke verification — 2026-09-30
+
+- **Production commit:** `9e68438` on `main`.
+- **Vercel deployment:** `dpl_3TYox323ST9MUuaPGccuoWxtqxZ2`, status **Ready**, production alias [atom-opal-omega.vercel.app](https://atom-opal-omega.vercel.app). The build preserved evidence history by fetching the previous SHA from Vercel repository metadata because the checkout had no `origin` remote.
+- **Live smoke:** `ATOM_QA_URL=https://atom-opal-omega.vercel.app ATOM_QA_EXPECT_PENDING=true node scripts/qa-production.mjs` → exit 0, 14 route/theme states and 2 interactive journeys; all HTTP responses 200, one main and h1 per route, no horizontal overflow, no axe violations and no page errors. Results: [production-smoke-2026-09-30.json](../../artifacts/experience/production-smoke-2026-09-30.json).
+- **Runtime errors:** `npx vercel logs dpl_3TYox323ST9MUuaPGccuoWxtqxZ2 --level error --since 1h --no-follow` → no logs found.
+- **Manual gate:** screen-reader and 200% zoom review remains intentionally unrun. Scientific/editorial/licensing review and E02 artifact acquisition remain open; this deployment does not approve evidence.
