@@ -185,12 +185,7 @@
     "width": 320,
     "status": 200,
     "overflow": false,
-    "overflowElements": [
-      {
-        "tag": "BUTTON",
-        "cls": "HowItWorksViewer_navBtn__UnM5k"
-      }
-    ],
+    "overflowElements": [],
     "errors": [],
     "violations": []
   },
@@ -543,12 +538,7 @@
     "width": 320,
     "status": 200,
     "overflow": false,
-    "overflowElements": [
-      {
-        "tag": "BUTTON",
-        "cls": "HowItWorksViewer_navBtn__UnM5k"
-      }
-    ],
+    "overflowElements": [],
     "errors": [],
     "violations": []
   },

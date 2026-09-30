@@ -1,24 +1,24 @@
 {
-  "base": "http://127.0.0.1:3104",
+  "base": "http://127.0.0.1:3114",
   "conditions": "Chromium, cold cache, 390×844, 150ms latency, 1.6Mbps down, 4× CPU throttle; local production server, not field data.",
   "results": [
     {
       "run": 1,
-      "lcp": 928,
-      "cls": 0.0001578460488827226,
-      "transferredBytes": 416665
+      "lcp": 912,
+      "cls": 0,
+      "transferredBytes": 435889
     },
     {
       "run": 2,
-      "lcp": 912,
-      "cls": 0.0001578460488827226,
-      "transferredBytes": 416665
+      "lcp": 896,
+      "cls": 0,
+      "transferredBytes": 435891
     },
     {
       "run": 3,
-      "lcp": 916,
-      "cls": 0.0001578460488827226,
-      "transferredBytes": 416668
+      "lcp": 900,
+      "cls": 0,
+      "transferredBytes": 435892
     }
   ]
 }
