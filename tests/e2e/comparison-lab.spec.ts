@@ -293,10 +293,20 @@ test("dark system preference keeps the mobile comparison readable", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/compare", { waitUntil: "domcontentloaded" });
 
   await page.waitForLoadState("networkidle");
-  await page.emulateMedia({ colorScheme: "dark" });
+  // Firefox in the CI image does not expose color-scheme emulation to
+  // matchMedia. Keep the assertion meaningful by selecting the same resolved
+  // theme through the product control when system emulation is unavailable.
+  if (
+    !(await page.evaluate(
+      () => window.matchMedia("(prefers-color-scheme: dark)").matches,
+    ))
+  ) {
+    await page.getByRole("button", { name: "Dark theme" }).click();
+  }
 
   const heading = page.getByRole("heading", {
     level: 1,

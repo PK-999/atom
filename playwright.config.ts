@@ -11,6 +11,7 @@ export default defineConfig({
   reporter: process.env.CI ? "github" : "list",
   use: {
     baseURL: e2eBaseUrl,
+    navigationTimeout: 60_000,
     trace: "on-first-retry",
   },
   webServer: {

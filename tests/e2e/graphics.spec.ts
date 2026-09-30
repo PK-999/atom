@@ -98,9 +98,9 @@ for (const [route, open, rotate] of [
           (window as unknown as { atomDrawCounts: { draws: number } })
             .atomDrawCounts.draws,
       );
+    await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.goto(route);
     await page.waitForLoadState("networkidle");
-    await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.getByRole("button", { name: new RegExp(open) }).click();
     await expect(page.locator("canvas")).toBeVisible({ timeout: 15000 });
     await page.locator("canvas").scrollIntoViewIfNeeded();
