@@ -1,6 +1,6 @@
 # ATOM delivery tracker
 
-Last updated: 2026-09-29. This is the current status and verification authority. Current activity: N03 route transfer plus bounded N04/N08/N09 software slices on `codex/single-reading-experience`. N01–N03 and these follow-on software slices are verified locally; scientific/editorial/licensing review, evidence artifact acquisition and deployment remain open. E02 remains the next evidence task.
+Last updated: 2026-09-30. This is the current status and verification authority. Current activity: automated release verification and production promotion on `codex/single-reading-experience`. N01–N03 and the bounded N04/N08/N09 software slices are verified locally; scientific/editorial/licensing review and evidence artifact acquisition remain open. Manual screen-reader/200% zoom review is intentionally deferred per user direction. E02 remains the next evidence task.
 
 ## Current entry point
 
@@ -16,7 +16,7 @@ Read in order:
 
 The user explicitly requested a simple, modern, nuclear-themed learning website with enjoyable simulations, visual graphics, animations, optional sound, an India focus, removal of reading levels and redundant architecture, and a repository-grounded step-by-step plan. **Remove all reading/explanation levels** supersedes earlier five-level requirements, including those in AGENTS.md and historical records below. Preserve scientific classifications and optional contextual detail.
 
-The N-plan is the current proposed redesign execution sequence. **N01 reading-level migration, N02 visual target selection, N03 navigation/route transfer, and the bounded N04/N08/N09 software slices are complete locally.** The next numerical task remains E02: acquire and review a real lifecycle-emissions artifact. New lesson/exhibit publication still depends on the Comparison Lab and real review gates. Existing accepted software is reused, not rebuilt or marked complete again.
+The N-plan is the current proposed redesign execution sequence. **N01 reading-level migration, N02 visual target selection, N03 navigation/route transfer, and the bounded N04/N08/N09 software slices are complete locally.** The current branch has passed the full automated release gate and is being promoted through the repository's Vercel Git integration. The next numerical task remains E02: acquire and review a real lifecycle-emissions artifact. New lesson/exhibit publication still depends on the Comparison Lab and real review gates. Existing accepted software is reused, not rebuilt or marked complete again.
 
 The planning delivery changes documentation only. It does not remove controls from the running application, activate numerical releases, approve content, install skills, or authorize a new deployment. All N implementation tasks are planned, not completed. Historical deployment authorization statements below describe earlier work and are not a substitute for current-session authorization.
 
@@ -366,3 +366,13 @@ Ruling: retain one Next.js application and one Vercel deployment. Reuse shared c
 - `git diff --check` → exit 0. No production deployment was made in this continuation.
 - **Deployment attempt:** `vercel --prod --yes` could not run because the local CLI was unavailable; `npx vercel --prod --yes` reached Vercel but returned `Not authorized`, and the connected deployment tool was unavailable. The verified commits remain local on `codex/single-reading-experience`; production promotion is still open.
 - **Remaining gates:** E02 real artifact acquisition and qualified scientific/editorial/licensing review; reviewed cost/grid/India inputs; manual screen-reader and 200% zoom checks; sustained GPU/field-performance checks; and deployment authorization/verification. These remain explicitly open rather than inferred from green software tests.
+
+## Automated release verification — 2026-09-30
+
+- **Commit:** `b415681` plus this verification record on `codex/single-reading-experience`; the branch is a fast-forward descendant of `origin/main`.
+- `npm run verify` → exit 0: Prettier, typecheck, lint (4 existing warnings), 85 files / 555 Vitest tests, evidence check with 0 active numerical releases, and a 56-route production build.
+- `PLAYWRIGHT_PORT=3113 npx playwright test --workers=3` → exit 0: **246 passed, 6 intentional skips** across Chromium, Firefox and WebKit (252 total). The skips are graphics instrumentation that only runs in Chromium; all functional, responsive, reduced-motion, keyboard, route, evidence, sound and schematic contracts passed.
+- `ATOM_QA_URL=http://127.0.0.1:3114 ATOM_QA_WIDTH=320 node scripts/qa-experience.mjs` and repeat at 390 → exit 0: **54 states each**, no overflow, page errors or axe violations. Refreshed screenshots and JSON audits are in `artifacts/experience/`.
+- `ATOM_QA_URL=http://127.0.0.1:3114 node scripts/qa-performance.mjs` → exit 0: three cold-cache mobile runs at 150ms latency, 1.6Mbps down and 4× CPU throttle; LCP 896–912ms, CLS 0, ~436KB transferred. These are local lab measurements, not field percentiles.
+- Manual screen-reader and 200% zoom review is intentionally unrun. Scientific/editorial/licensing review and E02 artifact acquisition remain separate gates.
+- **Deployment path:** direct local CLI deploy remained unauthorized; production promotion is being attempted through the fast-forwarded Vercel Git integration rather than treating CLI failure as a successful deploy.
