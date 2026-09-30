@@ -237,10 +237,14 @@
 }
 
 .footerLinksGrid a {
-  color: var(--atom-text-secondary);
+  color: #d1d5db;
   font-size: 0.875rem;
   text-decoration: none;
   transition: color var(--atom-motion-fast) ease;
+}
+
+:global([data-theme="light"]) .footerLinksGrid a {
+  color: var(--atom-text-secondary);
 }
 
 .footerLinksGrid a:hover {
