@@ -12,10 +12,23 @@ const base =
   process.env.EVIDENCE_BASE_REF || process.env.VERCEL_GIT_PREVIOUS_SHA;
 const path = "data/evidence/release-records.json";
 if (base && !/^0+$/.test(base)) {
-  // Git arguments are passed directly; do not interpolate a ref into a shell command.
-  execFileSync("git", ["rev-parse", "--verify", `${base}^{commit}`], {
-    stdio: "pipe",
-  });
+  if (!/^[0-9a-f]{7,64}$/i.test(base)) {
+    throw new Error(`Evidence history baseline is not a commit SHA: ${base}`);
+  }
+  // Vercel's checkout can omit the previous deployment commit. Fetch that exact
+  // SHA before comparing history, while keeping the arguments out of a shell.
+  try {
+    execFileSync("git", ["rev-parse", "--verify", `${base}^{commit}`], {
+      stdio: "pipe",
+    });
+  } catch {
+    execFileSync("git", ["fetch", "--no-tags", "origin", base], {
+      stdio: "pipe",
+    });
+    execFileSync("git", ["rev-parse", "--verify", `${base}^{commit}`], {
+      stdio: "pipe",
+    });
+  }
   const exists = execFileSync(
     "git",
     ["ls-tree", "--name-only", base, "--", path],
