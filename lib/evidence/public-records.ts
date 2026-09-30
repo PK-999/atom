@@ -71,8 +71,8 @@ function isPublicSource(provenance: EvidenceProvenance, sourceId: string) {
   const source = provenance.sources.find((record) => record.id === sourceId);
   return Boolean(
     source &&
-      source.license.redistribution === "allowed" &&
-      publicVersionFor(provenance, "source", sourceId),
+    source.license.redistribution === "allowed" &&
+    publicVersionFor(provenance, "source", sourceId),
   );
 }
 
